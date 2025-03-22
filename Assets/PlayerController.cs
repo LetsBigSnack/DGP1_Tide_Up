@@ -1,24 +1,39 @@
 using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
+
 
 public class PlayerController : MonoBehaviour
 {
 
+    
+    
+    [Header("Rotation")]
+    [SerializeField] private float rotateStepSpeed = 500;
+    
+    [Header("Sprint")]
+    [SerializeField] private bool isSprinting = true;
+    private const float DefaultMultiplier = 1.0f;
+    [SerializeField] private float currentMultiplier = 1.0f;
+    [SerializeField] private float sprintMultiplier = 1.5f;
+    [SerializeField] private float sprintTimeStep = 0.1f;
+    
+    [Header("Ground Check")]    
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private float groundCheckRadius = 0.3f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float fallFactor = 0.9f;
-    private Vector3 _groundNormal = Vector3.up;
-    [SerializeField] private float rotateStepSpeed = 500;
     [SerializeField] private LayerMask groundLayer;
-
+    private Vector3 _raycastHitPoint;
+    private Vector3 _groundNormal = Vector3.up;
     
     private PlayerInputs _playerInputs;
     private Vector3 _playerMoveVector = Vector3.zero;
     private Rigidbody _rb;
-    private Vector3 _raycastHitPoint;
+    
 
     private void Awake()
     {
@@ -39,9 +54,15 @@ public class PlayerController : MonoBehaviour
         _playerInputs.Player.Movement.performed += OnMovePlayerPreformed;
         _playerInputs.Player.Movement.canceled += OnMovePlayerCancelled;
         
+        _playerInputs.Player.Sprint.Enable();
+        _playerInputs.Player.Sprint.performed += ToggleSprint;
+        
+
 
     }
-    
+
+
+
     private void OnDisable()
     {
         _playerInputs.Disable();
@@ -51,9 +72,17 @@ public class PlayerController : MonoBehaviour
         _playerInputs.Player.Movement.performed -= OnMovePlayerPreformed;
         _playerInputs.Player.Movement.canceled -= OnMovePlayerCancelled;
         
+        _playerInputs.Player.Sprint.Disable();
+        _playerInputs.Player.Sprint.performed -= ToggleSprint;
+
+        
 
     }
-    
+
+    private void ToggleSprint(InputAction.CallbackContext value)
+    {
+        isSprinting = !isSprinting;
+    }
     
     private void OnMovePlayerPreformed(InputAction.CallbackContext value)
     {
@@ -78,14 +107,27 @@ public class PlayerController : MonoBehaviour
         { 
             _playerMoveVector = Vector3.zero;
         }
-        
+
+        ApplySprint();
         MovePlayer();
         ApplyFall();
+    }
+
+    private void ApplySprint()
+    {
+        if (!isSprinting || _playerMoveVector == Vector3.zero)
+        {
+            currentMultiplier = DefaultMultiplier;
+            return;
+        }
+        
+        currentMultiplier = Mathf.Lerp(currentMultiplier, sprintMultiplier, Time.deltaTime * sprintTimeStep);
+        
     }
     
     private void MovePlayer()
     {
-        Vector3 move = _playerMoveVector * Player.Instance.MoveSpeed;
+        Vector3 move = _playerMoveVector * (Player.Instance.MoveSpeed * currentMultiplier);
         if (isGrounded)
         {
             move = Vector3.ProjectOnPlane(move, _groundNormal);
