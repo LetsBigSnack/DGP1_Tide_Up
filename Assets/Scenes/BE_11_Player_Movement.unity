@@ -521,11 +521,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8a7777481e9f748acd0e6df2e85edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateStepSpeed: 500
+  isSprinting: 1
+  currentMultiplier: 1
+  sprintMultiplier: 2
+  sprintTimeStep: 5
   isGrounded: 1
   groundCheckRadius: 0.3
   groundCheck: {fileID: 79575689}
   fallFactor: 450
-  rotateStepSpeed: 500
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
