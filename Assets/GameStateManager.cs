@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +12,16 @@ public enum GameStates
 
 public class GameStateManager : MonoBehaviour
 {
+    [Range(0,1f)]
+    [SerializeField] private float gameSpeed = 1f;
     [SerializeField] private GameStates _gameStates;
     private bool _gamePaused = false;
 
     public static GameStateManager Instance;
+    
+    
+    
+    
     
 
     private void Awake()
@@ -30,6 +37,11 @@ public class GameStateManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Time.timeScale = gameSpeed;
     }
 
     public GameStates GetGameState()

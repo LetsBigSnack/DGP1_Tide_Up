@@ -595,6 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a501735675edf0e47b86724483d15e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSpeed: 1
   _gameStates: 0
 --- !u!4 &884994308
 Transform:
@@ -1005,12 +1006,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTarget: 0
-  distanceToPlayer: 20
+  distanceToPlayer: 10
   offset: {x: 0, y: 10, z: -20}
   yaw: 180
   pitch: -8
   roll: 0
-  smoothTime: 0.2
+  smoothTime: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
