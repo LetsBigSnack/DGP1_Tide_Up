@@ -8,7 +8,7 @@ using UnityEngine.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
 {
-    
+
     [Header("Rotation")]
     [SerializeField] private float rotateStepSpeed = 500;
     
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]private float groundGraceTime = 0.1f;
     [SerializeField] private float groundDownwardForce = -0.5f;
     [SerializeField] private float timeSinceLastGrounded;
+    [SerializeField] private ForceMode forceMode = ForceMode.Acceleration;
     private Vector3 _raycastHitPoint;
     private Vector3 _groundNormal = Vector3.up;
     
@@ -144,11 +145,12 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         Vector3 move = _playerMoveVector * (Player.Instance.MoveSpeed * currentMultiplier);
+        
         if (isGrounded)
         {
             move = Vector3.ProjectOnPlane(move, _groundNormal);
-            Vector3 downForce = _groundNormal * groundDownwardForce;
             
+            Vector3 downForce = _groundNormal * groundDownwardForce;
             _rb.linearVelocity = new Vector3(move.x, _rb.linearVelocity.y + downForce.y, move.z);
         }
         else
@@ -158,6 +160,7 @@ public class PlayerController : MonoBehaviour
         
         if (_playerMoveVector == Vector3.zero)
         {
+            _rb.linearVelocity = Vector3.zero;
             return;
         }
         LookInMovingDirection();
@@ -192,14 +195,21 @@ public class PlayerController : MonoBehaviour
     {
         if (!isGrounded)
         {
-            _rb.AddForce(Vector3.up * (-1 * fallFactor), ForceMode.Acceleration);
+            _rb.AddForce(Vector3.up * (-1 * fallFactor), forceMode);
         }
     }
     
     private void OnDrawGizmos()
     {
         if (!groundCheck) return; // safety check if groundCheck isn't assigned
-
+        
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(_raycastHitPoint, _groundNormal * 10f);
+        
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawRay(transform.position, Vector3.up * (-1 * fallFactor) * 10f);
+        
+        
         // 1) Draw the start sphere at groundCheck
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
