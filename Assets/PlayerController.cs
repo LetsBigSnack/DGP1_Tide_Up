@@ -8,8 +8,6 @@ using UnityEngine.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
 {
-
-    
     
     [Header("Rotation")]
     [SerializeField] private float rotateStepSpeed = 500;
@@ -23,10 +21,16 @@ public class PlayerController : MonoBehaviour
     
     [Header("Ground Check")]    
     [SerializeField] private bool isGrounded = true;
-    [SerializeField] private float groundCheckRadius = 0.3f;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private float groundCheckMaxDistance = 1.0f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float fallFactor = 0.9f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundThreshold = 0.5f;
+    [SerializeField] private float thresholdEpsilon = 0.0001f;
+    [SerializeField]private float groundGraceTime = 0.1f;
+    [SerializeField] private float groundDownwardForce = -0.5f;
+    [SerializeField] private float timeSinceLastGrounded;
     private Vector3 _raycastHitPoint;
     private Vector3 _groundNormal = Vector3.up;
     
@@ -54,6 +58,7 @@ public class PlayerController : MonoBehaviour
         _playerInputs.Player.Movement.performed += OnMovePlayerPreformed;
         _playerInputs.Player.Movement.canceled += OnMovePlayerCancelled;
         
+        //Sprint
         _playerInputs.Player.Sprint.Enable();
         _playerInputs.Player.Sprint.performed += ToggleSprint;
         
@@ -72,11 +77,10 @@ public class PlayerController : MonoBehaviour
         _playerInputs.Player.Movement.performed -= OnMovePlayerPreformed;
         _playerInputs.Player.Movement.canceled -= OnMovePlayerCancelled;
         
+        //Sprint
         _playerInputs.Player.Sprint.Disable();
         _playerInputs.Player.Sprint.performed -= ToggleSprint;
-
         
-
     }
 
     private void ToggleSprint(InputAction.CallbackContext value)
@@ -95,10 +99,6 @@ public class PlayerController : MonoBehaviour
         _playerMoveVector = Vector3.zero;
     }
     
-    void Start()
-    {
-        StartCoroutine(CheckForGround());
-    }
     
     private void FixedUpdate()
     {
@@ -106,6 +106,22 @@ public class PlayerController : MonoBehaviour
         if (GameStateManager.Instance.GetGameState() != GameStates.Playing)
         { 
             _playerMoveVector = Vector3.zero;
+        }
+        
+        bool actuallyOnGround = CheckForGround();
+
+        if (actuallyOnGround)
+        {
+            isGrounded = true;
+            timeSinceLastGrounded = 0f;
+        }
+        else
+        {
+            timeSinceLastGrounded += Time.deltaTime;
+            if (timeSinceLastGrounded >= groundGraceTime)
+            {
+                isGrounded = false;
+            }
         }
 
         ApplySprint();
@@ -131,9 +147,14 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             move = Vector3.ProjectOnPlane(move, _groundNormal);
+            Vector3 downForce = _groundNormal * groundDownwardForce;
+            
+            _rb.linearVelocity = new Vector3(move.x, _rb.linearVelocity.y + downForce.y, move.z);
         }
-        
-        _rb.linearVelocity = new Vector3(move.x, _rb.linearVelocity.y, move.z);
+        else
+        {
+            _rb.linearVelocity = new Vector3(move.x, _rb.linearVelocity.y, move.z);
+        }
         
         if (_playerMoveVector == Vector3.zero)
         {
@@ -148,26 +169,22 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotateStepSpeed * Time.deltaTime);
     }
     
-    private IEnumerator CheckForGround()
+    private bool CheckForGround()
     {
         RaycastHit hit;
-        
-        while (true)
+        bool raycastSuccess = Physics.SphereCast(groundCheck.position, groundCheckRadius, transform.up * -1, out hit, groundCheckMaxDistance, groundLayer);
+            
+        if (raycastSuccess && hit.collider.gameObject.CompareTag("Ground") && hit.distance <= groundThreshold + thresholdEpsilon)
         {
-            bool raycastSuccess = Physics.SphereCast(groundCheck.position, groundCheckRadius, transform.up * -1, out hit, groundCheckRadius + 0.1f, groundLayer);
-            if (raycastSuccess && hit.collider.gameObject.CompareTag("Ground") && hit.distance <= 0.50001f)
-            {
-                isGrounded = true;
-                _raycastHitPoint = hit.point;
-                _groundNormal = hit.normal;
-            }
-            else
-            {
-                isGrounded = false;
-                _raycastHitPoint = Vector3.zero;
-                _groundNormal = Vector3.up;
-            }
-            yield return null;
+            _raycastHitPoint = hit.point;
+            _groundNormal = hit.normal;
+            return true;
+        }
+        else
+        {
+            _raycastHitPoint = Vector3.zero;
+            _groundNormal = Vector3.up;
+            return false;
         }
     }
     
@@ -181,13 +198,40 @@ public class PlayerController : MonoBehaviour
     
     private void OnDrawGizmos()
     {
+        if (!groundCheck) return; // safety check if groundCheck isn't assigned
+
+        // 1) Draw the start sphere at groundCheck
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+
+        // 2) Draw the end sphere at the farthest distance
+        Vector3 sphereCastEnd = groundCheck.position + Vector3.down * groundCheckMaxDistance;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(sphereCastEnd, groundCheckRadius);
+    
+        // 3) Draw a line between these two spheres
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(groundCheck.position, sphereCastEnd);
+
+        // 4) Draw a sphere (or line) at (groundThreshold + thresholdEpsilon)
+        float checkDistance = groundThreshold + thresholdEpsilon;
+        if (checkDistance < groundCheckMaxDistance) // So we can see it clearly
+        {
+            Gizmos.color = Color.magenta;
+            Vector3 thresholdPoint = groundCheck.position + Vector3.down * checkDistance;
+            Gizmos.DrawWireSphere(thresholdPoint, groundCheckRadius);
+
+            // Optionally draw another line from start to threshold
+            Gizmos.DrawLine(groundCheck.position, thresholdPoint);
+        }
+    
+        // 5) If we’re grounded, visualize the actual hit point
         if (isGrounded)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(_raycastHitPoint, 0.1f);
         }
     }
-    
+
+
 }

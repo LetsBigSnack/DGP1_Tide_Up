@@ -527,7 +527,8 @@ MonoBehaviour:
   sprintMultiplier: 2
   sprintTimeStep: 5
   isGrounded: 1
-  groundCheckRadius: 0.3
+  groundCheckRadius: 0.2
+  groundCheckMaxDistance: 1
   groundCheck: {fileID: 79575689}
   fallFactor: 450
   groundLayer:
