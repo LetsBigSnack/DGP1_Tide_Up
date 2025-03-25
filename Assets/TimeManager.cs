@@ -138,10 +138,10 @@ public class TimeManager : MonoBehaviour
 
         if (!isTimePaused)
         {
-            OnYearChanged?.Invoke(currentMonth);
-            OnYearChanged?.Invoke(currentYear);
-            OnDayChanged?.Invoke(currentDay);
             OnTimeChanged?.Invoke(currentTimeInHours);
+            OnDayChanged?.Invoke(currentDay);
+            OnMonthChanged?.Invoke(currentMonth);
+            OnYearChanged?.Invoke(currentYear);
         }
     }
 
