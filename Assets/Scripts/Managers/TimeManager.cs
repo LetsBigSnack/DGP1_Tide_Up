@@ -149,8 +149,17 @@ public class TimeManager : MonoBehaviour
     {
         if(currentMonth == 2 && currentYear % 4 == 0)
         {
-            months[2] = 29;
-            Debug.Log("Its a leap year");
+            if (currentYear % 100 == 0)
+            {
+                if (currentYear % 400 == 0)
+                {
+                    months[2] = 29;
+                }
+            }
+            else
+            {
+                months[2] = 29;
+            }
             return;
         }
         months[2] = 28;
