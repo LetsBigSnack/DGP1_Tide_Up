@@ -1,37 +1,61 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using System;
 
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance;
 
-    [SerializeField] private Light mainLight;
-
-    [SerializeField, Range(0,24)] private float currentTimeInHours;
-    [SerializeField, Range(0, 24)] private float newTimeInHours;
-
+    [Header("Day Duration")]
     [SerializeField] private float minutesPerDay;
 
+    [Header("CurrentTime/Date")]
+    [SerializeField] private float currentTimeInHours;
     [SerializeField] private int currentDay = 1;
     [SerializeField] private int currentMonth = 1;
     [SerializeField] private int currentYear = 2025;
-
     private Dictionary<int, int> months = new Dictionary<int, int>();
 
-    [Header("LightColorPresets")]
+    public static Action<float> OnTimeChanged;
+    public static Action<int> OnDayChanged;
+    public static Action<int> OnMonthChanged;
+    public static Action<int> OnYearChanged;
+
+    [Header("LightSource")]
+    [SerializeField] private Light mainLight;
+
+    [Header("Light- & ColorPresets")]
     [SerializeField] private Gradient skyColor;
     [SerializeField] private Gradient equatorColor;
     [SerializeField] private Gradient sunColor;
 
+    [Header("Testing Values")]
     //testing purpose only.
     [SerializeField] bool isTimePaused;
-    [SerializeField] TextMeshProUGUI timeText;
 
     public float CurrentTimeInHours
     {
         get { return currentTimeInHours; }
         set { currentTimeInHours = value; }
+    }
+
+    public int CurrentDay
+    {
+        get { return currentDay; }
+        set { currentDay = value; }
+    }
+
+    public int CurrentMonth
+    {
+        get { return currentMonth; }
+        set { currentMonth = value; }
+    }
+
+    public int CurrentYear
+    {
+        get { return currentYear; }
+        set { currentYear = value; }
     }
 
     private void Awake()
@@ -44,6 +68,22 @@ public class TimeManager : MonoBehaviour
 
         Instance = this;
         SetCalender();
+        UpdateDate();
+    }
+
+    public string getTime()
+    {
+        return TimeSpan.FromHours(currentTimeInHours).ToString(@"hh\:mm");
+    }
+
+    public string getDate()
+    {
+        string date = currentDay + " / " + currentMonth + " / " + currentYear;
+        if (currentDay < 10)
+        {
+            return "0" + date;
+        }
+        return date;
     }
 
     private void Update()
@@ -51,11 +91,10 @@ public class TimeManager : MonoBehaviour
         if (!isTimePaused)
         {
             currentTimeInHours += Time.deltaTime * (24 / (minutesPerDay * 60));
+            UpdateDate();
+            UpdateMainLightRotation();
+            UpdateLight();
         }
-
-        UpdateDate();
-        UpdateMainLightRotation();
-        UpdateLight();
     }
 
     private void SetCalender()
@@ -76,13 +115,15 @@ public class TimeManager : MonoBehaviour
 
     private void UpdateDate()
     {
-        if (currentTimeInHours > 24)
+        if (currentTimeInHours >= 24)
         {
+            CheckIfLeapYear();
             if(currentDay + 1 > months[currentMonth])
             {
                 currentDay = 1;
                 currentMonth += 1;
-                if(currentMonth + 1 > 12)
+
+                if (currentMonth + 1 > 12)
                 {
                     currentMonth = 1;
                     currentYear += 1;
@@ -94,6 +135,25 @@ public class TimeManager : MonoBehaviour
             }
             currentTimeInHours = 0;
         }
+
+        if (!isTimePaused)
+        {
+            OnYearChanged?.Invoke(currentMonth);
+            OnYearChanged?.Invoke(currentYear);
+            OnDayChanged?.Invoke(currentDay);
+            OnTimeChanged?.Invoke(currentTimeInHours);
+        }
+    }
+
+    private void CheckIfLeapYear()
+    {
+        if(currentMonth == 2 && currentYear % 4 == 0)
+        {
+            months[2] = 29;
+            Debug.Log("Its a leap year");
+            return;
+        }
+        months[2] = 28;
     }
  
     private void UpdateMainLightRotation()
@@ -111,57 +171,22 @@ public class TimeManager : MonoBehaviour
         RenderSettings.ambientSkyColor = skyColor.Evaluate(timeFraction);
         mainLight.color = sunColor.Evaluate(timeFraction);
     }
-
-    //testing purpose only will be put in a ui manager
-
-    public void OpenTimeModal()
-    {
-        ToggleTime();
-        newTimeInHours = currentTimeInHours;
-        UpdateTimeText();
-    }
-
-    private void UpdateTimeText()
-    {
-        timeText.text = newTimeInHours.ToString("F0") + ":00";
-    }
-
-    public void addTime()
-    {
-        if(newTimeInHours + 1  > 24)
-        {
-            newTimeInHours = 1;
-            UpdateTimeText();
-            return;
-        }
-        newTimeInHours += 1;
-        UpdateTimeText();
-    }
-
-    /* GOING BACK IN TIME NOT POSSIBLE!!
-    public void subTractTime()
-    {
-        if (newTimeInHours - 1 < 0)
-        {
-            newTimeInHours = 23;
-            UpdateTimeText();
-            return;
-        }
-        newTimeInHours -= 1;
-        UpdateTimeText();
-    }
-    */
-
     public void ToggleTime()
     {
         isTimePaused = !isTimePaused;
     }
 
-    public void SetNewTime()
+    public void AddTime()
     {
+        currentTimeInHours += 1f;
+        UpdateDate();
+    }
 
-
-        currentTimeInHours = newTimeInHours;
-        ToggleTime();
+    public void ResetDateAndTime(float time, int day, int month, int year)
+    {
+        currentTimeInHours = time;
+        currentDay = day;
+        currentMonth = month;
+        currentYear = year;
     }
 }
