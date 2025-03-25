@@ -26,7 +26,7 @@ public class CamerController : MonoBehaviour
     private Vector3 _velocity;
     
     
-    private void Awake()
+    private void Start()
     {
         SwitchTarget(CameraTarget.Player);
     }
