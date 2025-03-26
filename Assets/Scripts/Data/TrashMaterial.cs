@@ -11,6 +11,5 @@ public enum TrashMaterialType
 
 public class TrashMaterial
 {
-    public int amount;
-    public TrashMaterialType type;
+    public TrashMaterialData data;
 }

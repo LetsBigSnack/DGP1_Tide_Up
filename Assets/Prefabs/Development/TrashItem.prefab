@@ -149,7 +149,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cabc3a3d831db9458d18e686d40d05f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: DummyTrash
-  itemQual: 0
-  material1: {fileID: 0}
-  material2: {fileID: 0}
+  data: {fileID: 11400000, guid: 0c64e819f3b6a3344a8463d1e4431c08, type: 2}

@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class TrashSpawnerManager : MonoBehaviour
 {
-    [SerializeField] private GameObject trashItem;
     [SerializeField] private SpawnArea[] areas;
     
-    [SerializeField] private int maxTrashPerArea = 5;
-    //[SerializeField] private int maxTrashTotal = 20;
-    private int trashCount;
-    private List<GameObject> spawnedTrash = new List<GameObject>();
+    [SerializeField] private int maxTrashTotal = 20;
+    private List<GameObject> _spawnedTrash = new List<GameObject>();
 
-    private Coroutine spawnRoutine;
+    private Coroutine _spawnRoutine;
 
     [SerializeField] private float trashSpawnInterval = 2f;
     [SerializeField] private bool isSpawningTrash = true;
 
     public static TrashSpawnerManager Instance;
+
+    public List<GameObject> SpawnedTrash
+    {
+        get { return _spawnedTrash; }
+        set { _spawnedTrash = value; }
+    }
+    public int MaxTrashTotal
+    {
+        get { return maxTrashTotal; }
+        set { maxTrashTotal = value; }
+    }
 
     private void Awake()
     {
@@ -43,21 +51,7 @@ public class TrashSpawnerManager : MonoBehaviour
     {
         foreach (SpawnArea area in areas)
         {
-            area.RemoveTrashAreaNulls();
-            RemoveNulls();
-            trashCount = area.TrashCount;
-
-            if (area.shouldSpawn && trashCount < maxTrashPerArea)
-            {
-                Vector3 randomPosition = area.transform.position + new Vector3(Random.Range(-4f, 4f), 1.5f, Random.Range(-4f, 4f));
-
-                if (IsVisibleToCamera(randomPosition) && HasLineOfSight(randomPosition))
-                    continue;
-
-                GameObject trash = Instantiate(trashItem, randomPosition, Quaternion.identity);
-                area.areaSpawnedTrash.Add(trash);
-                spawnedTrash.Add(trash);
-            }
+            area.SpawnTrashInArea();
         }
     }
 
@@ -72,26 +66,12 @@ public class TrashSpawnerManager : MonoBehaviour
 
     public void StartSpawningTrash()
     {
-        spawnRoutine = StartCoroutine(SpawnTrashOverTime());
+        _spawnRoutine = StartCoroutine(SpawnTrashOverTime());
     }
 
     public void RemoveNulls()
     {
-        spawnedTrash.RemoveAll(item => item == null);
+        _spawnedTrash.RemoveAll(item => item == null);
     }
 
-    private bool IsVisibleToCamera(Vector3 targetPosition)
-    {
-        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(targetPosition);
-        return viewportPoint.z > 0 && viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1;
-    }
-
-    private bool HasLineOfSight(Vector3 targetPosition)
-    {
-        Vector3 origin = Camera.main.transform.position;
-        Vector3 direction = (targetPosition - origin).normalized;
-        float distance = Vector3.Distance(origin, targetPosition);
-
-        return !Physics.Raycast(origin, direction, distance);
-    }
 }
