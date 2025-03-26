@@ -6,5 +6,5 @@ public class TrashData : ScriptableObject
 {
     public string trashName;
     public bool trashQual;
-    public List<TrashMaterial> materials = new List<TrashMaterial>();
+    public List<TrashMaterialData> materials = new List<TrashMaterialData>();
 }

@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashName: TestTrash
   trashQual: 0
+  materials:
+  - {fileID: 11400000, guid: 8f6c4ca6e6944d040b6e36dfdccd3ba1, type: 2}
+  - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
