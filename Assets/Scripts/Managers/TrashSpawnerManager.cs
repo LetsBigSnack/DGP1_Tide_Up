@@ -17,6 +17,23 @@ public class TrashSpawnerManager : MonoBehaviour
     [SerializeField] private float trashSpawnInterval = 2f;
     [SerializeField] private bool isSpawningTrash = true;
 
+    public static TrashSpawnerManager Instance;
+
+    private void Awake()
+    {
+
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
     private void Start()
     {
         StartSpawningTrash();
@@ -33,6 +50,10 @@ public class TrashSpawnerManager : MonoBehaviour
             if (area.shouldSpawn && trashCount < maxTrashPerArea)
             {
                 Vector3 randomPosition = area.transform.position + new Vector3(Random.Range(-4f, 4f), 1.5f, Random.Range(-4f, 4f));
+
+                if (IsVisibleToCamera(randomPosition) && HasLineOfSight(randomPosition))
+                    continue;
+
                 GameObject trash = Instantiate(trashItem, randomPosition, Quaternion.identity);
                 area.areaSpawnedTrash.Add(trash);
                 spawnedTrash.Add(trash);
@@ -57,5 +78,20 @@ public class TrashSpawnerManager : MonoBehaviour
     public void RemoveNulls()
     {
         spawnedTrash.RemoveAll(item => item == null);
+    }
+
+    private bool IsVisibleToCamera(Vector3 targetPosition)
+    {
+        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(targetPosition);
+        return viewportPoint.z > 0 && viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1;
+    }
+
+    private bool HasLineOfSight(Vector3 targetPosition)
+    {
+        Vector3 origin = Camera.main.transform.position;
+        Vector3 direction = (targetPosition - origin).normalized;
+        float distance = Vector3.Distance(origin, targetPosition);
+
+        return !Physics.Raycast(origin, direction, distance);
     }
 }

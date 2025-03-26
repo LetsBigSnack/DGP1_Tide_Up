@@ -9,7 +9,7 @@ public enum TrashMaterialType
     Wood
 }
 
-public class TrashMaterial : MonoBehaviour
+public class TrashMaterial
 {
     public int amount;
     public TrashMaterialType type;
