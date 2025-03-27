@@ -10,17 +10,26 @@ public class TimeManager : MonoBehaviour
     [Header("Day Duration")]
     [SerializeField] private float minutesPerDay;
 
+    [Header("MaxSettings")]
+    [SerializeField] private int maxSeasons;
+    [SerializeField] private int maxDays;
+
     [Header("CurrentTime/Date")]
     [SerializeField] private float currentTimeInHours;
     [SerializeField] private int currentDay = 1;
-    [SerializeField] private int currentMonth = 1;
-    [SerializeField] private int currentYear = 2025;
-    private Dictionary<int, int> months = new Dictionary<int, int>();
+    [SerializeField] private int currentSeason = 1;
+    [SerializeField] private int currentYear = 1;
+    [SerializeField] private int currentWeekDayCount = 1;
+    [SerializeField] private string currentWeekDay = "";
+    private Dictionary<int, string> weekDays = new Dictionary<int, string>(){
+        { 1,"Monday" },{ 2,"Tuesday" },{ 3,"Wednesday" },{ 4,"Thursday" },{ 5,"Friday" },{ 6,"Saturday" },{ 7,"Sunday" }};
+
 
     public static Action<float> OnTimeChanged;
     public static Action<int> OnDayChanged;
     public static Action<int> OnMonthChanged;
     public static Action<int> OnYearChanged;
+    public static Action<int> OnWeekDayChanged;
 
     [Header("LightSource")]
     [SerializeField] private Light mainLight;
@@ -46,16 +55,20 @@ public class TimeManager : MonoBehaviour
         set { currentDay = value; }
     }
 
-    public int CurrentMonth
+    public int CurrentSeason
     {
-        get { return currentMonth; }
-        set { currentMonth = value; }
+        get { return currentSeason; }
+        set { currentSeason = value; }
     }
 
     public int CurrentYear
     {
         get { return currentYear; }
         set { currentYear = value; }
+    }
+
+    public Dictionary<int, string> WeekDays{
+        get { return weekDays; }
     }
 
     private void Awake()
@@ -67,7 +80,6 @@ public class TimeManager : MonoBehaviour
         }
 
         Instance = this;
-        SetCalender();
         UpdateDate();
     }
 
@@ -78,7 +90,7 @@ public class TimeManager : MonoBehaviour
 
     public string getDate()
     {
-        string date = currentDay + " / " + currentMonth + " / " + currentYear;
+        string date = currentDay + " / " + currentSeason + " / " + currentYear;
         if (currentDay < 10)
         {
             return "0" + date;
@@ -97,41 +109,38 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    private void SetCalender()
+    public void UpdateWeekDay()
     {
-        months.Add(1, 31);
-        months.Add(2, 28);
-        months.Add(3, 31);
-        months.Add(4, 30);
-        months.Add(5, 31);
-        months.Add(6, 30);
-        months.Add(7, 31);
-        months.Add(8, 31);
-        months.Add(9, 30);
-        months.Add(10, 31);
-        months.Add(11, 30);
-        months.Add(12, 31);
+        currentWeekDayCount += 1;
+        if(currentWeekDayCount > 7)
+        {
+            currentWeekDayCount = 1;
+        }
+        currentWeekDay = weekDays[currentWeekDayCount];
     }
 
     private void UpdateDate()
     {
         if (currentTimeInHours >= 24)
         {
-            CheckIfLeapYear();
-            if(currentDay + 1 > months[currentMonth])
+            if(currentDay + 1 > maxDays)
             {
                 currentDay = 1;
-                currentMonth += 1;
-
-                if (currentMonth + 1 > 12)
+                UpdateWeekDay();
+                if (currentSeason + 1 > maxSeasons)
                 {
-                    currentMonth = 1;
+                    currentSeason = 1;
                     currentYear += 1;
+                }
+                else
+                {
+                    currentSeason += 1;
                 }
             }
             else
             {
                 currentDay += 1;
+                UpdateWeekDay();
             }
             currentTimeInHours = 0;
         }
@@ -140,29 +149,10 @@ public class TimeManager : MonoBehaviour
         {
             OnTimeChanged?.Invoke(currentTimeInHours);
             OnDayChanged?.Invoke(currentDay);
-            OnMonthChanged?.Invoke(currentMonth);
+            OnMonthChanged?.Invoke(currentSeason);
             OnYearChanged?.Invoke(currentYear);
+            OnWeekDayChanged?.Invoke(currentWeekDayCount);
         }
-    }
-
-    private void CheckIfLeapYear()
-    {
-        if(currentMonth == 2 && currentYear % 4 == 0)
-        {
-            if (currentYear % 100 == 0)
-            {
-                if (currentYear % 400 == 0)
-                {
-                    months[2] = 29;
-                }
-            }
-            else
-            {
-                months[2] = 29;
-            }
-            return;
-        }
-        months[2] = 28;
     }
  
     private void UpdateMainLightRotation()
@@ -191,11 +181,12 @@ public class TimeManager : MonoBehaviour
         UpdateDate();
     }
 
-    public void ResetDateAndTime(float time, int day, int month, int year)
+    public void ResetDateAndTime(float time, int day, int month, int year, int weekDayCount)
     {
         currentTimeInHours = time;
         currentDay = day;
-        currentMonth = month;
+        currentSeason = month;
         currentYear = year;
+        currentWeekDayCount = weekDayCount;
     }
 }
