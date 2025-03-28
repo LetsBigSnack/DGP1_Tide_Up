@@ -63,7 +63,9 @@ public class PlayerController : MonoBehaviour
         _playerInputs.Player.Sprint.Enable();
         _playerInputs.Player.Sprint.performed += ToggleSprint;
         
-
+        //Interact
+        _playerInputs.Player.Interact.Enable();
+        _playerInputs.Player.Interact.performed += Interact;
 
     }
 
@@ -82,11 +84,21 @@ public class PlayerController : MonoBehaviour
         _playerInputs.Player.Sprint.Disable();
         _playerInputs.Player.Sprint.performed -= ToggleSprint;
         
+        //Interact
+        _playerInputs.Player.Interact.Disable();
+        _playerInputs.Player.Interact.performed -= Interact;
+        
     }
 
     private void ToggleSprint(InputAction.CallbackContext value)
     {
         isSprinting = !isSprinting;
+    }
+    
+    private void Interact(InputAction.CallbackContext value)
+    {
+        Debug.Log("Interact");
+        InteractionManager.Instance.Interact();
     }
     
     private void OnMovePlayerPreformed(InputAction.CallbackContext value)
