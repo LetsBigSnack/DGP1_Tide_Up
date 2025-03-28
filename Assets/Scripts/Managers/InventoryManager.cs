@@ -36,10 +36,10 @@ public class InventoryManager : MonoBehaviour
     public void TestAddTrashItem()
     {
         TrashData randomTrashData = DataUtil.Instance.GetRandomTrash();
-        AddItem(randomTrashData);
+        TryAddItem(randomTrashData);
     }
 
-    private void AddItem(ItemData item)
+    public bool TryAddItem(ItemData item)
     {
 #if UNITY_EDITOR
         ConsoleUtil.ClearConsole();
@@ -48,11 +48,12 @@ public class InventoryManager : MonoBehaviour
         if (_items.Count >= maxTrashItems)
         {
             Debug.Log("Inventory full! Can't pick up more trash.");
-            return;
+            return false;
         }
 
         _items.Add(item);
         Debug.Log("Picked up: " + item.name);
+        return true;
     }
 
     public void TestRemoveTrashItem()
@@ -64,10 +65,10 @@ public class InventoryManager : MonoBehaviour
         }
 
         ItemData itemToRemove = _items[0];
-        RemoveItem(itemToRemove);
+        TryRemoveItem(itemToRemove);
     }
 
-    private void RemoveItem(ItemData item)
+    private bool TryRemoveItem(ItemData item)
     {
 #if UNITY_EDITOR
         ConsoleUtil.ClearConsole();
@@ -76,12 +77,12 @@ public class InventoryManager : MonoBehaviour
         if (_items.Count == 0)
         {
             Debug.Log("No trash to remove.");
-            return;
+            return false;
         }
 
         _items.Remove(item);
-        
-        
+
+
         //TODO: remove after testing
         Debug.Log($"Removed trash: {item.name}");
 
@@ -89,6 +90,9 @@ public class InventoryManager : MonoBehaviour
         {
             AddMaterial(mat, 1);
         }
+        // end of testing part
+
+        return true;
     }
 
     public void AddMaterial(TrashMaterialData material, int amount)
