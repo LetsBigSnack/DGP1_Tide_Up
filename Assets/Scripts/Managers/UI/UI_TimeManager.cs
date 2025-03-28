@@ -8,11 +8,13 @@ public class UI_TimeManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI switchTimeText;
     [SerializeField] TextMeshProUGUI dateText;
+    [SerializeField] TextMeshProUGUI weekDayText;
 
     private float preChangeTime;
     private int preChangeDay;
     private int preChangeMonth;
     private int preChangeYear;
+    private int preChangeWeekCount;
 
     private int maxHoursToChange;
 
@@ -22,6 +24,7 @@ public class UI_TimeManager : MonoBehaviour
         TimeManager.OnDayChanged += UpdateDateText;
         TimeManager.OnMonthChanged += UpdateDateText;
         TimeManager.OnYearChanged += UpdateDateText;
+        TimeManager.OnWeekDayChanged += UpdateWeekDayText;
     }
 
     private void OnDisable()
@@ -30,6 +33,7 @@ public class UI_TimeManager : MonoBehaviour
         TimeManager.OnDayChanged -= UpdateDateText;
         TimeManager.OnMonthChanged -= UpdateDateText;
         TimeManager.OnYearChanged -= UpdateDateText;
+        TimeManager.OnWeekDayChanged += UpdateWeekDayText;
     }
 
     public void OpenTimeModal()
@@ -38,7 +42,7 @@ public class UI_TimeManager : MonoBehaviour
 
         preChangeTime = TimeManager.Instance.CurrentTimeInHours;
         preChangeDay = TimeManager.Instance.CurrentDay;
-        preChangeMonth = TimeManager.Instance.CurrentMonth;
+        preChangeMonth = TimeManager.Instance.CurrentSeason;
         preChangeYear = TimeManager.Instance.CurrentYear;
 
         switchTimeText.text = TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours).ToString(@"hh\:mm");
@@ -54,6 +58,11 @@ public class UI_TimeManager : MonoBehaviour
     private void UpdateDateText(int newDate)
     {
         dateText.text = TimeManager.Instance.getDate();
+    }
+
+    private void UpdateWeekDayText(int newDay)
+    {
+        weekDayText.text = TimeManager.Weekdays[newDay];
     }
 
     private void UpdateSwitchText()
@@ -77,7 +86,8 @@ public class UI_TimeManager : MonoBehaviour
             preChangeTime,
             preChangeDay,
             preChangeMonth,
-            preChangeYear);
+            preChangeYear,
+            preChangeWeekCount);
         TimeManager.Instance.ToggleTime();
     }
 
