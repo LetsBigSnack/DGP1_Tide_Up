@@ -14,17 +14,19 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private int maxSeasons;
     [SerializeField] private int maxDays;
 
-    [Header("CurrentTime/Date")]
+    [Header("CurrentTime/Date")] 
+    [SerializeField] private int elapsedDays = 0;
     [SerializeField] private float currentTimeInHours;
     [SerializeField] private int currentDay = 1;
     [SerializeField] private int currentSeason = 1;
     [SerializeField] private int currentYear = 1;
     [SerializeField] private int currentWeekDayCount = 1;
     [SerializeField] private string currentWeekDay = "";
-    private Dictionary<int, string> weekDays = new Dictionary<int, string>(){
+    
+    public static Dictionary<int, string> Weekdays = new Dictionary<int, string>(){
         { 1,"Monday" },{ 2,"Tuesday" },{ 3,"Wednesday" },{ 4,"Thursday" },{ 5,"Friday" },{ 6,"Saturday" },{ 7,"Sunday" }};
-
-
+    
+    
     public static Action<float> OnTimeChanged;
     public static Action<int> OnDayChanged;
     public static Action<int> OnMonthChanged;
@@ -67,10 +69,7 @@ public class TimeManager : MonoBehaviour
         set { currentYear = value; }
     }
 
-    public Dictionary<int, string> WeekDays{
-        get { return weekDays; }
-    }
-
+    
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -116,13 +115,14 @@ public class TimeManager : MonoBehaviour
         {
             currentWeekDayCount = 1;
         }
-        currentWeekDay = weekDays[currentWeekDayCount];
+        currentWeekDay = Weekdays[currentWeekDayCount];
     }
 
     private void UpdateDate()
     {
         if (currentTimeInHours >= 24)
         {
+            elapsedDays += 1;
             if(currentDay + 1 > maxDays)
             {
                 currentDay = 1;

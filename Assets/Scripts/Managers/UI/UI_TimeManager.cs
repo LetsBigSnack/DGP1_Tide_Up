@@ -62,7 +62,7 @@ public class UI_TimeManager : MonoBehaviour
 
     private void UpdateWeekDayText(int newDay)
     {
-        weekDayText.text = TimeManager.Instance.WeekDays[newDay];
+        weekDayText.text = TimeManager.Weekdays[newDay];
     }
 
     private void UpdateSwitchText()
