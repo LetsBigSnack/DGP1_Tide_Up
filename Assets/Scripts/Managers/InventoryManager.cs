@@ -4,11 +4,12 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private int maxTrashItems = 5;
+    [SerializeField] private int maxTrashMaterials = 20;
 
-    private List<InventoryItem> _trashItems = new();
+    private List<ItemData> _items = new();
     private List<TrashMaterialEntry> _materialWallet = new();
     [SerializeField] private List<TrashMaterialData> allMaterialTypes = new();
-    [SerializeField] private List<TrashData> listOfDummyTrash = new();
+    [SerializeField] private TestUtil testUtil;
 
     public static InventoryManager Instance;
 
@@ -27,44 +28,64 @@ public class InventoryManager : MonoBehaviour
 
         foreach (var material in allMaterialTypes)
         {
-            if (!_materialWallet.Exists(e => e.trashMaterialData == material))
+            if (!_materialWallet.Exists(e => e.TrashMaterialData == material))
             {
                 _materialWallet.Add(new TrashMaterialEntry(material, 0));
             }
         }
     }
-    public void AddTrashItem()
-    {
-        ClearConsole();
 
-        if (_trashItems.Count >= maxTrashItems)
+    public void TestAddTrashItem()
+    {
+        TrashData randomTrashData = testUtil.ListOfDummyTrash[Random.Range(0, testUtil.ListOfDummyTrash.Count)];
+        AddItem(randomTrashData);
+    }
+
+    private void AddItem(ItemData item)
+    {
+#if UNITY_EDITOR
+        ConsoleUtil.ClearConsole();
+#endif
+
+        if (_items.Count >= maxTrashItems)
         {
             Debug.Log("Inventory full! Can't pick up more trash.");
             return;
         }
 
-        TrashData randomTrashData = listOfDummyTrash[Random.Range(0, listOfDummyTrash.Count)];
-
-        _trashItems.Add(new InventoryItem(randomTrashData));
-        Debug.Log("Picked up: " + randomTrashData.name);
+        _items.Add(item);
+        Debug.Log("Picked up: " + item.name);
     }
 
-    public void RemoveTrashItem()
+    public void TestRemoveTrashItem()
     {
-        ClearConsole();
-
-        if (_trashItems.Count == 0)
+        if (_items.Count == 0)
         {
             Debug.Log("No trash to remove.");
             return;
         }
 
-        InventoryItem itemToRemove = _trashItems[0];
-        _trashItems.RemoveAt(0);
+        ItemData itemToRemove = _items[0];
+        RemoveItem(itemToRemove);
+    }
 
-        Debug.Log($"Removed trash: {itemToRemove.trashData.name}");
+    private void RemoveItem(ItemData item)
+    {
+#if UNITY_EDITOR
+        ConsoleUtil.ClearConsole();
+#endif
 
-        foreach (TrashMaterialData mat in itemToRemove.trashData.materials)
+        if (_items.Count == 0)
+        {
+            Debug.Log("No trash to remove.");
+            return;
+        }
+
+        _items.Remove(item);
+
+        Debug.Log($"Removed trash: {item.name}");
+
+        foreach (TrashMaterialData mat in item.materials)
         {
             AddMaterial(mat, 1);
         }
@@ -72,10 +93,16 @@ public class InventoryManager : MonoBehaviour
 
     public void AddMaterial(TrashMaterialData material, int amount)
     {
-        TrashMaterialEntry entry = _materialWallet.Find(e => e.trashMaterialData == material);
+        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData == material);
         if (entry != null)
         {
-            entry.amount += amount;
+            if (entry.Amount + amount > maxTrashMaterials)
+            {
+                Debug.LogWarning($"Can't add more {material.type}, limit reached.");
+                return;
+            }
+
+            entry.Amount += amount;
         }
         else
         {
@@ -85,30 +112,37 @@ public class InventoryManager : MonoBehaviour
         Debug.Log($"+{amount}x {material.type}");
     }
 
+    public void RemoveMaterial(TrashMaterialData material, int amount)
+    {
+        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData == material);
+
+        if (entry == null)
+        {
+            Debug.LogWarning($"Material {material.type} not found in inventory.");
+            return;
+        }
+
+        entry.Amount = Mathf.Max(0, entry.Amount - amount);
+        Debug.Log($"Removed {amount}x {material.type}");
+    }
+
     public void PrintInventory()
     {
-        ClearConsole();
+#if UNITY_EDITOR
+        ConsoleUtil.ClearConsole();
+#endif
 
         Debug.Log("==== INVENTORY ====");
-        foreach (var item in _trashItems)
+        foreach (var item in _items)
         {
-            Debug.Log("Trash: " + item.trashData.name);
+            Debug.Log("Trash: " + item.name);
         }
 
         Debug.Log("--- Materials ---");
         foreach (var entry in _materialWallet)
         {
-            Debug.Log($"{entry.trashMaterialData.type}: {entry.amount}");
+            Debug.Log($"{entry.TrashMaterialData.type}: {entry.Amount}");
         }
     }
 
-    private void ClearConsole()
-    {
-#if UNITY_EDITOR
-        // This calls Unity's internal "ClearConsole" menu command
-        var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
-        var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-        clearMethod?.Invoke(null, null);
-#endif
-    }
 }

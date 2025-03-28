@@ -414,7 +414,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2000926284}
         m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
-        m_MethodName: RemoveTrashItem
+        m_MethodName: TestRemoveTrashItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -985,7 +985,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2000926284}
         m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
-        m_MethodName: AddTrashItem
+        m_MethodName: TestAddTrashItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1044,6 +1044,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066a271cdb452fe4bad6015464acf75f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1450800364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450800366}
+  - component: {fileID: 1450800365}
+  m_Layer: 0
+  m_Name: TestUtil
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1450800365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450800364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e19cedc9f523449a97727f74db7514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listOfDummyTrash:
+  - {fileID: 11400000, guid: 7e021b00af69c9241a98cd9a097a72ac, type: 2}
+  - {fileID: 11400000, guid: e0f77d8418c784e4091f94ec861d241c, type: 2}
+  - {fileID: 11400000, guid: d706a0a278ea2264b9aa9d39ac0bbbfa, type: 2}
+  - {fileID: 11400000, guid: 0c64e819f3b6a3344a8463d1e4431c08, type: 2}
+--- !u!4 &1450800366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450800364}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.194446, y: -4.0692296, z: 10.505246}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489589110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,17 +1420,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTrashItems: 5
+  maxTrashMaterials: 20
   allMaterialTypes:
   - {fileID: 11400000, guid: 56cd676335ec84e4e812fa9f7d022518, type: 2}
   - {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
   - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
   - {fileID: 11400000, guid: 8f6c4ca6e6944d040b6e36dfdccd3ba1, type: 2}
   - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
-  listOfDummyTrash:
-  - {fileID: 11400000, guid: 7e021b00af69c9241a98cd9a097a72ac, type: 2}
-  - {fileID: 11400000, guid: e0f77d8418c784e4091f94ec861d241c, type: 2}
-  - {fileID: 11400000, guid: d706a0a278ea2264b9aa9d39ac0bbbfa, type: 2}
-  - {fileID: 11400000, guid: 0c64e819f3b6a3344a8463d1e4431c08, type: 2}
+  testUtil: {fileID: 1450800365}
 --- !u!4 &2000926285
 Transform:
   m_ObjectHideFlags: 0
@@ -1673,3 +1719,4 @@ SceneRoots:
   - {fileID: 2000926285}
   - {fileID: 1618658273}
   - {fileID: 1190004663}
+  - {fileID: 1450800366}
