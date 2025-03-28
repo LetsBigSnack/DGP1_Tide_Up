@@ -1,13 +1,34 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestUtil : MonoBehaviour
+public class DataUtil : MonoBehaviour
 {
-    [SerializeField] private List<TrashData> listOfDummyTrash = new();
-
-    public List<TrashData> ListOfDummyTrash
+    public static DataUtil Instance;
+    
+    [SerializeField] private List<TrashData> listOfTrash = new();
+    [SerializeField] private List<TrashMaterialData> listOfMaterials = new();
+    
+    public void Awake()
     {
-        get { return listOfDummyTrash; }
-        set { listOfDummyTrash = value; }
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    public TrashData GetRandomTrash()
+    {
+        return listOfTrash[UnityEngine.Random.Range(0, listOfTrash.Count)];
+    }
+
+    public List<TrashMaterialData> GetMaterials()
+    {
+        return listOfMaterials;
     }
 }

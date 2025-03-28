@@ -8,9 +8,7 @@ public class InventoryManager : MonoBehaviour
 
     private List<ItemData> _items = new();
     private List<TrashMaterialEntry> _materialWallet = new();
-    [SerializeField] private List<TrashMaterialData> allMaterialTypes = new();
-    [SerializeField] private TestUtil testUtil;
-
+    
     public static InventoryManager Instance;
 
     private void Awake()
@@ -26,7 +24,7 @@ public class InventoryManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        foreach (var material in allMaterialTypes)
+        foreach (var material in DataUtil.Instance.GetMaterials())
         {
             if (!_materialWallet.Exists(e => e.TrashMaterialData == material))
             {
@@ -37,7 +35,7 @@ public class InventoryManager : MonoBehaviour
 
     public void TestAddTrashItem()
     {
-        TrashData randomTrashData = testUtil.ListOfDummyTrash[Random.Range(0, testUtil.ListOfDummyTrash.Count)];
+        TrashData randomTrashData = DataUtil.Instance.GetRandomTrash();
         AddItem(randomTrashData);
     }
 
@@ -82,7 +80,9 @@ public class InventoryManager : MonoBehaviour
         }
 
         _items.Remove(item);
-
+        
+        
+        //TODO: remove after testing
         Debug.Log($"Removed trash: {item.name}");
 
         foreach (TrashMaterialData mat in item.materials)
@@ -114,11 +114,18 @@ public class InventoryManager : MonoBehaviour
 
     public void RemoveMaterial(TrashMaterialData material, int amount)
     {
+        
         TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData == material);
 
         if (entry == null)
         {
             Debug.LogWarning($"Material {material.type} not found in inventory.");
+            return;
+        }
+
+        if (entry.Amount - amount < 0)
+        {
+            Debug.LogWarning($"Can't remove {material.type}, not enough trash.");
             return;
         }
 
