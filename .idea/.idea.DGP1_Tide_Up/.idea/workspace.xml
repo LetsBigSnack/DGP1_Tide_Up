@@ -5,11 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e88fcd7-3c51-4756-bc6b-54b47aff64cf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Helpers/Util/JSONUtil.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Helpers/Util/JSONUtil.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DialogueManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/BE_16_Dialogue_System.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/BE_16_Dialogue_System.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Helpers/Util/JSONUtil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Helpers/Util/JSONUtil.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,10 +89,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="56028">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15924">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="56028" />
+      <option name="pid" value="15924" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
         <list>
@@ -119,7 +126,8 @@
       <workItem from="1743017416155" duration="278000" />
       <workItem from="1743177201155" duration="890000" />
       <workItem from="1743178168086" duration="72000" />
-      <workItem from="1743178349480" duration="930000" />
+      <workItem from="1743178349480" duration="1617000" />
+      <workItem from="1743282165375" duration="8370000" />
     </task>
     <servers />
   </component>
@@ -136,5 +144,50 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/DialogueManager.cs</url>
+          <line>39</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\DialogueManager.cs" containingFunctionPresentation="Method 'GetRandomDialogueByPersonality'">
+            <startOffsets>
+              <option value="900" />
+            </startOffsets>
+            <endOffsets>
+              <option value="983" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Npc.cs</url>
+          <line>51</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Npc.cs" containingFunctionPresentation="Method 'InteractDialogue'">
+            <startOffsets>
+              <option value="1014" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1038" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs</url>
+          <line>32</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Dialogue.cs" containingFunctionPresentation="Method 'GetCurrentDialogue'">
+            <startOffsets>
+              <option value="694" />
+            </startOffsets>
+            <endOffsets>
+              <option value="749" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

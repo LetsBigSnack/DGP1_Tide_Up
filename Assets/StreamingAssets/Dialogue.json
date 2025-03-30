@@ -1,3 +1,158 @@
 {
-  "test": 10
+  "Intros": {
+    "Betty": {
+      "dialogueContent": [
+        "Hello I am Betty the gooner's dream",
+        "I have fishnets and black painted toenails"
+      ]
+    },
+    "Deki": {
+      "dialogueContent": [
+        "Pa brate",
+        "Papushi kurac"
+      ]
+    },
+    "Igor": {
+      "dialogueContent": [
+        "Hallo am I Igor",
+        "Also known as the god of gamers",
+        "I will defeat you in LoL"
+      ]
+    }
+  },
+  "Dialogues": {
+    "Sporty": {
+      "Low": [
+        {
+          "dialogueContent": [
+            "Low Sporty 1-1",
+            "Low Sporty 1-2"
+          ]
+        },
+        {
+          "dialogueContent": [
+            "Low Sporty 2-1",
+            "Low Sporty 2-2"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "dialogueContent": [
+            "Medium Sporty 1-1",
+            "Medium Sporty 1-2"
+          ]
+        },
+        {
+          "dialogueContent": [
+            "Sporty 2-1",
+            "Sporty 2-2"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "dialogueContent": [
+            "High Sporty 1-1",
+            "High Sporty 1-2"
+          ]
+        },
+        {
+          "dialogueContent": [
+            "High Sporty 2-1",
+            "High Sporty 2-2"
+          ]
+        }
+      ]
+    },
+    "Nerdy": {
+      "Low": [
+        {
+          "dialogueContent": [
+            "Low Nerdy 1-1",
+            "Low Nerdy 1-2"
+          ]
+        },
+        {
+          "dialogueContent": [
+            "Low Nerdy 2-1",
+            "Low Nerdy 2-2"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "dialogueContent": [
+            "Medium Nerdy 1-1",
+            "Medium Nerdy 1-2"
+          ]
+        },
+        {
+          "dialogueContent": [
+            "Medium Nerdy 2-1",
+            "Medium Nerdy 2-2"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "dialogueContent": [
+            "High Nerdy 1-1",
+            "High Nerdy 1-2"
+          ]
+        },
+        {
+          "dialogueContent": [
+            "High Nerdy 2-1",
+            "High Nerdy 2-2"
+          ]
+        }
+      ]
+    },
+    "Hyper": {
+      
+      "Low": [
+        {
+          "dialogueContent": [
+            "Low Hyper 1-1",
+            "Low Hyper 1-2"
+          ]
+        },
+        {
+          "dialogueContent": [
+            "Low Hyper 2-1",
+            "Low Hyper 2-2"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "dialogueContent": [
+            "Medium Hyper 1-1",
+            "Medium Hyper 1-2"
+          ]
+        },
+        {
+          "dialogueContent": [
+            "Medium Hyper 2-1",
+            "Medium Hyper 2-2"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "dialogueContent": [
+            "High Hyper 1-1",
+            "High Hyper 1-2"
+          ]
+        },
+        {
+          "dialogueContent": [
+            "High Hyper 2-1",
+            "High Hyper 2-2"
+          ]
+        }
+      ]
+    }
+  }
 }

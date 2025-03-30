@@ -1,20 +1,14 @@
 using System;
 using System.IO;
+using Data;
 using UnityEngine;
 using Newtonsoft.Json;
-
-[Serializable]
-public class Test
-{
-    public int test;
-}
-
 
 namespace Helpers.Util
 {
     public class JSONUtil
     {
-        public static Test GetDialogueData()
+        public static DialogJsonData GetDialogueData()
         {
             string path = Path.Combine(Application.streamingAssetsPath, "Dialogue.json");
 
@@ -24,7 +18,7 @@ namespace Helpers.Util
             }
             
             string json = File.ReadAllText(path);
-            Test jsonData = JsonConvert.DeserializeObject<Test>(json);
+            DialogJsonData jsonData = JsonConvert.DeserializeObject<DialogJsonData>(json);
             return jsonData;
         }
     }

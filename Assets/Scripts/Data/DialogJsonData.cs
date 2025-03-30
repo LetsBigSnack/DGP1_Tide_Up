@@ -1,0 +1,15 @@
+using System;
+using System.Collections.Generic;
+
+namespace Data
+{
+    [Serializable]
+    public class DialogJsonData
+    {
+        public Dictionary<string, Dialogue> Intros;
+        //TODO Refactor
+        public Dictionary<NpcPersonalities, Dictionary<NpcAwareness, List<Dialogue>> > Dialogues;
+    }
+
+
+}

@@ -97,7 +97,6 @@ public class PlayerController : MonoBehaviour
     
     private void Interact(InputAction.CallbackContext value)
     {
-        Debug.Log("Interact");
         InteractionManager.Instance.Interact();
     }
     
