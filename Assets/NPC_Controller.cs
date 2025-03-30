@@ -8,17 +8,17 @@ public class NPC_Controller : MonoBehaviour
     [SerializeField] private Vector3 currentTarget;
     [SerializeField] private Collider[] movementAreas;
     [SerializeField] private float wiggleRoom;
-    private NavMeshAgent aiAgent;
+    private NavMeshAgent _aiAgent;
 
     [Header("IdleSettings")]
     [SerializeField] private bool isIdling;
     [SerializeField] private float maxIdleTime;
 
-    private Coroutine idleRoutine;
+    private Coroutine _idleRoutine;
 
     private void Start()
     {
-        aiAgent = GetComponent<NavMeshAgent>();
+        _aiAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
@@ -37,14 +37,14 @@ public class NPC_Controller : MonoBehaviour
         {
             Vector3 newDestination = GetPointInAreas();
             currentTarget = newDestination;
-            aiAgent.SetDestination(newDestination);
-            aiAgent.isStopped = false;
+            _aiAgent.SetDestination(newDestination);
+            _aiAgent.isStopped = false;
         }
 
         if (DestinationReached())
         {
             currentTarget = Vector3.zero;
-            aiAgent.isStopped = true;
+            _aiAgent.isStopped = true;
             StartIdle();
         }
     }
@@ -61,21 +61,20 @@ public class NPC_Controller : MonoBehaviour
 
     private void StartIdle()
     {
-        idleRoutine = StartCoroutine(IdleRoutine());
+        _idleRoutine = StartCoroutine(IdleRoutine());
     }
 
     private Vector3 GetPointInAreas()
     {
         Collider randomArea = movementAreas[Random.Range(0, movementAreas.Length)];
+        float randomXValue = Random.Range(randomArea.bounds.min.x, randomArea.bounds.max.x);
+        float randomZValue = Random.Range(randomArea.bounds.min.z, randomArea.bounds.max.z);
 
-        return new Vector3(
-            Random.Range(randomArea.bounds.min.x, randomArea.bounds.max.x),
-            gameObject.transform.position.y,
-            Random.Range(randomArea.bounds.min.z, randomArea.bounds.max.z));
+        return new Vector3(randomXValue, gameObject.transform.position.y, randomZValue);
     }
     private void OnDrawGizmos()
     {
-        if(currentTarget != null)
+        if(!isIdling)
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(gameObject.transform.position, currentTarget);
