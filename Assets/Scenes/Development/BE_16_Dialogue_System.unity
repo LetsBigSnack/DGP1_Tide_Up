@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcState: 0
-  npcPersonality: 0
+  npcPersonality: 2
   npcName: Deki
   npcAwareness: 0
 --- !u!4 &1643085682
@@ -1107,7 +1107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcState: 0
-  npcPersonality: 0
+  npcPersonality: 1
   npcName: Betty
   npcAwareness: 0
 --- !u!4 &1809639180
