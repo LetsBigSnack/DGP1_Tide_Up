@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +24,10 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
+    private void Start()
+    {
         foreach (var material in DataUtil.Instance.GetMaterials())
         {
             if (!_materialWallet.Exists(e => e.TrashMaterialData == material))
@@ -36,10 +40,10 @@ public class InventoryManager : MonoBehaviour
     public void TestAddTrashItem()
     {
         TrashData randomTrashData = DataUtil.Instance.GetRandomTrash();
-        TryAddItem(randomTrashData);
+        AddItem(randomTrashData);
     }
 
-    public bool TryAddItem(ItemData item)
+    public bool AddItem(ItemData item)
     {
 #if UNITY_EDITOR
         ConsoleUtil.ClearConsole();
@@ -65,10 +69,10 @@ public class InventoryManager : MonoBehaviour
         }
 
         ItemData itemToRemove = _items[0];
-        TryRemoveItem(itemToRemove);
+        RemoveItem(itemToRemove);
     }
 
-    private bool TryRemoveItem(ItemData item)
+    private bool RemoveItem(ItemData item)
     {
 #if UNITY_EDITOR
         ConsoleUtil.ClearConsole();
@@ -143,16 +147,16 @@ public class InventoryManager : MonoBehaviour
         ConsoleUtil.ClearConsole();
 #endif
 
-        Debug.Log("==== INVENTORY ====");
+        Debug.LogWarning("==== INVENTORY ====");
         foreach (var item in _items)
         {
-            Debug.Log("Trash: " + item.name);
+            Debug.LogWarning("Trash: " + item.name);
         }
 
-        Debug.Log("--- Materials ---");
+        Debug.LogWarning("--- Materials ---");
         foreach (var entry in _materialWallet)
         {
-            Debug.Log($"{entry.TrashMaterialData.type}: {entry.Amount}");
+            Debug.LogWarning($"{entry.TrashMaterialData.type}: {entry.Amount}");
         }
     }
 

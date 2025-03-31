@@ -33,14 +33,14 @@ public class TrashObject : MonoBehaviour
         if (_collected) return;
         _collected = true;
 
-        bool added = InventoryManager.Instance.TryAddItem(data);
+        bool added = InventoryManager.Instance.AddItem(data);
         if (added)
         {
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log("Inventory full — can't collect this trash.");
+            Debug.Log("Inventory full ï¿½ can't collect this trash.");
         }
     }
 }

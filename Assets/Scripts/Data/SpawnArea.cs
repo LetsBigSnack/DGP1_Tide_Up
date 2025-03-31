@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum SpawnAreaType
 {
@@ -14,8 +16,6 @@ public class SpawnArea : MonoBehaviour
     [SerializeField] private SpawnAreaType type;
     [SerializeField] private bool shouldSpawn;
     [SerializeField] private float areaSpawnSize = 4f;
-
-    [SerializeField] private GameObject trashItem;
 
     [SerializeField] private float delayAfterExit = 5f;
     private Coroutine _reactivationRoutine;
@@ -72,13 +72,27 @@ public class SpawnArea : MonoBehaviour
 
         if (shouldSpawn && TrashSpawnerManager.Instance.SpawnedTrash.Count < TrashSpawnerManager.Instance.MaxTrashTotal)
         {
-            Vector3 randomPosition = gameObject.transform.position + new Vector3(Random.Range(-areaSpawnSize, areaSpawnSize), 1.5f, Random.Range(-areaSpawnSize, areaSpawnSize));
+            //TODO: rework height 
+            Vector3 randomPosition = gameObject.transform.position + new Vector3(Random.Range(-areaSpawnSize, areaSpawnSize), gameObject.transform.position.y+0.55f, Random.Range(-areaSpawnSize, areaSpawnSize));
 
             if (CameraUtil.IsVisibleToCamera(randomPosition) && CameraUtil.HasLineOfSight(randomPosition))
                 return;
 
+            GameObject trashItem = TrashSpawnerManager.Instance.GetTrashForArea(type);
             GameObject trash = Instantiate(trashItem, randomPosition, Quaternion.identity, transform);
             TrashSpawnerManager.Instance.SpawnedTrash.Add(trash);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+
+        if (shouldSpawn)
+        {
+            Gizmos.color = Color.green;
+        }
+        
+        Gizmos.DrawWireCube(transform.position, new Vector3(areaSpawnSize*2, 1, areaSpawnSize*2));
     }
 }

@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class ItemInteractable : Interactable
 {
+    
+    [SerializeField] private TrashData trashData;
     [SerializeField] private bool highlight;
     
     public override void Interact()
     {
         Debug.Log("Interact");
-        Destroy(this.gameObject);
+        if (InventoryManager.Instance.AddItem(trashData))
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public override void ShowInteractability(bool show)
