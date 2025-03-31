@@ -158,7 +158,7 @@ public class TimeManager : MonoBehaviour
     private void UpdateMainLightRotation()
     {
         float mainLightRotation = Mathf.Lerp(-90, 270, currentTimeInHours / 24);
-        mainLight.transform.rotation = Quaternion.Euler(mainLightRotation, mainLight.transform.rotation.y, mainLight.transform.rotation.z);
+        mainLight.transform.rotation = Quaternion.Euler(mainLightRotation, -30, mainLight.transform.rotation.z);
     }
 
     private void UpdateLight()
