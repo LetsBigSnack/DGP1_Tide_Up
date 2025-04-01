@@ -1,12 +1,17 @@
+using System;
+using Data;
 using UnityEngine;
 
-public class Recycler : MonoBehaviour
+public class Recycler : Interactable
 {
     private bool _playerInRange = false;
 
     private ItemData _storedItem;
     public bool HasStoredItem => _storedItem != null;
 
+    private bool _isInteractable = false;
+    
+    
     public bool PlayerInRange
     {
         get { return _playerInRange; }
@@ -46,4 +51,22 @@ public class Recycler : MonoBehaviour
         return true;
     }
 
+    public override void Interact()
+    {
+        Debug.Log("Recycler");
+    }
+
+    public override void ShowInteractability(bool show)
+    {
+        _isInteractable = show;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_isInteractable)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(transform.position, new Vector3(1, 2, 1));
+        }
+    }
 }
