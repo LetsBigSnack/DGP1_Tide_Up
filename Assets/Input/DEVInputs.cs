@@ -28,7 +28,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
             ""id"": ""5f15aa24-1a3c-4242-9b0b-0a2b4bdef946"",
             ""actions"": [
                 {
-                    ""name"": ""StoreRecycleItem"",
+                    ""name"": ""RemoveRecycleItem"",
                     ""type"": ""Button"",
                     ""id"": ""75015452-6209-47de-bd92-c631aa19587f"",
                     ""expectedControlType"": """",
@@ -50,11 +50,11 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""df83202a-eed8-4344-80ff-298de1b02ff7"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""StoreRecycleItem"",
+                    ""action"": ""RemoveRecycleItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -76,7 +76,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
 }");
         // DevInputs
         m_DevInputs = asset.FindActionMap("DevInputs", throwIfNotFound: true);
-        m_DevInputs_StoreRecycleItem = m_DevInputs.FindAction("StoreRecycleItem", throwIfNotFound: true);
+        m_DevInputs_RemoveRecycleItem = m_DevInputs.FindAction("RemoveRecycleItem", throwIfNotFound: true);
         m_DevInputs_ConfirmRecycle = m_DevInputs.FindAction("ConfirmRecycle", throwIfNotFound: true);
     }
 
@@ -144,13 +144,13 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
     // DevInputs
     private readonly InputActionMap m_DevInputs;
     private List<IDevInputsActions> m_DevInputsActionsCallbackInterfaces = new List<IDevInputsActions>();
-    private readonly InputAction m_DevInputs_StoreRecycleItem;
+    private readonly InputAction m_DevInputs_RemoveRecycleItem;
     private readonly InputAction m_DevInputs_ConfirmRecycle;
     public struct DevInputsActions
     {
         private @DEVInputs m_Wrapper;
         public DevInputsActions(@DEVInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @StoreRecycleItem => m_Wrapper.m_DevInputs_StoreRecycleItem;
+        public InputAction @RemoveRecycleItem => m_Wrapper.m_DevInputs_RemoveRecycleItem;
         public InputAction @ConfirmRecycle => m_Wrapper.m_DevInputs_ConfirmRecycle;
         public InputActionMap Get() { return m_Wrapper.m_DevInputs; }
         public void Enable() { Get().Enable(); }
@@ -161,9 +161,9 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_DevInputsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_DevInputsActionsCallbackInterfaces.Add(instance);
-            @StoreRecycleItem.started += instance.OnStoreRecycleItem;
-            @StoreRecycleItem.performed += instance.OnStoreRecycleItem;
-            @StoreRecycleItem.canceled += instance.OnStoreRecycleItem;
+            @RemoveRecycleItem.started += instance.OnRemoveRecycleItem;
+            @RemoveRecycleItem.performed += instance.OnRemoveRecycleItem;
+            @RemoveRecycleItem.canceled += instance.OnRemoveRecycleItem;
             @ConfirmRecycle.started += instance.OnConfirmRecycle;
             @ConfirmRecycle.performed += instance.OnConfirmRecycle;
             @ConfirmRecycle.canceled += instance.OnConfirmRecycle;
@@ -171,9 +171,9 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IDevInputsActions instance)
         {
-            @StoreRecycleItem.started -= instance.OnStoreRecycleItem;
-            @StoreRecycleItem.performed -= instance.OnStoreRecycleItem;
-            @StoreRecycleItem.canceled -= instance.OnStoreRecycleItem;
+            @RemoveRecycleItem.started -= instance.OnRemoveRecycleItem;
+            @RemoveRecycleItem.performed -= instance.OnRemoveRecycleItem;
+            @RemoveRecycleItem.canceled -= instance.OnRemoveRecycleItem;
             @ConfirmRecycle.started -= instance.OnConfirmRecycle;
             @ConfirmRecycle.performed -= instance.OnConfirmRecycle;
             @ConfirmRecycle.canceled -= instance.OnConfirmRecycle;
@@ -196,7 +196,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
     public DevInputsActions @DevInputs => new DevInputsActions(this);
     public interface IDevInputsActions
     {
-        void OnStoreRecycleItem(InputAction.CallbackContext context);
+        void OnRemoveRecycleItem(InputAction.CallbackContext context);
         void OnConfirmRecycle(InputAction.CallbackContext context);
     }
 }

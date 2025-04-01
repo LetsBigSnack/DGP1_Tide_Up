@@ -5,9 +5,7 @@ using static UnityEditor.Progress;
 
 public class RecyclerManager : MonoBehaviour
 {
-    [SerializeField] private List<Recycler> recyclers;
-
-    private DEVInputs _devInputs; 
+    private ItemData _storedItem;
 
     public static RecyclerManager Instance;
 
@@ -18,7 +16,6 @@ public class RecyclerManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            _devInputs = new DEVInputs();
         }
         else
         {
@@ -26,73 +23,70 @@ public class RecyclerManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+
+    public bool StoreItemRecycler(ItemData item)
     {
-        _devInputs.Enable();
+        if (_storedItem != null) return false;
 
-        _devInputs.DevInputs.StoreRecycleItem.performed += StoreItem;
-        _devInputs.DevInputs.ConfirmRecycle.performed += RecycleStoredItem;
-
+        _storedItem = item;
+        return true;
     }
 
-    private void OnDisable()
+    public bool RemoveStoredItem()
     {
-        _devInputs.Disable();
-
-        _devInputs.DevInputs.StoreRecycleItem.performed -= StoreItem;
-        _devInputs.DevInputs.ConfirmRecycle.performed -= RecycleStoredItem;
-
-    }
-
-    private void StoreItem(InputAction.CallbackContext context)
-    {
-        foreach (var recycler in recyclers)
+        if (_storedItem != null)
         {
-            if (!recycler.PlayerInRange) continue;
-            if (recycler.HasStoredItem)
-            {
-                Debug.Log(recycler.StoredItem.name + " is currently stored inside the recycler. Can't add a extra one");
-                continue;
-            }
-
-            ItemData item = InventoryManager.Instance.TestTrashItem();
-            if (item == null) return;
-
-            InventoryManager.Instance.TryRemoveItem(item);
-
-            bool stored = recycler.StoreItem(item);
-            if (!stored)
-            {
-                InventoryManager.Instance.TryAddItem(item);
-                Debug.Log("Item could not be stored inside recycler");
-            }
-
-            Debug.Log("You have put " + item.name + " into the recycler, press F to confirm");
+            InventoryManager.Instance.TryAddItem(_storedItem);
+            _storedItem = null;
+            return true;
         }
+        return false;
     }
 
-    private void RecycleStoredItem(InputAction.CallbackContext context)
+    public void StoreItem()
+    {
+        if (_storedItem != null)
+        {
+            Debug.Log(_storedItem.name + " is currently stored inside the recycler. Can't add a extra one");
+            return;
+        }
+
+        ItemData item = InventoryManager.Instance.TestTrashItem();
+        if (item == null) return;
+
+        if (!InventoryManager.Instance.TryRemoveItem(item))
+        {
+            Debug.Log("Can not remove the item");
+        }
+
+        if (!StoreItemRecycler(item))
+        {
+            InventoryManager.Instance.TryAddItem(item);
+            Debug.Log("Item could not be stored inside recycler");
+        }
+
+        Debug.Log("You have put " + item.name + " into the recycler, press F to confirm");
+        
+    }
+
+    public void RecycleStoredItem()
     {
 #if UNITY_EDITOR
         ConsoleUtil.ClearConsole();
 #endif
-        foreach (var recycler in recyclers)
-        {
-            if (!recycler.HasStoredItem) {
-                Debug.Log("No item stored to be recycled. Press R to add item to recycler");
-                continue;
-            }
 
-            ItemData storedItem = recycler.StoredItem;
-            recycler.StoredItem = null;
-
-            Debug.Log("You recycled " + storedItem);
-
-            foreach (TrashMaterialData mat in storedItem.materials)
-            {
-                InventoryManager.Instance.AddMaterial(mat, 1);
-            }
+        if (_storedItem == null) {
+            Debug.Log("No item stored to be recycled. Press R to add item to recycler");
+            return;
         }
+
+        Debug.Log("You recycled " + _storedItem);
+
+        foreach (TrashMaterialData mat in _storedItem.materials)
+        {
+            InventoryManager.Instance.AddMaterial(mat, 1);
+        }
+        _storedItem = null;
     }
 
 }
