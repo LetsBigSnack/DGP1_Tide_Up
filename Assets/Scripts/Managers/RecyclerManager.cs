@@ -1,13 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEditor.Progress;
 
 public class RecyclerManager : MonoBehaviour
 {
-    [SerializeField] private float interactionRadius = 5f;
-    [SerializeField] private Color gizmoColor = new Color(1f, 0.7f, 0.2f, 0.2f);
+    [SerializeField] private List<Recycler> recyclers;
 
-    private bool _playerInRange = false;
-
+    private DEVInputs _devInputs; 
 
     public static RecyclerManager Instance;
 
@@ -18,6 +18,7 @@ public class RecyclerManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            _devInputs = new DEVInputs();
         }
         else
         {
@@ -25,39 +26,73 @@ public class RecyclerManager : MonoBehaviour
         }
     }
 
-
-    private void Recycle()
+    private void OnEnable()
     {
-        if (!_playerInRange) return;
+        _devInputs.Enable();
 
-        ItemData firstItem = InventoryManager.Instance.TestTrashItem();
-        bool removedItem = InventoryManager.Instance.TryRemoveItem(firstItem);
+        _devInputs.DevInputs.StoreRecycleItem.performed += StoreItem;
+        _devInputs.DevInputs.ConfirmRecycle.performed += RecycleStoredItem;
 
-        if(removedItem)
+    }
+
+    private void OnDisable()
+    {
+        _devInputs.Disable();
+
+        _devInputs.DevInputs.StoreRecycleItem.performed -= StoreItem;
+        _devInputs.DevInputs.ConfirmRecycle.performed -= RecycleStoredItem;
+
+    }
+
+    private void StoreItem(InputAction.CallbackContext context)
+    {
+        foreach (var recycler in recyclers)
         {
-            foreach (TrashMaterialData mat in firstItem.materials)
+            if (!recycler.PlayerInRange) continue;
+            if (recycler.HasStoredItem)
+            {
+                Debug.Log(recycler.StoredItem.name + " is currently stored inside the recycler. Can't add a extra one");
+                continue;
+            }
+
+            ItemData item = InventoryManager.Instance.TestTrashItem();
+            if (item == null) return;
+
+            InventoryManager.Instance.TryRemoveItem(item);
+
+            bool stored = recycler.StoreItem(item);
+            if (!stored)
+            {
+                InventoryManager.Instance.TryAddItem(item);
+                Debug.Log("Item could not be stored inside recycler");
+            }
+
+            Debug.Log("You have put " + item.name + " into the recycler, press F to confirm");
+        }
+    }
+
+    private void RecycleStoredItem(InputAction.CallbackContext context)
+    {
+#if UNITY_EDITOR
+        ConsoleUtil.ClearConsole();
+#endif
+        foreach (var recycler in recyclers)
+        {
+            if (!recycler.HasStoredItem) {
+                Debug.Log("No item stored to be recycled. Press R to add item to recycler");
+                continue;
+            }
+
+            ItemData storedItem = recycler.StoredItem;
+            recycler.StoredItem = null;
+
+            Debug.Log("You recycled " + storedItem);
+
+            foreach (TrashMaterialData mat in storedItem.materials)
             {
                 InventoryManager.Instance.AddMaterial(mat, 1);
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            _playerInRange = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            _playerInRange = false;
-    }
-
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = gizmoColor;
-        Gizmos.DrawWireSphere(transform.position, interactionRadius);
-    }
 }

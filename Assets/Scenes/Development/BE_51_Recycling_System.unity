@@ -610,6 +610,8 @@ GameObject:
   - component: {fileID: 648969038}
   - component: {fileID: 648969037}
   - component: {fileID: 648969036}
+  - component: {fileID: 648969040}
+  - component: {fileID: 648969041}
   m_Layer: 0
   m_Name: Recycler
   m_TagString: Untagged
@@ -706,6 +708,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &648969040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648969034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d1053ad03a7f94491707d2c8c58c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &648969041
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648969034}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &668404447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1712,8 +1747,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108ca65633e9dbb4eb2ee4054438c7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionRadius: 4
-  gizmoColor: {r: 0.6039216, g: 0.41568628, b: 0.89411765, a: 1}
+  recyclers:
+  - {fileID: 648969040}
 --- !u!4 &2145405427
 Transform:
   m_ObjectHideFlags: 0
@@ -1723,7 +1758,7 @@ Transform:
   m_GameObject: {fileID: 2145405425}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.8, y: 1, z: 7.17}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -70,10 +70,6 @@ public class InventoryManager : MonoBehaviour
 
     public bool TryRemoveItem(ItemData item)
     {
-#if UNITY_EDITOR
-        ConsoleUtil.ClearConsole();
-#endif
-
         if (_items.Count == 0)
         {
             Debug.Log("No trash to remove.");
@@ -104,7 +100,7 @@ public class InventoryManager : MonoBehaviour
             _materialWallet.Add(new TrashMaterialEntry(material, amount));
         }
 
-        Debug.Log($"+{amount}x {material.type}");
+        Debug.Log($"+ {amount}x {material.type}");
     }
 
     public void RemoveMaterial(TrashMaterialData material, int amount)
