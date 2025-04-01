@@ -47,10 +47,16 @@ public class Npc : MonoBehaviour
 
     public void InteractDialogue()
     {
-        Debug.Log(npcName+":"+_currentDialogue.GetCurrentDialogue());
+        UIDialogueManager.Instance.SetDialogueBox(npcName, _currentDialogue.GetCurrentDialogue());
         
         CheckDialogueFinished();
 
+    }
+
+    public void ResetDialogue()
+    {
+        UIDialogueManager.Instance.ShowDialogueBox(false);
+        _currentDialogue.ResetDialogue();
     }
 
     private void CheckDialogueFinished()
@@ -62,10 +68,13 @@ public class Npc : MonoBehaviour
 
         if (_currentDialogue.IsDialogueFinished)
         {
+            //TODO: this is only there cause as of now there isnt a deep copy of the dialgue, will later change with the addtion of quests
+            _currentDialogue.IsDialogueFinished = false;
             switch (npcState)
             {
                 case NpcStates.Intro:
                     npcState = NpcStates.QuestOffer;
+                    
                     _completedDialogues.Add(_currentDialogue);
                     //TODO: remove this is just for dev needs to be removed later on
                     _currentDialogue = DialogueManager.Instance.GetRandomDialogueByPersonality(npcPersonality, npcAwareness);

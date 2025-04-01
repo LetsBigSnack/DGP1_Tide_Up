@@ -44,14 +44,15 @@ public class InteractionManager : MonoBehaviour
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, interactionRadius, interactableLayer);
         float closestDistance = Mathf.Infinity;
+        List<Interactable> interactables = new List<Interactable>();
         
         foreach (Collider hit in hits)
         {
             Interactable item = hit.GetComponentInParent<Interactable>();
             if (item != null)
             {
+                interactables.Add(item);
                 float dist = Vector3.Distance(transform.position, item.transform.position);
-                item.ShowInteractability(false);
                 if (dist < closestDistance)
                 {
                     closestDistance = dist;
@@ -60,6 +61,13 @@ public class InteractionManager : MonoBehaviour
                 }
             }
         }
+
+        foreach (Interactable item in interactables)
+        {
+            item.ShowInteractability(item == currentInteractable);
+        }
+        
+        
     }
 
     private void CheckCurrentInteractable()

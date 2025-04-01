@@ -147,16 +147,16 @@ public class InventoryManager : MonoBehaviour
         ConsoleUtil.ClearConsole();
 #endif
 
-        Debug.LogWarning("==== INVENTORY ====");
+        Debug.Log("==== INVENTORY ====");
         foreach (var item in _items)
         {
-            Debug.LogWarning("Trash: " + item.name);
+            Debug.Log("Trash: " + item.name);
         }
 
-        Debug.LogWarning("--- Materials ---");
+        Debug.Log("--- Materials ---");
         foreach (var entry in _materialWallet)
         {
-            Debug.LogWarning($"{entry.TrashMaterialData.type}: {entry.Amount}");
+            Debug.Log($"{entry.TrashMaterialData.type}: {entry.Amount}");
         }
     }
 

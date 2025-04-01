@@ -7,11 +7,14 @@ public class NpcInteractable : Interactable
     [SerializeField] private bool highlight;
     
     private Npc _npc;
-
+    private NPC_Controller _npcController;
+    private bool _previousState;
+    
 
     private void Awake()
     {
         _npc = GetComponent<Npc>();
+        _npcController = GetComponent<NPC_Controller>();
     }
     
     public override void Interact()
@@ -19,9 +22,24 @@ public class NpcInteractable : Interactable
         _npc.InteractDialogue();
     }
     
+    //TODO: investigate why this gets triggered multiple times
+    //TODO: investigate why it is iffy when at the edge of the radius 
     public override void ShowInteractability(bool show)
     {
+        if (show == _previousState)
+        {
+            return;
+        }
+        
         highlight = show;
+        _npcController.CanMove = !show;
+        _previousState = show;
+        
+        if (!show)
+        {
+            _npc.ResetDialogue();
+        }
+        
     }
 
     private void OnDrawGizmos()

@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
+//TODO: rename to NpcController
 public class NPC_Controller : MonoBehaviour
 {
     [Header("Navigation")]
@@ -15,6 +17,14 @@ public class NPC_Controller : MonoBehaviour
     [SerializeField] private float maxIdleTime;
 
     private Coroutine _idleRoutine;
+    [SerializeField] private bool canMove = true;
+
+    public bool CanMove
+    {
+        get => canMove;
+        set => canMove = value;
+    }
+
 
     private void Start()
     {
@@ -23,6 +33,13 @@ public class NPC_Controller : MonoBehaviour
 
     void Update()
     {
+        //TODO: change later on this is for MileStone scene
+        _aiAgent.isStopped = !canMove;
+        if (!canMove)
+        {
+            _aiAgent.velocity = Vector3.zero;
+        }
+        
         MoveTowardsTarget();
     }
 
@@ -74,7 +91,8 @@ public class NPC_Controller : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        if(!isIdling)
+        
+        if(Application.isPlaying && !isIdling)
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(gameObject.transform.position, currentTarget);

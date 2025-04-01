@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Data
 {
@@ -42,6 +43,11 @@ namespace Data
             {
                 _isDialogueFinished = true;
             }
+        }
+
+        public void ResetDialogue()
+        {
+            _currentDialogueState = 0;
         }
         
     }
