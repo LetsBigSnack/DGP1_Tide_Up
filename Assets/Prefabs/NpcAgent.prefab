@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 5094750225256099448}
   - component: {fileID: 334907356785389955}
   - component: {fileID: 1624120987910417705}
-  m_Layer: 0
+  - component: {fileID: 5583703209744849232}
+  - component: {fileID: 6397520785556628922}
+  m_Layer: 7
   m_Name: NpcAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,3 +155,33 @@ MonoBehaviour:
   wiggleRoom: 2
   isIdling: 0
   maxIdleTime: 6
+  canMove: 1
+--- !u!114 &5583703209744849232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6221018908615731717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df7ec0d3b0a525429bbf8e4210fdf62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlight: 0
+--- !u!114 &6397520785556628922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6221018908615731717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e8da98a0d41c64eac8074ee1135493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcState: 0
+  npcPersonality: 0
+  npcName: Betty
+  npcAwareness: 0

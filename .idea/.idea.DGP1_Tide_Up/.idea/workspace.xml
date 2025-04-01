@@ -6,14 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4e88fcd7-3c51-4756-bc6b-54b47aff64cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NPC_Controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NPC_Controller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Npc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Npc.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NpcInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NpcInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/BE_106_Combine_Systems.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/BE_106_Combine_Systems.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/InteractionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/InteractionManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +118,7 @@
       <workItem from="1743282165375" duration="8370000" />
       <workItem from="1743353140255" duration="1866000" />
       <workItem from="1743429705612" duration="8606000" />
-      <workItem from="1743500492779" duration="4421000" />
+      <workItem from="1743500492779" duration="7564000" />
     </task>
     <servers />
   </component>

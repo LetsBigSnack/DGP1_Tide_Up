@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fed2a4116c71164c8a689d48c59c8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minutesPerDay: 0.1
+  minutesPerDay: 1
   maxSeasons: 4
   maxDays: 25
   elapsedDays: 0
-  currentTimeInHours: 12
+  currentTimeInHours: 10
   currentDay: 1
   currentSeason: 1
   currentYear: 1
