@@ -1,0 +1,54 @@
+{
+    "name": "DEVInputs",
+    "maps": [
+        {
+            "name": "DevInputs",
+            "id": "5f15aa24-1a3c-4242-9b0b-0a2b4bdef946",
+            "actions": [
+                {
+                    "name": "RemoveRecycleItem",
+                    "type": "Button",
+                    "id": "75015452-6209-47de-bd92-c631aa19587f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ConfirmRecycle",
+                    "type": "Button",
+                    "id": "1460ce5c-fcd7-4b3c-b017-6eaf3b44ead2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "df83202a-eed8-4344-80ff-298de1b02ff7",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RemoveRecycleItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83d63089-0d57-493b-8c54-803a6f096b74",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConfirmRecycle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

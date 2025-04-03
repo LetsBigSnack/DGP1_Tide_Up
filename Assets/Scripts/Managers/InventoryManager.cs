@@ -60,12 +60,12 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
-    public void TestRemoveTrashItem()
+    public ItemData TestTrashItem()
     {
         if (_items.Count == 0)
         {
             Debug.Log("No trash to remove.");
-            return;
+            return null;
         }
 
         ItemData itemToRemove = _items[0];
@@ -74,10 +74,6 @@ public class InventoryManager : MonoBehaviour
 
     private bool RemoveItem(ItemData item)
     {
-#if UNITY_EDITOR
-        ConsoleUtil.ClearConsole();
-#endif
-
         if (_items.Count == 0)
         {
             Debug.Log("No trash to remove.");
@@ -85,16 +81,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         _items.Remove(item);
-
-
-        //TODO: remove after testing
         Debug.Log($"Removed trash: {item.name}");
-
-        foreach (TrashMaterialData mat in item.materials)
-        {
-            AddMaterial(mat, 1);
-        }
-        // end of testing part
 
         return true;
     }
@@ -117,7 +104,7 @@ public class InventoryManager : MonoBehaviour
             _materialWallet.Add(new TrashMaterialEntry(material, amount));
         }
 
-        Debug.Log($"+{amount}x {material.type}");
+        Debug.Log($"+ {amount}x {material.type}");
     }
 
     public void RemoveMaterial(TrashMaterialData material, int amount)
