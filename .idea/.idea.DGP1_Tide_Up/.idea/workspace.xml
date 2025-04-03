@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4e88fcd7-3c51-4756-bc6b-54b47aff64cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/BaseBendMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/BaseBendMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/BE_109_Camera_Bend_Shader.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/BE_109_Camera_Bend_Shader.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/CameraBend.shadergraph" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/CameraBend.shadergraph" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +26,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/44f3679c53d1477a9c6e72f269e3a3a91de200/d5/ff73deb9/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/DialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ShaderHelder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UIDialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -39,7 +43,7 @@
     &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;BE__106__Combine__All__Core__Systems&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;BE__109__Camera__Bend__Shader&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -119,6 +123,8 @@
       <workItem from="1743353140255" duration="1866000" />
       <workItem from="1743429705612" duration="8606000" />
       <workItem from="1743500492779" duration="7564000" />
+      <workItem from="1743685597884" duration="4325000" />
+      <workItem from="1743691694438" duration="662000" />
     </task>
     <servers />
   </component>
