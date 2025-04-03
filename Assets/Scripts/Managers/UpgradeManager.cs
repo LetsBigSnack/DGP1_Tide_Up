@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
-    [SerializeField] private Upgrade upgrade;
-
+    [SerializeField] private List<Upgrade> upgrades;
+    
     public static UpgradeManager Instance;
 
     private void Awake()
@@ -23,17 +23,31 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    public void Upgrade()
+    
+    //TODO: list all the upgrade in the UI Later
+    public List<Upgrade> GetUpgrades()
     {
+        return upgrades;
+    }
+
+
+    public Upgrade GetUpgrade(int upgradeIndex)
+    {
+        return upgrades[(int)upgradeIndex];
+    }
+    
+    public void Upgrade(Upgrade upgrade)
+    {
+        
 #if UNITY_EDITOR
         ConsoleUtil.ClearConsole();
 #endif
-        if (!upgrade.CanUpgrade())
+        if (!upgrades.Contains(upgrade) || !upgrade.CanUpgrade())
         {
             return;
         }
-
-        upgrade.PayUpgradeCost();
+        
+        
         upgrade.ApplyUpgrade();
 
     }

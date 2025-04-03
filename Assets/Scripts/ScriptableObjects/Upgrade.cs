@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,10 @@ using UnityEngine;
 public abstract class Upgrade : ScriptableObject
 {
     public List<UpgradeCost> costs = new();
-
+    //TODO: add bool to be able to see if upgrades has been bought // add bool for upgrades you can by multiple times
+    
+    
+    
     public abstract void ApplyUpgrade();
 
     public bool CanUpgrade()
@@ -31,4 +35,15 @@ public abstract class Upgrade : ScriptableObject
             InventoryManager.Instance.RemoveMaterial(cost.material, cost.amount);
         }
     }
+    
 }
+
+[Serializable]
+public class UpgradeCost
+{
+    public TrashMaterialData material;
+    public int amount;
+}
+
+
+

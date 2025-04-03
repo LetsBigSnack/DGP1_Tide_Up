@@ -4,9 +4,10 @@ using UnityEngine;
 public class InventoryUpgrade : Upgrade
 {
     public int slotsToAdd = 3;
-
+    
     public override void ApplyUpgrade()
     {
+        PayUpgradeCost();
         InventoryManager.Instance.IncreaseMaxItems(slotsToAdd);
         Debug.Log($"Inventory upgraded by " + slotsToAdd + " slots!");
     }

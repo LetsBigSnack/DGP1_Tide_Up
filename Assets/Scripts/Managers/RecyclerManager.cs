@@ -26,7 +26,10 @@ public class RecyclerManager : MonoBehaviour
 
     public bool StoreItemRecycler(ItemData item)
     {
-        if (_storedItem != null) return false;
+        if (_storedItem != null)
+        {
+            return false;
+        }
 
         _storedItem = item;
         return true;
