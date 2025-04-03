@@ -181,19 +181,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: trashItemPerArea.Array.data[0].items.Array.size
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: trashItemPerArea.Array.data[1].items.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: trashItemPerArea.Array.data[2].items.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: trashItemPerArea.Array.data[3].items.Array.size
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[0].items.Array.data[0]'
@@ -222,11 +222,11 @@ PrefabInstance:
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[1].items.Array.data[1]'
       value: 
-      objectReference: {fileID: 5816117988406098778, guid: f5c015d3fd79be44b9b4445d8caaea82, type: 3}
+      objectReference: {fileID: 1565642652756804407, guid: 972134ea045de1b44acd4453b17adf50, type: 3}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[1].items.Array.data[2]'
       value: 
-      objectReference: {fileID: 270976591049033572, guid: bb96cc3ea4a3f5f42aa3351dfe2b9345, type: 3}
+      objectReference: {fileID: 5816117988406098778, guid: f5c015d3fd79be44b9b4445d8caaea82, type: 3}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[1].items.Array.data[3]'
       value: 
@@ -238,15 +238,15 @@ PrefabInstance:
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[2].items.Array.data[0]'
       value: 
-      objectReference: {fileID: 5816117988406098778, guid: f5c015d3fd79be44b9b4445d8caaea82, type: 3}
+      objectReference: {fileID: 2894601306551663557, guid: b913fb3886608f148811a775a8983574, type: 3}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[2].items.Array.data[1]'
       value: 
-      objectReference: {fileID: 5816117988406098778, guid: f5c015d3fd79be44b9b4445d8caaea82, type: 3}
+      objectReference: {fileID: 1444726017615931294, guid: 989421de3b6ba1444a246d04e0a6539c, type: 3}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[2].items.Array.data[2]'
       value: 
-      objectReference: {fileID: 270976591049033572, guid: bb96cc3ea4a3f5f42aa3351dfe2b9345, type: 3}
+      objectReference: {fileID: 1565642652756804407, guid: 972134ea045de1b44acd4453b17adf50, type: 3}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[2].items.Array.data[3]'
       value: 
@@ -258,15 +258,15 @@ PrefabInstance:
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[3].items.Array.data[0]'
       value: 
-      objectReference: {fileID: 1565642652756804407, guid: 972134ea045de1b44acd4453b17adf50, type: 3}
+      objectReference: {fileID: 270976591049033572, guid: bb96cc3ea4a3f5f42aa3351dfe2b9345, type: 3}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[3].items.Array.data[1]'
       value: 
-      objectReference: {fileID: 5816117988406098778, guid: f5c015d3fd79be44b9b4445d8caaea82, type: 3}
+      objectReference: {fileID: 2894601306551663557, guid: b913fb3886608f148811a775a8983574, type: 3}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[3].items.Array.data[2]'
       value: 
-      objectReference: {fileID: 270976591049033572, guid: bb96cc3ea4a3f5f42aa3351dfe2b9345, type: 3}
+      objectReference: {fileID: 1444726017615931294, guid: 989421de3b6ba1444a246d04e0a6539c, type: 3}
     - target: {fileID: 1294103834565295188, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: 'trashItemPerArea.Array.data[3].items.Array.data[3]'
       value: 
@@ -893,13 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80853f38383f64449d885f9394361e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeData:
-    slotsToAdd: 3
-    costs:
-    - material: {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
-      amount: 3
-    - material: {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
-      amount: 2
+  upgrade: {fileID: 11400000, guid: 0af7c5d9222157e4d9175bf7c65d0b44, type: 2}
 --- !u!4 &500412722
 Transform:
   m_ObjectHideFlags: 0

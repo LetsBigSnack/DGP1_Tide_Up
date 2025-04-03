@@ -44,6 +44,6 @@ public class DevControlls : MonoBehaviour
     }
     private void UpgradeInventory(InputAction.CallbackContext context)
     {
-        UpgradeManager.Instance.UpgradeInventory();
+        UpgradeManager.Instance.Upgrade();
     }
 }

@@ -34,13 +34,13 @@ public class RecyclerManager : MonoBehaviour
 
     public bool RemoveStoredItem()
     {
-        if (_storedItem != null)
+        if (_storedItem == null)
         {
-            InventoryManager.Instance.AddItem(_storedItem);
-            _storedItem = null;
-            return true;
+            return false;
         }
-        return false;
+        InventoryManager.Instance.AddItem(_storedItem);
+        _storedItem = null;
+        return true;
     }
 
     public void StoreItem()

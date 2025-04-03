@@ -143,7 +143,7 @@ public class InventoryManager : MonoBehaviour
         Debug.Log("--- Materials ---");
         foreach (var entry in _materialWallet)
         {
-            Debug.Log($"{entry.TrashMaterialData.type}: {entry.Amount}");
+            Debug.Log(entry.TrashMaterialData.type + ": " + entry.Amount + " / " + maxTrashMaterials);
         }
     }
 
@@ -156,6 +156,12 @@ public class InventoryManager : MonoBehaviour
     {
         maxItems += amount;
         Debug.Log($"Max trash item slots increased to {maxItems}");
+    }
+    
+    public void IncreaseMaxMaterials(int amount)
+    {
+        maxTrashMaterials += amount;
+        Debug.Log($"Max trash materials slots increased to {maxTrashMaterials}");
     }
 
 }
