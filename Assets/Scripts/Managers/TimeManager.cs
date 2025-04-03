@@ -37,7 +37,8 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private Light mainLight;
 
     [Header("Light- & ColorPresets")]
-    [SerializeField] private Gradient skyColor;
+    [SerializeField] private Gradient ambientColor;
+    [SerializeField] private Gradient fogColor;
     [SerializeField] private Gradient equatorColor;
     [SerializeField] private Gradient sunColor;
 
@@ -157,8 +158,7 @@ public class TimeManager : MonoBehaviour
  
     private void UpdateMainLightRotation()
     {
-        float mainLightRotation = Mathf.Lerp(-90, 270, currentTimeInHours / 24);
-        mainLight.transform.rotation = Quaternion.Euler(mainLightRotation, -30, mainLight.transform.rotation.z);
+        mainLight.transform.rotation = Quaternion.Euler(new Vector3(((currentTimeInHours/24)*360-90f), -30, 0));
     }
 
     private void UpdateLight()
@@ -166,8 +166,9 @@ public class TimeManager : MonoBehaviour
         float timeFraction = currentTimeInHours / 24;
         //https://docs.unity3d.com/6000.0/Documentation/ScriptReference/RenderSettings-ambientEquatorColor.html
         //https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Gradient.Evaluate.html
+        RenderSettings.fogColor = fogColor.Evaluate(timeFraction);
         RenderSettings.ambientEquatorColor = equatorColor.Evaluate(timeFraction);
-        RenderSettings.ambientSkyColor = skyColor.Evaluate(timeFraction);
+        RenderSettings.ambientSkyColor = ambientColor.Evaluate(timeFraction);
         mainLight.color = sunColor.Evaluate(timeFraction);
     }
     public void ToggleTime()
