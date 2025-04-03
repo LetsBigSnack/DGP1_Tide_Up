@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] private int maxTrashItems = 5;
+    [SerializeField] private int maxItems = 5;
     [SerializeField] private int maxTrashMaterials = 20;
 
     private List<ItemData> _items = new();
@@ -49,7 +49,7 @@ public class InventoryManager : MonoBehaviour
         ConsoleUtil.ClearConsole();
 #endif
 
-        if (_items.Count >= maxTrashItems)
+        if (_items.Count >= maxItems)
         {
             Debug.Log("Inventory full! Can't pick up more trash.");
             return false;
@@ -69,10 +69,10 @@ public class InventoryManager : MonoBehaviour
         }
 
         ItemData itemToRemove = _items[0];
-        RemoveItem(itemToRemove);
+        return itemToRemove;
     }
 
-    private bool RemoveItem(ItemData item)
+    public bool RemoveItem(ItemData item)
     {
         if (_items.Count == 0)
         {
@@ -134,7 +134,7 @@ public class InventoryManager : MonoBehaviour
         ConsoleUtil.ClearConsole();
 #endif
 
-        Debug.Log("==== INVENTORY ====");
+        Debug.Log("==== INVENTORY (" + _items.Count + "/" + maxItems + ") ====");
         foreach (var item in _items)
         {
             Debug.Log("Trash: " + item.name);
@@ -145,6 +145,17 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.Log($"{entry.TrashMaterialData.type}: {entry.Amount}");
         }
+    }
+
+    public int GetMaterialAmount(TrashMaterialData material)
+    {
+        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData == material);
+        return entry != null ? entry.Amount : 0;
+    }
+    public void IncreaseMaxItems(int amount)
+    {
+        maxItems += amount;
+        Debug.Log($"Max trash item slots increased to {maxItems}");
     }
 
 }

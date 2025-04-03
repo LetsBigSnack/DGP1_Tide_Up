@@ -36,7 +36,7 @@ public class RecyclerManager : MonoBehaviour
     {
         if (_storedItem != null)
         {
-            InventoryManager.Instance.TryAddItem(_storedItem);
+            InventoryManager.Instance.AddItem(_storedItem);
             _storedItem = null;
             return true;
         }
@@ -54,14 +54,14 @@ public class RecyclerManager : MonoBehaviour
         ItemData item = InventoryManager.Instance.TestTrashItem();
         if (item == null) return;
 
-        if (!InventoryManager.Instance.TryRemoveItem(item))
+        if (!InventoryManager.Instance.RemoveItem(item))
         {
             Debug.Log("Can not remove the item");
         }
 
         if (!StoreItemRecycler(item))
         {
-            InventoryManager.Instance.TryAddItem(item);
+            InventoryManager.Instance.AddItem(item);
             Debug.Log("Item could not be stored inside recycler");
         }
 

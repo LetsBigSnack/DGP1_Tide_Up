@@ -19,6 +19,7 @@ public class DevControlls : MonoBehaviour
 
         _devInputs.DevInputs.RemoveRecycleItem.performed += RemoveItemFromRecycler;
         _devInputs.DevInputs.ConfirmRecycle.performed += RecycleStoredItem;
+        _devInputs.DevInputs.Upgrade.performed += UpgradeInventory;
     }
 
     private void OnDisable()
@@ -29,6 +30,7 @@ public class DevControlls : MonoBehaviour
 
         _devInputs.DevInputs.RemoveRecycleItem.performed -= RemoveItemFromRecycler;
         _devInputs.DevInputs.ConfirmRecycle.performed -= RecycleStoredItem;
+        _devInputs.DevInputs.Upgrade.performed -= UpgradeInventory;
 
     }
 
@@ -39,5 +41,9 @@ public class DevControlls : MonoBehaviour
     private void RecycleStoredItem(InputAction.CallbackContext context)
     {
         RecyclerManager.Instance.RecycleStoredItem();
+    }
+    private void UpgradeInventory(InputAction.CallbackContext context)
+    {
+        UpgradeManager.Instance.UpgradeInventory();
     }
 }

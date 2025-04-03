@@ -44,6 +44,15 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Upgrade"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef8a88c8-b30b-40aa-92ea-5e6b22a45a8c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
                     ""action"": ""ConfirmRecycle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa0bd26e-6121-4f2c-b035-e292f124a9bf"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Upgrade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
         m_DevInputs = asset.FindActionMap("DevInputs", throwIfNotFound: true);
         m_DevInputs_RemoveRecycleItem = m_DevInputs.FindAction("RemoveRecycleItem", throwIfNotFound: true);
         m_DevInputs_ConfirmRecycle = m_DevInputs.FindAction("ConfirmRecycle", throwIfNotFound: true);
+        m_DevInputs_Upgrade = m_DevInputs.FindAction("Upgrade", throwIfNotFound: true);
     }
 
     ~@DEVInputs()
@@ -146,12 +167,14 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
     private List<IDevInputsActions> m_DevInputsActionsCallbackInterfaces = new List<IDevInputsActions>();
     private readonly InputAction m_DevInputs_RemoveRecycleItem;
     private readonly InputAction m_DevInputs_ConfirmRecycle;
+    private readonly InputAction m_DevInputs_Upgrade;
     public struct DevInputsActions
     {
         private @DEVInputs m_Wrapper;
         public DevInputsActions(@DEVInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @RemoveRecycleItem => m_Wrapper.m_DevInputs_RemoveRecycleItem;
         public InputAction @ConfirmRecycle => m_Wrapper.m_DevInputs_ConfirmRecycle;
+        public InputAction @Upgrade => m_Wrapper.m_DevInputs_Upgrade;
         public InputActionMap Get() { return m_Wrapper.m_DevInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -167,6 +190,9 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
             @ConfirmRecycle.started += instance.OnConfirmRecycle;
             @ConfirmRecycle.performed += instance.OnConfirmRecycle;
             @ConfirmRecycle.canceled += instance.OnConfirmRecycle;
+            @Upgrade.started += instance.OnUpgrade;
+            @Upgrade.performed += instance.OnUpgrade;
+            @Upgrade.canceled += instance.OnUpgrade;
         }
 
         private void UnregisterCallbacks(IDevInputsActions instance)
@@ -177,6 +203,9 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
             @ConfirmRecycle.started -= instance.OnConfirmRecycle;
             @ConfirmRecycle.performed -= instance.OnConfirmRecycle;
             @ConfirmRecycle.canceled -= instance.OnConfirmRecycle;
+            @Upgrade.started -= instance.OnUpgrade;
+            @Upgrade.performed -= instance.OnUpgrade;
+            @Upgrade.canceled -= instance.OnUpgrade;
         }
 
         public void RemoveCallbacks(IDevInputsActions instance)
@@ -198,5 +227,6 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
     {
         void OnRemoveRecycleItem(InputAction.CallbackContext context);
         void OnConfirmRecycle(InputAction.CallbackContext context);
+        void OnUpgrade(InputAction.CallbackContext context);
     }
 }
