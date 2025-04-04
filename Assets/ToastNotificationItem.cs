@@ -21,11 +21,11 @@ public class ToastNotificationItem : MonoBehaviour
         StartCoroutine(EndToast());
     }
 
-    public void SetToast(Sprite sprite = null, string titleText ="", string descriptionText = "")
+    public void SetToast(string titleText ="", string descriptionText = "", Sprite sprite = null)
     {
         if(image != null)
         {
-            this.image.sprite = sprite;
+            image.sprite = sprite;
         }
 
         if(title != null)
@@ -35,7 +35,7 @@ public class ToastNotificationItem : MonoBehaviour
         
         if(description != null)
         {
-            this.description.text = descriptionText;
+            description.text = descriptionText;
         }
     }
 

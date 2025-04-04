@@ -70,15 +70,15 @@ public class UI_ToastManager : MonoBehaviour
         {
             case ToastType.Item:
                 newToast = CreateToast(itemToastPrefab, itemToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(sprite, title);
+                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText:title, sprite:sprite);
                 break;
             case ToastType.Environment:
                 newToast = CreateToast(environmentToastPrefab, environmentToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText:title);
+                newToast.GetComponent<ToastNotificationItem>().SetToast(title);
                 break;
             case ToastType.Important:
                 newToast = CreateToast(importantToastPrefab, importantToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText:title, descriptionText:description);
+                newToast.GetComponent<ToastNotificationItem>().SetToast(title, description);
                 break;
         }
         AddToList(type, newToast);
