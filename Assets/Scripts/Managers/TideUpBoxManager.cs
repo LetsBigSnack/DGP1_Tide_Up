@@ -83,6 +83,12 @@ public class TideUpBoxManager : MonoBehaviour
 
     public void CollectAllItems()
     {
+        if(_boxInventory.Count == 0)
+        {
+            Debug.Log("There are no items to collect, wait until the next morning");
+            return;
+        }
+
         List<TrashData> itemsToKeep = new();
 
         foreach (TrashData trash in _boxInventory)
@@ -104,6 +110,7 @@ public class TideUpBoxManager : MonoBehaviour
         TrashData itemToCollect = TestGetRandomTrashFromBox();
         if (itemToCollect == null)
         {
+            Debug.Log("There are no items to collect, wait until the next morning");
             return;
         }
 
@@ -119,7 +126,6 @@ public class TideUpBoxManager : MonoBehaviour
     {
         if (_boxInventory.Count == 0)
         {
-            Debug.Log("No trash to remove.");
             return null;
         }
 

@@ -9,7 +9,6 @@ public class TideUpBox : Interactable
 
     public override void Interact()
     {
-        Debug.Log("Tide up box, GO");
         TideUpBoxManager.Instance.CollectAllItems();
     }
 
