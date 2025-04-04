@@ -53,6 +53,15 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CollectOneItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8237239-7b62-44ec-a2b6-9fb230a7443e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +97,17 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Upgrade"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93a27a13-165f-48cd-ba52-3b564a7ca228"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CollectOneItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -99,6 +119,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
         m_DevInputs_RemoveRecycleItem = m_DevInputs.FindAction("RemoveRecycleItem", throwIfNotFound: true);
         m_DevInputs_ConfirmRecycle = m_DevInputs.FindAction("ConfirmRecycle", throwIfNotFound: true);
         m_DevInputs_Upgrade = m_DevInputs.FindAction("Upgrade", throwIfNotFound: true);
+        m_DevInputs_CollectOneItem = m_DevInputs.FindAction("CollectOneItem", throwIfNotFound: true);
     }
 
     ~@DEVInputs()
@@ -168,6 +189,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_DevInputs_RemoveRecycleItem;
     private readonly InputAction m_DevInputs_ConfirmRecycle;
     private readonly InputAction m_DevInputs_Upgrade;
+    private readonly InputAction m_DevInputs_CollectOneItem;
     public struct DevInputsActions
     {
         private @DEVInputs m_Wrapper;
@@ -175,6 +197,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
         public InputAction @RemoveRecycleItem => m_Wrapper.m_DevInputs_RemoveRecycleItem;
         public InputAction @ConfirmRecycle => m_Wrapper.m_DevInputs_ConfirmRecycle;
         public InputAction @Upgrade => m_Wrapper.m_DevInputs_Upgrade;
+        public InputAction @CollectOneItem => m_Wrapper.m_DevInputs_CollectOneItem;
         public InputActionMap Get() { return m_Wrapper.m_DevInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -193,6 +216,9 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
             @Upgrade.started += instance.OnUpgrade;
             @Upgrade.performed += instance.OnUpgrade;
             @Upgrade.canceled += instance.OnUpgrade;
+            @CollectOneItem.started += instance.OnCollectOneItem;
+            @CollectOneItem.performed += instance.OnCollectOneItem;
+            @CollectOneItem.canceled += instance.OnCollectOneItem;
         }
 
         private void UnregisterCallbacks(IDevInputsActions instance)
@@ -206,6 +232,9 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
             @Upgrade.started -= instance.OnUpgrade;
             @Upgrade.performed -= instance.OnUpgrade;
             @Upgrade.canceled -= instance.OnUpgrade;
+            @CollectOneItem.started -= instance.OnCollectOneItem;
+            @CollectOneItem.performed -= instance.OnCollectOneItem;
+            @CollectOneItem.canceled -= instance.OnCollectOneItem;
         }
 
         public void RemoveCallbacks(IDevInputsActions instance)
@@ -228,5 +257,6 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
         void OnRemoveRecycleItem(InputAction.CallbackContext context);
         void OnConfirmRecycle(InputAction.CallbackContext context);
         void OnUpgrade(InputAction.CallbackContext context);
+        void OnCollectOneItem(InputAction.CallbackContext context);
     }
 }

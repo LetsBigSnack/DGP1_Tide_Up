@@ -7,7 +7,7 @@ using static UnityEditor.Progress;
 public class TideUpBoxManager : MonoBehaviour
 {
     [SerializeField] private List<TrashData> possibleTrash;
-    private List<TrashData> _boxInventory;
+    private List<TrashData> _boxInventory = new();
     [SerializeField] private int awarenessScore = 1;
     [SerializeField] private int maxTotalTrash = 10;
 
@@ -102,6 +102,10 @@ public class TideUpBoxManager : MonoBehaviour
     public void CollectOneItem()
     {
         TrashData itemToCollect = TestGetRandomTrashFromBox();
+        if (itemToCollect == null)
+        {
+            return;
+        }
 
         if (!InventoryManager.Instance.AddItem(itemToCollect))
         {

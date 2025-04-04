@@ -20,6 +20,7 @@ public class DevControlls : MonoBehaviour
         _devInputs.DevInputs.RemoveRecycleItem.performed += RemoveItemFromRecycler;
         _devInputs.DevInputs.ConfirmRecycle.performed += RecycleStoredItem;
         _devInputs.DevInputs.Upgrade.performed += UpgradeInventory;
+        _devInputs.DevInputs.CollectOneItem.performed += CollectOneItem;
     }
 
     private void OnDisable()
@@ -31,6 +32,7 @@ public class DevControlls : MonoBehaviour
         _devInputs.DevInputs.RemoveRecycleItem.performed -= RemoveItemFromRecycler;
         _devInputs.DevInputs.ConfirmRecycle.performed -= RecycleStoredItem;
         _devInputs.DevInputs.Upgrade.performed -= UpgradeInventory;
+        _devInputs.DevInputs.CollectOneItem.performed -= CollectOneItem;
 
     }
 
@@ -45,5 +47,9 @@ public class DevControlls : MonoBehaviour
     private void UpgradeInventory(InputAction.CallbackContext context)
     {
         UpgradeManager.Instance.Upgrade(UpgradeManager.Instance.GetUpgrade(0));
+    }
+    private void CollectOneItem(InputAction.CallbackContext context)
+    {
+        TideUpBoxManager.Instance.CollectOneItem();
     }
 }
