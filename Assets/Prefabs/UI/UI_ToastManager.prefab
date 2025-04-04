@@ -115,7 +115,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 6
+  m_ChildAlignment: 0
   m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
@@ -176,8 +176,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemToastPrefab: {fileID: 6544777875517427523, guid: eb16ae374b20824448b5677e0ce3c482, type: 3}
-  environmentToastPrefab: {fileID: 6544777875517427523, guid: eb16ae374b20824448b5677e0ce3c482, type: 3}
-  importantToastPrefab: {fileID: 6544777875517427523, guid: eb16ae374b20824448b5677e0ce3c482, type: 3}
+  environmentToastPrefab: {fileID: 6544777875517427523, guid: 09175bd546f652b42966c32928d5fd96, type: 3}
+  importantToastPrefab: {fileID: 6544777875517427523, guid: 58383dac6fb53a14f88d9d9e514b994f, type: 3}
   itemToastParent: {fileID: 6727002705170503165}
   environmentToastParent: {fileID: 5103620702697944890}
   importantToastParent: {fileID: 6186327094220169773}
@@ -187,8 +187,6 @@ MonoBehaviour:
   itemToastList: []
   environmentToastList: []
   importantToastList: []
-  spawnToastTestBool: 1
-  spawnTime: 1
 --- !u!1 &9214160789289989261
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +240,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 6
+  m_ChildAlignment: 0
   m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0

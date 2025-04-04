@@ -35,24 +35,31 @@ public class UI_ToastManager : MonoBehaviour
     [SerializeField] private List<GameObject> itemToastList;
     [SerializeField] private List<GameObject> environmentToastList;
     [SerializeField] private List<GameObject> importantToastList;
-
-    [Header("TESTSETUP")]
-    [SerializeField] private bool spawnToastTestBool = true;
-    [SerializeField] private float spawnTime;
+    private Dictionary<ToastType, List<GameObject>> toastLists = new Dictionary<ToastType, List<GameObject>>();
+    private Dictionary<ToastType, int> toastCapLists = new Dictionary<ToastType, int>();
 
     private void Awake()
     {
-        if(Instance != null && Instance != this)
+        if(Instance == null)
         {
-            Destroy(this);
-            return;
+            Instance = this;
         }
-        Instance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
+        FillLists();
     }
 
-    private void Start()
+    private void FillLists()
     {
-        StartCoroutine(TestSpawn());
+        toastLists.Add(ToastType.Item, itemToastList);
+        toastLists.Add(ToastType.Environment, environmentToastList);
+        toastLists.Add(ToastType.Important, importantToastList);
+
+        toastCapLists.Add(ToastType.Item, itemToastStackSize);
+        toastCapLists.Add(ToastType.Environment, environmentToastStackSize);
+        toastCapLists.Add(ToastType.Important, importantToastStackSize);
     }
 
     public void SpawnToastMessage(ToastType type, string title = "", string description="", Sprite sprite = null)
@@ -63,92 +70,47 @@ public class UI_ToastManager : MonoBehaviour
         {
             case ToastType.Item:
                 newToast = CreateToast(itemToastPrefab, itemToastParent);
-                newToast.GetComponent<ToastNotificationItem>().Sprite = sprite;
-                newToast.GetComponent<ToastNotificationItem>().Title = title;
+                newToast.GetComponent<ToastNotificationItem>().SetToast(sprite, title);
                 break;
             case ToastType.Environment:
                 newToast = CreateToast(environmentToastPrefab, environmentToastParent);
-                newToast.GetComponent<ToastNotificationItem>().Title = title;
+                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText:title);
                 break;
             case ToastType.Important:
                 newToast = CreateToast(importantToastPrefab, importantToastParent);
-                newToast.GetComponent<ToastNotificationItem>().Title = title;
-                newToast.GetComponent<ToastNotificationItem>().Description = description;
+                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText:title, descriptionText:description);
                 break;
         }
-
         AddToList(type, newToast);
     }
 
     private GameObject CreateToast(GameObject prefab, Transform parent)
     {
-        GameObject newToast = Instantiate(prefab);
-        newToast.transform.SetParent(parent);
+        GameObject newToast = Instantiate(prefab, parent);
         return newToast;
     }
 
     private void AddToList(ToastType type, GameObject toast)
     {
-        if (!toast) return;
-
-        switch (type)
+        if (toast == null)
         {
-            case ToastType.Item:
-                if(ListCapReached(itemToastList, itemToastStackSize))
-                {
-                    itemToastList[0].GetComponent<ToastNotificationItem>().PlayEndAnimation();
-                    itemToastList.RemoveAt(0);
-                }
-                itemToastList.Add(toast);
-                break;
-            case ToastType.Environment:
-                if (ListCapReached(environmentToastList, environmentToastStackSize))
-                {
-                    environmentToastList[0].GetComponent<ToastNotificationItem>().PlayEndAnimation();
-                    environmentToastList.RemoveAt(0);
-                }
-                environmentToastList.Add(toast);
-                break;
-            case ToastType.Important:
-                if (ListCapReached(importantToastList, importantToastStackSize))
-                {
-                    importantToastList[0].GetComponent<ToastNotificationItem>().PlayEndAnimation();
-                    importantToastList.RemoveAt(0);
-                }
-                importantToastList.Add(toast);
-                break;
+            return;
         }
+        if (ListCapReached(toastLists[type], toastCapLists[type]))
+        {
+            toastLists[type][0].GetComponent<ToastNotificationItem>().PlayEndAnimation();
+            toastLists[type].RemoveAt(0);
+        }
+        toastLists[type].Add(toast);
     }
 
     public void RemoveFromList(ToastType type, GameObject toast)
     {
-        switch (type)
-        {
-            case ToastType.Item:
-                itemToastList.Remove(itemToastList.Find(t => t == toast));
-                break;
-            case ToastType.Environment:
-                environmentToastList.Remove(environmentToastList.Find(t => t == toast));
-                break;
-            case ToastType.Important:
-                importantToastList.Remove(importantToastList.Find(t => t == toast));
-                break;
-        }
+        toastLists[type].Remove(toastLists[type].Find(t => t == toast));      
     }
 
     private bool ListCapReached(List<GameObject> list, int maxCap)
     {
         return list.Count >= maxCap;
-    }
-
-    private IEnumerator TestSpawn()
-    {
-        while (spawnToastTestBool)
-        {
-            SpawnToastMessage(ToastType.Item, "Test", "Decription");
-            SpawnToastMessage(ToastType.Environment, "Test", "Decription");
-            SpawnToastMessage(ToastType.Important, "Test", "Decription");
-            yield return new WaitForSeconds(spawnTime);
-        }
     }
 }

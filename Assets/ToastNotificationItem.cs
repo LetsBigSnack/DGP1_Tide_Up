@@ -21,22 +21,22 @@ public class ToastNotificationItem : MonoBehaviour
         StartCoroutine(EndToast());
     }
 
-    public string Title
+    public void SetToast(Sprite sprite = null, string titleText ="", string descriptionText = "")
     {
-        get { return title.text; }
-        set { title.text = value; }
-    }
+        if(image != null)
+        {
+            this.image.sprite = sprite;
+        }
 
-    public string Description
-    {
-        get { return description.text; }
-        set { description.text = value; }
-    }
-
-    public Sprite Sprite
-    {
-        get { return image.sprite; }
-        set { image.sprite = value; }
+        if(title != null)
+        {
+            title.text = titleText;
+        }
+        
+        if(description != null)
+        {
+            this.description.text = descriptionText;
+        }
     }
 
     public void PlayEndAnimation()
