@@ -9,7 +9,9 @@ public class InventoryManager : MonoBehaviour
 
     private List<ItemData> _items = new();
     private List<TrashMaterialEntry> _materialWallet = new();
-    
+    //TODO Implement Dictionary Wallet
+    private Dictionary<TrashMaterialType, int> _materials;
+
     public static InventoryManager Instance;
 
     private void Awake()
@@ -86,14 +88,14 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
-    public void AddMaterial(TrashMaterialData material, int amount)
+    public void AddMaterial(TrashMaterialType materialType, int amount)
     {
-        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData == material);
+        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData.type == materialType);
         if (entry != null)
         {
             if (entry.Amount + amount > maxTrashMaterials)
             {
-                Debug.LogWarning($"Can't add more {material.type}, limit reached.");
+                Debug.LogWarning($"Can't add more {materialType}, limit reached.");
                 return;
             }
 
@@ -101,31 +103,33 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            _materialWallet.Add(new TrashMaterialEntry(material, amount));
+            TrashMaterialData newTrashMaterialData = DataUtil.Instance.GetMaterialByType(materialType);
+            _materialWallet.Add(new TrashMaterialEntry(newTrashMaterialData, amount));
         }
 
-        Debug.Log($"+ {amount}x {material.type}");
+        Debug.Log($"+ {amount}x {materialType}");
     }
 
-    public void RemoveMaterial(TrashMaterialData material, int amount)
+    public bool RemoveMaterial(TrashMaterialType materialType, int amount)
     {
         
-        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData == material);
+        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData.type == materialType);
 
         if (entry == null)
         {
-            Debug.LogWarning($"Material {material.type} not found in inventory.");
-            return;
+            Debug.LogWarning($"Material {materialType} not found in inventory.");
+            return false;
         }
 
         if (entry.Amount - amount < 0)
         {
-            Debug.LogWarning($"Can't remove {material.type}, not enough trash.");
-            return;
+            Debug.LogWarning($"Can't remove {materialType}, not enough trash.");
+            return false;
         }
 
         entry.Amount = Mathf.Max(0, entry.Amount - amount);
-        Debug.Log($"Removed {amount}x {material.type}");
+        Debug.Log($"Removed {amount}x {materialType}");
+        return true;
     }
 
     public void PrintInventory()
@@ -147,10 +151,16 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public int GetMaterialAmount(TrashMaterialData material)
+    public int GetMaterialAmount(TrashMaterialType materialType)
     {
-        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData == material);
+        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData.type == materialType);
         return entry != null ? entry.Amount : 0;
+    }
+
+    public bool HasSpaceForMaterial(TrashMaterialType materialType, int amount)
+    {
+        TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData.type == materialType);
+        return entry.Amount + amount > maxTrashMaterials;
     }
     public void IncreaseMaxItems(int amount)
     {

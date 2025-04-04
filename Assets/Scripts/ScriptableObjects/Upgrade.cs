@@ -8,7 +8,7 @@ public abstract class Upgrade : ScriptableObject
     public List<UpgradeCost> costs = new();
     //TODO: add bool to be able to see if upgrades has been bought // add bool for upgrades you can by multiple times
     
-    
+   
     
     public abstract void ApplyUpgrade();
 
@@ -16,7 +16,7 @@ public abstract class Upgrade : ScriptableObject
     {
         foreach (UpgradeCost cost in costs)
         {
-            int playerAmount = InventoryManager.Instance.GetMaterialAmount(cost.material);
+            int playerAmount = InventoryManager.Instance.GetMaterialAmount(cost.material.type);
             if (playerAmount < cost.amount)
             {
                 int missing = cost.amount - playerAmount;
@@ -32,7 +32,7 @@ public abstract class Upgrade : ScriptableObject
     {
         foreach (UpgradeCost cost in costs)
         {
-            InventoryManager.Instance.RemoveMaterial(cost.material, cost.amount);
+            InventoryManager.Instance.RemoveMaterial(cost.material.type, cost.amount);
         }
     }
     
