@@ -30,13 +30,13 @@ public class UI_ToastManager : MonoBehaviour
     [SerializeField] private int itemToastStackSize;
     [SerializeField] private int environmentToastStackSize;
     [SerializeField] private int importantToastStackSize;
+    private Dictionary<ToastType, int> _toastCapLists = new Dictionary<ToastType, int>();
 
     [Header("CurrentToastLists")]
     [SerializeField] private List<GameObject> itemToastList;
     [SerializeField] private List<GameObject> environmentToastList;
     [SerializeField] private List<GameObject> importantToastList;
-    private Dictionary<ToastType, List<GameObject>> toastLists = new Dictionary<ToastType, List<GameObject>>();
-    private Dictionary<ToastType, int> toastCapLists = new Dictionary<ToastType, int>();
+    private Dictionary<ToastType, List<GameObject>> _toastLists = new Dictionary<ToastType, List<GameObject>>();
 
     private void Awake()
     {
@@ -53,13 +53,13 @@ public class UI_ToastManager : MonoBehaviour
 
     private void FillLists()
     {
-        toastLists.Add(ToastType.Item, itemToastList);
-        toastLists.Add(ToastType.Environment, environmentToastList);
-        toastLists.Add(ToastType.Important, importantToastList);
+        _toastLists.Add(ToastType.Item, itemToastList);
+        _toastLists.Add(ToastType.Environment, environmentToastList);
+        _toastLists.Add(ToastType.Important, importantToastList);
 
-        toastCapLists.Add(ToastType.Item, itemToastStackSize);
-        toastCapLists.Add(ToastType.Environment, environmentToastStackSize);
-        toastCapLists.Add(ToastType.Important, importantToastStackSize);
+        _toastCapLists.Add(ToastType.Item, itemToastStackSize);
+        _toastCapLists.Add(ToastType.Environment, environmentToastStackSize);
+        _toastCapLists.Add(ToastType.Important, importantToastStackSize);
     }
 
     public void SpawnToastMessage(ToastType type, string title = "", string description="", Sprite sprite = null)
@@ -96,17 +96,17 @@ public class UI_ToastManager : MonoBehaviour
         {
             return;
         }
-        if (ListCapReached(toastLists[type], toastCapLists[type]))
+        if (ListCapReached(_toastLists[type], _toastCapLists[type]))
         {
-            toastLists[type][0].GetComponent<ToastNotificationItem>().PlayEndAnimation();
-            toastLists[type].RemoveAt(0);
+            _toastLists[type][0].GetComponent<ToastNotificationItem>().PlayEndAnimation();
+            _toastLists[type].RemoveAt(0);
         }
-        toastLists[type].Add(toast);
+        _toastLists[type].Add(toast);
     }
 
     public void RemoveFromList(ToastType type, GameObject toast)
     {
-        toastLists[type].Remove(toastLists[type].Find(t => t == toast));      
+        _toastLists[type].Remove(_toastLists[type].Find(t => t == toast));      
     }
 
     private bool ListCapReached(List<GameObject> list, int maxCap)
