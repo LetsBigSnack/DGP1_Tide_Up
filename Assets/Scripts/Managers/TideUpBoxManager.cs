@@ -41,11 +41,6 @@ public class TideUpBoxManager : MonoBehaviour
         TimeManager.OnTimeChanged -= HandleTimeChanged;
     }
 
-    private void Update()
-    {
-        Debug.Log("Has added = " + _hasAddedItemsToday);
-    }
-
     private void HandleTimeChanged(float currentTime)
     {
         if (currentTime >= timeToAddItems && !_hasAddedItemsToday)
