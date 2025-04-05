@@ -5,11 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e88fcd7-3c51-4756-bc6b-54b47aff64cf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/QuestItemData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/QuestItemData.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DialogueManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Npc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Npc.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/QuestManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/BE_103_Quest_System.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/BE_103_Quest_System.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/Can.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/Can.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/DriftWood.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/DriftWood.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/GlassBottle.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/GlassBottle.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/Paper.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/Paper.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/PlasticBottle.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/PlasticBottle.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/TrashData_Dev.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/TrashData_Dev.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Glass.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Glass.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Metal.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Metal.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Paper.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Paper.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Plastic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Plastic.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Wood.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Wood.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Helpers/Util/DataUtil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Helpers/Util/DataUtil.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/ItemData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/ItemData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/TrashMaterialData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/TrashMaterialData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UIDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UIDialogueManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +50,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/29ea32a76b2a6b8eb246f247df6a6a86d887384b4c31db2a35effccdd86c24/JsonSerializerInternalReader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/DialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/NpcDialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/NpcManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/RecyclerManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UIDialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -40,22 +64,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "XThreadsFramesViewSplitterKey": "0.50078005",
-    "git-widget-placeholder": "BE__107__Quest__System",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.50078005&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;BE__107__Quest__System&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$USER_HOME$/Downloads/Build\Tide_Up.exe" />
@@ -94,10 +118,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="46808">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="55572">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="46808" />
+      <option name="pid" value="55572" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
         <list>
@@ -139,6 +163,7 @@
       <workItem from="1743685597884" duration="4325000" />
       <workItem from="1743691694438" duration="2223000" />
       <workItem from="1743849443597" duration="1387000" />
+      <workItem from="1743868047117" duration="17601000" />
     </task>
     <servers />
   </component>
@@ -160,69 +185,69 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/DialogueManager.cs</url>
-          <line>40</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\DialogueManager.cs" containingFunctionPresentation="Method 'GetRandomDialogueByPersonality'">
-            <startOffsets>
-              <option value="952" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1035" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Npc.cs</url>
-          <line>53</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Npc.cs" containingFunctionPresentation="Method 'InteractDialogue'">
+          <line>124</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Npc.cs" containingFunctionPresentation="Method 'CheckDialogueFinished'">
             <startOffsets>
-              <option value="1127" />
+              <option value="3367" />
             </startOffsets>
             <endOffsets>
-              <option value="1151" />
+              <option value="3368" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs</url>
-          <line>54</line>
+          <line>71</line>
           <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Dialogue.cs" containingFunctionPresentation="Method 'GetCurrentDialogue'">
             <startOffsets>
-              <option value="1310" />
+              <option value="1672" />
             </startOffsets>
             <endOffsets>
-              <option value="1366" />
+              <option value="1728" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="3" />
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/CamerController.cs</url>
-          <line>42</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Managers\CamerController.cs" containingFunctionPresentation="Method 'SwitchTarget'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs</url>
+          <line>152</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Quest.cs" containingFunctionPresentation="Method 'IsDialogueComplete'">
             <startOffsets>
-              <option value="902" />
+              <option value="4011" />
             </startOffsets>
             <endOffsets>
-              <option value="949" />
+              <option value="4052" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="4" />
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Helpers/Util/JSONUtil.cs</url>
-          <line>20</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Helpers\Util\JSONUtil.cs" containingFunctionPresentation="Method 'GetDialogueData'">
+          <url>file://$PROJECT_DIR$/Assets/Npc.cs</url>
+          <line>103</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Npc.cs" containingFunctionPresentation="Method 'ResetDialogue'">
             <startOffsets>
-              <option value="514" />
+              <option value="2675" />
             </startOffsets>
             <endOffsets>
-              <option value="592" />
+              <option value="2705" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs</url>
+          <line>141</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Quest.cs" containingFunctionPresentation="Method 'ResetDialogue'">
+            <startOffsets>
+              <option value="3823" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3854" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

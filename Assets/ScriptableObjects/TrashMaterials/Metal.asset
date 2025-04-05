@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: Metal
   m_EditorClassIdentifier: 
   type: 1
+  trashHints:
+  - Metal Hint 1
+  - Metal Hint 2
+  - Metal Hint 3
+  materialName: Metal

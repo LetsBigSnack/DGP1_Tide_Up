@@ -32,14 +32,16 @@ public class DialogueManager : MonoBehaviour
         {
             throw new NullReferenceException();
         }
-        Dialogue dialogue = new Dialogue(_dialogJsonData.Intros[npcName]);
-        return dialogue;
+        Dialogue intro = new Dialogue(_dialogJsonData.Intros[npcName]);
+        intro.DialogueType = DialogueType.Intro;
+        return intro;
     }
 
-    public Dialogue GetRandomDialogueByPersonality(NpcPersonalities npcPersonality, NpcAwareness npcAwareness)
+    public Dialogue GetRandomQuestDialogue(NpcPersonalities npcPersonality, NpcAwareness npcAwareness)
     {
-        List<Dialogue> dialogues = _dialogJsonData.Dialogues[npcPersonality][npcAwareness];
-        Dialogue dialogue = new Dialogue(dialogues[UnityEngine.Random.Range(0, dialogues.Count)]);
-        return dialogue;
+        List<Dialogue> dialogues = _dialogJsonData.Quests[npcPersonality][npcAwareness];
+        Dialogue quest = new Dialogue(dialogues[UnityEngine.Random.Range(0, dialogues.Count)]);
+        quest.DialogueType = DialogueType.Quest;
+        return quest;
     }
 }

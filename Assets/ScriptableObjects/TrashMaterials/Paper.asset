@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: Paper
   m_EditorClassIdentifier: 
   type: 2
+  trashHints:
+  - Paper Hint 1
+  - Paper Hint 2
+  - Paper Hint 3
+  materialName: Paper

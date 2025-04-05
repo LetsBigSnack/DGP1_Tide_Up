@@ -8,6 +8,7 @@ public class UIDialogueManager : MonoBehaviour
     
     
     [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private GameObject choiceBox;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialoguwText;
 
@@ -36,6 +37,10 @@ public class UIDialogueManager : MonoBehaviour
         nameText.text = name;
         dialoguwText.text = text;
     }
-    
-    
+
+
+    public void ShowChoices(bool show)
+    {
+        choiceBox.SetActive(show);
+    }
 }

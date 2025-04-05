@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: Glass
   m_EditorClassIdentifier: 
   type: 0
+  trashHints:
+  - Glass Hint 1
+  - Glass Hint 2
+  - Glass Hint 3
+  materialName: Glass

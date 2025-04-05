@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd431e95fd4a574992ac6aeda707dc4, type: 3}
   m_Name: PlasticBottle
   m_EditorClassIdentifier: 
-  trashName: Plastic Bottle
-  trashQual: 0
+  name: Plastic Bottle
   materials:
   - {fileID: 11400000, guid: 8f6c4ca6e6944d040b6e36dfdccd3ba1, type: 2}
+  trashQual: 0

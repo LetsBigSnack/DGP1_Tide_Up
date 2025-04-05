@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: Plastic
   m_EditorClassIdentifier: 
   type: 3
+  trashHints:
+  - Plastic Hint 1
+  - Plastic Hint 2
+  - Plastic Hint 3
+  materialName: Plastic
