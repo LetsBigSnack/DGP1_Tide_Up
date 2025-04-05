@@ -8,6 +8,8 @@ public class TideUpBox : Interactable
     private List<TrashData> _boxInventory = new();
     [SerializeField] private int maxTotalTrash = 10;
 
+    [SerializeField] private int awarenessBoxMultiplier = 3;
+
     private bool _isInteractable = false;
 
     public List<TrashData> BoxInventory
@@ -19,6 +21,11 @@ public class TideUpBox : Interactable
     {
         get => maxTotalTrash;
         set => maxTotalTrash = value;
+    }
+    public int AwarenessBoxMultiplier
+    {
+        get => awarenessBoxMultiplier;
+        set => awarenessBoxMultiplier = value;
     }
 
     public override void Interact()
@@ -33,7 +40,10 @@ public class TideUpBox : Interactable
 
     public void ShowBoxInventory()
     {
-        if(_boxInventory.Count == 0)
+#if UNITY_EDITOR
+        ConsoleUtil.ClearConsole();
+#endif
+        if (_boxInventory.Count == 0)
         {
             Debug.Log("This tide up box is currently empty, wait for tomorrow morning");
             return;
@@ -95,6 +105,12 @@ public class TideUpBox : Interactable
         if (itemToCollect == null)
         {
             Debug.Log("There are no items to collect, wait until the next morning");
+            return;
+        }
+
+        if (!_boxInventory.Contains(itemToCollect))
+        {
+            Debug.Log("Asked item to collect is not in this box");
             return;
         }
 

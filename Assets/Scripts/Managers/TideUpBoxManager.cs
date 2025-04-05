@@ -10,7 +10,7 @@ public class TideUpBoxManager : MonoBehaviour
     [SerializeField] private List<TideUpBox> allTideUpBoxes;
 
     [SerializeField] private float timeToAddItems = 6f;
-    [SerializeField] private float resetDayTime = 0.1f;
+    [SerializeField] private float resetDayTime = 6f;
 
     private bool _hasAddedItemsToday = false;
     private bool _waitingForDependencies = false;
@@ -39,6 +39,11 @@ public class TideUpBoxManager : MonoBehaviour
     private void OnDisable()
     {
         TimeManager.OnTimeChanged -= HandleTimeChanged;
+    }
+
+    private void Update()
+    {
+        Debug.Log("Has added = " + _hasAddedItemsToday);
     }
 
     private void HandleTimeChanged(float currentTime)
@@ -78,7 +83,7 @@ public class TideUpBoxManager : MonoBehaviour
                 return;
             }
 
-            int maxAddableToday = Mathf.Min(spaceLeft, AwarenessManager.Instance.AwarenessScore * AwarenessManager.Instance.AwarenessBoxMultiplier);
+            int maxAddableToday = Mathf.Min(spaceLeft, AwarenessManager.Instance.AwarenessScore * box.AwarenessBoxMultiplier);
 
             for (int i = 0; i < maxAddableToday; i++)
             {
@@ -94,6 +99,11 @@ public class TideUpBoxManager : MonoBehaviour
 
     public TideUpBox GetTideUpBox(int boxIndex)
     {
+        if (allTideUpBoxes[boxIndex] == null)
+        {
+            Debug.Log("Item index is not in the box");
+            return null;
+        }
         return allTideUpBoxes[(int)boxIndex];
     }
     private IEnumerator WaitAndTryAgain()

@@ -5,7 +5,6 @@ public class AwarenessManager : MonoBehaviour
 {
     //TODO: Atm dummy to have some impact on the TideUpBox
     [SerializeField] private int awarenessScore = 1;
-    [SerializeField] private int awarenessBoxMultiplier = 3;
 
     public static AwarenessManager Instance;
 
@@ -13,11 +12,6 @@ public class AwarenessManager : MonoBehaviour
     {
         get => awarenessScore;
         set => awarenessScore = value;
-    }
-    public int AwarenessBoxMultiplier
-    {
-        get => awarenessBoxMultiplier;
-        set => awarenessBoxMultiplier = value;
     }
 
     private void Awake()
