@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,15 +7,13 @@ using static UnityEditor.Progress;
 
 public class TideUpBoxManager : MonoBehaviour
 {
-    [SerializeField] private List<TrashData> possibleTrash;
-    private List<TrashData> _boxInventory = new();
-    [SerializeField] private int awarenessScore = 1;
-    [SerializeField] private int maxTotalTrash = 10;
+    [SerializeField] private List<TideUpBox> allTideUpBoxes;
 
     [SerializeField] private float timeToAddItems = 6f;
     [SerializeField] private float resetDayTime = 0.1f;
 
     private bool _hasAddedItemsToday = false;
+    private bool _waitingForDependencies = false;
 
     public static TideUpBoxManager Instance;
 
@@ -32,7 +31,7 @@ public class TideUpBoxManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Start()
     {
         TimeManager.OnTimeChanged += HandleTimeChanged;
     }
@@ -56,81 +55,60 @@ public class TideUpBoxManager : MonoBehaviour
         }
     }
 
-    public void AddDailyItems()
+    private void AddDailyItems()
     {
 #if UNITY_EDITOR
         ConsoleUtil.ClearConsole();
 #endif
-        int spaceLeft = maxTotalTrash - _boxInventory.Count;
-        if (spaceLeft <= 0)
+        if (DataUtil.Instance == null || AwarenessManager.Instance == null)
         {
-            Debug.Log("Tide-Up-Box is full. No materials could be added.");
-            return;
-        }
-
-        int maxAddableToday = Mathf.Min(spaceLeft, awarenessScore * 3);
-
-        for (int i = 0; i < maxAddableToday; i++)
-        {
-            TrashData randomTrash = possibleTrash[Random.Range(0, possibleTrash.Count)];
-
-            _boxInventory.Add(randomTrash);
-            Debug.Log("Added " + randomTrash + " to the Tide-Up-Box");
-        }
-
-        Debug.Log("Tide-Up-Box currently has: " + _boxInventory.Count + " items");
-    }
-
-    public void CollectAllItems()
-    {
-        if(_boxInventory.Count == 0)
-        {
-            Debug.Log("There are no items to collect, wait until the next morning");
-            return;
-        }
-
-        List<TrashData> itemsToKeep = new();
-
-        foreach (TrashData trash in _boxInventory)
-        {
-            if (!InventoryManager.Instance.AddItem(trash))
+            if (_waitingForDependencies)
             {
-                itemsToKeep.Add(trash);
+                return;
             }
+            StartCoroutine(WaitAndTryAgain());
         }
-        
-        int itemsCollected = _boxInventory.Count - itemsToKeep.Count;
-        _boxInventory = itemsToKeep;
 
-        Debug.Log("Collected " + itemsCollected + " items. " + itemsToKeep.Count + " left in the Tide-Up-Box.");
+        foreach (TideUpBox box in allTideUpBoxes)
+        {
+            int spaceLeft = box.MaxTotalTrash - box.BoxInventory.Count;
+            if (spaceLeft <= 0)
+            {
+                Debug.Log("Tide-Up-Box is full. No materials could be added.");
+                return;
+            }
+
+            int maxAddableToday = Mathf.Min(spaceLeft, AwarenessManager.Instance.AwarenessScore * AwarenessManager.Instance.AwarenessBoxMultiplier);
+
+            for (int i = 0; i < maxAddableToday; i++)
+            {
+                TrashData randomTrash = DataUtil.Instance.GetRandomTrash();
+
+                box.BoxInventory.Add(randomTrash);
+                Debug.Log("Added " + randomTrash + " to the Tide-Up-Box");
+            }
+
+            Debug.Log("Tide-Up-Box currently has: " + box.BoxInventory.Count + " items");
+        }
     }
 
-    public void CollectOneItem()
+    public TideUpBox GetTideUpBox(int boxIndex)
     {
-        TrashData itemToCollect = TestGetRandomTrashFromBox();
-        if (itemToCollect == null)
-        {
-            Debug.Log("There are no items to collect, wait until the next morning");
-            return;
-        }
-
-        if (!InventoryManager.Instance.AddItem(itemToCollect))
-        {
-            return;
-        }
-
-        _boxInventory.Remove(itemToCollect);
+        return allTideUpBoxes[(int)boxIndex];
     }
-
-    private TrashData TestGetRandomTrashFromBox()
+    private IEnumerator WaitAndTryAgain()
     {
-        if (_boxInventory.Count == 0)
+        _waitingForDependencies = true;
+        Debug.Log("Waiting for dependencies...");
+
+        while (DataUtil.Instance == null || AwarenessManager.Instance == null)
         {
-            return null;
+            yield return new WaitForSeconds(0.1f);
         }
 
-        TrashData itemToCollect = _boxInventory[Random.Range(0, _boxInventory.Count)];
-        return itemToCollect;
+        _waitingForDependencies = false;
+        Debug.Log("Dependencies ready. Adding daily items.");
+        AddDailyItems();
     }
 
 }

@@ -21,6 +21,7 @@ public class DevControlls : MonoBehaviour
         _devInputs.DevInputs.ConfirmRecycle.performed += RecycleStoredItem;
         _devInputs.DevInputs.Upgrade.performed += UpgradeInventory;
         _devInputs.DevInputs.CollectOneItem.performed += CollectOneItem;
+        _devInputs.DevInputs.CollectAllItems.performed += CollectAllItems;
     }
 
     private void OnDisable()
@@ -33,6 +34,7 @@ public class DevControlls : MonoBehaviour
         _devInputs.DevInputs.ConfirmRecycle.performed -= RecycleStoredItem;
         _devInputs.DevInputs.Upgrade.performed -= UpgradeInventory;
         _devInputs.DevInputs.CollectOneItem.performed -= CollectOneItem;
+        _devInputs.DevInputs.CollectAllItems.performed -= CollectAllItems;
 
     }
 
@@ -50,6 +52,12 @@ public class DevControlls : MonoBehaviour
     }
     private void CollectOneItem(InputAction.CallbackContext context)
     {
-        TideUpBoxManager.Instance.CollectOneItem();
+        TideUpBox currBox = TideUpBoxManager.Instance.GetTideUpBox(0);
+        currBox.CollectOneItem(DevTestHelper.TestGetTrashFromBox(0));
+    }
+    private void CollectAllItems(InputAction.CallbackContext context)
+    {
+        TideUpBox currBox = TideUpBoxManager.Instance.GetTideUpBox(0);
+        currBox.CollectAllItems();
     }
 }

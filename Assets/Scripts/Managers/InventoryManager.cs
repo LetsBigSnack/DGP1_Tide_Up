@@ -12,6 +12,17 @@ public class InventoryManager : MonoBehaviour
     
     public static InventoryManager Instance;
 
+    public List<ItemData> Items
+    {
+        get => _items;
+        set => _items = value;
+    }
+    public int MaxItems
+    {
+        get => maxItems;
+        set => maxItems = value;
+    }
+
     private void Awake()
     {
 
