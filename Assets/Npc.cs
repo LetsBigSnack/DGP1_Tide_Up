@@ -47,7 +47,9 @@ public class Npc : MonoBehaviour
 
     public void InteractDialogue()
     {
-        UIDialogueManager.Instance?.SetDialogueBox(npcName, _currentDialogue.GetCurrentDialogue());
+        //UIDialogueManager.Instance?.SetDialogueBox(npcName, _currentDialogue.GetCurrentDialogue());
+        
+        Debug.Log(npcName + ":"+_currentDialogue.GetCurrentDialogue());
         
         CheckDialogueFinished();
 
@@ -74,17 +76,12 @@ public class Npc : MonoBehaviour
             {
                 case NpcStates.Intro:
                     npcState = NpcStates.QuestOffer;
-                    
                     _completedDialogues.Add(_currentDialogue);
-                    //TODO: remove this is just for dev needs to be removed later on
                     _currentDialogue = DialogueManager.Instance.GetRandomDialogueByPersonality(npcPersonality, npcAwareness);
-                    _currentDialogue.CurrentDialogueState = 0;
                     break;
                 case NpcStates.QuestOffer:
                     _completedDialogues.Add(_currentDialogue);
-                    //TODO: remove this is just for dev needs to be removed later on
                     _currentDialogue = DialogueManager.Instance.GetRandomDialogueByPersonality(npcPersonality, npcAwareness);
-                    _currentDialogue.CurrentDialogueState = 0;
                     break;
             }
             

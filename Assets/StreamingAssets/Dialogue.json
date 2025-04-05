@@ -1,7 +1,7 @@
 {
   "Intros": {
     "Betty": {
-      "dialogueContent": [
+      "DialogueContent": [
         "Hello I am Betty the gooner's dream",
         "I have fishnets and black painted toenails",
         "3",
@@ -10,13 +10,13 @@
       ]
     },
     "Deki": {
-      "dialogueContent": [
+      "DialogueContent": [
         "Pa brate",
         "Papushi kurac"
       ]
     },
     "Igor": {
-      "dialogueContent": [
+      "DialogueContent": [
         "Hallo am I Igor",
         "Also known as the god of gamers",
         "I will defeat you in LoL"
@@ -27,14 +27,14 @@
     "Sporty": {
       "Low": [
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Low Sporty 1-1",
             "Low Sporty 1-2",
             "Low Sporty 1-3"
           ]
         },
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Low Sporty 2-1",
             "Low Sporty 2-2",
             "Low Sporty 2-3"
@@ -43,13 +43,13 @@
       ],
       "Medium": [
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Medium Sporty 1-1",
             "Medium Sporty 1-2"
           ]
         },
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Sporty 2-1",
             "Sporty 2-2"
           ]
@@ -57,13 +57,13 @@
       ],
       "High": [
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "High Sporty 1-1",
             "High Sporty 1-2"
           ]
         },
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "High Sporty 2-1",
             "High Sporty 2-2"
           ]
@@ -73,13 +73,13 @@
     "Nerdy": {
       "Low": [
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Low Nerdy 1-1",
             "Low Nerdy 1-2"
           ]
         },
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Low Nerdy 2-1",
             "Low Nerdy 2-2"
           ]
@@ -87,13 +87,13 @@
       ],
       "Medium": [
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Medium Nerdy 1-1",
             "Medium Nerdy 1-2"
           ]
         },
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Medium Nerdy 2-1",
             "Medium Nerdy 2-2"
           ]
@@ -101,13 +101,13 @@
       ],
       "High": [
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "High Nerdy 1-1",
             "High Nerdy 1-2"
           ]
         },
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "High Nerdy 2-1",
             "High Nerdy 2-2"
           ]
@@ -118,13 +118,13 @@
       
       "Low": [
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Low Hyper 1-1",
             "Low Hyper 1-2"
           ]
         },
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Low Hyper 2-1",
             "Low Hyper 2-2"
           ]
@@ -132,13 +132,13 @@
       ],
       "Medium": [
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Medium Hyper 1-1",
             "Medium Hyper 1-2"
           ]
         },
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "Medium Hyper 2-1",
             "Medium Hyper 2-2"
           ]
@@ -146,13 +146,13 @@
       ],
       "High": [
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "High Hyper 1-1",
             "High Hyper 1-2"
           ]
         },
         {
-          "dialogueContent": [
+          "DialogueContent": [
             "High Hyper 2-1",
             "High Hyper 2-2"
           ]

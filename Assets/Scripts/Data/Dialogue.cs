@@ -9,34 +9,50 @@ namespace Data
     public class Dialogue
     {
        
-        public List<string> dialogueContent;
-
+        private List<string> _dialogueContent;
         [JsonIgnore] 
         private int _currentDialogueState = 0;
+        [JsonIgnore] 
+        private bool _isDialogueFinished = false;
 
+
+        public List<string> DialogueContent
+        {
+            get => _dialogueContent;
+            set => _dialogueContent = value;
+        }
+        
         public int CurrentDialogueState
         {
             get => _currentDialogueState;
             set => _currentDialogueState = value;
         }
-
-        private bool _isDialogueFinished = false;
-
+        
         public bool IsDialogueFinished
         {
             get => _isDialogueFinished;
             set => _isDialogueFinished = value;
         }
-    
+
+
+        public Dialogue()
+        {
+            this._currentDialogueState = 0;
+            this._isDialogueFinished = false;
+        }
         
         
-        
-        
+        public Dialogue(Dialogue dialogueContent)
+        {
+            this._dialogueContent = new List<string>(dialogueContent.DialogueContent);
+            this._currentDialogueState = 0;
+            this._isDialogueFinished = false;
+        }
         
         public string GetCurrentDialogue()
         {
             
-            string result = dialogueContent[_currentDialogueState];
+            string result = _dialogueContent[_currentDialogueState];
             NextDialogueContent();
             return result;
         }
@@ -44,7 +60,7 @@ namespace Data
         private void NextDialogueContent()
         {
             _currentDialogueState++;
-            if (_currentDialogueState >= dialogueContent.Count)
+            if (_currentDialogueState >= _dialogueContent.Count)
             {
                 _isDialogueFinished = true;
             }
