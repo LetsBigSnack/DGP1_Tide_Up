@@ -47,7 +47,7 @@ public class Npc : MonoBehaviour
 
     public void InteractDialogue()
     {
-        UIDialogueManager.Instance.SetDialogueBox(npcName, _currentDialogue.GetCurrentDialogue());
+        UIDialogueManager.Instance?.SetDialogueBox(npcName, _currentDialogue.GetCurrentDialogue());
         
         CheckDialogueFinished();
 
@@ -55,7 +55,7 @@ public class Npc : MonoBehaviour
 
     public void ResetDialogue()
     {
-        UIDialogueManager.Instance.ShowDialogueBox(false);
+        UIDialogueManager.Instance?.ShowDialogueBox(false);
         _currentDialogue.ResetDialogue();
     }
 

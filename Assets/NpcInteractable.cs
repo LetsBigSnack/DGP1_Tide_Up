@@ -32,7 +32,11 @@ public class NpcInteractable : Interactable
         }
         
         highlight = show;
-        _npcController.CanMove = !show;
+
+        if (_npcController != null)
+        {
+            _npcController.CanMove = !show;
+        }
         _previousState = show;
         
         if (!show)

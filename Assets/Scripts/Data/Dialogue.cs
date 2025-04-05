@@ -27,7 +27,12 @@ namespace Data
             get => _isDialogueFinished;
             set => _isDialogueFinished = value;
         }
-
+    
+        
+        
+        
+        
+        
         public string GetCurrentDialogue()
         {
             
