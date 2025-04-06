@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class DataUtil : MonoBehaviour
 {
@@ -38,4 +39,9 @@ public class DataUtil : MonoBehaviour
         return listOfItems[UnityEngine.Random.Range(0, listOfItems.Count)];
     }
     
+
+    public TrashMaterialData GetMaterialByType(TrashMaterialType type)
+    {
+        return listOfMaterials.Where(t => t.type == type).FirstOrDefault();
+    }
 }
