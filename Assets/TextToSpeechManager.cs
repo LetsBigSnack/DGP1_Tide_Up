@@ -12,8 +12,23 @@ public class TextToSpeechLetterData
     public AudioClip clip;
 }
 
+public enum Emotion
+{
+    Angry,
+    Happy
+}
+
 public class TextToSpeechManager : MonoBehaviour
 {
+
+    public static Dictionary<Emotion, char> EmotionSymbols = new Dictionary<Emotion, char>()
+    {
+        { Emotion.Angry, '%'},
+        { Emotion.Happy, '$' },
+    };
+    
+    
+    
     public static TextToSpeechManager Instance;
 
     [SerializeField]
@@ -27,6 +42,7 @@ public class TextToSpeechManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField]
     private TextToSpeechLetterData[] letters;
+    
 
     public static event Action<char> OnTranslateLetterValueChanged;
 
@@ -51,8 +67,18 @@ public class TextToSpeechManager : MonoBehaviour
         }
 
         //TODO fill the emotionthings with real animations
-        _emotionAnimations.Add('%', () => { Debug.Log("I'm angry!"); });
-        _emotionAnimations.Add('$', () => { Debug.Log("I'm happy!"); });
+        _emotionAnimations.Add(EmotionSymbols[Emotion.Angry], ExpressAngry);
+        _emotionAnimations.Add(EmotionSymbols[Emotion.Happy], ExpressHappy);
+    }
+
+    public void ExpressAngry()
+    {
+        Debug.Log("I'm angry!");
+    }
+
+    public void ExpressHappy()
+    {
+        Debug.Log("I'm Happy!");
     }
 
     public void TranslateTextToAudio(string text)
@@ -66,6 +92,8 @@ public class TextToSpeechManager : MonoBehaviour
 
     public void PlayLetter(char letter)
     {
+        letter = char.ToUpper(letter);
+        
         if (audioSource.isPlaying)
         {
             audioSource.Stop();
