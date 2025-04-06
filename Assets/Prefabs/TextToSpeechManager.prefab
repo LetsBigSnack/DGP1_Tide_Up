@@ -142,10 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cc7c55842dbe54b86b233966e019a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenLetters: 0.3
+  timeBetweenLetters: 0.1
+  timeAfterWord: 0.3
   audioSource: {fileID: 4386486894955400193}
-  inputField: {fileID: 0}
-  isTalking: 0
   letters:
   - letter: 65
     clip: {fileID: 8300000, guid: a2d8ceb54c194404998ee0e62644401d, type: 3}
