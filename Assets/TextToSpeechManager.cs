@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [Serializable]
 public class TextToSpeechLetterData
@@ -20,15 +21,6 @@ public enum Emotion
 
 public class TextToSpeechManager : MonoBehaviour
 {
-
-    public static Dictionary<Emotion, char> EmotionSymbols = new Dictionary<Emotion, char>()
-    {
-        { Emotion.Angry, '%'},
-        { Emotion.Happy, '$' },
-    };
-    
-    
-    
     public static TextToSpeechManager Instance;
 
     [SerializeField]
@@ -41,13 +33,17 @@ public class TextToSpeechManager : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
     [SerializeField]
-    private TextToSpeechLetterData[] letters;
-    
+    private List<TextToSpeechLetterData> letters;
+
+    public static Dictionary<Emotion, char> EmotionSymbols = new Dictionary<Emotion, char>()
+    {
+        { Emotion.Angry, '%'},
+        { Emotion.Happy, '$'},
+    };
 
     public static event Action<char> OnTranslateLetterValueChanged;
 
     private bool _isTalking;
-    private Dictionary<char, AudioClip> _letterSoundClips = new Dictionary<char, AudioClip>();
     private Dictionary<char, Action> _emotionAnimations = new Dictionary<char, Action>();
 
     public void Awake()
@@ -61,16 +57,12 @@ public class TextToSpeechManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        foreach(TextToSpeechLetterData data in letters)
-        {
-            _letterSoundClips.Add(data.letter, data.clip);
-        }
-
         //TODO fill the emotionthings with real animations
         _emotionAnimations.Add(EmotionSymbols[Emotion.Angry], ExpressAngry);
         _emotionAnimations.Add(EmotionSymbols[Emotion.Happy], ExpressHappy);
     }
 
+    //todo expand on expressions
     public void ExpressAngry()
     {
         Debug.Log("I'm angry!");
@@ -99,7 +91,8 @@ public class TextToSpeechManager : MonoBehaviour
             audioSource.Stop();
         }
 
-        audioSource.clip = _letterSoundClips[letter];
+        TextToSpeechLetterData letterData = letters.Where(l => l.letter == letter).FirstOrDefault();
+        audioSource.clip = letterData.clip;
         audioSource.pitch = UnityEngine.Random.Range(audioSource.pitch - pitchFlactuation, audioSource.pitch + pitchFlactuation);
         audioSource.Play();
     }
@@ -109,7 +102,7 @@ public class TextToSpeechManager : MonoBehaviour
         _isTalking = true;
         for(int i = 0; i < text.Length; i++)
         {
-             if (!_letterSoundClips.ContainsKey(Char.ToUpper(text[i])))
+             if (!LetterExists(text[i]))
             {
                 if (PlayEmotion(text[i]))
                 {
@@ -122,13 +115,19 @@ public class TextToSpeechManager : MonoBehaviour
             }
             else 
             {
-                PlayLetter(Char.ToUpper(text[i]));
+                PlayLetter(text[i]);
                 yield return new WaitForSeconds(timeBetweenLetters);
             }
 
             OnTranslateLetterValueChanged(text[i]);
         }
         _isTalking = false;        
+    }
+
+    private bool LetterExists(char letter)
+    {
+        letter = Char.ToUpper(letter);
+        return letters.Exists(l => l.letter == letter);
     }
 
     public Dictionary<char, Action> GetEmotionDictionary()
