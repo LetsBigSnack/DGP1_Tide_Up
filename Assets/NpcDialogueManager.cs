@@ -83,7 +83,14 @@ public class NpcDialogueManager : MonoBehaviour
             if (_currentNpc.CurrentQuest.QuestState != QuestState.Offer &&
                 _currentNpc.CurrentQuest.IsDialogueComplete())
             {
-                CloseDialogue();
+                if (_currentNpc.CurrentQuest.QuestState == QuestState.InProgress)
+                {
+                    ResetDialogue();
+                }
+                else
+                {
+                    CloseDialogue();
+                }
                 CheckDialogueFinished();
                 return;
             }
