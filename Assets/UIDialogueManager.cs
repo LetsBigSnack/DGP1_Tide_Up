@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UIDialogueManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class UIDialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private GameObject choiceBox;
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI dialoguwText;
+    [FormerlySerializedAs("dialoguwText")] [SerializeField] private TextMeshProUGUI dialogueText;
 
 
     private void Awake()
@@ -35,7 +36,7 @@ public class UIDialogueManager : MonoBehaviour
     {
         ShowDialogueBox(true);
         nameText.text = name;
-        dialoguwText.text = text;
+        dialogueText.text = text;
     }
 
 

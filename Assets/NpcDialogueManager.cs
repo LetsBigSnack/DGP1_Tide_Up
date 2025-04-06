@@ -52,52 +52,69 @@ public class NpcDialogueManager : MonoBehaviour
         switch (_currentNpc.NpcState)
         {
             case NpcStates.Intro:
-                _currentNpc.CurrentDialogue.NextDialogueContent();
-                UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentDialogue.GetCurrentDialogue());
-                CheckDialogueFinished();
+                HandelIntroState();
                 break;
             case NpcStates.Quest:
-                if (isInChooseState)
-                {
-                    MakeChoice(currentChoice);
-                }
-                else
-                {
-                    if (_currentNpc.CurrentQuest.QuestState != QuestState.Offer &&
-                        _currentNpc.CurrentQuest.IsDialogueComplete())
-                    {
-                        CloseDialogue();
-                        CheckDialogueFinished();
-                        return;
-                    }
-                    
-                    _currentNpc.CurrentQuest.NextDialogueContent();
-                    
-                    UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentQuest.GetCurrentDialogue());
-                
-                    if (_currentNpc.CurrentQuest.IsDialogueComplete() && _currentNpc.CurrentQuest.QuestState == QuestState.Offer)
-                    {
-                        isInChooseState = true;
-                        UIDialogueManager.Instance?.ShowChoices(true);
-                    }
-                    
-                }
+                HandelQuestState();
                 break;
             case NpcStates.Finished:
-                
-                if (_currentNpc.FinishedDialogue.IsDialogueFinished)
-                {
-                    ResetDialogue();
-                    return;
-                }
-                
-                _currentNpc.FinishedDialogue.NextDialogueContent();
-                UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.FinishedDialogue.GetCurrentDialogue());
-                CheckDialogueFinished();
+                HandelFinishedState();
                 break;
         }
         
     }
+
+
+    private void HandelIntroState()
+    {
+        _currentNpc.CurrentDialogue.NextDialogueContent();
+        UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentDialogue.GetCurrentDialogue());
+        CheckDialogueFinished();
+    }
+    
+    private void HandelQuestState()
+    {
+        if (isInChooseState)
+        {
+            MakeChoice(currentChoice);
+        }
+        else
+        {
+            if (_currentNpc.CurrentQuest.QuestState != QuestState.Offer &&
+                _currentNpc.CurrentQuest.IsDialogueComplete())
+            {
+                CloseDialogue();
+                CheckDialogueFinished();
+                return;
+            }
+                    
+            _currentNpc.CurrentQuest.NextDialogueContent();
+                    
+            UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentQuest.GetCurrentDialogue());
+                
+            if (_currentNpc.CurrentQuest.IsDialogueComplete() && _currentNpc.CurrentQuest.QuestState == QuestState.Offer)
+            {
+                isInChooseState = true;
+                UIDialogueManager.Instance?.ShowChoices(true);
+            }
+                    
+        }
+    }
+    
+    private void HandelFinishedState()
+    {
+        if (_currentNpc.FinishedDialogue.IsDialogueFinished)
+        {
+            ResetDialogue();
+            return;
+        }
+                
+        _currentNpc.FinishedDialogue.NextDialogueContent();
+        UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.FinishedDialogue.GetCurrentDialogue());
+        CheckDialogueFinished();
+    }
+
+    
 
     private void CloseDialogue()
     {
@@ -175,12 +192,7 @@ public class NpcDialogueManager : MonoBehaviour
         {
             _currentNpc.AddCompletedQuest();
             _currentNpc.UpdateAwarness();
-            if (_currentNpc.HasMaxQuests())
-            {
-                _currentNpc.NpcState = NpcStates.Finished;
-                _currentNpc.FinishedDialogue = DialogueManager.Instance.GetFinishedDialogByName(_currentNpc.NpcName);
-            }
-            else
+            if (!_currentNpc.HasMaxQuests())
             {
                 _currentNpc.AddQuest();
                 ResetDialogue();

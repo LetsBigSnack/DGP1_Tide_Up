@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "TrashMaterialData", menuName = "Scriptable Objects/TrashMaterialData")]
 public class TrashMaterialData : ScriptableObject
@@ -10,10 +12,10 @@ public class TrashMaterialData : ScriptableObject
 
     public string GetHint()
     {
-        if (trashHints == null)
+        if (trashHints == null || trashHints.Count == 0)
         {
-            throw new System.ArgumentNullException("trashHints");
+            throw new ArgumentException("trashHints is empty or null!");
         }
-        return trashHints[UnityEngine.Random.Range(0, trashHints.Count)];    
+        return trashHints[Random.Range(0, trashHints.Count)];  
     }
 }

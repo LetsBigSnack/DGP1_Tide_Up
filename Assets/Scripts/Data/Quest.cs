@@ -15,10 +15,8 @@ public enum QuestState
 
 public class Quest
 {
-    //TODO pack everything into one thing.
-    private Dialogue _questDialogue;
-    private Dialogue _progressDialogue;
-    private Dialogue _completedDialogue;
+
+    private Dictionary<QuestState, Dialogue> _dialogues = new Dictionary<QuestState, Dialogue>();
     private QuestItemData _questItem;
     private string _questItemUse;
     private List<string> _materials;
@@ -43,12 +41,15 @@ public class Quest
     public Quest(Dialogue questDialogue, Dialogue completedDialogue)
     {
         _questState = QuestState.Offer;
-        _questDialogue = questDialogue;
-        _completedDialogue = completedDialogue;
+        
+        _dialogues.Add(QuestState.Offer, questDialogue);
+        _dialogues.Add(QuestState.Completed, completedDialogue);
         
         InitializeQuestItem();
         GenerateMaterials();
         GenerateDialogueText();
+        
+        _dialogues.Add(QuestState.InProgress, null);
     }
     
     private void InitializeQuestItem()
@@ -73,25 +74,25 @@ public class Quest
     private void GenerateDialogueText()
     {
         Dictionary<string, string> replacements = GenerateKeywordReplacement();
-        
-        for (int i = 0; i < _questDialogue.DialogueContent.Count; i++)
+
+        foreach (KeyValuePair<QuestState, Dialogue> dialogue in _dialogues)
         {
-            string line = _questDialogue.DialogueContent[i];
-            foreach (KeyValuePair<string, string> pair in replacements)
+            Dialogue tempDialogue = dialogue.Value;
+            
+            if (tempDialogue == null)
             {
-                line = line.Replace(pair.Key, pair.Value);
+                continue;
             }
-            _questDialogue.DialogueContent[i] = line;
-        }
-        
-        for (int i = 0; i < _completedDialogue.DialogueContent.Count; i++)
-        {
-            string line = _completedDialogue.DialogueContent[i];
-            foreach (KeyValuePair<string, string> pair in replacements)
+            
+            for (int i = 0; i < tempDialogue.DialogueContent.Count; i++)
             {
-                line = line.Replace(pair.Key, pair.Value);
+                string line = tempDialogue.DialogueContent[i];
+                foreach (KeyValuePair<string, string> pair in replacements)
+                {
+                    line = line.Replace(pair.Key, pair.Value);
+                }
+                tempDialogue.DialogueContent[i] = line;
             }
-            _completedDialogue.DialogueContent[i] = line;
         }
     }
     
@@ -107,17 +108,6 @@ public class Quest
         };
     }  
     
-    public override string ToString()
-    {
-        return $"Quest State: {_questState}\n" +
-               $"NPC: {_questNpc ?? "Unknown"}\n" +
-               $"Quest Item: {_questItem?.name ?? "None"}\n" +
-               $"Use: {_questItemUse ?? "None"}\n" +
-               $"Materials Needed: {( _materials != null && _materials.Count > 0 ? string.Join(", ", _materials) : "None" )}\n" +
-               $"Hint: {_materialHint ?? "None"}\n" +
-               $"Dialogue:\n- {string.Join("\n- ", _questDialogue.DialogueContent)}";
-    }
-
     public string GetCurrentDialogue()
     {
         if (CanQuestComplete())
@@ -127,18 +117,8 @@ public class Quest
         
         string returnText = "";
         
-        switch (_questState)
-        {
-            case QuestState.Offer:
-                returnText = _questDialogue.GetCurrentDialogue();
-                break;
-            case QuestState.InProgress:
-                returnText = _progressDialogue.GetCurrentDialogue();
-                break;
-            case QuestState.Completed:
-                returnText = _completedDialogue.GetCurrentDialogue();
-                break;
-        }
+        returnText = _dialogues[_questState]?.GetCurrentDialogue();
+        
         return returnText;
     }
 
@@ -156,67 +136,36 @@ public class Quest
     
     public void ResetDialogue()
     {
-
-        switch (_questState)
-        {
-            case QuestState.Offer:
-                _questDialogue.ResetDialogue();
-                break;
-            case QuestState.InProgress:
-                _progressDialogue.ResetDialogue();
-                break;
-            case QuestState.Completed:
-                _completedDialogue.ResetDialogue();
-                break;
-        }
+        _dialogues[_questState]?.ResetDialogue();
     }
 
 
     public void NextDialogueContent()
     {
-        switch (_questState)
-        {
-         case QuestState.Offer:
-             _questDialogue.NextDialogueContent();
-             break;
-         case QuestState.InProgress:
-             _progressDialogue.NextDialogueContent();
-             break;
-         case QuestState.Completed:
-             _completedDialogue.NextDialogueContent();
-             break;
-        }
-        
-        
+        _dialogues[_questState]?.NextDialogueContent();
     }
 
     public bool IsDialogueComplete()
     {
-
-        switch (_questState)
+        if (_dialogues[_questState] == null)
         {
-            case QuestState.Offer:
-                return _questDialogue.IsDialogueFinished;
-            case QuestState.InProgress:
-                return _progressDialogue.IsDialogueFinished;
-            case QuestState.Completed:
-                return _completedDialogue.IsDialogueFinished;
+            return false;
         }
         
-        return _questDialogue.IsDialogueFinished;
+        return  _dialogues[_questState].IsDialogueFinished;
     }
 
     public void AcceptQuest()
     {
         _questState = QuestState.InProgress;
         Npc npc = NpcManager.Instance.GetNpcByName(_questNpc);
-        _progressDialogue = DialogueManager.Instance.GetRandomProgressDialogue(npc.NpcPersonality,npc.NpcAwareness);
+        _dialogues[QuestState.InProgress] = DialogueManager.Instance.GetRandomProgressDialogue(npc.NpcPersonality,npc.NpcAwareness);
         _hasQuestAccepted = true;
     }
 
     public void DeclineQuest()
     {
-        _questDialogue.ResetDialogue();
+        _dialogues[QuestState.Offer].ResetDialogue();
     }
     
 }

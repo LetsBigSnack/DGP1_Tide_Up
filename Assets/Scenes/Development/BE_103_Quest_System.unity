@@ -1334,10 +1334,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4687797235233831257, guid: 860a4b96a122ddd46a4f5226917c1513, type: 3}
       propertyPath: _items.Array.size
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4687797235233831257, guid: 860a4b96a122ddd46a4f5226917c1513, type: 3}
       propertyPath: '_items.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
+    - target: {fileID: 4687797235233831257, guid: 860a4b96a122ddd46a4f5226917c1513, type: 3}
+      propertyPath: '_items.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
+    - target: {fileID: 4687797235233831257, guid: 860a4b96a122ddd46a4f5226917c1513, type: 3}
+      propertyPath: '_items.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
+    - target: {fileID: 4687797235233831257, guid: 860a4b96a122ddd46a4f5226917c1513, type: 3}
+      propertyPath: '_items.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
+    - target: {fileID: 4687797235233831257, guid: 860a4b96a122ddd46a4f5226917c1513, type: 3}
+      propertyPath: '_items.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
+    - target: {fileID: 4687797235233831257, guid: 860a4b96a122ddd46a4f5226917c1513, type: 3}
+      propertyPath: '_items.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
+    - target: {fileID: 4687797235233831257, guid: 860a4b96a122ddd46a4f5226917c1513, type: 3}
+      propertyPath: '_items.Array.data[6]'
       value: 
       objectReference: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
     m_RemovedComponents: []
@@ -1687,8 +1711,8 @@ MonoBehaviour:
   npcState: 0
   npcPersonality: 1
   npcName: Betty
-  npcAwareness: 0
-  completedQuests: 0
+  npcAwareness: 2
+  completedQuests: 5
   maxCompletedQuests: 6
 --- !u!4 &1809639180
 Transform:

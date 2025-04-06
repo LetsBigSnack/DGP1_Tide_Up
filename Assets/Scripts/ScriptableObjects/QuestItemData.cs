@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ public class QuestItemData : ItemData
 
     public string GetUse()
     {
-        if (itemUses == null)
+        if (itemUses == null || itemUses.Count == 0)
         {
-            throw new System.ArgumentNullException("itemUses");
+            throw new ArgumentException("itemUses is empty or null!");
         }
         return itemUses[UnityEngine.Random.Range(0, itemUses.Count)];
     }

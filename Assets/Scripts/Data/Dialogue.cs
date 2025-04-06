@@ -5,17 +5,9 @@ using UnityEngine;
 
 namespace Data
 {
-    public enum DialogueType
-    {
-        Intro,
-        Quest
-    }
-    
-    
     [Serializable]
     public class Dialogue
     {
-       
         private List<string> _dialogueContent;
         [JsonIgnore] 
         private int _currentDialogueState = 0;
@@ -23,7 +15,6 @@ namespace Data
         private bool _isDialogueFinished = false;
         private bool _hasDialogueStarted = false;
         
-
         public List<string> DialogueContent
         {
             get => _dialogueContent;
@@ -59,6 +50,15 @@ namespace Data
         
         public string GetCurrentDialogue()
         {
+            if (_dialogueContent == null || _dialogueContent.Count == 0)
+            {
+                return string.Empty;
+            }
+
+            if (_currentDialogueState >= _dialogueContent.Count)
+            {
+                return string.Empty;
+            }
             
             string result = _dialogueContent[_currentDialogueState];
             

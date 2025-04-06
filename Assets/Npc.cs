@@ -112,8 +112,7 @@ public class Npc : MonoBehaviour
     public void CreateQuest()
     {
         npcState = NpcStates.Quest;
-        _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality);
-        _currentQuest.QuestNpc = this.npcName;
+        InitializeQuest();
     }
     
     public void AddCompletedQuest()
@@ -139,10 +138,23 @@ public class Npc : MonoBehaviour
 
     public bool HasMaxQuests()
     {
-        return completedQuests >= maxCompletedQuests;
+        bool hasMaxQuests = completedQuests >= maxCompletedQuests;
+
+        if (hasMaxQuests)
+        {
+            npcState = NpcStates.Finished;
+            _finishedDialogue = DialogueManager.Instance.GetFinishedDialogByName(npcName);
+        }
+        
+        return hasMaxQuests;
     }
 
     public void AddQuest()
+    {
+        InitializeQuest();
+    }
+
+    private void InitializeQuest()
     {
         _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality);
         _currentQuest.QuestNpc = this.npcName;

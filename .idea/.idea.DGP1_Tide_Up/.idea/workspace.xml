@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4e88fcd7-3c51-4756-bc6b-54b47aff64cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DialogueManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Npc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Npc.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NpcDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NpcDialogueManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/QuestItemData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/QuestItemData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/TrashMaterialData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/TrashMaterialData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UIDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UIDialogueManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,15 +100,13 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="55572">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="55572" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list>
-          <MonoRuntime />
-        </list>
+        <list />
       </option>
       <option name="selectedOptions">
         <list />
@@ -142,7 +143,7 @@
       <workItem from="1743685597884" duration="4325000" />
       <workItem from="1743691694438" duration="2223000" />
       <workItem from="1743849443597" duration="1387000" />
-      <workItem from="1743868047117" duration="30145000" />
+      <workItem from="1743868047117" duration="33441000" />
     </task>
     <servers />
   </component>
@@ -164,19 +165,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs</url>
-          <line>205</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Quest.cs" containingFunctionPresentation="Method 'IsDialogueComplete'">
-            <startOffsets>
-              <option value="5694" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5735" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs</url>
           <line>57</line>
           <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Managers\InventoryManager.cs" containingFunctionPresentation="Method 'AddItem'">
@@ -188,45 +176,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/NpcDialogueManager.cs</url>
-          <line>173</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\NpcDialogueManager.cs" containingFunctionPresentation="Method 'CheckCompletedQuests'">
-            <startOffsets>
-              <option value="4849" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4962" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs</url>
-          <line>185</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Quest.cs" containingFunctionPresentation="Method 'NextDialogueContent'">
-            <startOffsets>
-              <option value="5192" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5233" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs</url>
-          <line>168</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Quest.cs" containingFunctionPresentation="Method 'ResetDialogue'">
-            <startOffsets>
-              <option value="4769" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4804" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
