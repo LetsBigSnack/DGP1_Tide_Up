@@ -38,7 +38,6 @@ public class UpgradeManager : MonoBehaviour
     
     public void Upgrade(Upgrade upgrade)
     {
-        
 #if UNITY_EDITOR
         ConsoleUtil.ClearConsole();
 #endif
