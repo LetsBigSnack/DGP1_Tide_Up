@@ -21,17 +21,8 @@ namespace Data
         private int _currentDialogueState = 0;
         [JsonIgnore] 
         private bool _isDialogueFinished = false;
-        
-        private DialogueType _dialogueType;
         private bool _hasDialogueStarted = false;
         
-        
-        
-        public DialogueType DialogueType
-        {
-            get => _dialogueType;
-            set => _dialogueType = value;
-        }
 
         public List<string> DialogueContent
         {

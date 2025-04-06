@@ -19,7 +19,8 @@ public class NpcInteractable : Interactable
     
     public override void Interact()
     {
-        _npc.InteractDialogue();
+        NpcDialogueManager.Instance.StartDialogue(_npc);
+        NpcDialogueManager.Instance.InteractDialogue();
     }
     
     //TODO: investigate why this gets triggered multiple times
@@ -41,7 +42,7 @@ public class NpcInteractable : Interactable
         
         if (!show)
         {
-            _npc.ResetDialogue();
+            NpcDialogueManager.Instance.ResetDialogue();
         }
         
     }

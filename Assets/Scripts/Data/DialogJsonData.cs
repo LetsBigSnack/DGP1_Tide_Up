@@ -9,6 +9,8 @@ namespace Data
         public Dictionary<string, Dialogue> Intros;
         //TODO Refactor
         public Dictionary<NpcPersonalities, Dictionary<NpcAwareness, List<Dialogue>> > Quests;
+        public Dictionary<NpcPersonalities, Dictionary<NpcAwareness, List<Dialogue>> > InProgress;
+        public Dictionary<NpcPersonalities, Dictionary<NpcAwareness, List<Dialogue>> > Complete;
     }
 
 

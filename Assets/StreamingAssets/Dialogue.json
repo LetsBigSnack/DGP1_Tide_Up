@@ -156,5 +156,237 @@
         }
       ]
     }
+  },
+  "InProgress": {
+    "Sporty": {
+      "Low": [
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        }
+      ]
+    },
+    "Nerdy": {
+      "Low": [
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        }
+      ]
+    },
+    "Hyper": {
+      "Low": [
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "In Progress"
+          ]
+        }
+      ]
+    }
+  },
+  "Complete": {
+    "Sporty": {
+      "Low": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ]
+    },
+    "Nerdy": {
+      "Low": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ]
+    },
+    "Hyper": {
+      "Low": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ]
+    }
   }
 }

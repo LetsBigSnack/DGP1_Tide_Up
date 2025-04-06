@@ -5,33 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e88fcd7-3c51-4756-bc6b-54b47aff64cf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/QuestItemData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/QuestItemData.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DialogueManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Npc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Npc.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NpcDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NpcDialogueManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NpcInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NpcInteractable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NpcManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NpcManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/QuestManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/BE_103_Quest_System.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/BE_103_Quest_System.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/Can.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/Can.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/DriftWood.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/DriftWood.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/GlassBottle.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/GlassBottle.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/Paper.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/Paper.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/PlasticBottle.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/PlasticBottle.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/TrashData_Dev.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/Trash/TrashData_Dev.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Glass.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Glass.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Metal.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Metal.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Paper.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Paper.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Plastic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Plastic.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Wood.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TrashMaterials/Wood.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Helpers/Util/DataUtil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Helpers/Util/DataUtil.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/ItemData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/ItemData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/TrashMaterialData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/TrashMaterialData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/RecyclerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/RecyclerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/PC_RPAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/PC_RPAsset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UIDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UIDialogueManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +155,7 @@
       <workItem from="1743685597884" duration="4325000" />
       <workItem from="1743691694438" duration="2223000" />
       <workItem from="1743849443597" duration="1387000" />
-      <workItem from="1743868047117" duration="17601000" />
+      <workItem from="1743868047117" duration="27732000" />
     </task>
     <servers />
   </component>
@@ -185,69 +177,69 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Npc.cs</url>
-          <line>124</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Npc.cs" containingFunctionPresentation="Method 'CheckDialogueFinished'">
-            <startOffsets>
-              <option value="3367" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3368" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs</url>
-          <line>71</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Dialogue.cs" containingFunctionPresentation="Method 'GetCurrentDialogue'">
-            <startOffsets>
-              <option value="1672" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1728" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs</url>
-          <line>152</line>
+          <line>205</line>
           <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Quest.cs" containingFunctionPresentation="Method 'IsDialogueComplete'">
             <startOffsets>
-              <option value="4011" />
+              <option value="5694" />
             </startOffsets>
             <endOffsets>
-              <option value="4052" />
+              <option value="5735" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Npc.cs</url>
-          <line>103</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Npc.cs" containingFunctionPresentation="Method 'ResetDialogue'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs</url>
+          <line>57</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Managers\InventoryManager.cs" containingFunctionPresentation="Method 'AddItem'">
             <startOffsets>
-              <option value="2675" />
+              <option value="1348" />
             </startOffsets>
             <endOffsets>
-              <option value="2705" />
+              <option value="1365" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="10" />
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/NpcDialogueManager.cs</url>
+          <line>163</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\NpcDialogueManager.cs" containingFunctionPresentation="Method 'CheckCompletedQuests'">
+            <startOffsets>
+              <option value="4353" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4466" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs</url>
-          <line>141</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Quest.cs" containingFunctionPresentation="Method 'ResetDialogue'">
+          <line>185</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Quest.cs" containingFunctionPresentation="Method 'NextDialogueContent'">
             <startOffsets>
-              <option value="3823" />
+              <option value="5192" />
             </startOffsets>
             <endOffsets>
-              <option value="3854" />
+              <option value="5233" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="11" />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs</url>
+          <line>168</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Data\Quest.cs" containingFunctionPresentation="Method 'ResetDialogue'">
+            <startOffsets>
+              <option value="4769" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4804" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

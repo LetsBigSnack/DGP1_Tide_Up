@@ -43,4 +43,15 @@ public class UIDialogueManager : MonoBehaviour
     {
         choiceBox.SetActive(show);
     }
+
+    public void AcceptQuest()
+    {
+        NpcDialogueManager.Instance.MakeChoice(DialogueChoice.Accept);
+    }
+
+    public void DeclineQuest()
+    {
+        NpcDialogueManager.Instance.MakeChoice(DialogueChoice.Decline);
+    }
+    
 }

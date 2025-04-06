@@ -7,7 +7,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private int maxItems = 5;
     [SerializeField] private int maxTrashMaterials = 20;
 
-    private List<ItemData> _items = new();
+    [SerializeField] private List<ItemData> _items = new();
     private List<TrashMaterialEntry> _materialWallet = new();
     
     public static InventoryManager Instance;
@@ -164,4 +164,8 @@ public class InventoryManager : MonoBehaviour
         Debug.Log($"Max trash materials slots increased to {maxTrashMaterials}");
     }
 
+    public bool HasItem(ItemData questItem)
+    {
+        return _items.Contains(questItem);
+    }
 }

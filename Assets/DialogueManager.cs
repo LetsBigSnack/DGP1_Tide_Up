@@ -33,7 +33,6 @@ public class DialogueManager : MonoBehaviour
             throw new NullReferenceException();
         }
         Dialogue intro = new Dialogue(_dialogJsonData.Intros[npcName]);
-        intro.DialogueType = DialogueType.Intro;
         return intro;
     }
 
@@ -41,7 +40,20 @@ public class DialogueManager : MonoBehaviour
     {
         List<Dialogue> dialogues = _dialogJsonData.Quests[npcPersonality][npcAwareness];
         Dialogue quest = new Dialogue(dialogues[UnityEngine.Random.Range(0, dialogues.Count)]);
-        quest.DialogueType = DialogueType.Quest;
         return quest;
+    }
+    
+    public Dialogue GetRandomProgressDialogue(NpcPersonalities npcPersonality, NpcAwareness npcAwareness)
+    {
+        List<Dialogue> dialogues = _dialogJsonData.InProgress[npcPersonality][npcAwareness];
+        Dialogue progress = new Dialogue(dialogues[UnityEngine.Random.Range(0, dialogues.Count)]);
+        return progress;
+    }
+    
+    public Dialogue GetRandomCompleteDialogue(NpcPersonalities npcPersonality, NpcAwareness npcAwareness)
+    {
+        List<Dialogue> dialogues = _dialogJsonData.Complete[npcPersonality][npcAwareness];
+        Dialogue complete = new Dialogue(dialogues[UnityEngine.Random.Range(0, dialogues.Count)]);
+        return complete;
     }
 }

@@ -10,20 +10,24 @@ public enum QuestState
 {
     Offer,
     InProgress,
-    Completed
+    Completed,
 }
 
 public class Quest
 {
-    
+    //TODO pack everything into one thing.
     private Dialogue _questDialogue;
-    private QuestItemData _questItemItem;
+    private Dialogue _progressDialogue;
+    private Dialogue _completedDialogue;
+    private QuestItemData _questItem;
     private string _questItemUse;
     private List<string> _materials;
     private string _materialHint;
     private string _questNpc;
     private QuestState _questState;
-    
+    private bool _hasQuestAccepted;
+
+
     public string QuestNpc
     {
         get { return _questNpc; }
@@ -36,10 +40,11 @@ public class Quest
         set { _questState = value; }
     }
     
-    public Quest(Dialogue questDialogue)
+    public Quest(Dialogue questDialogue, Dialogue completedDialogue)
     {
         _questState = QuestState.Offer;
         _questDialogue = questDialogue;
+        _completedDialogue = completedDialogue;
         
         InitializeQuestItem();
         GenerateMaterials();
@@ -48,13 +53,13 @@ public class Quest
     
     private void InitializeQuestItem()
     {
-        _questItemItem = DataUtil.Instance.GetRandomQuestItem();
-        _questItemUse = _questItemItem.GetUse();
+        _questItem = DataUtil.Instance.GetRandomQuestItem();
+        _questItemUse = _questItem.GetUse();
     }
     
     private void GenerateMaterials()
     {
-        var shuffledMaterials = _questItemItem.materials
+        var shuffledMaterials = _questItem.materials
             .OrderBy(_ => Guid.NewGuid())
             .ToList();
 
@@ -78,6 +83,16 @@ public class Quest
             }
             _questDialogue.DialogueContent[i] = line;
         }
+        
+        for (int i = 0; i < _completedDialogue.DialogueContent.Count; i++)
+        {
+            string line = _completedDialogue.DialogueContent[i];
+            foreach (KeyValuePair<string, string> pair in replacements)
+            {
+                line = line.Replace(pair.Key, pair.Value);
+            }
+            _completedDialogue.DialogueContent[i] = line;
+        }
     }
     
     
@@ -85,7 +100,7 @@ public class Quest
     {
         return new Dictionary<string, string>
         {
-            { "[QUEST-ITEM]", _questItemItem.name },
+            { "[QUEST-ITEM]", _questItem.name },
             { "[ITEM-REASON]", _questItemUse },
             { "[MATERIALS]", string.Join(", ", _materials) },
             { "[MATERIAL-HINT]", _materialHint }
@@ -96,7 +111,7 @@ public class Quest
     {
         return $"Quest State: {_questState}\n" +
                $"NPC: {_questNpc ?? "Unknown"}\n" +
-               $"Quest Item: {_questItemItem?.name ?? "None"}\n" +
+               $"Quest Item: {_questItem?.name ?? "None"}\n" +
                $"Use: {_questItemUse ?? "None"}\n" +
                $"Materials Needed: {( _materials != null && _materials.Count > 0 ? string.Join(", ", _materials) : "None" )}\n" +
                $"Hint: {_materialHint ?? "None"}\n" +
@@ -105,6 +120,11 @@ public class Quest
 
     public string GetCurrentDialogue()
     {
+        if (CanQuestComplete())
+        {
+            _questState = QuestState.Completed;
+        }
+        
         string returnText = "";
         
         switch (_questState)
@@ -113,52 +133,88 @@ public class Quest
                 returnText = _questDialogue.GetCurrentDialogue();
                 break;
             case QuestState.InProgress:
-                if (CanQuestCoomplete())
-                {
-                    returnText = "Congratulations! You've completed the quest!";
-                    //TODO: remove Inventory
-                    
-                }
-                else
-                {
-                    returnText = "Quest in progress";
-                }
+                returnText = _progressDialogue.GetCurrentDialogue();
                 break;
             case QuestState.Completed:
-                returnText = "Quest is complete";
+                returnText = _completedDialogue.GetCurrentDialogue();
                 break;
         }
         return returnText;
     }
 
-    private bool CanQuestCoomplete()
+    private bool CanQuestComplete()
     {
-        return false;
+
+        if (!InventoryManager.Instance.HasItem(_questItem) || !_hasQuestAccepted)
+        {
+            return false;
+        }
+        InventoryManager.Instance.RemoveItem(_questItem);
+        return true;
     }
 
     
     public void ResetDialogue()
     {
-        _questDialogue.ResetDialogue();
+
+        switch (_questState)
+        {
+            case QuestState.Offer:
+                _questDialogue.ResetDialogue();
+                break;
+            case QuestState.InProgress:
+                _progressDialogue.ResetDialogue();
+                break;
+            case QuestState.Completed:
+                _completedDialogue.ResetDialogue();
+                break;
+        }
     }
 
 
     public void NextDialogueContent()
     {
-        _questDialogue.NextDialogueContent();
+        switch (_questState)
+        {
+         case QuestState.Offer:
+             _questDialogue.NextDialogueContent();
+             break;
+         case QuestState.InProgress:
+             _progressDialogue.NextDialogueContent();
+             break;
+         case QuestState.Completed:
+             _completedDialogue.NextDialogueContent();
+             break;
+        }
+        
+        
     }
 
     public bool IsDialogueComplete()
     {
+
+        switch (_questState)
+        {
+            case QuestState.Offer:
+                return _questDialogue.IsDialogueFinished;
+            case QuestState.InProgress:
+                return _progressDialogue.IsDialogueFinished;
+            case QuestState.Completed:
+                return _completedDialogue.IsDialogueFinished;
+        }
+        
         return _questDialogue.IsDialogueFinished;
     }
 
     public void AcceptQuest()
     {
         _questState = QuestState.InProgress;
+        Npc npc = NpcManager.Instance.GetNpcByName(_questNpc);
+        _progressDialogue = DialogueManager.Instance.GetRandomProgressDialogue(npc.NpcPersonality,npc.NpcAwareness);
+        _hasQuestAccepted = true;
     }
 
-    public void DenyQuest()
+    public void DeclineQuest()
     {
         _questDialogue.ResetDialogue();
     }

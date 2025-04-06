@@ -35,10 +35,55 @@ public class Npc : MonoBehaviour
     [SerializeField] private NpcAwareness npcAwareness = NpcAwareness.Low;
     [SerializeField] private int completedQuests = 0;
     [SerializeField] private int maxCompletedQuests = 6;
-    
-    
-    [SerializeField] private bool _isInChooseState = false;
-    
+
+    public NpcStates NpcState
+    {
+        get => npcState;
+        set => npcState = value;
+    }
+
+    public NpcPersonalities NpcPersonality
+    {
+        get => npcPersonality;
+        set => npcPersonality = value;
+    }
+
+    public string NpcName
+    {
+        get => npcName;
+        set => npcName = value;
+    }
+
+    public NpcAwareness NpcAwareness
+    {
+        get => npcAwareness;
+        set => npcAwareness = value;
+    }
+
+    public int CompletedQuests
+    {
+        get => completedQuests;
+        set => completedQuests = value;
+    }
+
+    public int MaxCompletedQuests
+    {
+        get => maxCompletedQuests;
+        set => maxCompletedQuests = value;
+    }
+
+    public Dialogue CurrentDialogue
+    {
+        get => _currentDialogue;
+        set => _currentDialogue = value;
+    }
+
+    public Quest CurrentQuest
+    {
+        get => _currentQuest;
+        set => _currentQuest = value;
+    }
+
     private Dialogue _currentDialogue;   
     private Quest _currentQuest;
     
@@ -54,94 +99,21 @@ public class Npc : MonoBehaviour
         NpcManager.Instance.AddNpc(this);
     }
 
-    public void InteractDialogue()
-    {
-        switch (npcState)
-        {
-            case NpcStates.Intro:
-                _currentDialogue.NextDialogueContent();
-                UIDialogueManager.Instance?.SetDialogueBox(npcName, _currentDialogue.GetCurrentDialogue());
-                break;
-            case NpcStates.Quest:
 
-                if (_isInChooseState)
-                {
-                    
-                }
-                else
-                {
-                    _currentQuest.NextDialogueContent();
-                }
-                
-                UIDialogueManager.Instance?.SetDialogueBox(npcName, _currentQuest.GetCurrentDialogue());
-                
-                if (_currentQuest.IsDialogueComplete())
-                {
-                    _isInChooseState = true;
-                    UIDialogueManager.Instance?.ShowChoices(true);
-                }
-                break;
-            case NpcStates.Finished:
-                Debug.Log(npcName + ":" + "finished");
-                break;
-        }
-        CheckDialogueFinished();
+    public void CreateQuest()
+    {
+        npcState = NpcStates.Quest;
+        _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality);
+        _currentQuest.QuestNpc = this.npcName;
     }
-
-    public void ResetDialogue()
+    
+    public void AddCompletedQuest()
     {
-        UIDialogueManager.Instance?.ShowDialogueBox(false);
-        UIDialogueManager.Instance?.ShowChoices(false);
-        
-        _isInChooseState = false;
-        
-        switch (npcState)
-        {
-            case NpcStates.Intro:
-                _currentDialogue.ResetDialogue();
-                break;
-            case NpcStates.Quest:
-                _currentQuest.ResetDialogue();
-                break;
-            case NpcStates.Finished:
-                break;
-        }
+        completedQuests++;
     }
-
-    private void CheckDialogueFinished()
+    
+    public void UpdateAwarness()
     {
-        switch (npcState)
-        {
-            case NpcStates.Intro:
-                if (_currentDialogue.IsDialogueFinished)
-                {
-                    npcState = NpcStates.Quest;
-                    _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality);
-                    _currentQuest.QuestNpc = this.npcName;
-                }
-                break;
-            case NpcStates.Quest:
-                if (_currentQuest.QuestState == QuestState.Completed)
-                {
-                    completedQuests++;
-                    UpdateAwarness();
-                    if (completedQuests >= maxCompletedQuests)
-                    {
-                        npcState = NpcStates.Finished;
-                    }
-                    else
-                    {
-                        _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality);
-                        _currentQuest.QuestNpc = this.npcName;
-                    }
-                }
-                break;
-        }
-    }
-
-    private void UpdateAwarness()
-    {
-
         switch (completedQuests)
         {
             case <= 2:
@@ -154,5 +126,16 @@ public class Npc : MonoBehaviour
                 npcAwareness = NpcAwareness.High;
                 break;
         }
+    }
+
+    public bool HasMaxQuests()
+    {
+        return completedQuests >= maxCompletedQuests;
+    }
+
+    public void AddQuest()
+    {
+        _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality);
+        _currentQuest.QuestNpc = this.npcName;
     }
 }

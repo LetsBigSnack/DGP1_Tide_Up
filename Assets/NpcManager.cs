@@ -20,4 +20,16 @@ public class NpcManager : MonoBehaviour
     {
         _npcs.Add(npc);
     }
+
+    public Npc GetNpcByName(string questNpc)
+    {
+        Debug.Log(questNpc);
+        Npc npc = _npcs.Find(npc => npc.NpcName == questNpc);
+
+        if (npc == null)
+        {
+            throw new NullReferenceException();
+        }
+        return npc;
+    }
 }

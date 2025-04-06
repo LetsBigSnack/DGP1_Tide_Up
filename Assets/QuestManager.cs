@@ -35,7 +35,8 @@ public class QuestManager : MonoBehaviour
     public Quest CreateQuest(NpcAwareness npcAwareness, NpcPersonalities npcPersonalities)
     {
         Dialogue questDialogue = DialogueManager.Instance.GetRandomQuestDialogue(npcPersonalities, npcAwareness);
-        Quest quest = new Quest(questDialogue);
+        Dialogue completeDialogue = DialogueManager.Instance.GetRandomCompleteDialogue(npcPersonalities, npcAwareness);
+        Quest quest = new Quest(questDialogue, completeDialogue);
         return quest;
     }
 
