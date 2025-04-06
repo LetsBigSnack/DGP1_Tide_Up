@@ -1990,6 +1990,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashSpawnerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5295295789105896397, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5979413935357341510, guid: 8effff7c4143d854a88f7dbfb86ebe11, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.624162

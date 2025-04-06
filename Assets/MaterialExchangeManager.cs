@@ -4,6 +4,7 @@ using Data;
 public class MaterialExchangeManager : MonoBehaviour
 {
     public static MaterialExchangeManager Instance;
+    [SerializeField] private int exchangeRate = 3;
 
     private void Awake()
     {
@@ -24,13 +25,13 @@ public class MaterialExchangeManager : MonoBehaviour
             Debug.Log("You've reached the max amount of " + materialTypeToGet);
         }
 
-        if(InventoryManager.Instance.GetMaterialAmount(materialTypeToExchange) < (amount * 3))
+        if(InventoryManager.Instance.GetMaterialAmount(materialTypeToExchange) < (amount * exchangeRate))
         {
-            Debug.Log("You're missing " + ((amount * 3) - InventoryManager.Instance.GetMaterialAmount(materialTypeToExchange)) + " " + materialTypeToExchange +  " materials. To do that!");
+            Debug.Log("You're missing " + ((amount * exchangeRate) - InventoryManager.Instance.GetMaterialAmount(materialTypeToExchange)) + " " + materialTypeToExchange +  " materials. To do that!");
             return;
         }
-        InventoryManager.Instance.RemoveMaterial(materialTypeToExchange, amount * 3);
+        InventoryManager.Instance.RemoveMaterial(materialTypeToExchange, amount * exchangeRate);
         InventoryManager.Instance.AddMaterial(materialTypeToGet, amount);
-        Debug.Log("You've exchanged " + amount*3 + " " + materialTypeToExchange + " for " + amount + " " + materialTypeToGet);
+        Debug.Log("You've exchanged " + amount*exchangeRate + " " + materialTypeToExchange + " for " + amount + " " + materialTypeToGet);
     }
 }

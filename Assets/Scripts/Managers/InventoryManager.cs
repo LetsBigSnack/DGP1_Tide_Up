@@ -7,8 +7,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private int maxItems = 5;
     [SerializeField] private int maxTrashMaterials = 20;
 
-    private List<ItemData> _items = new();
-    private List<TrashMaterialEntry> _materialWallet = new();
+    [SerializeField] List<ItemData> _items = new();
+    [SerializeField] private List<TrashMaterialEntry> _materialWallet = new();
     //TODO Implement Dictionary Wallet
     private Dictionary<TrashMaterialType, int> _materials;
 
