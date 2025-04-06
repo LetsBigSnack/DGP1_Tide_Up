@@ -9,21 +9,8 @@
       <change beforePath="$PROJECT_DIR$/Assets/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DialogueManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Npc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Npc.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NpcDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NpcDialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NpcInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NpcInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NpcManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NpcManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/QuestManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/BE_103_Quest_System.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/BE_103_Quest_System.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/DialogJsonData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Dialogue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/Quest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/RecyclerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/RecyclerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/PC_RPAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/PC_RPAsset.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Dialogue.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UIDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UIDialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +142,7 @@
       <workItem from="1743685597884" duration="4325000" />
       <workItem from="1743691694438" duration="2223000" />
       <workItem from="1743849443597" duration="1387000" />
-      <workItem from="1743868047117" duration="27732000" />
+      <workItem from="1743868047117" duration="30145000" />
     </task>
     <servers />
   </component>
@@ -204,13 +191,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/NpcDialogueManager.cs</url>
-          <line>163</line>
+          <line>173</line>
           <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\NpcDialogueManager.cs" containingFunctionPresentation="Method 'CheckCompletedQuests'">
             <startOffsets>
-              <option value="4353" />
+              <option value="4849" />
             </startOffsets>
             <endOffsets>
-              <option value="4466" />
+              <option value="4962" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="14" />

@@ -388,5 +388,28 @@
         }
       ]
     }
+  },
+  "Finished": {
+    "Betty": [{
+      "DialogueContent": [
+        "Betty GOONED"
+      ]
+    },
+      {
+        "DialogueContent": [
+          "You are a good boy!",
+          "now sit"
+        ]
+      }],
+    "Deki": [{
+      "DialogueContent": [
+        "Deki Done"
+      ]
+    }],
+    "Igor": [{
+      "DialogueContent": [
+        "Igor done"
+      ]
+    }]
   }
 }

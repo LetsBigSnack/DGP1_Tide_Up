@@ -4,6 +4,7 @@ using Data;
 using Helpers.Util;
 using Newtonsoft.Json;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -55,5 +56,12 @@ public class DialogueManager : MonoBehaviour
         List<Dialogue> dialogues = _dialogJsonData.Complete[npcPersonality][npcAwareness];
         Dialogue complete = new Dialogue(dialogues[UnityEngine.Random.Range(0, dialogues.Count)]);
         return complete;
+    }
+
+    public Dialogue GetFinishedDialogByName(string npcName)
+    {
+        List<Dialogue> list = _dialogJsonData.Finished[npcName];
+        Dialogue finished = new Dialogue(list[Random.Range(0, list.Count)]);
+        return finished;
     }
 }

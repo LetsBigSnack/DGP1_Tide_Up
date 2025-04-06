@@ -84,7 +84,16 @@ public class NpcDialogueManager : MonoBehaviour
                 }
                 break;
             case NpcStates.Finished:
-                Debug.Log(_currentNpc.NpcName + ":" + "finished");
+                
+                if (_currentNpc.FinishedDialogue.IsDialogueFinished)
+                {
+                    ResetDialogue();
+                    return;
+                }
+                
+                _currentNpc.FinishedDialogue.NextDialogueContent();
+                UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.FinishedDialogue.GetCurrentDialogue());
+                CheckDialogueFinished();
                 break;
         }
         
@@ -132,6 +141,7 @@ public class NpcDialogueManager : MonoBehaviour
                 _currentNpc.CurrentQuest.ResetDialogue();
                 break;
             case NpcStates.Finished:
+                _currentNpc.FinishedDialogue = DialogueManager.Instance.GetFinishedDialogByName(_currentNpc.NpcName);
                 break;
         }
         
@@ -168,6 +178,7 @@ public class NpcDialogueManager : MonoBehaviour
             if (_currentNpc.HasMaxQuests())
             {
                 _currentNpc.NpcState = NpcStates.Finished;
+                _currentNpc.FinishedDialogue = DialogueManager.Instance.GetFinishedDialogByName(_currentNpc.NpcName);
             }
             else
             {

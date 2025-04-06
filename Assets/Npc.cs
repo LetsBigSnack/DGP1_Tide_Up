@@ -35,7 +35,9 @@ public class Npc : MonoBehaviour
     [SerializeField] private NpcAwareness npcAwareness = NpcAwareness.Low;
     [SerializeField] private int completedQuests = 0;
     [SerializeField] private int maxCompletedQuests = 6;
-
+    
+    
+    
     public NpcStates NpcState
     {
         get => npcState;
@@ -77,6 +79,12 @@ public class Npc : MonoBehaviour
         get => _currentDialogue;
         set => _currentDialogue = value;
     }
+    
+    public Dialogue FinishedDialogue
+    {
+        get => _finishedDialogue;
+        set => _finishedDialogue = value;
+    }
 
     public Quest CurrentQuest
     {
@@ -84,7 +92,8 @@ public class Npc : MonoBehaviour
         set => _currentQuest = value;
     }
 
-    private Dialogue _currentDialogue;   
+    private Dialogue _currentDialogue;
+    private Dialogue _finishedDialogue;
     private Quest _currentQuest;
     
     
