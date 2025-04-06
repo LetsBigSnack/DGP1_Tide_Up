@@ -23,7 +23,6 @@ public class RecyclerManager : MonoBehaviour
         }
     }
 
-
     public bool StoreItemRecycler(ItemData item)
     {
         if (_storedItem != null)
@@ -87,7 +86,7 @@ public class RecyclerManager : MonoBehaviour
 
         foreach (TrashMaterialData mat in _storedItem.materials)
         {
-            InventoryManager.Instance.AddMaterial(mat, 1);
+            InventoryManager.Instance.AddMaterial(mat.type, 1);
         }
         _storedItem = null;
     }

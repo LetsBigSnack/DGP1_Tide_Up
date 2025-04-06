@@ -6,15 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4e88fcd7-3c51-4756-bc6b-54b47aff64cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/BE_117_Upgrade_System.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/BE_117_Upgrade_System.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/InventoryUpgrade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/InventoryUpgrade.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/MaterialUpgrade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/MaterialUpgrade.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/UpgradeCost.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/UpgradeCost.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Helpers/DevControlls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Helpers/DevControlls.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/RecyclerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/RecyclerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UpgradeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UpgradeManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/Upgrade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/Upgrade.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MaterialExchangeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MaterialExchangeManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/BE_118_Trade_Materials_System.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/BE_118_Trade_Materials_System.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/TrashMaterialEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/TrashMaterialEntry.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +44,7 @@
     "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "BE__117__Upgrade__System",
+    "git-widget-placeholder": "BE__118__Trade__Material__System",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

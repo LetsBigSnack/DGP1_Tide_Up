@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class DataUtil : MonoBehaviour
 {
@@ -30,5 +31,10 @@ public class DataUtil : MonoBehaviour
     public List<TrashMaterialData> GetMaterials()
     {
         return listOfMaterials;
+    }
+
+    public TrashMaterialData GetMaterialByType(TrashMaterialType type)
+    {
+        return listOfMaterials.Where(t => t.type == type).FirstOrDefault();
     }
 }
