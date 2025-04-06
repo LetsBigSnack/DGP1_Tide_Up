@@ -10,10 +10,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioMixer myMixer;
     [SerializeField] private AudioSource sfxSource;
 
-    [SerializeField] private Slider masterSlider;
-    [SerializeField] private Slider musicSlider;
-    [SerializeField] private Slider sfxSlider;
-
     public static SoundManager Instance;
 
     private void Awake()
@@ -28,13 +24,6 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
-        SetMasterVolume();
-        SetMusicVolume();
-        SetSfxVolume();
     }
 
     // Taken from Monkepok, we prob need this later right?
@@ -61,41 +50,20 @@ public class SoundManager : MonoBehaviour
         sfxSource.PlayOneShot(sound.soundClip);
         
     }
-    public void SetMasterVolume()
+    public void SetMasterVolume(float volume)
     {
-        if (masterSlider == null)
-        {
-            Debug.Log("No master slider assigned!");
-            return;
-        }
-
-        float volume = masterSlider.value;
         myMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("Master", volume);
     }
 
-    public void SetMusicVolume()
+    public void SetMusicVolume(float volume)
     {
-        if (musicSlider == null)
-        {
-            Debug.Log("No music slider");
-            return;
-        }
-
-        float volume = musicSlider.value;
         myMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("Music", volume);
     }
 
-    public void SetSfxVolume()
+    public void SetSfxVolume(float volume)
     {
-        if (sfxSlider == null)
-        {
-            Debug.Log("No music slider");
-            return;
-        }
-
-        float volume = sfxSlider.value;
         myMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("SFX", volume);
     }
