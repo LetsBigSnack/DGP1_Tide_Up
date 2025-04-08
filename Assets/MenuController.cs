@@ -19,6 +19,7 @@ public class MenuController : MonoBehaviour
         //Inventory
         _menuInputs.UI.Inventory.Enable();
         _menuInputs.UI.Inventory.performed += ShowInventory;
+        _menuInputs.UI.CloseMenu.performed += CloseMenu;
     }
     
     private void OnDisable()
@@ -28,11 +29,17 @@ public class MenuController : MonoBehaviour
         //Inventory
         _menuInputs.UI.Inventory.Disable();
         _menuInputs.UI.Inventory.performed -= ShowInventory;
+        _menuInputs.UI.CloseMenu.performed -= CloseMenu;
     }
 
     private void ShowInventory(InputAction.CallbackContext value)
     {
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         InventoryManager.Instance.PrintInventory();
     }
-    
+    private void CloseMenu(InputAction.CallbackContext value)
+    {
+        GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+    }
+
 }
