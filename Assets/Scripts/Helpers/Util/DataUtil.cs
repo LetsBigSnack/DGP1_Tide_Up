@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Data;
+using ScriptableObjects;
 
 public class DataUtil : MonoBehaviour
 {
@@ -39,14 +40,15 @@ public class DataUtil : MonoBehaviour
     
     public QuestItemInstance GetRandomQuestItem()
     {
-        QuestItemInstance questItem = new QuestItemInstance(listOfItems[UnityEngine.Random.Range(0, listOfItems.Count)]);
+        QuestItemData questItem = listOfItems[UnityEngine.Random.Range(0, listOfItems.Count)];
+        RecipeData recipe = RecipeManager.Instance.GetRandomRecipe(questItem);
         
-        return questItem;
+        return new QuestItemInstance(questItem, recipe.ingredients);
     }
     
 
     public TrashMaterialData GetMaterialByType(TrashMaterialType type)
     {
-        return listOfMaterials.Where(t => t.type == type).FirstOrDefault();
+        return listOfMaterials.FirstOrDefault(t => t.type == type);
     }
 }

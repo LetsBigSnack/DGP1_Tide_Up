@@ -61,7 +61,7 @@ public class Quest
     //TODO: rework with recipes
     private void GenerateMaterials()
     {
-        var shuffledMaterials = _questItem.ItemData.materials
+        var shuffledMaterials = _questItem.GetMaterials()
             .OrderBy(_ => Guid.NewGuid())
             .ToList();
 

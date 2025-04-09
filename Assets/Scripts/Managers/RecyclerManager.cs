@@ -83,7 +83,7 @@ public class RecyclerManager : MonoBehaviour
 
         Debug.Log("You recycled " + _storedItem);
 
-        foreach (TrashMaterialData mat in _storedItem.ItemData.materials)
+        foreach (TrashMaterialData mat in _storedItem.GetMaterials())
         {
             InventoryManager.Instance.AddMaterial(mat.type, 1);
         }

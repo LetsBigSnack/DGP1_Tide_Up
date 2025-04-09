@@ -100,7 +100,7 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
-    public void AddMaterial(TrashMaterialType materialType, int amount)
+    public bool AddMaterial(TrashMaterialType materialType, int amount)
     {
         TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData.type == materialType);
         if (entry != null)
@@ -108,7 +108,7 @@ public class InventoryManager : MonoBehaviour
             if (entry.Amount + amount > maxTrashMaterials)
             {
                 Debug.LogWarning($"Can't add more {materialType}, limit reached.");
-                return;
+                return false;
             }
 
             entry.Amount += amount;
@@ -120,6 +120,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         Debug.Log($"+ {amount}x {materialType}");
+        return true;
     }
 
     public bool RemoveMaterial(TrashMaterialType materialType, int amount)
@@ -172,7 +173,7 @@ public class InventoryManager : MonoBehaviour
     public bool HasSpaceForMaterial(TrashMaterialType materialType, int amount)
     {
         TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData.type == materialType);
-        return entry.Amount + amount > maxTrashMaterials;
+        return entry.Amount + amount <= maxTrashMaterials;
     }
     public void IncreaseMaxItems(int amount)
     {
@@ -189,5 +190,10 @@ public class InventoryManager : MonoBehaviour
     public bool HasItem(ItemInstance questItem)
     {
         return _items.Contains(questItem);
+    }
+
+    public bool HasSpaceForItem()
+    {
+        return _items.Count+1 <= maxItems;
     }
 }

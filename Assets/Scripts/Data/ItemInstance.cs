@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Data
 {
-    
     [Serializable]
     public class ItemInstance
     {
@@ -24,7 +23,7 @@ namespace Data
 
         public virtual List<TrashMaterialData> GetMaterials()
         {
-            return itemData.materials;
+            return itemData.Materials;
         }
         
     }
