@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,14 +11,35 @@ public class ToolbarVisualEntry
     public Sprite icon;
 }
 
-
-public class UI_HUDManager : MonoBehaviour
+public class UIHUDManager : MonoBehaviour
 {
+    [Header("Toolbar")]
     [SerializeField] private GameObject toolBarItemPrefab;
     [SerializeField] private Transform toolBarContainer;
+    [SerializeField] private bool toggleToolbar = true;
     [SerializeField] private List<Sprite> toolBarSprites;
 
+    [Header("DateMap")]
+    [SerializeField] private Transform dateMapContainer;
+
     private Dictionary<GameStates, List<ToolbarVisualEntry>> _toolbarVisuals = new();
+
+
+    public static UIHUDManager Instance;
+
+    private void Awake()
+    {
+
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnEnable()
     {
@@ -35,10 +57,10 @@ public class UI_HUDManager : MonoBehaviour
         Debug.Log("ToolbarSetup called");
         _toolbarVisuals[GameStates.PlayingCharacter] = new List<ToolbarVisualEntry>
         {
-            new ToolbarVisualEntry { label = "Inventory", icon = GetSpriteByName("test") },
-            new ToolbarVisualEntry { label = "Recipes", icon = GetSpriteByName("test2") },
-            new ToolbarVisualEntry { label = "Tasks", icon = GetSpriteByName("test") },
-            new ToolbarVisualEntry { label = "Friendbook", icon = GetSpriteByName("test2") }
+            new ToolbarVisualEntry { label = "Inventory", icon = GetSpriteByName("test2") },
+            new ToolbarVisualEntry { label = "Recipes", icon = GetSpriteByName("test") },
+            new ToolbarVisualEntry { label = "Tasks", icon = GetSpriteByName("test2") },
+            new ToolbarVisualEntry { label = "Friendbook", icon = GetSpriteByName("test") }
         };
 
         _toolbarVisuals[GameStates.PlayingBoat] = new List<ToolbarVisualEntry>
@@ -78,7 +100,7 @@ public class UI_HUDManager : MonoBehaviour
             Transform textChild = newEntry.transform.Find("Txt_ToolBar");
             Transform imgChild = newEntry.transform.Find("Img_ToolBar");
 
-            if (textChild == null || imgChild != null)
+            if (textChild == null || imgChild == null)
                 continue;
 
             textChild.GetComponent<TMPro.TextMeshProUGUI>().text = entry.label;
@@ -86,6 +108,8 @@ public class UI_HUDManager : MonoBehaviour
 
         }
 
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(toolBarContainer.GetComponent<RectTransform>());
     }
     private Sprite GetSpriteByName(string name)
     {
@@ -99,4 +123,26 @@ public class UI_HUDManager : MonoBehaviour
 
         return sprite;
     }
+
+    public void ToggleDateMap()
+    {
+        bool isActive = dateMapContainer.gameObject.activeSelf;
+        dateMapContainer.gameObject.SetActive(!isActive);
+    }
+
+    public void ToggleToolbar()
+    {
+        if (toolBarContainer != null)
+        {
+            toolBarContainer.gameObject.SetActive(toggleToolbar);
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        ToggleToolbar();
+    }
+#endif
+
 }

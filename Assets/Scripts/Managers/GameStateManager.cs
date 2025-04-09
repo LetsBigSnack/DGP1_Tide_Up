@@ -33,13 +33,17 @@ public class GameStateManager : MonoBehaviour
         {
             Instance = this;
             _gameStates = GameStates.PlayingCharacter;
-            OnStateChanged.Invoke(_gameStates);
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        OnStateChanged.Invoke(_gameStates);
     }
 
     private void FixedUpdate()

@@ -470,7 +470,7 @@ MonoBehaviour:
   title: {fileID: 8519937612470028082}
   description: {fileID: 2084038252449256661}
   image: {fileID: 6457205886987373572}
-  timeUntilDestroy: 3
+  timeUntilDestroy: 15
 --- !u!95 &4483266767474878210
 Animator:
   serializedVersion: 7

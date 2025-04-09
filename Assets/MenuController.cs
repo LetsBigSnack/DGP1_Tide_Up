@@ -35,11 +35,13 @@ public class MenuController : MonoBehaviour
     private void ShowInventory(InputAction.CallbackContext value)
     {
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIHUDManager.Instance.ToggleDateMap();
         InventoryManager.Instance.PrintInventory();
     }
     private void CloseMenu(InputAction.CallbackContext value)
     {
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+        UIHUDManager.Instance.ToggleDateMap();
     }
 
 }
