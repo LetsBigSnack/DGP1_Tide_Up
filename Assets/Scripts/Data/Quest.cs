@@ -17,7 +17,7 @@ public class Quest
 {
 
     private Dictionary<QuestState, Dialogue> _dialogues = new Dictionary<QuestState, Dialogue>();
-    private QuestItemData _questItem;
+    private QuestItemInstance _questItem;
     private string _questItemUse;
     private List<string> _materials;
     private string _materialHint;
@@ -58,9 +58,10 @@ public class Quest
         _questItemUse = _questItem.GetUse();
     }
     
+    //TODO: rework with recipes
     private void GenerateMaterials()
     {
-        var shuffledMaterials = _questItem.materials
+        var shuffledMaterials = _questItem.ItemData.materials
             .OrderBy(_ => Guid.NewGuid())
             .ToList();
 
@@ -101,7 +102,7 @@ public class Quest
     {
         return new Dictionary<string, string>
         {
-            { "[QUEST-ITEM]", _questItem.name },
+            { "[QUEST-ITEM]", _questItem.ItemData.name },
             { "[ITEM-REASON]", _questItemUse },
             { "[MATERIALS]", string.Join(", ", _materials) },
             { "[MATERIAL-HINT]", _materialHint }

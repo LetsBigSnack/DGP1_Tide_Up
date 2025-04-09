@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 public class RecyclerManager : MonoBehaviour
 {
-    private ItemData _storedItem;
+    private ItemInstance _storedItem;
 
     public static RecyclerManager Instance;
 
@@ -21,7 +22,7 @@ public class RecyclerManager : MonoBehaviour
         }
     }
 
-    public bool StoreItemRecycler(ItemData item)
+    public bool StoreItemRecycler(ItemInstance item)
     {
         if (_storedItem != null)
         {
@@ -47,11 +48,11 @@ public class RecyclerManager : MonoBehaviour
     {
         if (_storedItem != null)
         {
-            Debug.Log(_storedItem.name + " is currently stored inside the recycler. Can't add a extra one");
+            Debug.Log(_storedItem.ItemData.name + " is currently stored inside the recycler. Can't add a extra one");
             return;
         }
 
-        ItemData item = InventoryManager.Instance.TestTrashItem();
+        ItemInstance item = InventoryManager.Instance.TestTrashItem();
         if (item == null) return;
 
         if (!InventoryManager.Instance.RemoveItem(item))
@@ -65,7 +66,7 @@ public class RecyclerManager : MonoBehaviour
             Debug.Log("Item could not be stored inside recycler");
         }
 
-        Debug.Log("You have put " + item.name + " into the recycler, press F to confirm");
+        Debug.Log("You have put " + item.ItemData.name + " into the recycler, press F to confirm");
         
     }
 
@@ -82,7 +83,7 @@ public class RecyclerManager : MonoBehaviour
 
         Debug.Log("You recycled " + _storedItem);
 
-        foreach (TrashMaterialData mat in _storedItem.materials)
+        foreach (TrashMaterialData mat in _storedItem.ItemData.materials)
         {
             InventoryManager.Instance.AddMaterial(mat.type, 1);
         }

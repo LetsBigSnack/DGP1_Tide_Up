@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Data;
 
 public class DataUtil : MonoBehaviour
 {
@@ -24,9 +25,11 @@ public class DataUtil : MonoBehaviour
         }
     }
 
-    public TrashData GetRandomTrash()
+    public TrashItemInstance GetRandomTrash()
     {
-        return listOfTrash[UnityEngine.Random.Range(0, listOfTrash.Count)];
+        TrashItemInstance trashItem = new TrashItemInstance(listOfTrash[UnityEngine.Random.Range(0, listOfTrash.Count)]);
+        
+        return trashItem;
     }
 
     public List<TrashMaterialData> GetMaterials()
@@ -34,9 +37,11 @@ public class DataUtil : MonoBehaviour
         return listOfMaterials;
     }
     
-    public QuestItemData GetRandomQuestItem()
+    public QuestItemInstance GetRandomQuestItem()
     {
-        return listOfItems[UnityEngine.Random.Range(0, listOfItems.Count)];
+        QuestItemInstance questItem = new QuestItemInstance(listOfItems[UnityEngine.Random.Range(0, listOfItems.Count)]);
+        
+        return questItem;
     }
     
 

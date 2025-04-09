@@ -11,7 +11,7 @@ public class ItemInteractable : Interactable
     public override void Interact()
     {
         Debug.Log("Interact");
-        if (InventoryManager.Instance.AddItem(trashData))
+        if (InventoryManager.Instance.AddItem(new TrashItemInstance(trashData)))
         {
             Destroy(this.gameObject);
         }

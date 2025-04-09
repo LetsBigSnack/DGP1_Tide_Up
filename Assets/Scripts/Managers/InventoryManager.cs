@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -7,14 +8,14 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private int maxItems = 5;
     [SerializeField] private int maxTrashMaterials = 20;
 
-    [SerializeField] List<ItemData> _items = new();
+    [SerializeField] List<ItemInstance> _items = new();
     [SerializeField] private List<TrashMaterialEntry> _materialWallet = new();
     //TODO Implement Dictionary Wallet
     private Dictionary<TrashMaterialType, int> _materials;
 
     public static InventoryManager Instance;
 
-    public List<ItemData> Items
+    public List<ItemInstance> Items
     {
         get => _items;
         set => _items = value;
@@ -52,11 +53,11 @@ public class InventoryManager : MonoBehaviour
 
     public void TestAddTrashItem()
     {
-        TrashData randomTrashData = DataUtil.Instance.GetRandomTrash();
+        ItemInstance randomTrashData = DataUtil.Instance.GetRandomTrash();
         AddItem(randomTrashData);
     }
 
-    public bool AddItem(ItemData item)
+    public bool AddItem(ItemInstance item)
     {
 #if UNITY_EDITOR
         ConsoleUtil.ClearConsole();
@@ -69,11 +70,11 @@ public class InventoryManager : MonoBehaviour
         }
 
         _items.Add(item);
-        Debug.Log("Picked up: " + item.name);
+        Debug.Log("Picked up: " + item.ItemData.name);
         return true;
     }
 
-    public ItemData TestTrashItem()
+    public ItemInstance TestTrashItem()
     {
         if (_items.Count == 0)
         {
@@ -81,11 +82,11 @@ public class InventoryManager : MonoBehaviour
             return null;
         }
 
-        ItemData itemToRemove = _items[0];
+        ItemInstance itemToRemove = _items[0];
         return itemToRemove;
     }
 
-    public bool RemoveItem(ItemData item)
+    public bool RemoveItem(ItemInstance item)
     {
         if (_items.Count == 0)
         {
@@ -94,7 +95,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         _items.Remove(item);
-        Debug.Log($"Removed trash: {item.name}");
+        Debug.Log($"Removed trash: {item.ItemData.name}");
 
         return true;
     }
@@ -152,7 +153,7 @@ public class InventoryManager : MonoBehaviour
         Debug.Log("==== INVENTORY (" + _items.Count + "/" + maxItems + ") ====");
         foreach (var item in _items)
         {
-            Debug.Log("Trash: " + item.name);
+            Debug.Log("Trash: " + item.ItemData.name);
         }
 
         Debug.Log("--- Materials ---");
@@ -185,7 +186,7 @@ public class InventoryManager : MonoBehaviour
         Debug.Log($"Max trash materials slots increased to {maxTrashMaterials}");
     }
 
-    public bool HasItem(ItemData questItem)
+    public bool HasItem(ItemInstance questItem)
     {
         return _items.Contains(questItem);
     }
