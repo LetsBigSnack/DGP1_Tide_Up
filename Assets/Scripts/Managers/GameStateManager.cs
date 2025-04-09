@@ -5,8 +5,10 @@ using UnityEngine;
 
 public enum GameStates
 {
-    Playing,
-    Paused
+    PlayingCharacter,
+    PlayingBoat,
+    Paused,
+    InMenu
 }
 
 
@@ -18,11 +20,11 @@ public class GameStateManager : MonoBehaviour
     private bool _gamePaused = false;
 
     public static GameStateManager Instance;
-    
-    
-    
-    
-    
+
+    public static Action<GameStates> OnStateChanged;
+
+
+
 
     private void Awake()
     {
@@ -30,13 +32,18 @@ public class GameStateManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            _gameStates = GameStates.Playing;
+            _gameStates = GameStates.PlayingCharacter;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        OnStateChanged.Invoke(_gameStates);
     }
 
     private void FixedUpdate()
@@ -67,19 +74,23 @@ public class GameStateManager : MonoBehaviour
         _gamePaused = true;
         Time.timeScale = 0f;
         Debug.Log("Game Paused");
+        OnStateChanged.Invoke(_gameStates);
     }
 
     private void ResumeGame()
     {
-        _gameStates = GameStates.Playing;
+        _gameStates = GameStates.PlayingCharacter;
         _gamePaused = false;
         Time.timeScale = 1f;
         Debug.Log("Game Resumed");
+        OnStateChanged.Invoke(_gameStates);
     }
 
     public void SetGameState(GameStates state)
     {
+        Debug.Log("Game state set to: " + state);
         _gameStates = state;
+        OnStateChanged.Invoke(state);
     }
 
     

@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class UI_TimeManager : MonoBehaviour
+public class UITimeManager : MonoBehaviour
 {
     [Header("Text Display")]
     [SerializeField] TextMeshProUGUI timeText;

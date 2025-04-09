@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RemoveImportantToast",
+                    "type": "Button",
+                    "id": "bcb8fa3e-a113-4056-8f5a-c4c775b7583d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -104,6 +113,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "CollectAllItems",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3975d84-c51d-494b-8cf3-97cb9e550df1",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RemoveImportantToast",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

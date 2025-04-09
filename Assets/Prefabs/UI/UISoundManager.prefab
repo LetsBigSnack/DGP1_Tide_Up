@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 15345933688257283}
   - component: {fileID: 8919832975901033751}
   m_Layer: 0
-  m_Name: UI_SoundManager
+  m_Name: UISoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
