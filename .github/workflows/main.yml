@@ -8,47 +8,83 @@ on:
     branches:
       - TU_52_Upcycel-System
 
-
 jobs:
   build:
-    name: Build project
+    name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        targetPlatform: [StandaloneWindows64, StandaloneLinux64]
+
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+
     steps:
-      # Checkout
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           lfs: true
 
-      # Cache
-      - uses: actions/cache@v3
+      - name: Cache Unity Library
+        uses: actions/cache@v3
         with:
-          path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          path: |
+            Library
+            obj
+          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
+            Library-${{ matrix.targetPlatform }}-
             Library-
 
-      # Build
+      - name: Set version based on date
+        run: |
+          VERSION_DATE=$(date +'%Y.%m.%d')
+          echo "VERSION=$VERSION_DATE" >> $GITHUB_ENV
+
       - name: Build project
         uses: game-ci/unity-builder@v4
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: StandaloneWindows64
+          targetPlatform: ${{ matrix.targetPlatform }}
           unityVersion: 6000.0.32f1
+          il2cpp: true
 
-      # Rename and move build
-      - name: Prepare custom build folder
+      - name: Prepare Windows build folder
+        if: matrix.targetPlatform == 'StandaloneWindows64'
         run: |
           mkdir CustomBuild
-          sudo cp -r build/StandaloneWindows64/* CustomBuild/
-          sudo mv CustomBuild/StandaloneWindows64.exe CustomBuild/TideUp.exe
+          sudo cp -r build/${{ matrix.targetPlatform }}/* CustomBuild/
+          sudo mv CustomBuild/${{ matrix.targetPlatform }}.exe CustomBuild/TideUp.exe
+          sudo mv CustomBuild/${{ matrix.targetPlatform }}_Data CustomBuild/TideUp_Data
           sudo chmod -R 755 CustomBuild
 
-      # Upload the folder directly (no pre-zipping!)
-      - uses: actions/upload-artifact@v4
+      - name: Prepare Linux build folder
+        if: matrix.targetPlatform == 'StandaloneLinux64'
+        run: |
+          mkdir CustomBuild
+          sudo cp -r build/${{ matrix.targetPlatform }}/* CustomBuild/
+          sudo mv CustomBuild/*.x86_64 CustomBuild/TideUp.x86_64 || true
+          sudo mv CustomBuild/${{ matrix.targetPlatform }}_Data CustomBuild/TideUp_Data || true
+          sudo chmod -R 755 CustomBuild
+
+      - name: Create zip
+        run: |
+          zip -r Build-${{ matrix.targetPlatform }}.zip CustomBuild
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: Build
-          path: CustomBuild
+          name: Build-${{ matrix.targetPlatform }}
+          path: Build-${{ matrix.targetPlatform }}.zip
+
+      - name: Upload to GitHub Releases
+        if: github.ref == 'refs/heads/TU_52_Upcycel-System'
+        uses: softprops/action-gh-release@v1
+        with:
+          name: TideUp Build ${{ env.VERSION }} - ${{ matrix.targetPlatform }}
+          tag_name: tideup-${{ env.VERSION }}
+          files: Build-${{ matrix.targetPlatform }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
