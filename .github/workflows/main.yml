@@ -4,9 +4,13 @@ on:
   push:
     branches: 
       - TU_52_Upcycel-System
+      - development
+      - production
   pull_request:
     branches:
       - TU_52_Upcycel-System
+      - development
+      - production
 
 jobs:
   build:
@@ -105,7 +109,7 @@ jobs:
 
       # GitHub Release
       - name: Upload to GitHub Releases
-        if: github.ref == 'refs/heads/TU_52_Upcycel-System'
+        if: github.ref == 'refs/heads/TU_52_Upcycel-System' or github.ref == 'refs/heads/production'
         uses: softprops/action-gh-release@v1
         with:
           name: TideUp Build ${{ env.VERSION }}
@@ -118,4 +122,4 @@ jobs:
             No commit messages included here – this is a CI build.
           files: Build-${{ matrix.targetPlatform }}.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }} # Use GH_PAT instead of default GITHUB_TOKEN if needed
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
