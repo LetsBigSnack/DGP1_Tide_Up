@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Data;
+using ScriptableObjects;
 
 public class DataUtil : MonoBehaviour
 {
@@ -24,9 +26,11 @@ public class DataUtil : MonoBehaviour
         }
     }
 
-    public TrashData GetRandomTrash()
+    public TrashItemInstance GetRandomTrash()
     {
-        return listOfTrash[UnityEngine.Random.Range(0, listOfTrash.Count)];
+        TrashItemInstance trashItem = new TrashItemInstance(listOfTrash[UnityEngine.Random.Range(0, listOfTrash.Count)]);
+        
+        return trashItem;
     }
 
     public List<TrashMaterialData> GetMaterials()
@@ -34,14 +38,17 @@ public class DataUtil : MonoBehaviour
         return listOfMaterials;
     }
     
-    public QuestItemData GetRandomQuestItem()
+    public QuestItemInstance GetRandomQuestItem()
     {
-        return listOfItems[UnityEngine.Random.Range(0, listOfItems.Count)];
+        QuestItemData questItem = listOfItems[UnityEngine.Random.Range(0, listOfItems.Count)];
+        RecipeData recipe = RecipeManager.Instance.GetRandomRecipe(questItem);
+        
+        return new QuestItemInstance(questItem, recipe.ingredients);
     }
     
 
     public TrashMaterialData GetMaterialByType(TrashMaterialType type)
     {
-        return listOfMaterials.Where(t => t.type == type).FirstOrDefault();
+        return listOfMaterials.FirstOrDefault(t => t.type == type);
     }
 }

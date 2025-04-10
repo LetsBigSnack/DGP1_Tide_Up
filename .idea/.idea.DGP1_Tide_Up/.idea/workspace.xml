@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4e88fcd7-3c51-4756-bc6b-54b47aff64cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NpcDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NpcDialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UICanvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UICanvas.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/BE_103_Quest_System.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/BE_103_Quest_System.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/UI_Items/ToolbarItemPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/UI_Items/ToolbarItemPrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/UI_Items/importantToastPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/UI_Items/importantToastPrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/FE_120_HUD_UI.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/FE_120_HUD_UI.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/FE_123_Inventory_UI.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/FE_123_Inventory_UI.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/Toolbar/test.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UI/Toolbar/test.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/Toolbar/test2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UI/Toolbar/test2.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,15 +25,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/44f3679c53d1477a9c6e72f269e3a3a91de200/c1/13496408/Transform.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/44f3679c53d1477a9c6e72f269e3a3a91de200/d5/ff73deb9/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ed969b0e627d471da4848289f9c322df46ae00/09/56cf3a99/List`1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ed969b0e627d471da4848289f9c322df46ae00/d3/d7fa99ce/KeyValuePair`2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/29ea32a76b2a6b8eb246f247df6a6a86d887384b4c31db2a35effccdd86c24/JsonSerializerInternalReader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/DialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Editor/UpcycleTesterEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/NpcDialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/NpcManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/RecyclerManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -45,22 +47,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.50078005&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;BE__107__Quest__System&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "XThreadsFramesViewSplitterKey": "0.50078005",
+    "git-widget-placeholder": "FE__123__Inventory__UI",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$USER_HOME$/Downloads/Build\Tide_Up.exe" />
@@ -99,15 +101,13 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="6904">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="6904" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list>
-          <MonoRuntime />
-        </list>
+        <list />
       </option>
       <option name="selectedOptions">
         <list />
@@ -145,6 +145,10 @@
       <workItem from="1743691694438" duration="2223000" />
       <workItem from="1743849443597" duration="1387000" />
       <workItem from="1743868047117" duration="33441000" />
+      <workItem from="1744091809368" duration="9323000" />
+      <workItem from="1744185793926" duration="13000" />
+      <workItem from="1744186206138" duration="17461000" />
+      <workItem from="1744270298853" duration="38000" />
     </task>
     <servers />
   </component>
@@ -167,13 +171,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs</url>
-          <line>57</line>
+          <line>58</line>
           <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Managers\InventoryManager.cs" containingFunctionPresentation="Method 'AddItem'">
             <startOffsets>
-              <option value="1348" />
+              <option value="1371" />
             </startOffsets>
             <endOffsets>
-              <option value="1365" />
+              <option value="1388" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="13" />
@@ -191,6 +195,45 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/UpcycleManager.cs</url>
+          <line>86</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\UpcycleManager.cs" containingFunctionPresentation="Method 'Upcycle'">
+            <startOffsets>
+              <option value="2013" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2088" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/UpcycleManager.cs</url>
+          <line>91</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\UpcycleManager.cs" containingFunctionPresentation="Method 'Upcycle'">
+            <startOffsets>
+              <option value="2152" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2209" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/UpcycleManager.cs</url>
+          <line>92</line>
+          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\UpcycleManager.cs" containingFunctionPresentation="Method 'Upcycle'">
+            <startOffsets>
+              <option value="2218" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2294" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

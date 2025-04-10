@@ -1,9 +1,10 @@
+using Data;
 using UnityEngine;
 
 public class DevTestHelper : MonoBehaviour
 {
     
-    public static TrashData TestGetTrashFromBox(int itemIndex)
+    public static TrashItemInstance TestGetTrashFromBox(int itemIndex)
     {
         TideUpBox currBox = TideUpBoxManager.Instance.GetTideUpBox(0);
 
@@ -12,7 +13,7 @@ public class DevTestHelper : MonoBehaviour
             return null;
         }
 
-        TrashData itemToCollect = currBox.BoxInventory[itemIndex];
+        TrashItemInstance itemToCollect = currBox.BoxInventory[itemIndex];
         return itemToCollect;
     }
 }

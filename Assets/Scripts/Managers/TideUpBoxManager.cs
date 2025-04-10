@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using Data;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class TideUpBoxManager : MonoBehaviour
 {
@@ -82,7 +81,7 @@ public class TideUpBoxManager : MonoBehaviour
 
             for (int i = 0; i < maxAddableToday; i++)
             {
-                TrashData randomTrash = DataUtil.Instance.GetRandomTrash();
+                TrashItemInstance randomTrash = DataUtil.Instance.GetRandomTrash();
 
                 box.BoxInventory.Add(randomTrash);
                 Debug.Log("Added " + randomTrash + " to the Tide-Up-Box");

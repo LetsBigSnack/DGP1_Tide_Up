@@ -20,7 +20,7 @@ public class MaterialExchangeManager : MonoBehaviour
 
     public void ExchangeMaterial(TrashMaterialType materialTypeToExchange, TrashMaterialType materialTypeToGet, int amount)
     {
-        if(InventoryManager.Instance.HasSpaceForMaterial(materialTypeToGet, amount))
+        if(!InventoryManager.Instance.HasSpaceForMaterial(materialTypeToGet, amount))
         {
             Debug.Log("You've reached the max amount of " + materialTypeToGet);
         }

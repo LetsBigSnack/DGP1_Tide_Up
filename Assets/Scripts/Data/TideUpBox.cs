@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class TideUpBox : Interactable
 {
-    private List<TrashData> _boxInventory = new();
+    private List<TrashItemInstance> _boxInventory = new();
     [SerializeField] private int maxTotalTrash = 10;
 
     [SerializeField] private int awarenessBoxMultiplier = 3;
 
     private bool _isInteractable = false;
 
-    public List<TrashData> BoxInventory
+    public List<TrashItemInstance> BoxInventory
     {
         get => _boxInventory;
         set => _boxInventory = value;
@@ -50,7 +50,7 @@ public class TideUpBox : Interactable
         }
 
         Debug.Log("Currently in this Tide-Up-Box are the following items:");
-        foreach (TrashData item in _boxInventory)
+        foreach (TrashItemInstance item in _boxInventory)
         {
             Debug.Log(item);
         }
@@ -72,7 +72,7 @@ public class TideUpBox : Interactable
             return;
         }
 
-        foreach (TrashData trash in _boxInventory)
+        foreach (TrashItemInstance trash in _boxInventory)
         {
             if (!InventoryManager.Instance.AddItem(trash))
             {
@@ -100,7 +100,7 @@ public class TideUpBox : Interactable
         //Debug.Log("Collected " + itemsCollected + " items. " + itemsToKeep.Count + " left in the Tide-Up-Box.");
     }
 
-    public void CollectOneItem(TrashData itemToCollect)
+    public void CollectOneItem(TrashItemInstance itemToCollect)
     {
         if (itemToCollect == null)
         {
