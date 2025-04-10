@@ -1,3 +1,14 @@
+name: Unity CI
+
+on:
+  push:
+    branches: 
+      - TU_52_Upcycel-System
+  pull_request:
+    branches:
+      - TU_52_Upcycel-System
+
+
 jobs:
   build:
     name: Build project
@@ -33,7 +44,7 @@ jobs:
         run: |
           mkdir CustomBuild
           mv build/StandaloneWindows64/* CustomBuild/
-          mv CustomBuild/StandaloneWindows64.exe CustomBuild/TideUp.exe
+          mv CustomBuild/StandaloneWindows64.exe CustomBuild/MyGame.exe
 
       # Zip it
       - name: Zip build
