@@ -5,5 +5,11 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     public string name;
-    public List<TrashMaterialData> materials = new List<TrashMaterialData>();
+    [SerializeField] private List<TrashMaterialData> materials = new List<TrashMaterialData>();
+
+    public List<TrashMaterialData> Materials
+    {
+        get => materials;
+        set => materials = value;
+    }
 }

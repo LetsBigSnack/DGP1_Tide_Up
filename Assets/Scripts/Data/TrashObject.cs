@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 public class TrashObject : MonoBehaviour
 {
-    [SerializeField] private TrashData data;
+    [SerializeField] private TrashItemInstance data;
     private bool _collected = false;
 
     private void OnEnable()

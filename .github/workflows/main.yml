@@ -1,0 +1,118 @@
+name: Unity CI
+
+on:
+  push:
+    branches: 
+      - TU_52_Upcycel-System
+      - development
+      - production
+  pull_request:
+    branches:
+      - TU_52_Upcycel-System
+      - development
+      - production
+
+jobs:
+  build:
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        targetPlatform: [StandaloneWindows64]
+
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+
+    steps:
+      # Checkout without LFS (we'll handle LFS caching manually)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # LFS optimization
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v3
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Pull LFS files
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      # Unity Library cache
+      - name: Cache Unity Library
+        uses: actions/cache@v3
+        with:
+          path: |
+            Library
+            obj
+          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ matrix.targetPlatform }}-
+            Library-
+
+      # Versioning
+      - name: Set version based on date
+        run: |
+          VERSION_DATE=$(date +'%Y.%m.%d')
+          echo "VERSION=$VERSION_DATE" >> $GITHUB_ENV
+
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+          unityVersion: 6000.0.32f1
+
+      # Windows post-processing
+      - name: Prepare Windows build folder
+        if: matrix.targetPlatform == 'StandaloneWindows64'
+        run: |
+          mkdir CustomBuild
+          sudo cp -r build/${{ matrix.targetPlatform }}/* CustomBuild/
+          sudo mv CustomBuild/${{ matrix.targetPlatform }}.exe CustomBuild/TideUp.exe
+          sudo mv CustomBuild/${{ matrix.targetPlatform }}_Data CustomBuild/TideUp_Data
+          sudo chmod -R 755 CustomBuild
+
+      # Linux post-processing
+      - name: Prepare Linux build folder
+        if: matrix.targetPlatform == 'StandaloneLinux64'
+        run: |
+          mkdir CustomBuild
+          sudo cp -r build/${{ matrix.targetPlatform }}/* CustomBuild/
+          sudo mv CustomBuild/*.x86_64 CustomBuild/TideUp.x86_64 || true
+          sudo mv CustomBuild/${{ matrix.targetPlatform }}_Data CustomBuild/TideUp_Data || true
+          sudo chmod -R 755 CustomBuild
+
+      # Upload as GitHub Action artifact
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: CustomBuild
+
+      # GitHub Release
+      - name: Upload to GitHub Releases
+        if: ${{ github.ref == 'refs/heads/TU_52_Upcycel-System' || github.ref == 'refs/heads/production' }}
+        uses: softprops/action-gh-release@v1
+        with:
+          name: TideUp Build ${{ env.VERSION }}
+          tag_name: tideup-${{ env.VERSION }}
+          body: |
+            ✅ Automated build for `${{ matrix.targetPlatform }}`
+            🗓 Version: `${{ env.VERSION }}`
+            📦 Built using Unity 6000.0.32f1
+
+            No commit messages included here – this is a CI build.
+          files: Build-${{ matrix.targetPlatform }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
