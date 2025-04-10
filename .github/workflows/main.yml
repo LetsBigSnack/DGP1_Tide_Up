@@ -43,8 +43,8 @@ jobs:
       - name: Prepare custom build folder
         run: |
           mkdir CustomBuild
-          mv build/StandaloneWindows64/* CustomBuild/
-          mv CustomBuild/StandaloneWindows64.exe CustomBuild/MyGame.exe
+          sudo cp -r build/StandaloneWindows64/* CustomBuild/
+          sudo mv CustomBuild/StandaloneWindows64.exe CustomBuild/MyGame.exe
 
       # Zip it
       - name: Zip build
