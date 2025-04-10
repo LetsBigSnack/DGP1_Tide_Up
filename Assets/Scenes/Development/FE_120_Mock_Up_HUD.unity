@@ -1854,6 +1854,94 @@ PrefabInstance:
       propertyPath: toggleToolbar
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].stateType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.data[0].key
+      value: E
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.data[1].key
+      value: I
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.data[2].key
+      value: ESC
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.data[0].key
+      value: ESC
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.data[1].key
+      value: I
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.data[2].key
+      value: ESC
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.data[0].label
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.data[1].label
+      value: Inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.data[2].label
+      value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.data[0].label
+      value: Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.data[1].label
+      value: Inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.data[2].label
+      value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.data[0].iconBackground
+      value: 
+      objectReference: {fileID: 21300000, guid: fb677a0defb14bb489ebbabb2b714ac2, type: 3}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.data[1].iconBackground
+      value: 
+      objectReference: {fileID: 21300000, guid: fb677a0defb14bb489ebbabb2b714ac2, type: 3}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[0].buttons.Array.data[2].iconBackground
+      value: 
+      objectReference: {fileID: 21300000, guid: fb677a0defb14bb489ebbabb2b714ac2, type: 3}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.data[0].iconBackground
+      value: 
+      objectReference: {fileID: 21300000, guid: fb677a0defb14bb489ebbabb2b714ac2, type: 3}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.data[1].iconBackground
+      value: 
+      objectReference: {fileID: 21300000, guid: fb677a0defb14bb489ebbabb2b714ac2, type: 3}
+    - target: {fileID: 6057023344985226152, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
+      propertyPath: toolBarStateEntries.Array.data[1].buttons.Array.data[2].iconBackground
+      value: 
+      objectReference: {fileID: 21300000, guid: fb677a0defb14bb489ebbabb2b714ac2, type: 3}
     - target: {fileID: 7438303923404956258, guid: 95c1294e225f74d4fb5ff1ea610fcc54, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
