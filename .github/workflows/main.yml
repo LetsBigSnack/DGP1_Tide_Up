@@ -93,19 +93,12 @@ jobs:
           sudo mv CustomBuild/${{ matrix.targetPlatform }}_Data CustomBuild/TideUp_Data || true
           sudo chmod -R 755 CustomBuild
 
-      # Zip build contents without extra folder
-      - name: Create zip
-        run: |
-          cd CustomBuild
-          zip -r ../Build-${{ matrix.targetPlatform }}.zip .
-          cd ..
-
       # Upload as GitHub Action artifact
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: Build-${{ matrix.targetPlatform }}
-          path: Build-${{ matrix.targetPlatform }}.zip
+          path: CustomBuild
 
       # GitHub Release
       - name: Upload to GitHub Releases
