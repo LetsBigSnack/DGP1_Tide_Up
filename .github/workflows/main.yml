@@ -2,9 +2,13 @@ name: Unity CI
 
 on:
   push:
-    branches: [ development ]
+    branches: 
+      - development
+      - TU_52_Upcycel-System
   pull_request:
-    branches: [ development ]
+    branches:
+      - development
+      - TU_52_Upcycel-System
 
 
 jobs:
