@@ -44,14 +44,11 @@ jobs:
         run: |
           mkdir CustomBuild
           sudo cp -r build/StandaloneWindows64/* CustomBuild/
-          sudo mv CustomBuild/StandaloneWindows64.exe CustomBuild/MyGame.exe
+          sudo mv CustomBuild/StandaloneWindows64.exe CustomBuild/TideUp.exe
+          sudo chmod -R 755 CustomBuild
 
-      # Zip it
-      - name: Zip build
-        run: zip -r Build.zip CustomBuild
-
-      # Upload it
+      # Upload the folder directly (no pre-zipping!)
       - uses: actions/upload-artifact@v4
         with:
           name: Build
-          path: Build.zip
+          path: CustomBuild
