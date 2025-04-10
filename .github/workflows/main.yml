@@ -108,7 +108,7 @@ jobs:
         if: github.ref == 'refs/heads/TU_52_Upcycel-System'
         uses: softprops/action-gh-release@v1
         with:
-          name: TideUp Build ${{ env.VERSION }} - ${{ matrix.targetPlatform }}
+          name: TideUp Build ${{ env.VERSION }}
           tag_name: tideup-${{ env.VERSION }}
           body: |
             ✅ Automated build for `${{ matrix.targetPlatform }}`
