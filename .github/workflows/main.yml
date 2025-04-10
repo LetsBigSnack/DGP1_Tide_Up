@@ -1,16 +1,3 @@
-name: Unity CI
-
-on:
-  push:
-    branches: 
-      - development
-      - TU_52_Upcycel-System
-  pull_request:
-    branches:
-      - development
-      - TU_52_Upcycel-System
-
-
 jobs:
   build:
     name: Build project
@@ -41,8 +28,19 @@ jobs:
           targetPlatform: StandaloneWindows64
           unityVersion: 6000.0.32f1
 
-      # Output
+      # Rename and move build
+      - name: Prepare custom build folder
+        run: |
+          mkdir CustomBuild
+          mv build/StandaloneWindows64/* CustomBuild/
+          mv CustomBuild/StandaloneWindows64.exe CustomBuild/TideUp.exe
+
+      # Zip it
+      - name: Zip build
+        run: zip -r Build.zip CustomBuild
+
+      # Upload it
       - uses: actions/upload-artifact@v4
         with:
           name: Build
-          path: build
+          path: Build.zip
