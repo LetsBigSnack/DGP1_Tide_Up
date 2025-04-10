@@ -7,7 +7,7 @@ public class TestToast : MonoBehaviour
     [SerializeField] private int spawnTime;
     [SerializeField] private int spawnTimeImportant;
     private float timeCount = 3;
-    private float timeCountImportant = 3;
+    private float timeCountImportant = 10;
     public void Update()
     {
         timeCount += Time.deltaTime;
