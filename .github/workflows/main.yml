@@ -23,11 +23,31 @@ jobs:
       UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
     steps:
-      - name: Checkout
+      # Checkout (without LFS to handle it manually)
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          lfs: true
 
+      # LFS file hash list
+      - name: Create LFS file list
+        run: |
+          git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      # Restore LFS cache
+      - name: Restore LFS cache
+        uses: actions/cache@v3
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      # Pull LFS files
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      # Cache Unity Library
       - name: Cache Unity Library
         uses: actions/cache@v3
         with:
