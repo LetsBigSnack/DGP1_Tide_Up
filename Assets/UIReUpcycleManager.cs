@@ -5,6 +5,7 @@ using Assets.Scripts.Data;
 
 public enum ReUpcyclerType
 {
+    Closed,
     Recipies,
     Recycler,
     Upcycler
@@ -30,6 +31,11 @@ public class UIReUpcycleManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public ReUpcyclerType GetCurrentState()
+    {
+        return currentOpenType;
     }
 
     public void SwitchState(ReUpcyclerType state)

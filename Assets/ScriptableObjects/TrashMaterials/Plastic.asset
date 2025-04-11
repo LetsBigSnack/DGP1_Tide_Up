@@ -18,3 +18,4 @@ MonoBehaviour:
   - Plastic Hint 2
   - Plastic Hint 3
   materialName: Plastic
+  sprite: {fileID: 21300000, guid: e8a3f2b3a8ca05a4e849ca18e834fa03, type: 3}

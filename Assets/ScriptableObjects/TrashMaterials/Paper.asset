@@ -18,3 +18,4 @@ MonoBehaviour:
   - Paper Hint 2
   - Paper Hint 3
   materialName: Paper
+  sprite: {fileID: 21300000, guid: 6f425dbf84f258747adc77a2c1790c97, type: 3}

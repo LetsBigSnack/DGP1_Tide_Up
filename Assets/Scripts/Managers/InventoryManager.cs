@@ -10,6 +10,8 @@ public class InventoryManager : MonoBehaviour
 
     [SerializeField] List<ItemInstance> _items = new();
     [SerializeField] private List<TrashMaterialEntry> _materialWallet = new();
+
+    public static event Action<List<ItemInstance>> OnInventoryChanged;
     //TODO Implement Dictionary Wallet
     private Dictionary<TrashMaterialType, int> _materials;
 
@@ -70,6 +72,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         _items.Add(item);
+        OnInventoryChanged?.Invoke(_items);
         Debug.Log("Picked up: " + item.ItemData.name);
         return true;
     }
@@ -95,6 +98,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         _items.Remove(item);
+        OnInventoryChanged?.Invoke(_items);
         Debug.Log($"Removed trash: {item.ItemData.name}");
 
         return true;

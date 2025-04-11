@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd431e95fd4a574992ac6aeda707dc4, type: 3}
   m_Name: Paper
   m_EditorClassIdentifier: 
-  name: Paper
+  title: Paper
+  description: Thin as my nerves atm.
+  sprite: {fileID: 21300000, guid: 18b4bf9379c86334baeddbc4951f2d2e, type: 3}
   materials:
   - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
   trashQual: 0
