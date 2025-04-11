@@ -1,31 +1,73 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+public enum KeyType
+{
+    Keyboard,
+    Xbox,
+    Playstation,
+    Nintendo
+}
 
-[System.Serializable]
+//TODO export classes after review
+[Serializable]
 public class ToolbarVisualEntry
 {
-    public string label;
-    public Sprite icon;
+    [SerializeField]
+    private KeyType type;
+    [SerializeField]
+    private string label;
+    [SerializeField]
+    private string key;
+    [SerializeField]
+    private Sprite iconBackground;
+
+    public KeyType Type { get { return type; } set { type = value; } }
+    public Sprite Sprite { get { return iconBackground; } set { iconBackground = value; } }
+    public string Label { get { return label; } set { label = value; } }
+    public string Key { get { return key; } set { key = value; } }
+}
+
+[Serializable]
+public class ToolBarStateEntry
+{
+    [SerializeField]
+    private GameStates stateType;
+
+    [SerializeField]
+    private KeyType keyType; 
+
+    [SerializeField]
+    private List<ToolbarVisualEntry> buttons;
+
+    public GameStates StateType { get { return stateType; } set { stateType = value; } }
+    public KeyType KeyType { get { return keyType; } set { keyType = value; } }
+    public List<ToolbarVisualEntry> Buttons { get { return buttons; } set { buttons = value; } }
 }
 
 public class UIHUDManager : MonoBehaviour
 {
+    public static UIHUDManager Instance;
+
+    [Header("currentKeyState")]
+    [SerializeField]
+    private GameStates currentKeyState;
+
+    private KeyType currentKeyType;
+
     [Header("Toolbar")]
     [SerializeField] private GameObject toolBarItemPrefab;
     [SerializeField] private Transform toolBarContainer;
     [SerializeField] private bool toggleToolbar = true;
-    [SerializeField] private List<Sprite> toolBarSprites;
+    [SerializeField] private List<ToolBarStateEntry> toolBarStateEntries;
 
     [Header("DateMap")]
     [SerializeField] private Transform dateMapContainer;
 
-    private Dictionary<GameStates, List<ToolbarVisualEntry>> _toolbarVisuals = new();
 
-
-    public static UIHUDManager Instance;
+    [Header("CurrentButtons")]
+    [SerializeField] private List<GameObject> currentButtons;
 
     private void Awake()
     {
@@ -44,7 +86,9 @@ public class UIHUDManager : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += UpdateToolBar;
-        ToolbarSetup();
+        //testing purpose for now
+        currentKeyState = GameStates.PlayingBoat;
+        UpdateToolBar(GameStates.PlayingCharacter);
     }
 
     private void OnDisable()
@@ -52,82 +96,44 @@ public class UIHUDManager : MonoBehaviour
         GameStateManager.OnStateChanged -= UpdateToolBar;
     }
 
-    private void ToolbarSetup()
-    {
-        Debug.Log("ToolbarSetup called");
-        _toolbarVisuals[GameStates.PlayingCharacter] = new List<ToolbarVisualEntry>
-        {
-            new ToolbarVisualEntry { label = "Inventory", icon = GetSpriteByName("test2") },
-            new ToolbarVisualEntry { label = "Recipes", icon = GetSpriteByName("test") },
-            new ToolbarVisualEntry { label = "Tasks", icon = GetSpriteByName("test2") },
-            new ToolbarVisualEntry { label = "Friendbook", icon = GetSpriteByName("test") }
-        };
-
-        _toolbarVisuals[GameStates.PlayingBoat] = new List<ToolbarVisualEntry>
-        {
-            new ToolbarVisualEntry { label = "Dock", icon = GetSpriteByName("anchor") },
-            new ToolbarVisualEntry { label = "Map", icon = GetSpriteByName("map") }
-        };
-
-        _toolbarVisuals[GameStates.Paused] = new List<ToolbarVisualEntry>
-        {
-            new ToolbarVisualEntry { label = "Test Paused", icon = GetSpriteByName("test") }
-        };
-
-        _toolbarVisuals[GameStates.InMenu] = new List<ToolbarVisualEntry>
-        {
-            new ToolbarVisualEntry { label = "Close menu", icon = GetSpriteByName("test") }
-        };
-
-    }
-
     public void UpdateToolBar(GameStates state)
     {
-        Debug.Log("Update toolbar called for sate: " + state);
+        //currently hardcoded will need to be changed based on the controlles attached to the computer or currently active. with some kind of helper class
+        //needs own ticket
+        KeyType keyType = KeyType.Keyboard;
 
-        foreach (Transform child in toolBarContainer)
-            Destroy(child.gameObject);
-
-        if (!_toolbarVisuals.ContainsKey(state))
+        if(currentKeyState == state && currentKeyType == keyType)
         {
             return;
         }
 
-        foreach (var entry in _toolbarVisuals[state])
+        if(currentButtons.Count > 0)
         {
-            GameObject newEntry = Instantiate(toolBarItemPrefab, toolBarContainer);
-
-            Transform textChild = newEntry.transform.Find("Txt_ToolBar");
-            Transform imgChild = newEntry.transform.Find("Img_ToolBar");
-
-            if (textChild == null || imgChild == null)
-                continue;
-
-            textChild.GetComponent<TMPro.TextMeshProUGUI>().text = entry.label;
-            imgChild.GetComponent<Image>().sprite = entry.icon;
-
+            foreach(GameObject button in currentButtons)
+            {
+                Destroy(button);
+            }
+            currentButtons.Clear();
         }
 
-        Canvas.ForceUpdateCanvases();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(toolBarContainer.GetComponent<RectTransform>());
-    }
-    private Sprite GetSpriteByName(string name)
-    {
-        Sprite sprite = toolBarSprites.Find(s => s.name == name);
+        ToolBarStateEntry newEntry = toolBarStateEntries.Find(t => t.StateType == state && t.KeyType == keyType);
 
-        if (sprite == null)
+        foreach(ToolbarVisualEntry button in newEntry.Buttons)
         {
-            Debug.LogWarning("Sprite not found: " + name);
-            return null;
+            GameObject newButton = Instantiate(toolBarItemPrefab, toolBarContainer);
+            newButton.GetComponent<UIToolbarItem>().SetupButton(button.Sprite, button.Label, button.Key);
+            currentButtons.Add(newButton);
         }
-
-        return sprite;
+        currentKeyState = state;
     }
 
     public void ToggleDateMap()
     {
-        bool isActive = dateMapContainer.gameObject.activeSelf;
-        dateMapContainer.gameObject.SetActive(!isActive);
+        if(dateMapContainer != null)
+        {
+            bool isActive = dateMapContainer.gameObject.activeSelf;
+            dateMapContainer.gameObject.SetActive(!isActive);
+        }
     }
 
     public void ToggleToolbar()
