@@ -13,6 +13,7 @@ namespace Data
         public QuestItemInstance(QuestItemData itemData, List<TrashMaterialData> recipeIngredients) : base(itemData)
         {
             _usedTrashMaterials = recipeIngredients;
+            ItemQuality = ItemQuality.Quest;
         }
         
         public string GetUse()

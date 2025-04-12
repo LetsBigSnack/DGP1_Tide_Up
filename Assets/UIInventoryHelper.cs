@@ -4,7 +4,7 @@ using UnityEngine;
 using Data;
 using System.Linq;
 
-public enum SortingType
+public enum FilterType
 {
     All,
     Glass,
@@ -19,7 +19,7 @@ public class UIInventoryHelper : MonoBehaviour
 
     [Header("Filter")]
     [SerializeField] private TMP_Dropdown dropdown;
-    [SerializeField] private SortingType currentSortingType;
+    [SerializeField] private FilterType currentSortingType;
 
     [Header("ScrollViewContent")]
     [SerializeField] private Transform itemParent;
@@ -32,29 +32,29 @@ public class UIInventoryHelper : MonoBehaviour
 
     private List<GameObject> _currentItems = new List<GameObject>();
 
-    private Dictionary<int, SortingType> _dropdownOptions = new Dictionary<int, SortingType>()
+    private Dictionary<int, FilterType> _dropdownOptions = new Dictionary<int, FilterType>()
     {
-        { 0,SortingType.All },
-        { 1,SortingType.Glass },
-        { 2,SortingType.Metal },
-        { 3,SortingType.Paper },
-        { 4,SortingType.Plastic },
-        { 5,SortingType.Wood }
+        { 0,FilterType.All },
+        { 1,FilterType.Glass },
+        { 2,FilterType.Metal },
+        { 3,FilterType.Paper },
+        { 4,FilterType.Plastic },
+        { 5,FilterType.Wood }
     };
 
-    private Dictionary<SortingType, TrashMaterialType> __materialTypes = new Dictionary<SortingType, TrashMaterialType>()
+    private Dictionary<FilterType, TrashMaterialType> __materialTypes = new Dictionary<FilterType, TrashMaterialType>()
     {
-        {SortingType.Glass, TrashMaterialType.Glass},
-        {SortingType.Metal, TrashMaterialType.Metal},
-        {SortingType.Paper, TrashMaterialType.Paper},
-        {SortingType.Plastic, TrashMaterialType.Plastic},
-        {SortingType.Wood, TrashMaterialType.Wood},
+        {FilterType.Glass, TrashMaterialType.Glass},
+        {FilterType.Metal, TrashMaterialType.Metal},
+        {FilterType.Paper, TrashMaterialType.Paper},
+        {FilterType.Plastic, TrashMaterialType.Plastic},
+        {FilterType.Wood, TrashMaterialType.Wood},
 
     };
 
     private void Awake()
     {
-        FillSortingOptions();
+        FillFilterOptions();
     }
 
     private void OnEnable()
@@ -82,7 +82,7 @@ public class UIInventoryHelper : MonoBehaviour
         }
 
         ClearInventory();
-        items = SortInventory(items);
+        items = FilterInventoy(items);
         foreach(ItemInstance item in items)
         {
             GameObject newItem = Instantiate(itemPrefab, itemParent);
@@ -90,18 +90,20 @@ public class UIInventoryHelper : MonoBehaviour
             _currentItems.Add(newItem);
         }
     }
-    private List<ItemInstance> SortInventory(List<ItemInstance> items)
+    private List<ItemInstance> FilterInventoy(List<ItemInstance> items)
     {
         List<ItemInstance> sortedItems;
 
-        if (currentSortingType == SortingType.All)
+        if (currentSortingType == FilterType.All)
         {
-            return sortedItems = items;
+            return sortedItems = items.OrderBy(m => m.ItemQuality)
+            .ToList();
         }
 
         return sortedItems = items
-            .OrderByDescending(item => item.GetMaterials()
+            .Where(item => item.GetMaterials()
             .Any(m => m.type == __materialTypes[currentSortingType]))
+            .OrderBy(m => m.ItemQuality)
             .ToList();
     }
 
@@ -119,7 +121,7 @@ public class UIInventoryHelper : MonoBehaviour
         _currentItems.Clear();
     }
 
-    private void FillSortingOptions()
+    private void FillFilterOptions()
     {
         List<string> dropdownOptions = new List<string>();
         foreach(int i in _dropdownOptions.Keys)

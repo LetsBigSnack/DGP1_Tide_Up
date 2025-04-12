@@ -33,6 +33,11 @@ public class UIItemDetailsHelper : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        RemoveMaterialIcons();
+    }
+
     public void SetupDescription(string titel, string description, Sprite image, List<TrashMaterialData> trash)
     {
         this.titel.text = titel;

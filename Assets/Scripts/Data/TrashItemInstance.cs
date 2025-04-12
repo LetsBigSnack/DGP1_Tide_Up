@@ -7,9 +7,12 @@ namespace Data
     {
         public TrashData TrashData => (TrashData)ItemData;
         
-        public TrashItemInstance(TrashData itemData) : base(itemData)
+        public TrashItemInstance(TrashData itemData, bool isHighQuality) : base(itemData)
         {
-            
+            if (isHighQuality)
+            {
+                ItemQuality = ItemQuality.High;
+            }
         }
     }
 }

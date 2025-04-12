@@ -23,7 +23,7 @@ public class UIInventoryController : UIJournalSubMenu
     }
     public override void CloseMenu()
     {
-        throw new System.NotImplementedException();
+        CloseInventory();
     }
 
     public override void OpenMenu()
@@ -39,7 +39,7 @@ public class UIInventoryController : UIJournalSubMenu
     private bool IsReUpCyclerOpen()
     {
         ReUpcyclerType curState = UIReUpcycleManager.Instance.GetCurrentState();
-        return curState != ReUpcyclerType.Recycler || curState != ReUpcyclerType.Upcycler;
+        return curState == ReUpcyclerType.Recycler && curState == ReUpcyclerType.Upcycler;
     }
 
     public void OpenWholeInventory()
@@ -56,6 +56,19 @@ public class UIInventoryController : UIJournalSubMenu
         if (!inventoryPage.activeInHierarchy)
         {
             inventoryPage.SetActive(true);
+        }
+    }
+
+    public void CloseInventory()
+    {
+        if (inventoryPage.activeInHierarchy)
+        {
+            inventoryPage.SetActive(false);
+        }
+
+        if (descriptionPage.activeInHierarchy)
+        {
+            descriptionPage.SetActive(false);
         }
     }
 }

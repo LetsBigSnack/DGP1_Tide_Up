@@ -34,6 +34,8 @@ public class UIJournalManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        currentOpenType = JournalType.Closed;
     }
 
     public JournalType GetCurrentType()
@@ -54,6 +56,7 @@ public class UIJournalManager : MonoBehaviour
        {
             menu.CloseMenu();
        }
+        currentOpenType = JournalType.Closed;
    }
 
    public void OpenMenuByType(JournalType type)

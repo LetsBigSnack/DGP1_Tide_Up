@@ -28,7 +28,7 @@ public class DataUtil : MonoBehaviour
 
     public TrashItemInstance GetRandomTrash()
     {
-        TrashItemInstance trashItem = new TrashItemInstance(listOfTrash[UnityEngine.Random.Range(0, listOfTrash.Count)]);
+        TrashItemInstance trashItem = new TrashItemInstance(listOfTrash[UnityEngine.Random.Range(0, listOfTrash.Count)], false);
         
         return trashItem;
     }

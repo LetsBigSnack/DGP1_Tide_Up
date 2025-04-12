@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private List<TrashMaterialEntry> _materialWallet = new();
 
     public static event Action<List<ItemInstance>> OnInventoryChanged;
+    public static event Action<List<TrashMaterialEntry>> OnTrashMaterialChanged;
     //TODO Implement Dictionary Wallet
     private Dictionary<TrashMaterialType, int> _materials;
 
@@ -51,6 +52,11 @@ public class InventoryManager : MonoBehaviour
                 _materialWallet.Add(new TrashMaterialEntry(material, 0));
             }
         }
+    }
+
+    public List<TrashMaterialEntry> GetWallet()
+    {
+        return _materialWallet;
     }
 
     public void TestAddTrashItem()

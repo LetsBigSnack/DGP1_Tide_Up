@@ -36,12 +36,13 @@ public class MenuController : MonoBehaviour
     {
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIHUDManager.Instance.ToggleDateMap();
-        InventoryManager.Instance.PrintInventory();
+        UIJournalManager.Instance.SwitchState(JournalType.Inventory);
     }
     private void CloseMenu(InputAction.CallbackContext value)
     {
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         UIHUDManager.Instance.ToggleDateMap();
+        UIJournalManager.Instance.CloseAllMenues();
     }
 
 }
