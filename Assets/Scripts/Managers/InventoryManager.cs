@@ -129,6 +129,7 @@ public class InventoryManager : MonoBehaviour
             _materialWallet.Add(new TrashMaterialEntry(newTrashMaterialData, amount));
         }
 
+        OnTrashMaterialChanged?.Invoke(_materialWallet);
         Debug.Log($"+ {amount}x {materialType}");
         return true;
     }
