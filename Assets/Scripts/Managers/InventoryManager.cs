@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using UnityEngine;
 
@@ -93,8 +94,15 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("No trash to remove.");
             return false;
         }
+        
+        ItemInstance itemToRemove = _items.Find(x => x.ItemData == item.ItemData);
 
-        _items.Remove(item);
+        if (itemToRemove == null)
+        {
+            return false;
+        }
+        
+        _items.Remove(itemToRemove);
         Debug.Log($"Removed trash: {item.ItemData.name}");
 
         return true;
@@ -189,7 +197,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool HasItem(ItemInstance questItem)
     {
-        return _items.Contains(questItem);
+        return _items.Any(item => item.ItemData == questItem.ItemData);
     }
 
     public bool HasSpaceForItem()

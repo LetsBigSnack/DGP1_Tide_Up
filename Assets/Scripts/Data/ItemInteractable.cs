@@ -13,6 +13,7 @@ public class ItemInteractable : Interactable
         Debug.Log("Interact");
         if (InventoryManager.Instance.AddItem(new TrashItemInstance(trashData)))
         {
+            EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
             Destroy(this.gameObject);
         }
     }

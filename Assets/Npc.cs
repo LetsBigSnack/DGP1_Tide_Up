@@ -35,7 +35,7 @@ public class Npc : MonoBehaviour
     [SerializeField] private NpcAwareness npcAwareness = NpcAwareness.Low;
     [SerializeField] private int completedQuests = 0;
     [SerializeField] private int maxCompletedQuests = 6;
-    
+    [SerializeField] private int islandID;
     
     
     public NpcStates NpcState
@@ -118,6 +118,7 @@ public class Npc : MonoBehaviour
     public void AddCompletedQuest()
     {
         completedQuests++;
+        EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.Quest);
     }
     
     public void UpdateAwarness()
@@ -158,5 +159,10 @@ public class Npc : MonoBehaviour
     {
         _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality);
         _currentQuest.QuestNpc = this.npcName;
+    }
+
+    public void AssignIsland(int islandID)
+    {
+        this.islandID = islandID;
     }
 }
