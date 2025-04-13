@@ -19,9 +19,13 @@ public class DevControlls : MonoBehaviour
 
         _devInputs.DevInputs.RemoveRecycleItem.performed += RemoveItemFromRecycler;
         _devInputs.DevInputs.ConfirmRecycle.performed += RecycleStoredItem;
+
         _devInputs.DevInputs.Upgrade.performed += UpgradeInventory;
+
         _devInputs.DevInputs.CollectOneItem.performed += CollectOneItem;
         _devInputs.DevInputs.CollectAllItems.performed += CollectAllItems;
+
+        _devInputs.DevInputs.RemoveImportantToast.performed += RemoveImportantToast;
     }
 
     private void OnDisable()
@@ -32,10 +36,13 @@ public class DevControlls : MonoBehaviour
 
         _devInputs.DevInputs.RemoveRecycleItem.performed -= RemoveItemFromRecycler;
         _devInputs.DevInputs.ConfirmRecycle.performed -= RecycleStoredItem;
+
         _devInputs.DevInputs.Upgrade.performed -= UpgradeInventory;
+
         _devInputs.DevInputs.CollectOneItem.performed -= CollectOneItem;
         _devInputs.DevInputs.CollectAllItems.performed -= CollectAllItems;
 
+        _devInputs.DevInputs.RemoveImportantToast.performed -= RemoveImportantToast;
     }
 
     private void RemoveItemFromRecycler(InputAction.CallbackContext context)
@@ -59,5 +66,10 @@ public class DevControlls : MonoBehaviour
     {
         TideUpBox currBox = TideUpBoxManager.Instance.GetTideUpBox(0);
         currBox.CollectAllItems();
+    }
+    private void RemoveImportantToast(InputAction.CallbackContext context)
+    {
+        Debug.Log("Removing important toast");
+        UI_ToastManager.Instance.DestroyImportantToast();
     }
 }

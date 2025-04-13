@@ -56,4 +56,5 @@ public class ToastNotificationItem : MonoBehaviour
         UI_ToastManager.Instance.RemoveFromList(type, gameObject);
         PlayEndAnimation();
     }
+
 }

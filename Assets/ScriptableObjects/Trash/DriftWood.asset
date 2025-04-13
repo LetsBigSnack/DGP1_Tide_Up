@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd431e95fd4a574992ac6aeda707dc4, type: 3}
   m_Name: DriftWood
   m_EditorClassIdentifier: 
-  name: Drift Wood
+  title: DriftWood
+  description: yeah... its wood i guess... but bit drifty.
+  sprite: {fileID: 21300000, guid: 0ec7484cc6926724b8018b3562cccc3e, type: 3}
   materials:
   - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
   trashQual: 0

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd431e95fd4a574992ac6aeda707dc4, type: 3}
   m_Name: Can
   m_EditorClassIdentifier: 
-  name: Can
+  title: Can
+  description: I mean its a freaking can...
+  sprite: {fileID: 21300000, guid: c01227be4813a2849beb75442bffc49f, type: 3}
   materials:
   - {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
   trashQual: 0

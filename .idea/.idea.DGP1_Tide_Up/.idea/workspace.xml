@@ -6,12 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4e88fcd7-3c51-4756-bc6b-54b47aff64cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DGP1_Tide_Up/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Npc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Npc.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/NpcAgent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/NpcAgent.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/ItemInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/ItemInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/UI_Items/ToolbarItemPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/UI_Items/ToolbarItemPrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/UI_Items/importantToastPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/UI_Items/importantToastPrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/FE_120_HUD_UI.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/FE_120_HUD_UI.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Development/FE_123_Inventory_UI.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Development/FE_123_Inventory_UI.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/Toolbar/test.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UI/Toolbar/test.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/Toolbar/test2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UI/Toolbar/test2.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,14 +33,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/DialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/UpcycleTesterEditor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EnvironmentManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EnvironmentObject.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Island.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/NpcDialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/NpcManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/RecyclerManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UIDialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -57,7 +53,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "XThreadsFramesViewSplitterKey": "0.50078005",
-    "git-widget-placeholder": "BE__115__Environment__System",
+    "git-widget-placeholder": "FE__123__Inventory__UI",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,15 +101,13 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="53844">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="53844" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list>
-          <MonoRuntime />
-        </list>
+        <list />
       </option>
       <option name="selectedOptions">
         <list />
@@ -177,13 +171,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/InventoryManager.cs</url>
-          <line>59</line>
+          <line>58</line>
           <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Scripts\Managers\InventoryManager.cs" containingFunctionPresentation="Method 'AddItem'">
             <startOffsets>
-              <option value="1390" />
+              <option value="1371" />
             </startOffsets>
             <endOffsets>
-              <option value="1407" />
+              <option value="1388" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="13" />
@@ -240,32 +234,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Island.cs</url>
-          <line>92</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\Island.cs" containingFunctionPresentation="Method 'AssignAllEnvironment'">
-            <startOffsets>
-              <option value="2217" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2303" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EnvironmentManager.cs</url>
-          <line>80</line>
-          <properties documentPath="C:\Users\davku\Documents\GitHub\DGP1_Tide_Up\Assets\EnvironmentManager.cs" containingFunctionPresentation="Method 'AddCleanlinessScore'">
-            <startOffsets>
-              <option value="1611" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1662" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

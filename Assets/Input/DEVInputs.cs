@@ -71,6 +71,15 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RemoveImportantToast"",
+                    ""type"": ""Button"",
+                    ""id"": ""bcb8fa3e-a113-4056-8f5a-c4c775b7583d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -128,6 +137,17 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
                     ""action"": ""CollectAllItems"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3975d84-c51d-494b-8cf3-97cb9e550df1"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RemoveImportantToast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -141,6 +161,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
         m_DevInputs_Upgrade = m_DevInputs.FindAction("Upgrade", throwIfNotFound: true);
         m_DevInputs_CollectOneItem = m_DevInputs.FindAction("CollectOneItem", throwIfNotFound: true);
         m_DevInputs_CollectAllItems = m_DevInputs.FindAction("CollectAllItems", throwIfNotFound: true);
+        m_DevInputs_RemoveImportantToast = m_DevInputs.FindAction("RemoveImportantToast", throwIfNotFound: true);
     }
 
     ~@DEVInputs()
@@ -212,6 +233,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_DevInputs_Upgrade;
     private readonly InputAction m_DevInputs_CollectOneItem;
     private readonly InputAction m_DevInputs_CollectAllItems;
+    private readonly InputAction m_DevInputs_RemoveImportantToast;
     public struct DevInputsActions
     {
         private @DEVInputs m_Wrapper;
@@ -221,6 +243,7 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
         public InputAction @Upgrade => m_Wrapper.m_DevInputs_Upgrade;
         public InputAction @CollectOneItem => m_Wrapper.m_DevInputs_CollectOneItem;
         public InputAction @CollectAllItems => m_Wrapper.m_DevInputs_CollectAllItems;
+        public InputAction @RemoveImportantToast => m_Wrapper.m_DevInputs_RemoveImportantToast;
         public InputActionMap Get() { return m_Wrapper.m_DevInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -245,6 +268,9 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
             @CollectAllItems.started += instance.OnCollectAllItems;
             @CollectAllItems.performed += instance.OnCollectAllItems;
             @CollectAllItems.canceled += instance.OnCollectAllItems;
+            @RemoveImportantToast.started += instance.OnRemoveImportantToast;
+            @RemoveImportantToast.performed += instance.OnRemoveImportantToast;
+            @RemoveImportantToast.canceled += instance.OnRemoveImportantToast;
         }
 
         private void UnregisterCallbacks(IDevInputsActions instance)
@@ -264,6 +290,9 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
             @CollectAllItems.started -= instance.OnCollectAllItems;
             @CollectAllItems.performed -= instance.OnCollectAllItems;
             @CollectAllItems.canceled -= instance.OnCollectAllItems;
+            @RemoveImportantToast.started -= instance.OnRemoveImportantToast;
+            @RemoveImportantToast.performed -= instance.OnRemoveImportantToast;
+            @RemoveImportantToast.canceled -= instance.OnRemoveImportantToast;
         }
 
         public void RemoveCallbacks(IDevInputsActions instance)
@@ -288,5 +317,6 @@ public partial class @DEVInputs: IInputActionCollection2, IDisposable
         void OnUpgrade(InputAction.CallbackContext context);
         void OnCollectOneItem(InputAction.CallbackContext context);
         void OnCollectAllItems(InputAction.CallbackContext context);
+        void OnRemoveImportantToast(InputAction.CallbackContext context);
     }
 }

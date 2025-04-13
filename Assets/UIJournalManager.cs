@@ -5,6 +5,7 @@ using Assets.Scripts.Data;
 
 public enum JournalType
 {
+    Closed,
     Inventory,
     Map,
     FriendBook,
@@ -33,6 +34,13 @@ public class UIJournalManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        currentOpenType = JournalType.Closed;
+    }
+
+    public JournalType GetCurrentType()
+    {
+        return currentOpenType;
     }
 
     public void SwitchState(JournalType state)
@@ -48,6 +56,7 @@ public class UIJournalManager : MonoBehaviour
        {
             menu.CloseMenu();
        }
+        currentOpenType = JournalType.Closed;
    }
 
    public void OpenMenuByType(JournalType type)

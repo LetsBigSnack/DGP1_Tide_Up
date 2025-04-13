@@ -11,6 +11,9 @@ public class InventoryManager : MonoBehaviour
 
     [SerializeField] List<ItemInstance> _items = new();
     [SerializeField] private List<TrashMaterialEntry> _materialWallet = new();
+
+    public static event Action<List<ItemInstance>> OnInventoryChanged;
+    public static event Action<List<TrashMaterialEntry>> OnTrashMaterialChanged;
     //TODO Implement Dictionary Wallet
     private Dictionary<TrashMaterialType, int> _materials;
 
@@ -52,6 +55,11 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public List<TrashMaterialEntry> GetWallet()
+    {
+        return _materialWallet;
+    }
+
     public void TestAddTrashItem()
     {
         ItemInstance randomTrashData = DataUtil.Instance.GetRandomTrash();
@@ -71,6 +79,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         _items.Add(item);
+        OnInventoryChanged?.Invoke(_items);
         Debug.Log("Picked up: " + item.ItemData.name);
         return true;
     }
@@ -103,6 +112,7 @@ public class InventoryManager : MonoBehaviour
         }
         
         _items.Remove(itemToRemove);
+        OnInventoryChanged?.Invoke(_items);
         Debug.Log($"Removed trash: {item.ItemData.name}");
 
         return true;
@@ -127,6 +137,7 @@ public class InventoryManager : MonoBehaviour
             _materialWallet.Add(new TrashMaterialEntry(newTrashMaterialData, amount));
         }
 
+        OnTrashMaterialChanged?.Invoke(_materialWallet);
         Debug.Log($"+ {amount}x {materialType}");
         return true;
     }

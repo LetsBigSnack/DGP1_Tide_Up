@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         
-        if (GameStateManager.Instance.GetGameState() != GameStates.Playing)
+        if (GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter)
         { 
             _playerMoveVector = Vector3.zero;
         }

@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using UnityEngine.WSA;
 
 public enum ToastType
 {
@@ -112,5 +113,16 @@ public class UI_ToastManager : MonoBehaviour
     private bool ListCapReached(List<GameObject> list, int maxCap)
     {
         return list.Count >= maxCap;
+    }
+
+    public void DestroyImportantToast()
+    {
+        if (_toastLists[ToastType.Important].Count == 0)
+            return;
+
+        GameObject toast = _toastLists[ToastType.Important][0];
+
+        toast.GetComponent<ToastNotificationItem>().PlayEndAnimation();
+        _toastLists[ToastType.Important].RemoveAt(0);
     }
 }

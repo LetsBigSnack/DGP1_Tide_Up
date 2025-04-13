@@ -9,6 +9,7 @@ public class TrashMaterialData : ScriptableObject
     public TrashMaterialType type;
     public List<string> trashHints;
     public string materialName;
+    public Sprite sprite;
     
     public string GetHint()
     {
