@@ -55,6 +55,7 @@ public class UIInventoryController : UIJournalSubMenu
     {
         if (!inventoryPage.activeInHierarchy)
         {
+            UIJournalManager.Instance.State = JournalType.Inventory;
             inventoryPage.SetActive(true);
         }
     }

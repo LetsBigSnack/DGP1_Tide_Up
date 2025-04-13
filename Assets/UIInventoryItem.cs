@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Data;
+using System;
 
 public class UIInventoryItem : MonoBehaviour
 {
@@ -15,12 +16,21 @@ public class UIInventoryItem : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("Button Clicked");
+        JournalType curJournalState = UIJournalManager.Instance.GetCurrentState();
+        ShopType curShopState = UIShopManager.Instance.GetCurrentState();
+        ReUpcyclerType curReUpcyclerState = UIReUpcycleManager.Instance.GetCurrentState();
+
+        if (curJournalState == JournalType.Inventory
+            && curReUpcyclerState == ReUpcyclerType.Recycler
+            && curShopState == ShopType.Closed)
+        {
+            UIRecyclerController.Instance.AddItem(item);
+        }
     }
 
     public void OnHover()
     {
-        if(UIJournalManager.Instance.GetCurrentType() == JournalType.Inventory && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
+        if(UIJournalManager.Instance.GetCurrentState() == JournalType.Inventory && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
         {
             UIItemDetailsHelper.Instance.SetupDescription(item.ItemData.title, item.ItemData.description, item.ItemData.sprite, item.ItemData.Materials);
         }
@@ -28,6 +38,9 @@ public class UIInventoryItem : MonoBehaviour
 
     public void OffHover()
     {
-        UIItemDetailsHelper.Instance.ResetDescription();
+        if (UIJournalManager.Instance.GetCurrentState() == JournalType.Inventory && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
+        {
+            UIItemDetailsHelper.Instance.ResetDescription();
+        }
     }
 }

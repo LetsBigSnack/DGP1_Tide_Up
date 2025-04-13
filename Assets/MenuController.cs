@@ -43,6 +43,7 @@ public class MenuController : MonoBehaviour
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         UIHUDManager.Instance.ToggleDateMap();
         UIJournalManager.Instance.CloseAllMenues();
+        UIReUpcycleManager.Instance.CloseAllMenues();
     }
 
 }

@@ -9,7 +9,7 @@ public class Recycler : Interactable
 
     public override void Interact()
     {
-        RecyclerManager.Instance.StoreItem();
+        UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Recycler);
     }
 
     public override void ShowInteractability(bool show)
