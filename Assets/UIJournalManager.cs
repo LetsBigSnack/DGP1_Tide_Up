@@ -24,6 +24,12 @@ public class UIJournalManager : MonoBehaviour
     [Header("Journal")]
     [SerializeField] private List<UIJournalSubMenu> journalSubMenues;
 
+    public JournalType State
+    {
+        get { return currentOpenType; }
+        set { currentOpenType = value; }
+    }
+
     private void Awake()
     {
         if(Instance == null)
@@ -38,7 +44,7 @@ public class UIJournalManager : MonoBehaviour
         currentOpenType = JournalType.Closed;
     }
 
-    public JournalType GetCurrentType()
+    public JournalType GetCurrentState()
     {
         return currentOpenType;
     }

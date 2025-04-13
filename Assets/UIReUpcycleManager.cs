@@ -42,7 +42,6 @@ public class UIReUpcycleManager : MonoBehaviour
     {
         CloseAllMenues();
         OpenMenuByType(state);
-        currentOpenType = state;
     }
 
     public void CloseAllMenues()
@@ -51,11 +50,13 @@ public class UIReUpcycleManager : MonoBehaviour
         {
             menu.CloseMenu();
         }
+        currentOpenType = ReUpcyclerType.Closed;
     }
 
     public void OpenMenuByType(ReUpcyclerType type)
     {
         reUpcyclerSubMenues.Where(m => m.GetComponent<UIReUpCyclerSubMenu>().ReUpCyclerMenuType == type).FirstOrDefault().OpenMenu();
+        currentOpenType = type;
     }
 
 }

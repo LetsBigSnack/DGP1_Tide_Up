@@ -5,6 +5,7 @@ using System.Linq;
 
 public enum ShopType
 {
+    Closed,
     Shop,
     Exchange,
     BoatConfig
@@ -16,7 +17,7 @@ public class UIShopManager : MonoBehaviour
     [Header("CurrentState")]
     [SerializeField] private ShopType currentOpenType;
 
-    [Header("Recycle/Upcycle")]
+    [Header("SubMenues")]
     [SerializeField] private List<UIShopSubMenu> reUpcyclerSubMenues;
 
     private void Awake()
@@ -29,6 +30,11 @@ public class UIShopManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public ShopType GetCurrentState()
+    {
+        return currentOpenType;
     }
 
     public void SwitchState(ShopType state)

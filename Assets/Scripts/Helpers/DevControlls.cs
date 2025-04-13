@@ -47,11 +47,11 @@ public class DevControlls : MonoBehaviour
 
     private void RemoveItemFromRecycler(InputAction.CallbackContext context)
     {
-        RecyclerManager.Instance.RemoveStoredItem();
+        //RecyclerManager.Instance.RemoveStoredItem();
     }
     private void RecycleStoredItem(InputAction.CallbackContext context)
     {
-        RecyclerManager.Instance.RecycleStoredItem();
+        //RecyclerManager.Instance.RecycleStoredItem();
     }
     private void UpgradeInventory(InputAction.CallbackContext context)
     {
