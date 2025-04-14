@@ -98,6 +98,11 @@ jobs:
           name: Build-${{ matrix.targetPlatform }}
           path: CustomBuild
 
+      - name: Zip build for GitHub Release
+        run: |
+          cd CustomBuild
+          zip -r ../Build-${{ matrix.targetPlatform }}.zip ./*
+
       # GitHub Release
       - name: Upload to GitHub Releases
         if: ${{ github.ref == 'refs/heads/TU_52_Upcycel-System' || github.ref == 'refs/heads/production' }}
