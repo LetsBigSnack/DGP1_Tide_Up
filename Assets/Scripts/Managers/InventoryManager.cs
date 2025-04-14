@@ -160,6 +160,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         entry.Amount = Mathf.Max(0, entry.Amount - amount);
+        OnTrashMaterialChanged?.Invoke(_materialWallet);
         Debug.Log($"Removed {amount}x {materialType}");
         return true;
     }
