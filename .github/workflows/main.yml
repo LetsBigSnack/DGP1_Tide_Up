@@ -101,7 +101,7 @@ jobs:
       - name: Zip build for GitHub Release
         run: |
           cd CustomBuild
-          zip -r ../Build-${{ matrix.targetPlatform }}.zip ./*
+          zip -r ../Build-${{ matrix.targetPlatform }}.zip .
 
       # GitHub Release
       - name: Upload to GitHub Releases
