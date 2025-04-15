@@ -28,6 +28,9 @@ public class TideUpBox : Interactable
         set => awarenessBoxMultiplier = value;
     }
 
+
+    public override InteractableType Type => InteractableType.None;
+
     public override void Interact()
     {
         ShowBoxInventory();

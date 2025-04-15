@@ -7,7 +7,9 @@ public class ItemInteractable : Interactable
     
     [SerializeField] private TrashData trashData;
     [SerializeField] private bool highlight;
-    
+
+    public override InteractableType Type => InteractableType.Pickup;
+
     public override void Interact()
     {
         Debug.Log("Interact");

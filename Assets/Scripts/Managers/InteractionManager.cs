@@ -11,7 +11,7 @@ public class InteractionManager : MonoBehaviour
     
     public static InteractionManager Instance;
     
-    public static Action<bool> OnInteractionChanged;
+    public static Action<bool, InteractableType?, Transform?> OnInteractionChanged;
 
     public void Awake()
     {
@@ -35,8 +35,8 @@ public class InteractionManager : MonoBehaviour
 
         if (currentInteractable != null)
         {
-            currentInteractable.ShowInteractability(true);
-            OnInteractionChanged?.Invoke(true);
+            currentInteractable?.ShowInteractability(true);
+            OnInteractionChanged?.Invoke(true, currentInteractable.Type, currentInteractable.gameObject.transform);
         }
     }
 
@@ -74,7 +74,7 @@ public class InteractionManager : MonoBehaviour
     {
         if (currentInteractable == null)
         {
-            OnInteractionChanged?.Invoke(false);
+            OnInteractionChanged?.Invoke(false, null, null);
             return;
         }
         
@@ -82,7 +82,7 @@ public class InteractionManager : MonoBehaviour
         if (dist > interactionRadius)
         {
             currentInteractable?.ShowInteractability(false);
-            OnInteractionChanged?.Invoke(false);
+            OnInteractionChanged?.Invoke(false, null, null);
             currentInteractable = null;
         }
     }

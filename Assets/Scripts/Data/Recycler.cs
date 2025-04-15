@@ -7,6 +7,7 @@ public class Recycler : Interactable
 
     private bool _isInteractable = false;
 
+    public override InteractableType Type => InteractableType.Recycler;
     public override void Interact()
     {
         UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Recycler);

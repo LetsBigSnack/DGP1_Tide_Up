@@ -9,7 +9,8 @@ public class NpcInteractable : Interactable
     private Npc _npc;
     private NPC_Controller _npcController;
     private bool _previousState;
-    
+
+    public override InteractableType Type => InteractableType.NPC;
 
     private void Awake()
     {
