@@ -11,7 +11,7 @@ public class InteractionManager : MonoBehaviour
     
     public static InteractionManager Instance;
     
-    public static Action<bool, InteractableType?, Transform?> OnInteractionChanged;
+    public static Action<bool, InteractableType?, GameObject?> OnInteractionChanged;
 
     public void Awake()
     {
@@ -36,7 +36,7 @@ public class InteractionManager : MonoBehaviour
         if (currentInteractable != null)
         {
             currentInteractable?.ShowInteractability(true);
-            OnInteractionChanged?.Invoke(true, currentInteractable.Type, currentInteractable.gameObject.transform);
+            OnInteractionChanged?.Invoke(true, currentInteractable.Type, currentInteractable.gameObject);
         }
     }
 
