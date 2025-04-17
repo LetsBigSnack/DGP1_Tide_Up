@@ -37,7 +37,7 @@ public class UIRecyclerInputSlot : MonoBehaviour
     {
         if(data != null)
         {
-            UIRecyclerController.Instance.RemoveItem(currentItem);
+            UIRecyclerController.Instance.RemoveItem(this);
             ResetSlot();
         }
     }

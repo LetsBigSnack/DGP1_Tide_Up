@@ -59,4 +59,8 @@ public class UIReUpcycleManager : MonoBehaviour
         currentOpenType = type;
     }
 
+    public void SwitchStateByInt(int state)
+    {
+        SwitchState((ReUpcyclerType)state);
+    }
 }

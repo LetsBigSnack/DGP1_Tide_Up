@@ -63,13 +63,13 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
         }
     }
 
-    public void RemoveItem(ItemInstance item)
+    public void RemoveItem(UIRecyclerInputSlot slot)
     {
-        UIRecyclerInputSlot slot = itemSpaces.Where(i => i.GetComponent<UIRecyclerInputSlot>().CurrentItem == item).FirstOrDefault();
+        ItemInstance item = slot.CurrentItem;
 
         if (slot != null){
-            slot.CurrentItem = null;
             RecyclerManager.Instance.RemoveItemFromRecycler(item);
+            slot.ResetSlot();
         }
     }
 

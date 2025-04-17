@@ -6,7 +6,10 @@ using UnityEngine;
 public class UpcycleManager : MonoBehaviour
 {
     public static UpcycleManager Instance;
-    
+
+    private QuestItemInstance currentQuestItem;
+    public static event Action<QuestItemInstance> OnQuestItemChanged;
+
     private List<TrashMaterialData> _ingredients;
     public List<TrashMaterialData> Ingredients
     {
@@ -82,6 +85,12 @@ public class UpcycleManager : MonoBehaviour
         _ingredients = new List<TrashMaterialData>();
     }
 
+    public QuestItemInstance ValidateRecipe()
+    {
+        MaterialDetail recipe = new MaterialDetail(_ingredients);
+        return RecipeManager.Instance.ValidateRecipe(recipe);
+    }
+
     public bool Upcycle()
     {
         if (!InventoryManager.Instance.HasSpaceForItem() || _ingredients.Count < 2)
@@ -89,17 +98,23 @@ public class UpcycleManager : MonoBehaviour
             return false;
         }
         
-        MaterialDetail recipe = new MaterialDetail(_ingredients);
-        QuestItemInstance questItem = RecipeManager.Instance.ValidateRecipe(recipe);
+        currentQuestItem = ValidateRecipe();
+        OnQuestItemChanged?.Invoke(currentQuestItem);
 
-        if (questItem == null)
+        if (currentQuestItem == null)
         {
             return false;
         }
 
         ConsumeIngredients();
-        InventoryManager.Instance.AddItem(questItem);
         return true;
+    }
+
+    public void CollectQuestItem()
+    {
+        InventoryManager.Instance.AddItem(currentQuestItem);
+        currentQuestItem = null;
+        OnQuestItemChanged?.Invoke(currentQuestItem);
     }
     
     
