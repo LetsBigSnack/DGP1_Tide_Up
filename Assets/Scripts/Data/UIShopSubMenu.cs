@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Data
+namespace Data
 {
     [Serializable]
     public abstract class UIShopSubMenu : MonoBehaviour

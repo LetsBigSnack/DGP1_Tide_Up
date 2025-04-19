@@ -8,7 +8,8 @@ namespace Data
         Pickup,
         NPC,
         Recycler,
-        Upcycler
+        Upcycler,
+        Exchange
     }
 
     public abstract class Interactable : MonoBehaviour

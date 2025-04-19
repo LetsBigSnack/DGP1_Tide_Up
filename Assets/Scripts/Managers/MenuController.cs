@@ -44,6 +44,7 @@ public class MenuController : MonoBehaviour
         UIHUDManager.Instance.ToggleDateMap();
         UIJournalManager.Instance.CloseAllMenues();
         UIReUpcycleManager.Instance.CloseAllMenues();
+        UIShopManager.Instance.CloseAllMenues();
     }
 
 }

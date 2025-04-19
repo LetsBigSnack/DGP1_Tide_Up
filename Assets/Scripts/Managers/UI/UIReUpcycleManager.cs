@@ -42,6 +42,7 @@ public class UIReUpcycleManager : MonoBehaviour
     {
         CloseAllMenues();
         OpenMenuByType(state);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
     }
 
     public void CloseAllMenues()
@@ -51,6 +52,7 @@ public class UIReUpcycleManager : MonoBehaviour
             menu.CloseMenu();
         }
         currentOpenType = ReUpcyclerType.Closed;
+        GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
     }
 
     public void OpenMenuByType(ReUpcyclerType type)

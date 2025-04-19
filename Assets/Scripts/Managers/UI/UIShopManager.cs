@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Scripts.Data;
+using Data;
 using System.Linq;
 
 public enum ShopType
@@ -18,7 +18,8 @@ public class UIShopManager : MonoBehaviour
     [SerializeField] private ShopType currentOpenType;
 
     [Header("SubMenues")]
-    [SerializeField] private List<UIShopSubMenu> reUpcyclerSubMenues;
+    [SerializeField] private List<UIShopSubMenu> shopSubMenues;
+    [SerializeField] private GameObject tabs;
 
     private void Awake()
     {
@@ -41,20 +42,25 @@ public class UIShopManager : MonoBehaviour
     {
         CloseAllMenues();
         OpenMenuByType(state);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         currentOpenType = state;
+        tabs.SetActive(true);
     }
 
     public void CloseAllMenues()
     {
-        foreach (UIShopSubMenu menu in reUpcyclerSubMenues)
+        foreach (UIShopSubMenu menu in shopSubMenues)
         {
             menu.CloseMenu();
         }
+        tabs.SetActive(false);
+        currentOpenType = ShopType.Closed;
+        GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
     }
 
     public void OpenMenuByType(ShopType type)
     {
-        reUpcyclerSubMenues.Where(m => m.GetComponent<UIShopSubMenu>().ShopType == type).FirstOrDefault().OpenMenu();
+        shopSubMenues.Where(m => m.GetComponent<UIShopSubMenu>().ShopType == type).FirstOrDefault().OpenMenu();
     }
 
 }
