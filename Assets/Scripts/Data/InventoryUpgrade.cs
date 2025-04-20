@@ -7,8 +7,14 @@ public class InventoryUpgrade : Upgrade
     
     public override void ApplyUpgrade()
     {
+        if (!CanUpgrade() || !IsPreviousUpgradeUnlocked())
+        {
+            Debug.Log("Cant Upgrade");
+            return;
+        }
         PayUpgradeCost();
         InventoryManager.Instance.IncreaseMaxItems(slotsToAdd);
+        isUnlocked = true;
         Debug.Log($"Inventory upgraded by " + slotsToAdd + " slots!");
     }
 }

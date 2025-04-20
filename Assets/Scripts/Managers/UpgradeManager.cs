@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -30,6 +31,10 @@ public class UpgradeManager : MonoBehaviour
         return upgrades;
     }
 
+    public List<Upgrade> ReturnUpgradeByType(UpgradeType type)
+    {
+        return upgrades.Where(u => u.type == type).OrderBy(x => x.upgradeLevel).ToList();
+    }
 
     public Upgrade GetUpgrade(int upgradeIndex)
     {

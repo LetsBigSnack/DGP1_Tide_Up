@@ -1,48 +1,134 @@
+using Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Upgrade", menuName = "Scriptable Objects/Upgrade")]
-public abstract class Upgrade : ScriptableObject
+public enum UpgradeType
 {
-    public List<UpgradeCost> costs = new();
-    //TODO: add bool to be able to see if upgrades has been bought // add bool for upgrades you can by multiple times
-    
-   
-    
-    public abstract void ApplyUpgrade();
-
-    public bool CanUpgrade()
-    {
-        foreach (UpgradeCost cost in costs)
-        {
-            int playerAmount = InventoryManager.Instance.GetMaterialAmount(cost.material.type);
-            if (playerAmount < cost.amount)
-            {
-                int missing = cost.amount - playerAmount;
-                Debug.Log("Not enough materials to upgrade your inventory");
-                Debug.Log("You are missing: " + missing + " " + cost.material);
-                return false;
-            }
-        }
-
-        return true;
-    }
-    public void PayUpgradeCost()
-    {
-        foreach (UpgradeCost cost in costs)
-        {
-            InventoryManager.Instance.RemoveMaterial(cost.material.type, cost.amount);
-        }
-    }
-    
+    BoatSpeed,
+    Inventory,
+    OilClean,
+    WaterAccess
 }
 
 [Serializable]
 public class UpgradeCost
 {
+    public bool isQuestItem;
     public TrashMaterialData material;
+    public QuestItemData itemData;
     public int amount;
+}
+
+[CreateAssetMenu(fileName = "Upgrade", menuName = "Scriptable Objects/Upgrade")]
+public abstract class Upgrade : ScriptableObject
+{
+    [Header("Setup")]
+    public UpgradeType type;
+    public int upgradeLevel;
+    public Sprite sprite;
+    public string description;
+
+    [Header("Upgrade Costs")]
+    public List<UpgradeCost> costs = new List<UpgradeCost>();
+
+    [Header("Upgrade State")]
+    public Upgrade previousUpgrade;
+    public Upgrade nextUpgrade;
+    public bool isUnlocked = false;
+
+    public abstract void ApplyUpgrade();
+
+    public bool CanUpgrade()
+    {
+        bool questItem = true;
+        bool material = true;
+        foreach (UpgradeCost cost in costs)
+        {
+            if (!cost.isQuestItem)
+            {
+                int playerAmount = InventoryManager.Instance.GetMaterialAmount(cost.material.type);
+                if (playerAmount < cost.amount)
+                {
+                    int missing = cost.amount - playerAmount;
+                    Debug.Log("Not enough materials to upgrade your inventory");
+                    Debug.Log("You are missing: " + missing + " " + cost.material);
+                    material = false;
+                }
+                else
+                {
+                    material = true;
+                }
+            }
+            else
+            {
+                ItemInstance item = new ItemInstance(cost.itemData);
+                if (!InventoryManager.Instance.IsItemInInventory(item, cost.amount))
+                {
+                    questItem = false;
+                }
+                else
+                {
+                    questItem = true;
+                }
+            }
+        }
+        return questItem && material;
+    }
+
+    public bool CostIsAvailable(UpgradeCost cost)
+    {
+        bool costIsAvailable = false;
+
+            if (!cost.isQuestItem)
+            {
+                int playerAmount = InventoryManager.Instance.GetMaterialAmount(cost.material.type);
+                if (playerAmount < cost.amount)
+                {
+                    costIsAvailable = false;
+                }
+                else
+                {
+                    costIsAvailable = true;
+                }
+            }
+            else
+            {
+                ItemInstance item = new ItemInstance(cost.itemData);
+                if (!InventoryManager.Instance.IsItemInInventory(item, cost.amount))
+                {
+                    costIsAvailable = false;
+                }
+                else
+                {
+                    costIsAvailable = true;
+                }
+            }
+        return costIsAvailable;
+    }
+
+    public void PayUpgradeCost()
+    {
+        foreach (UpgradeCost cost in costs)
+        {
+            if (!cost.isQuestItem)
+            {
+                InventoryManager.Instance.RemoveMaterial(cost.material.type, cost.amount);
+                return;
+            }
+            ItemInstance item = new ItemInstance(cost.itemData);
+            InventoryManager.Instance.RemoveItem(item);
+        }
+    }
+
+    public bool IsPreviousUpgradeUnlocked()
+    {
+        if(previousUpgrade == null || previousUpgrade.isUnlocked)
+        {
+            return true;
+        }
+        return false;
+    } 
 }
 
 

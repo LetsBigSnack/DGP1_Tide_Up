@@ -6,9 +6,9 @@ using System.Linq;
 public enum ShopType
 {
     Closed,
-    Shop,
+    BoatUpgrades,
     Exchange,
-    BoatConfig
+    PlayerUpgrades,
 }
 public class UIShopManager : MonoBehaviour
 {
@@ -45,6 +45,11 @@ public class UIShopManager : MonoBehaviour
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         currentOpenType = state;
         tabs.SetActive(true);
+    }
+
+    public void SwitchStateByInt(int i)
+    {
+        SwitchState((ShopType)i);
     }
 
     public void CloseAllMenues()

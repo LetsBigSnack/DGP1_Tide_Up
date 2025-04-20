@@ -118,6 +118,20 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
+    public bool IsItemInInventory(ItemInstance item, int amount)
+    {
+        int amountInInventory = 0;
+
+        foreach(ItemInstance i in _items)
+        {
+            if(i.ItemData == item.ItemData)
+            {
+                amountInInventory += 1;
+            }
+        }
+        return amountInInventory >= amount;
+    }
+
     public bool AddMaterial(TrashMaterialType materialType, int amount)
     {
         TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData.type == materialType);

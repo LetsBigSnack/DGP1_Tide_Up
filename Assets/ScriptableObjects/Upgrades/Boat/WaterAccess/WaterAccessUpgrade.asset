@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a5ff42700a3c348a44e36fee4ea6a5, type: 3}
+  m_Name: WaterAccessUpgrade
+  m_EditorClassIdentifier: 
+  type: 3
+  upgradeLevel: 1
+  sprite: {fileID: 21300000, guid: 0e609e479d1a23445ad53244139fc35b, type: 3}
+  description: "\"Reinforce your raft with barnacle-bricks and kelp rope\u2014venture
+    into deeper, bluer waters!\" +Water Access"
+  costs:
+  - isQuestItem: 1
+    material: {fileID: 0}
+    itemData: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
+    amount: 15
+  - isQuestItem: 0
+    material: {fileID: 11400000, guid: 56cd676335ec84e4e812fa9f7d022518, type: 2}
+    itemData: {fileID: 0}
+    amount: 50
+  - isQuestItem: 0
+    material: {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
+    itemData: {fileID: 0}
+    amount: 50
+  - isQuestItem: 0
+    material: {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
+    itemData: {fileID: 0}
+    amount: 50
+  - isQuestItem: 0
+    material: {fileID: 11400000, guid: 8f6c4ca6e6944d040b6e36dfdccd3ba1, type: 2}
+    itemData: {fileID: 0}
+    amount: 50
+  - isQuestItem: 0
+    material: {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
+    itemData: {fileID: 0}
+    amount: 50
+  previousUpgrade: {fileID: 0}
+  nextUpgrade: {fileID: 11400000, guid: 46918451152a40342a5d14f6474634a0, type: 2}
+  isUnlocked: 0
+  waterLevel: 1

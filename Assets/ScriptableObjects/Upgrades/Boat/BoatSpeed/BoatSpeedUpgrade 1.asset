@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e14b5deafef6647a3b73351e516b4f, type: 3}
+  m_Name: BoatSpeedUpgrade 1
+  m_EditorClassIdentifier: 
+  type: 0
+  upgradeLevel: 2
+  sprite: {fileID: 21300000, guid: 2463af7f98ff8cd428cafdb7c7805998, type: 3}
+  description: "\"Patch the hull with polished driftwood and add sea-bottle boosters\u2014zoom
+    with style!\" +Boat Speed"
+  costs:
+  - isQuestItem: 1
+    material: {fileID: 0}
+    itemData: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
+    amount: 10
+  - isQuestItem: 0
+    material: {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
+    itemData: {fileID: 0}
+    amount: 20
+  - isQuestItem: 0
+    material: {fileID: 11400000, guid: 8f6c4ca6e6944d040b6e36dfdccd3ba1, type: 2}
+    itemData: {fileID: 0}
+    amount: 20
+  - isQuestItem: 0
+    material: {fileID: 11400000, guid: 56cd676335ec84e4e812fa9f7d022518, type: 2}
+    itemData: {fileID: 0}
+    amount: 10
+  previousUpgrade: {fileID: 11400000, guid: da468c3636f15d141acb8eeec3c1a8fd, type: 2}
+  nextUpgrade: {fileID: 11400000, guid: ea92deba738001246b69abad3b85b7ee, type: 2}
+  isUnlocked: 0
+  boatSpeed: 3
