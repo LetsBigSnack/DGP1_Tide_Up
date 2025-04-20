@@ -8,7 +8,8 @@ public enum GameStates
     PlayingCharacter,
     PlayingBoat,
     Paused,
-    InMenu
+    InMenu,
+    SceneTransition,
 }
 
 

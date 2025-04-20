@@ -118,12 +118,16 @@ public class UIHUDManager : MonoBehaviour
 
         ToolBarStateEntry newEntry = toolBarStateEntries.Find(t => t.StateType == state && t.KeyType == keyType);
 
-        foreach(ToolbarVisualEntry button in newEntry.Buttons)
+        if (newEntry != null)
         {
-            GameObject newButton = Instantiate(toolBarItemPrefab, toolBarContainer);
-            newButton.GetComponent<UIToolbarItem>().SetupButton(button.Sprite, button.Label, button.Key);
-            currentButtons.Add(newButton);
+            foreach(ToolbarVisualEntry button in newEntry.Buttons)
+            {
+                GameObject newButton = Instantiate(toolBarItemPrefab, toolBarContainer);
+                newButton.GetComponent<UIToolbarItem>().SetupButton(button.Sprite, button.Label, button.Key);
+                currentButtons.Add(newButton);
+            }
         }
+        
         currentKeyState = state;
     }
 
