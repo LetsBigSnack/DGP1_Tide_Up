@@ -7,7 +7,7 @@ public class WaterAccessUpgrade : Upgrade
 
     public override void ApplyUpgrade()
     {
-        if (!CanUpgrade() || !IsPreviousUpgradeUnlocked())
+        if (!CanUpgrade())
         {
             Debug.Log("Cant Upgrade");
             return;

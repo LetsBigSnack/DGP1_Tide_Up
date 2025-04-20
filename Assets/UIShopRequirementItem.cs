@@ -8,6 +8,11 @@ public class UIShopRequirementItem : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI amount;
 
+    public UpgradeCost GetCurrentCost()
+    {
+        return currentCost;
+    }
+
     public void Setup(UpgradeCost cost, bool isCollected)
     {
         currentCost = cost;

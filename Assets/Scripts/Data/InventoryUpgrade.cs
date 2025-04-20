@@ -7,7 +7,7 @@ public class InventoryUpgrade : Upgrade
     
     public override void ApplyUpgrade()
     {
-        if (!CanUpgrade() || !IsPreviousUpgradeUnlocked())
+        if (!CanUpgrade())
         {
             Debug.Log("Cant Upgrade");
             return;

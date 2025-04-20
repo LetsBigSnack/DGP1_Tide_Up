@@ -41,6 +41,11 @@ public abstract class Upgrade : ScriptableObject
 
     public bool CanUpgrade()
     {
+        if (!IsPreviousUpgradeUnlocked())
+        {
+            return false;
+        }
+
         bool questItem = true;
         bool material = true;
         foreach (UpgradeCost cost in costs)
@@ -114,10 +119,15 @@ public abstract class Upgrade : ScriptableObject
             if (!cost.isQuestItem)
             {
                 InventoryManager.Instance.RemoveMaterial(cost.material.type, cost.amount);
-                return;
             }
-            ItemInstance item = new ItemInstance(cost.itemData);
-            InventoryManager.Instance.RemoveItem(item);
+            else
+            {
+                ItemInstance item = new ItemInstance(cost.itemData);
+                for (int i = 0; i < cost.amount; i++)
+                {
+                    InventoryManager.Instance.RemoveItem(item);
+                }
+            }
         }
     }
 

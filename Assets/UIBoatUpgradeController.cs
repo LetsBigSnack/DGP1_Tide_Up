@@ -1,5 +1,6 @@
 using Data;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,7 @@ public class UIBoatUpgradeController : UIShopSubMenu
     [SerializeField] private Image upgradeImage;
     [SerializeField] private TextMeshProUGUI upgradeDescription;
     [SerializeField] private TextMeshProUGUI subText;
+    [SerializeField] private Image buttonImage;
 
     [Header("Levels")]
     [SerializeField] private GameObject levelPrefab;
@@ -96,6 +98,14 @@ public class UIBoatUpgradeController : UIShopSubMenu
         currentUpgrade = upgrade;
         upgradeImage.sprite = upgrade.sprite;
         upgradeDescription.text = upgrade.description;
+        if (!upgrade.CanUpgrade() || upgrade.isUnlocked)
+        {
+            buttonImage.color = new Color(buttonImage.color.r, buttonImage.color.g, buttonImage.color.b, 0.5f);
+        }
+        else
+        {
+            buttonImage.color = new Color(buttonImage.color.r, buttonImage.color.g, buttonImage.color.b, 1f);
+        }
         AddLevels();
         AddRequirements();
     }
@@ -163,6 +173,13 @@ public class UIBoatUpgradeController : UIShopSubMenu
     {
         GameObject itemToRefresh = _currentLevels.Find(t => t.GetComponent<UIShopLevelItem>().GetCurrentUpgrade() == currentUpgrade);
         itemToRefresh.GetComponent<UIShopLevelItem>().Setup(currentUpgrade);
+
+        foreach(UpgradeCost cost in currentUpgrade.costs)
+        {
+            GameObject costItem = _currentRequirements.Find(r => r.GetComponent<UIShopRequirementItem>().GetCurrentCost() == cost);
+            costItem.GetComponent<UIShopRequirementItem>().Setup(cost, currentUpgrade.CostIsAvailable(cost));
+        }
+        
     }
 
     public void Upgrade()
