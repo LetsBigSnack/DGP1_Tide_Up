@@ -8,24 +8,27 @@ public class SceneChangeManager : MonoBehaviour
     public static SceneChangeManager Instance;
 
     private bool isSceneChanging = false;
+    private bool sceneFullyLoaded = false;
+    private string targetSceneName = "";
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
     }
-    
+
     public void ChangeScene(Scenes scene)
     {
         StartCoroutine(LoadSceneWithState(scene, null));
     }
-    
+
     public IEnumerator LoadSceneWithState(Scenes scene, Action<bool> onComplete = null)
     {
         if (isSceneChanging)
@@ -45,29 +48,56 @@ public class SceneChangeManager : MonoBehaviour
         }
 
         isSceneChanging = true;
+        sceneFullyLoaded = false;
+        targetSceneName = sceneName;
 
         Debug.Log($"Loading scene: {sceneName}");
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        SceneManager.sceneLoaded += HandleSceneLoaded;
 
-        while (!asyncLoad.isDone)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        asyncLoad.allowSceneActivation = true;
+
+        float timeout = 20f;
+        float timer = 0f;
+
+        while (!sceneFullyLoaded && timer < timeout)
         {
+            Debug.Log($"Waiting for scene to fully load... Progress: {asyncLoad.progress}");
+            timer += Time.unscaledDeltaTime;
             yield return null;
         }
 
-        Debug.Log($"Finished loading scene: {sceneName}");
-        isSceneChanging = false;
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
 
-        onComplete?.Invoke(true);
+        if (!sceneFullyLoaded)
+        {
+            Debug.LogWarning($"Scene load timeout exceeded for {sceneName}");
+            onComplete?.Invoke(false);
+        }
+        else
+        {
+            Debug.Log($"Finished loading scene: {sceneName}");
+            onComplete?.Invoke(true);
+        }
+
+        isSceneChanging = false;
+        Debug.Log("Coroutine reached the end");
+    }
+
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == targetSceneName)
+        {
+            Debug.Log("SceneChangeManager detected scene loaded.");
+            sceneFullyLoaded = true;
+            //TOOD: talk with lucas about fix 
+            isSceneChanging = false;
+        }
     }
 
     public void ExitApplication()
     {
         Debug.Log("Exiting application.");
         Application.Quit();
-    }
-
-    private void OnEnable()
-    {
-        isSceneChanging = false;
     }
 }

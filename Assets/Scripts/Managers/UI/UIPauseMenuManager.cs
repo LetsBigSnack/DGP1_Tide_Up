@@ -11,7 +11,7 @@ public enum PauseMenuType
 
 public class UIPauseMenuManager : MonoBehaviour
 {
-    [SerializeField] private string startSceneName;
+    [SerializeField] private Scenes startScene;
 
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject optionMenu;
@@ -35,11 +35,13 @@ public class UIPauseMenuManager : MonoBehaviour
 
     public void TogglePauseGame()
     {
+        GameStateManager.Instance.TogglePause();
         if (!_isPaused)
         {
             pauseMenu.SetActive(true);
-            GameStateManager.Instance.SetGameState(GameStates.InMenu);
+            GameStateManager.Instance.SetGameState(GameStates.Paused);
             _isPaused = true;
+            
         }
         else 
         {
@@ -49,9 +51,18 @@ public class UIPauseMenuManager : MonoBehaviour
         }
     }
 
+    //TODO: Grenus Fix
+    public void ResumeGame()
+    {
+        pauseMenu.SetActive(false);
+        GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+        _isPaused = false;
+    }
+    
+    
     public void ToMainMenu()
     {
-        SceneManager.LoadScene(startSceneName);
+        StartCoroutine(SceneChangeManager.Instance.LoadSceneWithState(startScene));
     }
 
     public void ExitGame()

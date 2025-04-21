@@ -105,7 +105,6 @@ public class Npc : MonoBehaviour
         {
             _currentQuest.QuestNpc = npcName;
         }
-        NpcManager.Instance.AddNpc(this);
     }
 
 

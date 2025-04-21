@@ -3,16 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class UIStartSceneManager : MonoBehaviour
 {
-    [SerializeField] private string sceneName;
-
+    [SerializeField] private Scenes sceneToLoad;
     public void StartGame()
     {
-        if (string.IsNullOrEmpty(sceneName))
-        {
-            Debug.Log("Scene name is empty or not available");
-            return;
-        }
-        SceneManager.LoadScene(sceneName);
+        GameStateManager.Instance?.ResumeGame();
+        UIPauseMenuManager.Instance?.ResumeGame();
+        StartCoroutine(SceneChangeManager.Instance.LoadSceneWithState(sceneToLoad));
     }
 
     public void ExitGame()

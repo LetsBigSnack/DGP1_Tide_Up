@@ -10,6 +10,7 @@ public enum GameStates
     Paused,
     InMenu,
     SceneTransition,
+    Dialogue
 }
 
 
@@ -24,9 +25,7 @@ public class GameStateManager : MonoBehaviour
 
     public static Action<GameStates> OnStateChanged;
 
-
-
-
+    
     private void Awake()
     {
 
@@ -77,7 +76,7 @@ public class GameStateManager : MonoBehaviour
         OnStateChanged.Invoke(_gameStates);
     }
 
-    private void ResumeGame()
+    public void ResumeGame()
     {
         _gameStates = GameStates.PlayingCharacter;
         _gamePaused = false;

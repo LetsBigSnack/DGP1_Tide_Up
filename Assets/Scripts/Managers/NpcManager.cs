@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NpcManager : MonoBehaviour
 {
@@ -13,9 +15,16 @@ public class NpcManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    
     public void AddNpc(Npc npc)
     {
         _npcs.Add(npc);
@@ -31,5 +40,12 @@ public class NpcManager : MonoBehaviour
             throw new NullReferenceException();
         }
         return npc;
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded");
+        _npcs = new List<Npc>();
+        _npcs = FindObjectsByType<Npc>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList();
     }
 }

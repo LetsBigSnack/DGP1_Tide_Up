@@ -1,3 +1,4 @@
+using Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,34 +16,42 @@ public class MenuController : MonoBehaviour
     private void OnEnable()
     {
         _menuInputs.Enable();
-
-        _menuInputs.UI.PauseMenu.performed += PauseMenu;
-
+        
         //Inventory
         _menuInputs.UI.Inventory.Enable();
         _menuInputs.UI.Inventory.performed += ShowInventory;
-        _menuInputs.UI.CloseMenu.performed += CloseMenu;
+        
+        _menuInputs.UI.CloseMenu.Enable();
+        _menuInputs.UI.CloseMenu.performed += HandleEscape;
+        
     }
     
     private void OnDisable()
     {
         _menuInputs.UI.Disable();
 
-        _menuInputs.UI.PauseMenu.performed -= PauseMenu;
-        
+   
         //Inventory
         _menuInputs.UI.Inventory.Disable();
         _menuInputs.UI.Inventory.performed -= ShowInventory;
-        _menuInputs.UI.CloseMenu.performed -= CloseMenu;
+        
+        _menuInputs.UI.CloseMenu.Disable();
+        _menuInputs.UI.CloseMenu.performed -= HandleEscape;
+        
+
     }
 
     private void ShowInventory(InputAction.CallbackContext value)
     {
+        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue)
+        {
+            return;
+        }
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIHUDManager.Instance.ToggleDateMap();
         UIJournalManager.Instance.SwitchState(JournalType.Inventory);
     }
-    private void CloseMenu(InputAction.CallbackContext value)
+    private void CloseMenu()
     {
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         UIHUDManager.Instance.ToggleDateMap();
@@ -50,9 +59,22 @@ public class MenuController : MonoBehaviour
         UIReUpcycleManager.Instance.CloseAllMenues();
         UIShopManager.Instance.CloseAllMenues();
     }
-    private void PauseMenu(InputAction.CallbackContext value)
+    
+    private void HandleEscape(InputAction.CallbackContext value)
     {
-        UIPauseMenuManager.Instance.TogglePauseGame();
-    }
+        var currentState = GameStateManager.Instance.GetGameState();
 
+        if (currentState == GameStates.PlayingCharacter || currentState == GameStates.Paused)
+        {
+            UIPauseMenuManager.Instance.TogglePauseGame();
+        }
+        else if (currentState == GameStates.InMenu)
+        {
+            CloseMenu(); // optionally pass null instead
+        }
+        else if (currentState == GameStates.Dialogue)
+        {
+            NpcDialogueManager.Instance.ResetDialogue();
+        }
+    }
 }

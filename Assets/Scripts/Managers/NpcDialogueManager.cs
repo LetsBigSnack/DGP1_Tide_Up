@@ -33,6 +33,7 @@ public class NpcDialogueManager : MonoBehaviour
         {
             return;
         }
+        GameStateManager.Instance.SetGameState(GameStates.Dialogue);
         isInChooseState = false;
         _currentNpc = npc;
     }
@@ -125,6 +126,7 @@ public class NpcDialogueManager : MonoBehaviour
 
     private void CloseDialogue()
     {
+        GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         UIDialogueManager.Instance?.ShowDialogueBox(false);
         UIDialogueManager.Instance?.ShowChoices(false);
         isInChooseState = false;

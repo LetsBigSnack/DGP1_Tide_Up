@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TideUpBoxManager : MonoBehaviour
 {
@@ -22,12 +24,15 @@ public class TideUpBoxManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
         }
     }
+
+    
 
     private void Start()
     {
@@ -118,4 +123,19 @@ public class TideUpBoxManager : MonoBehaviour
         AddDailyItems();
     }
 
+    
+    
+    
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        allTideUpBoxes = new List<TideUpBox>();
+        allTideUpBoxes = FindObjectsByType<TideUpBox>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList();
+    }
+    
 }

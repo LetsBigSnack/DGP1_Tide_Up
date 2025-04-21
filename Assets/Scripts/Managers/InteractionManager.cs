@@ -11,7 +11,7 @@ public class InteractionManager : MonoBehaviour
     
     public static InteractionManager Instance;
     
-    public static Action<bool, InteractableType?, GameObject?> OnInteractionChanged;
+    public static Action<bool, InteractableType?, GameObject> OnInteractionChanged;
 
     public void Awake()
     {
