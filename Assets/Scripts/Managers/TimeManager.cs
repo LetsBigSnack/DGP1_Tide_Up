@@ -81,6 +81,7 @@ public class TimeManager : MonoBehaviour
         }
 
         Instance = this;
+        SceneManager.sceneLoaded += OnSceneLoaded;
         UpdateDate();
     }
 
@@ -93,7 +94,8 @@ public class TimeManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        //
+        Debug.Log("OnSceneLoaded - TIME");
+        mainLight = GameObject.FindGameObjectWithTag("Sun")?.GetComponent<Light>();
     }
 
     public string getTime()
