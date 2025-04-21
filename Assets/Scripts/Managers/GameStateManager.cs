@@ -34,7 +34,6 @@ public class GameStateManager : MonoBehaviour
         {
             Instance = this;
             _gameStates = GameStates.PlayingCharacter;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

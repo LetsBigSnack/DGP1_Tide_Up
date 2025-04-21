@@ -16,7 +16,7 @@ public class ItemInteractable : Interactable
         if (InventoryManager.Instance.AddItem(new TrashItemInstance(trashData, false)))
         {
             EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 

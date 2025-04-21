@@ -14,7 +14,6 @@ public class UIInventoryController : UIJournalSubMenu
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

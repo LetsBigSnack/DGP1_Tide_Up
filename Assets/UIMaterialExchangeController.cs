@@ -41,7 +41,7 @@ public class UIMaterialExchangeController : UIShopSubMenu
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 

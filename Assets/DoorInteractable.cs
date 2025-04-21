@@ -5,8 +5,10 @@ public class DoorInteractable : Interactable
 {
     [SerializeField] private bool highlight;
     [SerializeField] private Scenes scene;
-    
-    
+
+
+    public override InteractableType Type => InteractableType.Door;
+
     public override void Interact()
     {
         LocationManager.Instance.TravelToScene(scene);

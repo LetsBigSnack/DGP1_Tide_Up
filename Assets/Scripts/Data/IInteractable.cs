@@ -9,11 +9,13 @@ namespace Data
         NPC,
         Recycler,
         Upcycler,
-        Exchange
+        Exchange,
+        Door
     }
 
     public abstract class Interactable : MonoBehaviour
     {
+        //TODO: why extra method and not just an attribute -> CHANGE
         public abstract InteractableType Type { get; }
         public abstract void Interact();
         public abstract void ShowInteractability(bool show);

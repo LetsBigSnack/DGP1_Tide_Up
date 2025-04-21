@@ -38,7 +38,7 @@ public class UIPlayerUpgradesController : UIShopSubMenu
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
@@ -46,7 +46,7 @@ public class UIPlayerUpgradesController : UIShopSubMenu
     {
         subMenu.SetActive(true);
         SwitchUpgrade(UpgradeManager.Instance.ReturnUpgradeByType(UpgradeType.Inventory)[0]);
-        subText.text = "Now featuring 300 % more ‘where did I put that ?’ space.";
+        subText.text = "Now featuring 300 % more ï¿½where did I put that ?ï¿½ space.";
     }
 
     public override void CloseMenu()

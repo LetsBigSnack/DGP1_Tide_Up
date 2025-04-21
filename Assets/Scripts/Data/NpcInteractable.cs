@@ -28,6 +28,11 @@ public class NpcInteractable : Interactable
     //TODO: investigate why it is iffy when at the edge of the radius 
     public override void ShowInteractability(bool show)
     {
+        if (show)
+        {
+            _npcController.FacePlayer();
+        }
+        
         if (show == _previousState)
         {
             return;
@@ -38,6 +43,7 @@ public class NpcInteractable : Interactable
         if (_npcController != null)
         {
             _npcController.CanMove = !show;
+            
         }
         _previousState = show;
         

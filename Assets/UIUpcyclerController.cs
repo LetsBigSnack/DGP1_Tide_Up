@@ -33,7 +33,7 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 

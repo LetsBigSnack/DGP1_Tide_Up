@@ -3,13 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum Scenes
-{
-    BE_155_Location_Manager,
-    Dev_Room_1,
-    Dev_Room_2
-}
-
 public class SceneChangeManager : MonoBehaviour
 {
     public static SceneChangeManager Instance;

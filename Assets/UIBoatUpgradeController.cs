@@ -40,7 +40,7 @@ public class UIBoatUpgradeController : UIShopSubMenu
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
@@ -74,7 +74,7 @@ public class UIBoatUpgradeController : UIShopSubMenu
         {
             case UpgradeType.BoatSpeed:
                 SwitchUpgrade(UpgradeManager.Instance.ReturnUpgradeByType(UpgradeType.BoatSpeed)[0]);
-                subText.text = "Less chug, more zoom! Just don’t race the dolphins… again.";
+                subText.text = "Less chug, more zoom! Just donï¿½t race the dolphinsï¿½ again.";
                 break;
             case UpgradeType.OilClean:
                 SwitchUpgrade(UpgradeManager.Instance.ReturnUpgradeByType(UpgradeType.OilClean)[0]);

@@ -25,7 +25,6 @@ public class UIItemDetailsHelper : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this);
         }
         else
         {

@@ -27,7 +27,7 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 

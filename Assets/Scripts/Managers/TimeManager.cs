@@ -75,7 +75,7 @@ public class TimeManager : MonoBehaviour
     {
         if(Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
 
@@ -104,8 +104,11 @@ public class TimeManager : MonoBehaviour
         {
             currentTimeInHours += Time.deltaTime * (24 / (minutesPerDay * 60));
             UpdateDate();
-            UpdateMainLightRotation();
-            UpdateLight();
+            if (mainLight != null)
+            {
+                UpdateMainLightRotation();
+                UpdateLight();
+            }
         }
     }
 

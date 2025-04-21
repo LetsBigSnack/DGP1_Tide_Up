@@ -18,7 +18,7 @@ public class NPC_Controller : MonoBehaviour
 
     private Coroutine _idleRoutine;
     [SerializeField] private bool canMove = true;
-
+    [SerializeField] private float rotationSpeed = 3.0f;
     public bool CanMove
     {
         get => canMove;
@@ -104,5 +104,18 @@ public class NPC_Controller : MonoBehaviour
         isIdling = true;
         yield return new WaitForSeconds(Random.Range(0, maxIdleTime));
         isIdling = false;
+    }
+
+    public void FacePlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return;
+        Vector3 direction = player.transform.position - transform.position;
+        direction.y = 0f;
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        }
     }
 }

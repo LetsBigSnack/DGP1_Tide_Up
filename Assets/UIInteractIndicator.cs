@@ -28,8 +28,6 @@ public class UIInteractIndicator : MonoBehaviour
         text.text = interactRepresentation.Text;
         image.sprite = interactRepresentation.Sprite;
         transform.position = topPosition + Vector3.up * (interactRepresentation.Padding);
-        if (Camera.main != null)
-            transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
     }
     
 }

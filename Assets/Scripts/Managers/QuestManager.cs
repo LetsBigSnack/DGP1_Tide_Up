@@ -17,7 +17,6 @@ public class QuestManager : MonoBehaviour
             Instance = this;
             _currentQuests = new List<Quest>();
             _completedQuests = new List<Quest>();
-            DontDestroyOnLoad(this);
         }
         else
         {

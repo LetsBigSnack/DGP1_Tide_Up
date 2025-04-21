@@ -19,7 +19,6 @@ public class DialogueManager : MonoBehaviour
         {
             Instance = this;
             _dialogJsonData = JSONUtil.GetDialogueData();
-            DontDestroyOnLoad(this);
         }
         else
         {

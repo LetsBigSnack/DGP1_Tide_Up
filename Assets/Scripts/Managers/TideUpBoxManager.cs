@@ -22,7 +22,6 @@ public class TideUpBoxManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -70,6 +69,10 @@ public class TideUpBoxManager : MonoBehaviour
 
         foreach (TideUpBox box in allTideUpBoxes)
         {
+            if (box == null)
+            {
+                continue;
+            }
             int spaceLeft = box.MaxTotalTrash - box.BoxInventory.Count;
             if (spaceLeft <= 0)
             {
