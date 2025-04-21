@@ -67,7 +67,6 @@ public class TrashSpawnerManager : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
         StartSpawningTrash();
