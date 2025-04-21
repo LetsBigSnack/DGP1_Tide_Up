@@ -44,6 +44,15 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""c667cc23-fb31-456d-8155-2ba6edd24216"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                     ""action"": ""CloseMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41f35de1-9984-463d-88b5-c294233562a9"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
         m_UI_CloseMenu = m_UI.FindAction("CloseMenu", throwIfNotFound: true);
+        m_UI_PauseMenu = m_UI.FindAction("PauseMenu", throwIfNotFound: true);
     }
 
     ~@MenuInputs()
@@ -146,12 +167,14 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Inventory;
     private readonly InputAction m_UI_CloseMenu;
+    private readonly InputAction m_UI_PauseMenu;
     public struct UIActions
     {
         private @MenuInputs m_Wrapper;
         public UIActions(@MenuInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Inventory => m_Wrapper.m_UI_Inventory;
         public InputAction @CloseMenu => m_Wrapper.m_UI_CloseMenu;
+        public InputAction @PauseMenu => m_Wrapper.m_UI_PauseMenu;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -167,6 +190,9 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @CloseMenu.started += instance.OnCloseMenu;
             @CloseMenu.performed += instance.OnCloseMenu;
             @CloseMenu.canceled += instance.OnCloseMenu;
+            @PauseMenu.started += instance.OnPauseMenu;
+            @PauseMenu.performed += instance.OnPauseMenu;
+            @PauseMenu.canceled += instance.OnPauseMenu;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -177,6 +203,9 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @CloseMenu.started -= instance.OnCloseMenu;
             @CloseMenu.performed -= instance.OnCloseMenu;
             @CloseMenu.canceled -= instance.OnCloseMenu;
+            @PauseMenu.started -= instance.OnPauseMenu;
+            @PauseMenu.performed -= instance.OnPauseMenu;
+            @PauseMenu.canceled -= instance.OnPauseMenu;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -198,5 +227,6 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
     {
         void OnInventory(InputAction.CallbackContext context);
         void OnCloseMenu(InputAction.CallbackContext context);
+        void OnPauseMenu(InputAction.CallbackContext context);
     }
 }

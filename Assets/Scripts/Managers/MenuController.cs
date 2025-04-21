@@ -15,7 +15,9 @@ public class MenuController : MonoBehaviour
     private void OnEnable()
     {
         _menuInputs.Enable();
-        
+
+        _menuInputs.UI.PauseMenu.performed += PauseMenu;
+
         //Inventory
         _menuInputs.UI.Inventory.Enable();
         _menuInputs.UI.Inventory.performed += ShowInventory;
@@ -25,6 +27,8 @@ public class MenuController : MonoBehaviour
     private void OnDisable()
     {
         _menuInputs.UI.Disable();
+
+        _menuInputs.UI.PauseMenu.performed -= PauseMenu;
         
         //Inventory
         _menuInputs.UI.Inventory.Disable();
@@ -45,6 +49,10 @@ public class MenuController : MonoBehaviour
         UIJournalManager.Instance.CloseAllMenues();
         UIReUpcycleManager.Instance.CloseAllMenues();
         UIShopManager.Instance.CloseAllMenues();
+    }
+    private void PauseMenu(InputAction.CallbackContext value)
+    {
+        UIPauseMenuManager.Instance.TogglePauseGame();
     }
 
 }

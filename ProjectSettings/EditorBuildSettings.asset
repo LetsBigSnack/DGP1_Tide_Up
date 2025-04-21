@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Development/#TEMPLATE#.unity
     guid: be794c88a2de22243891766a0f04b0e8
   - enabled: 1
-    path: Assets/Scenes/Development/FE_129_Startame_UI.unity
+    path: Assets/Scenes/Development/FE_129_Startgame_UI.unity
     guid: fb3cca00710a02146adc77d888ae77b2
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
