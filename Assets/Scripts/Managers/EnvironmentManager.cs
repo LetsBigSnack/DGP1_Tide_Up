@@ -20,8 +20,7 @@ public enum EnvironmentActionType
 
 [Serializable]
 public class EnvironmentActionEntry
-{
-    
+{ 
     [SerializeField] private EnvironmentActionType actionType;
     [SerializeField] private int score;
     
@@ -39,11 +38,9 @@ public class EnvironmentActionEntry
 }
 
 public class EnvironmentManager : MonoBehaviour
-{
-    
+{    
     public static EnvironmentManager Instance;
 
-    
     [Header("Environment Configuration")]
     [SerializeField] private List<EnvironmentActionEntry> actions;
 
@@ -52,8 +49,7 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] private Island currentIsland;
     
     public static Action<EnvironmentState, int> OnEnvironmentStateChanged;
-    
-    
+   
     public int TotalCleanlinessScore => islands.Sum(i => i.IslandCleanlinessScore);
 
     private void Awake()
@@ -66,6 +62,11 @@ public class EnvironmentManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public List<Island> GetIslands()
+    {
+        return islands;
     }
 
     public void AddCleanlinessScore(EnvironmentActionType type)
@@ -101,10 +102,19 @@ public class EnvironmentManager : MonoBehaviour
     public void SetCurrentIsland(Island island)
     {
         currentIsland = island;
+        if (!island.HasVisited)
+        {
+            island.HasVisited = true;
+        }
     }
 
     public void ClearCurrentIsland()
     {
         currentIsland = null;
+    }
+
+    public bool IsIslandUnlocked(int id)
+    {
+        return islands.Find(i => i.IslandID == id && i.HasVisited);
     }
 }

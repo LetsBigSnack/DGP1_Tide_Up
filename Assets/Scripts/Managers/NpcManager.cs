@@ -24,7 +24,11 @@ public class NpcManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     
-    
+    public List<Npc> GetNpcs()
+    {
+        return _npcs;
+    }
+
     public void AddNpc(Npc npc)
     {
         _npcs.Add(npc);

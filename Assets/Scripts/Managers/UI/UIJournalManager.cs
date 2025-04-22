@@ -21,6 +21,9 @@ public class UIJournalManager : MonoBehaviour
     [Header("CurrentState")]
     [SerializeField] private JournalType currentOpenType;
 
+    [Header("BookMarks")]
+    [SerializeField] private GameObject bookMarks;
+
     [Header("Journal")]
     [SerializeField] private List<UIJournalSubMenu> journalSubMenues;
 
@@ -63,11 +66,13 @@ public class UIJournalManager : MonoBehaviour
             menu.CloseMenu();
        }
         currentOpenType = JournalType.Closed;
-   }
+        bookMarks.SetActive(false);
+    }
 
    public void OpenMenuByType(JournalType type)
    {
         journalSubMenues.Where(m => m.GetComponent<UIJournalSubMenu>().JournalType == type).FirstOrDefault().OpenMenu();
+        bookMarks.SetActive(true);
    }
 
 }

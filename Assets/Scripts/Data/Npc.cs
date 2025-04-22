@@ -29,12 +29,30 @@ public enum NpcAwareness
 
 public class Npc : MonoBehaviour
 {
+    [Header("Current State")]
     [SerializeField] private NpcStates npcState = NpcStates.Intro;
+
+    [Header("Npc Attributes")]
     [SerializeField] private NpcPersonalities npcPersonality;
     [SerializeField] private string npcName;
+    [SerializeField] private string title;
+    [SerializeField] private string homeDetails;
+    [SerializeField] private string vibe;
+    [SerializeField] private string birthday;
+    [SerializeField] private string mbti;
+    [SerializeField] private string description;
+    [SerializeField] private string favColour;
+    [SerializeField] private string favFood;
+    [SerializeField] private string favAnimal;
+    [SerializeField] private string favThing;
+    [SerializeField] private Sprite portrait;
+
+    [Header("Npc Awareness")]
     [SerializeField] private NpcAwareness npcAwareness = NpcAwareness.Low;
     [SerializeField] private int completedQuests = 0;
     [SerializeField] private int maxCompletedQuests = 6;
+
+    [Header("Npc Island")]
     [SerializeField] private int islandID;
     
     
@@ -49,11 +67,76 @@ public class Npc : MonoBehaviour
         get => npcPersonality;
         set => npcPersonality = value;
     }
-
     public string NpcName
     {
         get => npcName;
         set => npcName = value;
+    }
+
+    public string Title
+    {
+        get => title;
+        set => title = value;
+    }
+
+    public string HomeDetails
+    {
+        get => homeDetails;
+        set => homeDetails = value;
+    }
+
+    public string Vibe
+    {
+        get => vibe;
+        set => vibe = value;
+    }
+
+    public string Birthday
+    {
+        get => birthday;
+        set => birthday = value;
+    }
+
+    public string Mbti
+    {
+        get => mbti;
+        set => mbti = value;
+    }
+
+    public string Description
+    {
+        get => description;
+        set => description = value;
+    }
+
+    public string FavColour
+    {
+        get => favColour;
+        set => favColour = value;
+    }
+
+    public string FavFood
+    {
+        get => favFood;
+        set => favFood = value;
+    }
+
+    public string FavAnimal
+    {
+        get => favAnimal;
+        set => favAnimal = value;
+    }
+
+    public string FavThing
+    {
+        get => favThing;
+        set => favThing = value;
+    }
+
+    public Sprite Portrait
+    {
+        get => portrait;
+        set => portrait = value;
     }
 
     public NpcAwareness NpcAwareness
@@ -92,6 +175,12 @@ public class Npc : MonoBehaviour
         set => _currentQuest = value;
     }
 
+    public int IslandID
+    {
+        get => islandID;
+        set => islandID = value;
+    }
+
     private Dialogue _currentDialogue;
     private Dialogue _finishedDialogue;
     private Quest _currentQuest;
@@ -106,7 +195,6 @@ public class Npc : MonoBehaviour
             _currentQuest.QuestNpc = npcName;
         }
     }
-
 
     public void CreateQuest()
     {

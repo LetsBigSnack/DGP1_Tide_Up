@@ -35,6 +35,7 @@ public class Island : MonoBehaviour
     [Header("Island Info")]
     [SerializeField] private int islandID;
     [SerializeField] private string islandName;
+    [SerializeField] private bool hasVisited;
 
     [Header("Cleanliness")]
     [SerializeField] private int islandCleanlinessScore = 0;
@@ -66,6 +67,12 @@ public class Island : MonoBehaviour
     {
         get => islandName;
         set => islandName = value;
+    }
+
+    public bool HasVisited
+    {
+        get => hasVisited;
+        set => hasVisited = value;
     }
 
     public int IslandCleanlinessScore
