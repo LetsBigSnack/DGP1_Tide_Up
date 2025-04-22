@@ -126,11 +126,6 @@ public class UIInventoryHelper : MonoBehaviour
 
     private void ClearInventory()
     {
-        if(_currentItems.Count <= 0)
-        {
-            return;
-        }
-
         foreach(GameObject item in _currentItems)
         {
             Destroy(item);

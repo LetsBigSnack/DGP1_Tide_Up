@@ -11,7 +11,10 @@ public class DoorInteractable : Interactable
 
     public override void Interact()
     {
-        LocationManager.Instance.TravelToScene(scene);
+        if (GameStateManager.Instance.GetGameState() == GameStates.PlayingCharacter)
+        {
+            LocationManager.Instance.TravelToScene(scene);
+        }
     }
 
     public override void ShowInteractability(bool show)
