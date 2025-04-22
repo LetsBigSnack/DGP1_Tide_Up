@@ -43,7 +43,7 @@ public class MenuController : MonoBehaviour
 
     private void ShowInventory(InputAction.CallbackContext value)
     {
-        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue)
+        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue || GameStateManager.Instance.GetGameState() == GameStates.InMenu)
         {
             return;
         }
