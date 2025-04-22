@@ -29,8 +29,10 @@ public class UIInventoryHelper : MonoBehaviour
 
     [Header("ItemPrefab")]
     [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private GameObject emptyItemPrefab;
 
     private List<GameObject> _currentItems = new List<GameObject>();
+    private List<GameObject> _emptyItems = new List<GameObject>();
 
     private Dictionary<int, FilterType> _dropdownOptions = new Dictionary<int, FilterType>()
     {
@@ -81,14 +83,29 @@ public class UIInventoryHelper : MonoBehaviour
             return;
         }
 
+        int maxSpaces = InventoryManager.Instance.MaxItems;
+        
+        
+        
+        
         ClearInventory();
         items = FilterInventoy(items);
-        foreach(ItemInstance item in items)
+
+
+        for (int i = 0; i < items.Count; i++)
         {
             GameObject newItem = Instantiate(itemPrefab, itemParent);
-            newItem.GetComponent<UIInventoryItem>().Setup(item);
+            newItem.GetComponent<UIInventoryItem>().Setup(items[i]);
             _currentItems.Add(newItem);
         }
+        
+        for (int i = items.Count; i < maxSpaces; i++)
+        {
+            GameObject newItem = Instantiate(emptyItemPrefab, itemParent);
+            _emptyItems.Add(newItem);
+        }
+        
+       
     }
     private List<ItemInstance> FilterInventoy(List<ItemInstance> items)
     {
@@ -119,6 +136,12 @@ public class UIInventoryHelper : MonoBehaviour
             Destroy(item);
         }
         _currentItems.Clear();
+        
+        foreach(GameObject item in _emptyItems)
+        {
+            Destroy(item);
+        }
+        _emptyItems.Clear();
     }
 
     private void FillFilterOptions()

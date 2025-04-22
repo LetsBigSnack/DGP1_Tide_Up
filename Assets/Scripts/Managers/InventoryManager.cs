@@ -229,4 +229,5 @@ public class InventoryManager : MonoBehaviour
     {
         return _items.Count+1 <= maxItems;
     }
+    
 }
