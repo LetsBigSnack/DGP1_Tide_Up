@@ -45,6 +45,7 @@ public class UITimeManager : MonoBehaviour
         preChangeDay = TimeManager.Instance.CurrentDay;
         preChangeMonth = TimeManager.Instance.CurrentSeason;
         preChangeYear = TimeManager.Instance.CurrentYear;
+        preChangeWeekCount = TimeManager.Instance.CurrentWeekDay;
 
         switchTimeText.text = TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours).ToString(@"hh\:mm");
 

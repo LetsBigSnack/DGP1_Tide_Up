@@ -71,7 +71,13 @@ public class TimeManager : MonoBehaviour
         set { currentYear = value; }
     }
 
-    
+    public int CurrentWeekDay
+    {
+        get { return currentWeekDayCount; }
+        set { currentWeekDayCount = value; }
+    }
+
+
     private void Awake()
     {
         if(Instance != null && Instance != this)
