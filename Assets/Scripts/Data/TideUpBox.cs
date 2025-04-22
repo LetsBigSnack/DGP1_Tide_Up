@@ -33,7 +33,7 @@ public class TideUpBox : Interactable
 
     public override void Interact()
     {
-        ShowBoxInventory();
+        CollectAllItems();
     }
 
     public override void ShowInteractability(bool show)
