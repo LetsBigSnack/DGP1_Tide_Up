@@ -39,6 +39,7 @@ public class UITimeManager : MonoBehaviour
     public void OpenTimeModal()
     {
         TimeManager.Instance.ToggleTime();
+        GameStateManager.Instance.PauseGame();
 
         preChangeTime = TimeManager.Instance.CurrentTimeInHours;
         preChangeDay = TimeManager.Instance.CurrentDay;
@@ -89,10 +90,12 @@ public class UITimeManager : MonoBehaviour
             preChangeYear,
             preChangeWeekCount);
         TimeManager.Instance.ToggleTime();
+        GameStateManager.Instance.ResumeGame();
     }
 
     public void SubmitTimeChange()
     {
         TimeManager.Instance.ToggleTime();
+        GameStateManager.Instance.ResumeGame();
     }
 }

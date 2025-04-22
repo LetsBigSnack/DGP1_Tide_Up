@@ -67,7 +67,7 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         _gameStates = GameStates.Paused;
         _gamePaused = true;
