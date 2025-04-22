@@ -28,9 +28,15 @@ public class NpcInteractable : Interactable
     //TODO: investigate why it is iffy when at the edge of the radius 
     public override void ShowInteractability(bool show)
     {
+        
         if (show)
         {
             _npcController.FacePlayer();
+        }
+
+        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue)
+        {
+            return;
         }
         
         if (show == _previousState)
