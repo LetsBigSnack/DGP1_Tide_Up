@@ -63,6 +63,14 @@ public class SceneChangeManager : MonoBehaviour
         while (!sceneFullyLoaded && timer < timeout)
         {
             Debug.Log($"Waiting for scene to fully load... Progress: {asyncLoad.progress}");
+            
+            //TOOD: fix
+            if (asyncLoad.progress >= 0.9f)
+            {
+                onComplete?.Invoke(true);
+                isSceneChanging = false;
+            }
+            
             timer += Time.unscaledDeltaTime;
             yield return null;
         }
