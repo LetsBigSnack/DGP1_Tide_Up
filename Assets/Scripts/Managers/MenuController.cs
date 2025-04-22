@@ -48,13 +48,15 @@ public class MenuController : MonoBehaviour
             return;
         }
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
-        UIHUDManager.Instance.ToggleDateMap();
+        //TODO: Grenus Fix
+        //UIHUDManager.Instance.ToggleDateMap();
         UIJournalManager.Instance.SwitchState(JournalType.Inventory);
     }
     private void CloseMenu()
     {
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
-        UIHUDManager.Instance.ToggleDateMap();
+        //TODO: Grenus Fix
+        //UIHUDManager.Instance.ToggleDateMap();
         UIJournalManager.Instance.CloseAllMenues();
         UIReUpcycleManager.Instance.CloseAllMenues();
         UIShopManager.Instance.CloseAllMenues();
