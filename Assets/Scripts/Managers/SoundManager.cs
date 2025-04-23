@@ -57,7 +57,7 @@ public class SoundManager : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
-        Debug.Log(volume);
+        //Debug.Log(volume);
         myMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("Music", volume);
     }
