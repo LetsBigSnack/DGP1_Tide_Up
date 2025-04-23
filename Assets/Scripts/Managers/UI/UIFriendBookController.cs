@@ -43,7 +43,7 @@ public class UIFriendBookController : UIJournalSubMenu
     private void UpdateFriendBook()
     {
         ClearEntries();
-        List<Npc> npcs = NpcManager.Instance.GetNpcs().OrderByDescending(n => n.NpcState).ThenBy(n => n.IslandID).ThenBy(n => n.NpcName).ToList();
+        List<Npc> npcs = NpcManager.Instance.GetNpcs().OrderBy(n => n.IslandID).ThenByDescending(n => n.NpcState).ThenBy(n => n.NpcName).ToList();
         foreach(Npc n in npcs)
         {
             if (EnvironmentManager.Instance.IsIslandUnlocked(n.IslandID))
