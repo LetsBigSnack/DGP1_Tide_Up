@@ -2,19 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NpcFriendBookDetails
-{
-    public string homeDetails;
-    public string vibe;
-    public string birthday;
-    public string mbti;
-    public string description;
-    public string favColour;
-    public string favFood;
-    public string favAnimal;
-    public string favThing;
-}
-
 public class UIFriendBookItem : MonoBehaviour
 {
     [SerializeField] private Npc currentNpc;

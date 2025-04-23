@@ -19,16 +19,9 @@ public class UIFriendBookDescriptionHelper : MonoBehaviour
     [SerializeField] private TextMeshProUGUI food;
     [SerializeField] private TextMeshProUGUI animal;
     [SerializeField] private TextMeshProUGUI thing;
-    [SerializeField] private Image awarenessImage;
-
-    [Header("Awareness Sprites")]
-    [SerializeField] private Sprite awarenessLvl_0;
-    [SerializeField] private Sprite awarenessLvl_1;
-    [SerializeField] private Sprite awarenessLvl_2;
-    [SerializeField] private Sprite awarenessLvl_3;
+    [SerializeField] private Slider awarenessSlider;
 
     [Header("Awareness String Lvl")]
-    [SerializeField] private string awarenessState_0;
     [SerializeField] private string awarenessState_1;
     [SerializeField] private string awarenessState_2;
     [SerializeField] private string awarenessState_3;
@@ -60,6 +53,7 @@ public class UIFriendBookDescriptionHelper : MonoBehaviour
         this.thing.text = npc.FavThing;
 
         SetupAwareness(npc.NpcAwareness);
+        SetupSlider(npc);
     }
 
     public void SetupAwareness(NpcAwareness lvl)
@@ -67,17 +61,20 @@ public class UIFriendBookDescriptionHelper : MonoBehaviour
         switch (lvl)
         {
             case NpcAwareness.Low:
-                awarenessImage.sprite = awarenessLvl_1;
                 awareness.text = awarenessState_1;
                 break;
             case NpcAwareness.Medium:
-                awarenessImage.sprite = awarenessLvl_2;
                 awareness.text = awarenessState_2;
                 break;
             case NpcAwareness.High:
-                awarenessImage.sprite = awarenessLvl_3;
                 awareness.text = awarenessState_3;
                 break;
         }
+    }
+
+    public void SetupSlider(Npc npc)
+    {
+        awarenessSlider.maxValue = npc.MaxCompletedQuests;
+        awarenessSlider.value = npc.CompletedQuests;
     }
 }
