@@ -7,6 +7,9 @@ using UnityEditor;
 
 public class UITimeManager : MonoBehaviour
 {
+    [SerializeField] private GameObject timeChangeContainer;
+    [SerializeField] private GameObject timeChangeButton;
+
     [Header("Text Display")]
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI switchTimeText;
@@ -21,6 +24,8 @@ public class UITimeManager : MonoBehaviour
     [SerializeField] private float maxWaitTime = 5f;
     [SerializeField] private Image waitScreenBackground;
     [SerializeField] private float fadeOutDuration = 0.5f;
+    [SerializeField] private float fadeInSpeedMultiplier = 1.8f;
+    [SerializeField] private float fadeOutSpeedMultiplier = 2.5f;
 
     private float preChangeTime;
     private int preChangeDay;
@@ -29,6 +34,20 @@ public class UITimeManager : MonoBehaviour
     private int preChangeWeekCount;
 
     private int maxHoursToChange;
+
+    public static UITimeManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnEnable()
     {
@@ -50,8 +69,11 @@ public class UITimeManager : MonoBehaviour
 
     public void OpenTimeModal()
     {
+        timeChangeContainer.SetActive(true);
+        timeChangeButton.SetActive(false);
         TimeManager.Instance.ToggleTime();
         GameStateManager.Instance.PauseGame();
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
 
         preChangeTime = TimeManager.Instance.CurrentTimeInHours;
         preChangeDay = TimeManager.Instance.CurrentDay;
@@ -104,12 +126,15 @@ public class UITimeManager : MonoBehaviour
             preChangeWeekCount);
         TimeManager.Instance.ToggleTime();
         GameStateManager.Instance.ResumeGame();
+        timeChangeContainer.SetActive(false);
+        timeChangeButton.SetActive(true);
     }
 
     public void SubmitTimeChange()
     {
         GameStateManager.Instance.ResumeGame();
         GameStateManager.Instance.SetGameState(GameStates.SceneTransition);
+        timeChangeContainer.SetActive(false);
         StartCoroutine(WaitTimeSkip());
     }
 
@@ -138,7 +163,7 @@ public class UITimeManager : MonoBehaviour
 
             if (progress < 0.7f)
             {
-                color.a = progress * 1.8f;
+                color.a = progress * fadeInSpeedMultiplier;
                 waitScreenBackground.color = color;
             }
 
@@ -168,9 +193,10 @@ public class UITimeManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeOutDuration);
-            color.a = alpha * 2.5f;
+            color.a = alpha * fadeOutSpeedMultiplier;
             waitScreenBackground.color = color;
             yield return null;
         }
+        timeChangeButton.SetActive(true);
     }
 }

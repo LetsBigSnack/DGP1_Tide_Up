@@ -43,7 +43,7 @@ public class MenuController : MonoBehaviour
 
     private void ShowInventory(InputAction.CallbackContext value)
     {
-        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue || GameStateManager.Instance.GetGameState() == GameStates.InMenu)
+        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue || GameStateManager.Instance.GetGameState() == GameStates.InMenu || GameStateManager.Instance.GetGameState() == GameStates.SceneTransition)
         {
             return;
         }
@@ -60,6 +60,7 @@ public class MenuController : MonoBehaviour
         UIJournalManager.Instance.CloseAllMenues();
         UIReUpcycleManager.Instance.CloseAllMenues();
         UIShopManager.Instance.CloseAllMenues();
+        UITimeManager.Instance.CancelTimeChange();
     }
     
     private void HandleEscape(InputAction.CallbackContext value)
