@@ -126,6 +126,11 @@ public class UITimeManager : MonoBehaviour
             preChangeWeekCount);
         TimeManager.Instance.ToggleTime();
         GameStateManager.Instance.ResumeGame();
+        CloseTimeChange();
+    }
+
+    public void CloseTimeChange()
+    {
         timeChangeContainer.SetActive(false);
         timeChangeButton.SetActive(true);
     }
