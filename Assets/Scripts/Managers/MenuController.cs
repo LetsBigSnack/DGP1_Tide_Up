@@ -60,9 +60,10 @@ public class MenuController : MonoBehaviour
         UIJournalManager.Instance.CloseAllMenues();
         UIReUpcycleManager.Instance.CloseAllMenues();
         UIShopManager.Instance.CloseAllMenues();
-        UITimeManager.Instance.CancelTimeChange();
+        //TODO: This is completely breaking the time manager deki 24.04.2025
+        //UITimeManager.Instance.CancelTimeChange();
     }
-    
+
     private void HandleEscape(InputAction.CallbackContext value)
     {
         var currentState = GameStateManager.Instance.GetGameState();

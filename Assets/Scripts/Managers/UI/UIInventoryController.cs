@@ -7,6 +7,7 @@ public class UIInventoryController : UIJournalSubMenu
 
     [SerializeField] private GameObject inventoryPage;
     [SerializeField] private GameObject descriptionPage;
+    [SerializeField] private GameObject wallet;
 
     private void Awake()
     {
@@ -35,10 +36,20 @@ public class UIInventoryController : UIJournalSubMenu
         OpenWholeInventory();
     }
 
+    public void OpenWallet()
+    {
+        wallet.SetActive(true);
+    }
+
+    public void CloseWallet()
+    {
+        wallet.SetActive(false);
+    }
+
     private bool IsReUpCyclerOpen()
     {
         ReUpcyclerType curState = UIReUpcycleManager.Instance.GetCurrentState();
-        return curState == ReUpcyclerType.Recycler && curState == ReUpcyclerType.Upcycler;
+        return curState == ReUpcyclerType.Recycler || curState == ReUpcyclerType.Upcycler;
     }
 
     public void OpenWholeInventory()
@@ -47,6 +58,7 @@ public class UIInventoryController : UIJournalSubMenu
         {
             inventoryPage.SetActive(true);
             descriptionPage.SetActive(true);
+            OpenWallet();
         }
     }
 
@@ -56,6 +68,7 @@ public class UIInventoryController : UIJournalSubMenu
         {
             UIJournalManager.Instance.State = JournalType.Inventory;
             inventoryPage.SetActive(true);
+            OpenWallet();
         }
     }
 
@@ -70,5 +83,7 @@ public class UIInventoryController : UIJournalSubMenu
         {
             descriptionPage.SetActive(false);
         }
+
+        CloseWallet();
     }
 }

@@ -16,7 +16,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private int maxDays;
 
     [Header("CurrentTime/Date")] 
-    [SerializeField] private int elapsedDays = 0;
+    [SerializeField] private int elapsedDays = 1;
     [SerializeField] private float currentTimeInHours;
     [SerializeField] private int currentDay = 1;
     [SerializeField] private int currentSeason = 1;

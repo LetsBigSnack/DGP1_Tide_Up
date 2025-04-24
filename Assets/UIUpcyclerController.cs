@@ -58,7 +58,7 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
     {
         upcyclerMenu.SetActive(true);
         //quest recipies needs to be opened here as soon as its implemented.
-        UIInventoryController.Instance.OpenSinglePageInventory();
+        UIJournalManager.Instance.SwitchState(JournalType.Inventory);
         CheckIfInputMissing();
         EnableUpcycle();
     }

@@ -57,8 +57,8 @@ public class UIReUpcycleManager : MonoBehaviour
 
     public void OpenMenuByType(ReUpcyclerType type)
     {
-        reUpcyclerSubMenues.Where(m => m.GetComponent<UIReUpCyclerSubMenu>().ReUpCyclerMenuType == type).FirstOrDefault().OpenMenu();
         currentOpenType = type;
+        reUpcyclerSubMenues.Where(m => m.GetComponent<UIReUpCyclerSubMenu>().ReUpCyclerMenuType == type).FirstOrDefault().OpenMenu();
     }
 
     public void SwitchStateByInt(int state)

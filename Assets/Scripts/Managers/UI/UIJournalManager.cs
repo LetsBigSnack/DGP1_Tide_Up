@@ -72,7 +72,10 @@ public class UIJournalManager : MonoBehaviour
    public void OpenMenuByType(JournalType type)
    {
         journalSubMenues.Where(m => m.GetComponent<UIJournalSubMenu>().JournalType == type).FirstOrDefault().OpenMenu();
-        bookMarks.SetActive(true);
+        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && UIShopManager.Instance.GetCurrentState() == ShopType.Closed)
+        {
+            bookMarks.SetActive(true);
+        }
    }
 
 }
