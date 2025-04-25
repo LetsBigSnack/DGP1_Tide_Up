@@ -116,18 +116,22 @@ public class UIRecipeController : UIJournalSubMenu
     {
         if(currentOpenItem == sub)
         {
+            currentOpenItem.ToggleSubs();
+            currentOpenItem = null;
             return;
         }
 
         if(currentOpenItem == null)
         {
             currentOpenItem = sub;
-        }
-        else
-        {
             currentOpenItem.ToggleSubs();
-            currentOpenItem = sub;
+            return;
         }
+
+        currentOpenItem.ToggleSubs();
+        currentOpenItem = sub;
+        currentOpenItem.ToggleSubs();
+        return;
     }
     private void ClearEntries()
     {

@@ -42,14 +42,12 @@ public class UIUpcyclerRecipeEntryItem : MonoBehaviour
         {
             return;
         }
-
-        ToggleSubs();
         UIRecipeController.Instance.SwitchSubItem(this);
     }
 
     public void ToggleSubs()
     {
-        if (_curSubItems.Count <= 0)
+        if (!IsRecipeOpen())
         {
             CreateSubs();
             buttonImage.sprite = openArrow;
@@ -61,6 +59,10 @@ public class UIUpcyclerRecipeEntryItem : MonoBehaviour
         }
     }
 
+    public bool IsRecipeOpen()
+    {
+        return _curSubItems.Count > 0;
+    }
     private void CreateSubs()
     {
         foreach(RecipeData r in _knownRecipies)
