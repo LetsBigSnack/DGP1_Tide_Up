@@ -37,6 +37,15 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ToggleX"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f06df01-5d9b-4fb6-9596-0e09ca72b81d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""CloseMenu"",
                     ""type"": ""Button"",
                     ""id"": ""e0632335-1edf-484e-807f-ca8b1bf8b081"",
@@ -60,6 +69,17 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""b0184250-41da-4f37-8330-a6b667fef845"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""01fc3053-6208-4ada-8a67-5c382377d619"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -77,6 +97,7 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
+        m_UI_ToggleX = m_UI.FindAction("ToggleX", throwIfNotFound: true);
         m_UI_CloseMenu = m_UI.FindAction("CloseMenu", throwIfNotFound: true);
     }
 
@@ -145,12 +166,14 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Inventory;
+    private readonly InputAction m_UI_ToggleX;
     private readonly InputAction m_UI_CloseMenu;
     public struct UIActions
     {
         private @MenuInputs m_Wrapper;
         public UIActions(@MenuInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Inventory => m_Wrapper.m_UI_Inventory;
+        public InputAction @ToggleX => m_Wrapper.m_UI_ToggleX;
         public InputAction @CloseMenu => m_Wrapper.m_UI_CloseMenu;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
@@ -164,6 +187,9 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @ToggleX.started += instance.OnToggleX;
+            @ToggleX.performed += instance.OnToggleX;
+            @ToggleX.canceled += instance.OnToggleX;
             @CloseMenu.started += instance.OnCloseMenu;
             @CloseMenu.performed += instance.OnCloseMenu;
             @CloseMenu.canceled += instance.OnCloseMenu;
@@ -174,6 +200,9 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @ToggleX.started -= instance.OnToggleX;
+            @ToggleX.performed -= instance.OnToggleX;
+            @ToggleX.canceled -= instance.OnToggleX;
             @CloseMenu.started -= instance.OnCloseMenu;
             @CloseMenu.performed -= instance.OnCloseMenu;
             @CloseMenu.canceled -= instance.OnCloseMenu;
@@ -197,6 +226,7 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnInventory(InputAction.CallbackContext context);
+        void OnToggleX(InputAction.CallbackContext context);
         void OnCloseMenu(InputAction.CallbackContext context);
     }
 }

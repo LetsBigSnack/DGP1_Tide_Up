@@ -23,7 +23,10 @@ public class MenuController : MonoBehaviour
         
         _menuInputs.UI.CloseMenu.Enable();
         _menuInputs.UI.CloseMenu.performed += HandleEscape;
-        
+
+        _menuInputs.UI.ToggleX.Enable();
+        _menuInputs.UI.ToggleX.performed += ToggleMenuItem;
+
     }
     
     private void OnDisable()
@@ -63,6 +66,19 @@ public class MenuController : MonoBehaviour
         UITimeManager.Instance.CancelTimeChange();
     }
     
+    private void ToggleMenuItem(InputAction.CallbackContext value)
+    {
+        if (GameStateManager.Instance.GetGameState() != GameStates.InMenu)
+        {
+            return;
+        }
+
+        if(UIJournalManager.Instance.GetCurrentState() == JournalType.Map)
+        {
+            UIMapController.Instance.ToggleVisiblePlaces();
+        }
+    }
+
     private void HandleEscape(InputAction.CallbackContext value)
     {
         var currentState = GameStateManager.Instance.GetGameState();

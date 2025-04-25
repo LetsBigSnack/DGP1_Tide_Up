@@ -26,6 +26,8 @@ public class UIMapController : UIJournalSubMenu
 
     private List<GameObject> _currentMapLegendItems = new List<GameObject>();
 
+    private List<GameObject> _placeNames = new List<GameObject>();
+
     public override void CloseMenu()
     {
         mapMenu.SetActive(false);
@@ -50,6 +52,40 @@ public class UIMapController : UIJournalSubMenu
         }
     }
 
+    public void AddPlaceName(GameObject gameObject)
+    {
+        if (!_placeNames.Contains(gameObject))
+        {
+            _placeNames.Add(gameObject);
+        }
+    }
+
+    public void ToggleVisiblePlaces()
+    {
+        if (_placeNames.Count <= 0)
+        {
+            return;
+        }
+
+        foreach (GameObject o in _placeNames)
+        {
+            o.SetActive(!o.activeInHierarchy);
+        }
+
+    }
+
+    public void ActivatePlaceNames()
+    {
+        if(_placeNames.Count <= 0)
+        {
+            return;
+        }
+        foreach(GameObject o in _placeNames)
+        {
+            o.SetActive(true);
+        }
+    }
+
     private void SetName()
     {
         islandName.text = EnvironmentManager.Instance.GetCurrentIsland().IslandName;
@@ -58,6 +94,8 @@ public class UIMapController : UIJournalSubMenu
     private void UpdateMap()
     {
         ClearMapLegend();
+        SetName();
+        ActivatePlaceNames();
 
         foreach (IslandObjectType o in EnvironmentManager.Instance.GetCurrentIsland().ObjectsOnIsland)
         {
