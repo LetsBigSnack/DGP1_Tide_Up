@@ -19,9 +19,10 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private int elapsedDays = 0;
     [SerializeField] private float currentTimeInHours;
     [SerializeField] private int currentDay = 1;
-    [SerializeField] private int currentSeason = 1;
+    [SerializeField] private int currentSeasonNum = 1;
     [SerializeField] private int currentYear = 1;
     [SerializeField] private int currentWeekDayCount = 1;
+    [SerializeField] private int firstWeekDayOfMonth = 1;
     [SerializeField] private string currentWeekDay = "";
     
     public static Dictionary<int, string> Weekdays = new Dictionary<int, string>(){
@@ -59,10 +60,10 @@ public class TimeManager : MonoBehaviour
         set { currentDay = value; }
     }
 
-    public int CurrentSeason
+    public int CurrentSeasonNum
     {
-        get { return currentSeason; }
-        set { currentSeason = value; }
+        get { return currentSeasonNum; }
+        set { currentSeasonNum = value; }
     }
 
     public int CurrentYear
@@ -76,7 +77,11 @@ public class TimeManager : MonoBehaviour
         get { return currentWeekDayCount; }
         set { currentWeekDayCount = value; }
     }
-
+    public int FirstWeekDayOfMonth
+    {
+        get { return firstWeekDayOfMonth; }
+        set { firstWeekDayOfMonth = value; }
+    }
 
     private void Awake()
     {
@@ -104,19 +109,34 @@ public class TimeManager : MonoBehaviour
         mainLight = GameObject.FindGameObjectWithTag("Sun")?.GetComponent<Light>();
     }
 
-    public string getTime()
+    public string GetTime()
     {
         return TimeSpan.FromHours(currentTimeInHours).ToString(@"hh\:mm");
     }
 
-    public string getDate()
+    public string GetDate()
     {
-        string date = currentDay + " / " + currentSeason + " / " + currentYear;
+        string date = currentDay + " / " + currentSeasonNum + " / " + currentYear;
         if (currentDay < 10)
         {
             return "0" + date;
         }
         return date;
+    }
+
+    public string GetWeekDay(int? day = null)
+    {
+        if (day == null)
+        {
+            return Weekdays[currentWeekDayCount];
+        }
+
+        return Weekdays[(int)day];
+    }
+
+    public Seasons GetCurrentSeason()
+    {
+        return (Seasons)currentSeasonNum;
     }
 
     private void Update()
@@ -152,14 +172,17 @@ public class TimeManager : MonoBehaviour
             {
                 currentDay = 1;
                 UpdateWeekDay();
-                if (currentSeason + 1 > maxSeasons)
+
+                firstWeekDayOfMonth = currentWeekDayCount;
+
+                if (currentSeasonNum + 1 > maxSeasons)
                 {
-                    currentSeason = 1;
+                    currentSeasonNum = 1;
                     currentYear += 1;
                 }
                 else
                 {
-                    currentSeason += 1;
+                    currentSeasonNum += 1;
                 }
             }
             else
@@ -174,7 +197,7 @@ public class TimeManager : MonoBehaviour
         {
             OnTimeChanged?.Invoke(currentTimeInHours);
             OnDayChanged?.Invoke(currentDay);
-            OnMonthChanged?.Invoke(currentSeason);
+            OnMonthChanged?.Invoke(currentSeasonNum);
             OnYearChanged?.Invoke(currentYear);
             OnWeekDayChanged?.Invoke(currentWeekDayCount);
         }
@@ -210,7 +233,7 @@ public class TimeManager : MonoBehaviour
     {
         currentTimeInHours = time;
         currentDay = day;
-        currentSeason = month;
+        currentSeasonNum = month;
         currentYear = year;
         currentWeekDayCount = weekDayCount;
     }

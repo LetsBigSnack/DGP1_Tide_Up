@@ -77,7 +77,7 @@ public class UITimeManager : MonoBehaviour
 
         preChangeTime = TimeManager.Instance.CurrentTimeInHours;
         preChangeDay = TimeManager.Instance.CurrentDay;
-        preChangeMonth = TimeManager.Instance.CurrentSeason;
+        preChangeMonth = TimeManager.Instance.CurrentSeasonNum;
         preChangeYear = TimeManager.Instance.CurrentYear;
         preChangeWeekCount = TimeManager.Instance.CurrentWeekDay;
 
@@ -93,7 +93,7 @@ public class UITimeManager : MonoBehaviour
 
     private void UpdateDateText(int newDate)
     {
-        dateText.text = TimeManager.Instance.getDate();
+        dateText.text = TimeManager.Instance.GetDate();
     }
 
     private void UpdateWeekDayText(int newDay)

@@ -16,6 +16,8 @@ public class UICalendarController : UIJournalSubMenu
     [SerializeField] private GameObject UICurrMonthDayItemPrefab;
     [SerializeField] private GameObject UIOtherMonthDayItemPrefab;
 
+    private int _lastUpdatedDay = 0;
+
     public static UICalendarController Instance;
     private void Awake()
     {
@@ -38,28 +40,36 @@ public class UICalendarController : UIJournalSubMenu
     public override void OpenMenu()
     {
         subMenu.SetActive(true);
-        UpdateCalendar();
+        UICalendarDescriptionHelper.Instance.ResetCurrDateNote();
     }
 
-
-    private void UpdateCalendar()
+    private void OnEnable()
     {
+        TimeManager.OnDayChanged += UpdateCalendar;
+    }
+    private void OnDisable()
+    {
+        TimeManager.OnDayChanged -= UpdateCalendar;
+    }
+
+    private void UpdateCalendar(int newDate)
+    {
+        if (newDate == _lastUpdatedDay)
+        {
+            return;
+        }
+        _lastUpdatedDay = newDate;
+
         ClearCalendar();
 
         int currentDay = TimeManager.Instance.CurrentDay;
-
-        int firstWeekDay = (TimeManager.Instance.CurrentWeekDay - ((currentDay - 1) % 7));
-        if (firstWeekDay <= 0)
-        {
-            firstWeekDay += 7;
-        }
 
         int totalSlots = leftPageRows.Count * 5 + rightPageRows.Count * 2;
 
         for (int slot = 0; slot < totalSlots; slot++)
         {
             GameObject prefabToSpawn;
-            int displayedDay = slot - firstWeekDay;
+            int displayedDay = slot - (TimeManager.Instance.FirstWeekDayOfMonth - 2);
 
             if (displayedDay < 1)
             {
