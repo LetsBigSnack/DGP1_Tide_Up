@@ -5,10 +5,17 @@ using UnityEngine;
 
 public class EnvironmentObject : MonoBehaviour
 {
+    [SerializeField] private IslandObjectType type;
     [SerializeField] private int islandID;
     [SerializeField] private List<EnvironmentVisual> visuals = new List<EnvironmentVisual>();
     private MeshRenderer _meshRenderer;
     private MeshFilter _meshFilter;
+
+    public IslandObjectType Type
+    {
+        get => type;
+        set => type = value;
+    }
     
     private void Awake()
     {
@@ -25,6 +32,10 @@ public class EnvironmentObject : MonoBehaviour
     
     private void StartVisual()
     {
+        if (type != IslandObjectType.Other || type == IslandObjectType.House)
+        {
+            return;
+        }
         EnvironmentState state = EnvironmentManager.Instance.GetStateOfIsland(islandID);
         ChangeVisualRepresentation(state);
     }
@@ -35,6 +46,11 @@ public class EnvironmentObject : MonoBehaviour
     }
     private void OnChangeVisualRepresentation(EnvironmentState state, int id)
     {
+        if (type != IslandObjectType.Other || type == IslandObjectType.House)
+        {
+            return;
+        }
+
         if (id != islandID)
         {
             return;
@@ -44,6 +60,7 @@ public class EnvironmentObject : MonoBehaviour
 
     private void ChangeVisualRepresentation(EnvironmentState state)
     {
+
         EnvironmentVisual visual = visuals.Find(v => v.State == state);
 
         if (visual == null)
