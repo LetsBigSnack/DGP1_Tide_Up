@@ -60,7 +60,7 @@ public class MenuController : MonoBehaviour
         UIJournalManager.Instance.CloseAllMenues();
         UIReUpcycleManager.Instance.CloseAllMenues();
         UIShopManager.Instance.CloseAllMenues();
-        UITimeManager.Instance.CloseTimeChange();
+        UITimeManager.Instance.CancelTimeChange();
     }
     
     private void HandleEscape(InputAction.CallbackContext value)
