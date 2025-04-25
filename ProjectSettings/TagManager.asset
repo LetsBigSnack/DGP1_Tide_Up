@@ -19,8 +19,8 @@ TagManager:
   - Environment
   - Npc
   - Player
-  - 
-  - 
+  - Map
+  - MiniMap
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Map
+    uniqueID: 3523143457
     locked: 0
   m_RenderingLayers:
   - Default
