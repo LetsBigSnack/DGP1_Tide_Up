@@ -34,14 +34,9 @@ public class TimeManager : MonoBehaviour
     public static Action<int> OnYearChanged;
     public static Action<int> OnWeekDayChanged;
 
-    [Header("LightSource")]
-    [SerializeField] private Light mainLight;
+    [SerializeField] private Light directionalLight;
+    [SerializeField] private LightingPreset preset;
 
-    [Header("Light- & ColorPresets")]
-    [SerializeField] private Gradient ambientColor;
-    [SerializeField] private Gradient fogColor;
-    [SerializeField] private Gradient equatorColor;
-    [SerializeField] private Gradient sunColor;
 
     [Header("Testing Values")]
     //testing purpose only.
@@ -101,7 +96,11 @@ public class TimeManager : MonoBehaviour
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         Debug.Log("OnSceneLoaded - TIME");
-        mainLight = GameObject.FindGameObjectWithTag("Sun")?.GetComponent<Light>();
+        directionalLight = GameObject.FindGameObjectWithTag("Sun")?.GetComponent<Light>();
+        if(directionalLight != null)
+        {
+            RenderSettings.sun = directionalLight;
+        }
     }
 
     public string getTime()
@@ -123,12 +122,12 @@ public class TimeManager : MonoBehaviour
     {
         if (!isTimePaused)
         {
-            currentTimeInHours += Time.deltaTime * (24 / (minutesPerDay * 60));
+            float baseTimeSpeed = (24f / (minutesPerDay * 60f));
+            currentTimeInHours += Time.deltaTime * baseTimeSpeed;
             UpdateDate();
-            if (mainLight != null)
+            if (directionalLight != null)
             {
-                UpdateMainLightRotation();
-                UpdateLight();
+                UpdateLighting((currentTimeInHours / 24f));
             }
         }
     }
@@ -179,22 +178,21 @@ public class TimeManager : MonoBehaviour
             OnWeekDayChanged?.Invoke(currentWeekDayCount);
         }
     }
- 
-    private void UpdateMainLightRotation()
+
+    private void UpdateLighting(float timePercent)
     {
-        mainLight.transform.rotation = Quaternion.Euler(new Vector3(((currentTimeInHours/24)*360-90f), -30, 0));
+        RenderSettings.ambientLight = preset.AmbientColor.Evaluate(timePercent);
+        RenderSettings.fogColor = preset.FogColor.Evaluate(timePercent);
+
+        if (directionalLight != null)
+        {
+            directionalLight.color = preset.DirectionalColor.Evaluate(timePercent);
+
+            directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 170f, 0));
+        }
+
     }
 
-    private void UpdateLight()
-    {
-        float timeFraction = currentTimeInHours / 24;
-        //https://docs.unity3d.com/6000.0/Documentation/ScriptReference/RenderSettings-ambientEquatorColor.html
-        //https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Gradient.Evaluate.html
-        RenderSettings.fogColor = fogColor.Evaluate(timeFraction);
-        RenderSettings.ambientEquatorColor = equatorColor.Evaluate(timeFraction);
-        RenderSettings.ambientSkyColor = ambientColor.Evaluate(timeFraction);
-        mainLight.color = sunColor.Evaluate(timeFraction);
-    }
     public void ToggleTime()
     {
         isTimePaused = !isTimePaused;
