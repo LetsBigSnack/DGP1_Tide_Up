@@ -23,7 +23,18 @@ public class QuestManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
+    public List<Quest> CurrentQuests
+    {
+        get { return _currentQuests; }
+        set { _currentQuests = value; }
+    }
+    public List<Quest> CompletedQuests
+    {
+        get { return _completedQuests; }
+        set { _completedQuests = value; }
+    }
+
     public Quest GetQuestByName(string npcName)
     {
         Quest quest = _currentQuests.Find(q => q.QuestNpc == npcName);
