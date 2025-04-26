@@ -41,6 +41,7 @@ public class UICalendarController : UIJournalSubMenu
     {
         subMenu.SetActive(true);
         UICalendarDescriptionHelper.Instance.ResetCurrDateNote();
+        UpdateCalendar(TimeManager.Instance.CurrentDay - 1);
     }
 
     private void OnEnable()

@@ -98,6 +98,11 @@ public class UITimeManager : MonoBehaviour
 
     private void UpdateWeekDayText(int newDay)
     {
+        if(newDay == 0)
+        {
+            Debug.Log("Is 0 broski");
+            return;
+        }
         weekDayText.text = TimeManager.Weekdays[newDay];
     }
 
@@ -133,6 +138,11 @@ public class UITimeManager : MonoBehaviour
     {
         timeChangeContainer.SetActive(false);
         timeChangeButton.SetActive(true);
+    }
+
+    public bool IsTimeChangeActive()
+    {
+        return timeChangeContainer.activeInHierarchy;
     }
 
     public void SubmitTimeChange()

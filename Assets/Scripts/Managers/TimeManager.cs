@@ -128,6 +128,7 @@ public class TimeManager : MonoBehaviour
     {
         if (day == null)
         {
+            Debug.Log("CurrWeekDayCOunt == " + currentWeekDayCount);
             return Weekdays[currentWeekDayCount];
         }
 

@@ -71,6 +71,10 @@ public class UIMonthDayItem : MonoBehaviour
                 npc.BirthSeason == nextSeason && isNextSeason ||
                 npc.BirthSeason == lastSeason && isLastSeason)
             {
+                if (npc.NpcState == NpcStates.Intro)
+                {
+                    return;
+                }
                 if (npc.BirthDay == dayNumInSeason)
                 {
                     _birthdaysOnThisDay.Add(npc);
