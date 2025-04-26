@@ -42,12 +42,24 @@ public class QuestManager : MonoBehaviour
     }
 
 
-    public Quest CreateQuest(NpcAwareness npcAwareness, NpcPersonalities npcPersonalities)
+    public Quest CreateQuest(NpcAwareness npcAwareness, NpcPersonalities npcPersonalities, string npcName, string location)
     {
         Dialogue questDialogue = DialogueManager.Instance.GetRandomQuestDialogue(npcPersonalities, npcAwareness);
         Dialogue completeDialogue = DialogueManager.Instance.GetRandomCompleteDialogue(npcPersonalities, npcAwareness);
-        Quest quest = new Quest(questDialogue, completeDialogue);
+        Quest quest = new Quest(questDialogue, completeDialogue, npcName, location);
+
         return quest;
+    }
+
+    public void CompleteQuest(Quest quest)
+    {
+        if (!_currentQuests.Contains(quest))
+        {
+            return;
+        }
+
+        _currentQuests.Remove(quest);
+        _completedQuests.Add(quest);
     }
 
 }
