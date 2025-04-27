@@ -8,7 +8,7 @@ public class NpcManager : MonoBehaviour
 {
     
     public static NpcManager Instance;
-    [SerializeField] private List<Npc> _npcs;
+    [SerializeField] private List<Npc> _npcs = new List<Npc>();
 
     private void Awake()
     {

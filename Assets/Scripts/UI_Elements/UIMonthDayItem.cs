@@ -63,7 +63,12 @@ public class UIMonthDayItem : MonoBehaviour
 
         dayNumber.text = dayNumInSeason.ToString();
 
-        List<Npc> allNpcs = NpcManager.Instance.GetNpcs();
+        List<Npc> allNpcs = NpcManager.Instance?.GetNpcs();
+
+        if(allNpcs == null)
+        {
+            return;
+        }
 
         foreach (Npc npc in allNpcs)
         {

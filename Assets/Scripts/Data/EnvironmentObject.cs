@@ -32,7 +32,7 @@ public class EnvironmentObject : MonoBehaviour
     
     private void StartVisual()
     {
-        if (type != IslandObjectType.Other || type == IslandObjectType.House)
+        if (type != IslandObjectType.Other && type != IslandObjectType.House)
         {
             return;
         }
@@ -46,7 +46,7 @@ public class EnvironmentObject : MonoBehaviour
     }
     private void OnChangeVisualRepresentation(EnvironmentState state, int id)
     {
-        if (type != IslandObjectType.Other || type == IslandObjectType.House)
+        if (type != IslandObjectType.Other && type != IslandObjectType.House)
         {
             return;
         }
