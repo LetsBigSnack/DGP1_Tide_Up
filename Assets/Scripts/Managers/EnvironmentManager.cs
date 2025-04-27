@@ -113,6 +113,10 @@ public class EnvironmentManager : MonoBehaviour
         currentIsland = null;
     }
 
+    public Island GetCurrentIsland()
+    {
+        return currentIsland;
+    }
     public bool IsIslandUnlocked(int id)
     {
         return islands.Find(i => i.IslandID == id && i.HasVisited);

@@ -4,6 +4,17 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
+public enum IslandObjectType
+{
+    Other,
+    House,
+    ReUpcycler,
+    Shop,
+    TideUpBox,
+    Harbor
+}
+
+[Serializable]
 public class IslandMilestone
 {
     [SerializeField] private EnvironmentState state;
@@ -29,13 +40,13 @@ public class IslandMilestone
     }
 }
 
-
 public class Island : MonoBehaviour
 {
     [Header("Island Info")]
     [SerializeField] private int islandID;
     [SerializeField] private string islandName;
     [SerializeField] private bool hasVisited;
+    [SerializeField] private Vector3 islandCenter;
 
     [Header("Cleanliness")]
     [SerializeField] private int islandCleanlinessScore = 0;
@@ -43,7 +54,7 @@ public class Island : MonoBehaviour
     [SerializeField] private EnvironmentState state = EnvironmentState.Dirty;
 
     [Header("Detection")]
-    [SerializeField] private float islandRadius = 10f;
+    [SerializeField] private float islandRadius = 100f;
     [SerializeField] private LayerMask layerMasks;
 
     [Header("NPCs")]
@@ -55,6 +66,7 @@ public class Island : MonoBehaviour
     
     private SphereCollider _sphereCollider;
     private HashSet<GameObject> _player = new HashSet<GameObject>();
+    private List<IslandObjectType> _objectsOnIsland = new List<IslandObjectType>();
     
     
     public int IslandID
@@ -81,6 +93,16 @@ public class Island : MonoBehaviour
         set => islandCleanlinessScore = value;
     }
 
+    public Vector3 IslandCenter
+    {
+        get => islandCenter;
+    }
+
+    public List<IslandObjectType> ObjectsOnIsland
+    {
+        get => _objectsOnIsland;
+    }
+
     public EnvironmentState State
     {
         get => state;
@@ -91,6 +113,7 @@ public class Island : MonoBehaviour
     {
         _sphereCollider = GetComponent<SphereCollider>();
         _sphereCollider.radius = islandRadius;
+        islandCenter = _sphereCollider.center;
         milestones.Sort((x, y) => x.State.CompareTo(y.State));
         AssignAllEnvironment();
     }
@@ -106,6 +129,10 @@ public class Island : MonoBehaviour
             if (environmentObject != null)
             {
                 environmentObject.AssignIsland(islandID);
+                if (!_objectsOnIsland.Contains(environmentObject.Type) && environmentObject.Type != IslandObjectType.Other)
+                {
+                    AddObjectTypesToIsland(environmentObject);
+                }
             }
 
             if (npc != null)
@@ -114,6 +141,11 @@ public class Island : MonoBehaviour
                 npc.AssignIsland(IslandID);
             }
         }
+    }
+
+    private void AddObjectTypesToIsland(EnvironmentObject eObject)
+    {
+        _objectsOnIsland.Add(eObject.Type);
     }
 
     public bool AddCleanlinessScore(int score)

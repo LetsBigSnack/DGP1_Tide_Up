@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToggleX",
+                    "type": "Button",
+                    "id": "0f06df01-5d9b-4fb6-9596-0e09ca72b81d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "CloseMenu",
                     "type": "Button",
                     "id": "e0632335-1edf-484e-807f-ca8b1bf8b081",
@@ -33,6 +42,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0184250-41da-4f37-8330-a6b667fef845",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleX",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
