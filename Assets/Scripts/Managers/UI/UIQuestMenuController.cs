@@ -1,6 +1,7 @@
 using Assets.Scripts.Data;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIQuestMenuController : UIJournalSubMenu
 {
@@ -41,6 +42,8 @@ public class UIQuestMenuController : UIJournalSubMenu
 
         subMenu.SetActive(true);
         UpdateQuestMenu();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(currentQuestListParent as RectTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(completedQuestListParent as RectTransform);
     }
 
     private void UpdateQuestMenu()

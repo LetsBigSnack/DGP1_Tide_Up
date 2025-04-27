@@ -10,6 +10,7 @@ public class UIQuestItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI questTitle;
     [SerializeField] private GameObject subQuestItemPrefab;
     [SerializeField] private Transform subQuestParent;
+    [SerializeField] private Image buttonColour;
 
     private List<GameObject> _subQuestItems;
     private Quest _quest;
@@ -23,6 +24,10 @@ public class UIQuestItem : MonoBehaviour
         _quest = quest;
 
         questTitle.text = quest.QuestTitle;
+        if(quest.QuestState == QuestState.Completed )
+        {
+            buttonColour.color = Color.gray;
+        }
         Debug.Log("Done with quest Setup");
     }
 }
