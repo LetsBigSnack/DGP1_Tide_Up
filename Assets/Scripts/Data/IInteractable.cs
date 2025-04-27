@@ -10,7 +10,8 @@ namespace Data
         Recycler,
         Upcycler,
         Exchange,
-        Door
+        Door,
+        Boat
     }
 
     public abstract class Interactable : MonoBehaviour

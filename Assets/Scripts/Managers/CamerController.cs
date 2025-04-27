@@ -11,6 +11,9 @@ public enum CameraTarget
 
 public class CamerController : MonoBehaviour
 {
+    public static CamerController Instance;
+    
+    
     private Transform _target;
     
     [Header("Camera Settings")]
@@ -24,15 +27,29 @@ public class CamerController : MonoBehaviour
     
     
     private Vector3 _velocity;
-    
-    
+
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            GetComponent<Camera>().depthTextureMode = DepthTextureMode.Depth;
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         SwitchTarget(CameraTarget.Player);
     }
 
 
-    void SwitchTarget(CameraTarget newTarget)
+    public void SwitchTarget(CameraTarget newTarget)
     {
         
         cameraTarget = newTarget;
@@ -44,8 +61,7 @@ public class CamerController : MonoBehaviour
                 
                 break;
             case CameraTarget.Boat:
-                //TODO: Implement Boat
-                
+                _target = Boat.Instance.gameObject.transform;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
