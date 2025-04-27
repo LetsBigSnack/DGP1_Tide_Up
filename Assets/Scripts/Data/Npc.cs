@@ -39,6 +39,8 @@ public class Npc : MonoBehaviour
     [SerializeField] private string homeDetails;
     [SerializeField] private string vibe;
     [SerializeField] private string birthday;
+    [SerializeField] private int birthDay;
+    [SerializeField] private Seasons birthSeason;
     [SerializeField] private string mbti;
     [SerializeField] private string description;
     [SerializeField] private string favColour;
@@ -95,6 +97,16 @@ public class Npc : MonoBehaviour
     {
         get => birthday;
         set => birthday = value;
+    }
+    public int BirthDay
+    {
+        get => birthDay;
+        set => birthDay = value;
+    }
+    public Seasons BirthSeason
+    {
+        get => birthSeason;
+        set => birthSeason = value;
     }
 
     public string Mbti
@@ -244,7 +256,7 @@ public class Npc : MonoBehaviour
 
     private void InitializeQuest()
     {
-        _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality);
+        _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality, npcName, homeDetails);
         _currentQuest.QuestNpc = this.npcName;
     }
 

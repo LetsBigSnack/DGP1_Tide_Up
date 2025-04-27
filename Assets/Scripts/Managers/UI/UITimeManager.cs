@@ -77,7 +77,7 @@ public class UITimeManager : MonoBehaviour
 
         preChangeTime = TimeManager.Instance.CurrentTimeInHours;
         preChangeDay = TimeManager.Instance.CurrentDay;
-        preChangeMonth = TimeManager.Instance.CurrentSeason;
+        preChangeMonth = TimeManager.Instance.CurrentSeasonNum;
         preChangeYear = TimeManager.Instance.CurrentYear;
         preChangeWeekCount = TimeManager.Instance.CurrentWeekDay;
 
@@ -93,11 +93,16 @@ public class UITimeManager : MonoBehaviour
 
     private void UpdateDateText(int newDate)
     {
-        dateText.text = TimeManager.Instance.getDate();
+        dateText.text = TimeManager.Instance.GetDate();
     }
 
     private void UpdateWeekDayText(int newDay)
     {
+        if(newDay == 0)
+        {
+            Debug.Log("Is 0 broski");
+            return;
+        }
         weekDayText.text = TimeManager.Weekdays[newDay];
     }
 
@@ -126,8 +131,18 @@ public class UITimeManager : MonoBehaviour
             preChangeWeekCount);
         TimeManager.Instance.ToggleTime();
         GameStateManager.Instance.ResumeGame();
+        CloseTimeChange();
+    }
+
+    public void CloseTimeChange()
+    {
         timeChangeContainer.SetActive(false);
         timeChangeButton.SetActive(true);
+    }
+
+    public bool IsTimeChangeActive()
+    {
+        return timeChangeContainer.activeInHierarchy;
     }
 
     public void SubmitTimeChange()

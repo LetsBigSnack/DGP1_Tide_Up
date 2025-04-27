@@ -36,7 +36,7 @@ public class NpcManager : MonoBehaviour
 
     public Npc GetNpcByName(string questNpc)
     {
-        Debug.Log(questNpc);
+        //Debug.Log(questNpc);
         Npc npc = _npcs.Find(npc => npc.NpcName == questNpc);
 
         if (npc == null)
