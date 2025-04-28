@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: DriftWood
   description: yeah... its wood i guess... but bit drifty.
-  sprite: {fileID: 21300000, guid: 0ec7484cc6926724b8018b3562cccc3e, type: 3}
+  sprite: {fileID: 21300000, guid: 4c0e032c1544702458f97142e6c8ca33, type: 3}
   materials:
   - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
   trashQual: 0

@@ -17,6 +17,9 @@ public class UIItemDetailsHelper : MonoBehaviour
 
     [Header("Material Prefab")]
     [SerializeField] private GameObject materialPrefab;
+    [SerializeField] private GameObject emptyPrefab;
+
+    private UIInventoryItem _currentSelectedItem;
 
     private List<GameObject> _trashMaterial = new List<GameObject>();
 
@@ -32,6 +35,11 @@ public class UIItemDetailsHelper : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        CreateMaterialIcons(null);
+    }
+
     private void OnDisable()
     {
         RemoveMaterialIcons();
@@ -45,26 +53,46 @@ public class UIItemDetailsHelper : MonoBehaviour
         CreateMaterialIcons(trash);
     }
 
-    public void ResetDescription()
+    public void SetGameObjectAsSelected(UIInventoryItem item)
     {
-        this.titel.text = "";
-        this.description.text = "";
-        this.image.sprite = null;
-        RemoveMaterialIcons();
-    }
-
-    private void CreateMaterialIcons(List<TrashMaterialData> trash)
-    {
-        if(trash == null)
+        if(_currentSelectedItem == item)
         {
             return;
         }
 
-        foreach(TrashMaterialData mat in trash)
+        if(_currentSelectedItem == null)
         {
-            GameObject newMaterial = Instantiate(materialPrefab, matsParent);
-            newMaterial.GetComponent<UIDescriptionMaterialItem>().Setup(mat.sprite);
-            _trashMaterial.Add(newMaterial);
+            _currentSelectedItem = item;
+            item.ToggleIcon();
+            return;
+        }
+
+        _currentSelectedItem.ToggleIcon();
+        _currentSelectedItem = item;
+        _currentSelectedItem.ToggleIcon();
+    }
+
+    private void CreateMaterialIcons(List<TrashMaterialData> trash)
+    {
+        RemoveMaterialIcons();
+
+        if (trash != null)
+        {
+            foreach (TrashMaterialData mat in trash)
+            {
+                GameObject newMaterial = Instantiate(materialPrefab, matsParent);
+                newMaterial.GetComponent<UIDescriptionMaterialItem>().Setup(mat.sprite);
+                _trashMaterial.Add(newMaterial);
+            }
+        }
+
+        if (_trashMaterial.Count < 4)
+        {
+            for (int i = _trashMaterial.Count; i < 4; i++)
+            {
+                GameObject newEmptyMaterial = Instantiate(emptyPrefab, matsParent);
+                _trashMaterial.Add(newEmptyMaterial);
+            }
         }
     }
 

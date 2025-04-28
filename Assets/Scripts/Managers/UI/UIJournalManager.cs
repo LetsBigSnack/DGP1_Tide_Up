@@ -24,6 +24,10 @@ public class UIJournalManager : MonoBehaviour
     [Header("BookMarks")]
     [SerializeField] private GameObject bookMarks;
 
+    [Header("Backdrop")]
+    [SerializeField] private GameObject cover;
+    [SerializeField] private GameObject pages;
+
     [Header("Journal")]
     [SerializeField] private List<UIJournalSubMenu> journalSubMenues;
 
@@ -47,6 +51,18 @@ public class UIJournalManager : MonoBehaviour
         currentOpenType = JournalType.Closed;
     }
 
+    private void Update()
+    {
+        if(currentOpenType != JournalType.Closed)
+        {
+            bookMarks.SetActive(true);
+        }
+        else
+        {
+            bookMarks.SetActive(false);
+        }
+    }
+
     public JournalType GetCurrentState()
     {
         return currentOpenType;
@@ -55,8 +71,8 @@ public class UIJournalManager : MonoBehaviour
     public void SwitchState(JournalType state)
     {
         CloseAllMenues();
-        OpenMenuByType(state);
         currentOpenType = state;
+        OpenMenuByType(state);
     }
 
     public void CloseAllMenues()
@@ -66,7 +82,8 @@ public class UIJournalManager : MonoBehaviour
             menu.CloseMenu();
        }
         currentOpenType = JournalType.Closed;
-        bookMarks.SetActive(false);
+        cover.SetActive(false);
+        pages.SetActive(false);
     }
 
    public void OpenMenuByType(JournalType type)
@@ -74,7 +91,8 @@ public class UIJournalManager : MonoBehaviour
         journalSubMenues.Where(m => m.GetComponent<UIJournalSubMenu>().JournalType == type).FirstOrDefault().OpenMenu();
         if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && UIShopManager.Instance.GetCurrentState() == ShopType.Closed)
         {
-            bookMarks.SetActive(true);
+            cover.SetActive(true);
+            pages.SetActive(true);
         }
    }
 
