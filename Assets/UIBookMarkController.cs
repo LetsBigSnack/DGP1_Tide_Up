@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIBookMarkController : MonoBehaviour
 {
@@ -137,31 +138,36 @@ public class UIBookMarkController : MonoBehaviour
         });
     }
 
-    public void DestroyBookMarkByType(JournalType type, bool createFiller = false)
+    public IEnumerator DestroyBookMarkByTypeCoroutine(JournalType type, bool createFiller = false)
     {
         GameObject bookMarkToDestroy = _curBookmarks.Find(g => g.GetComponent<UIJournalBookMarkItem>().Type == type);
         if (bookMarkToDestroy == null)
         {
-            return;
+            yield break;
         }
 
         Transform parent = bookMarkToDestroy.transform.parent;
+        int siblingIndex = bookMarkToDestroy.transform.GetSiblingIndex();
 
         _curBookmarks.Remove(bookMarkToDestroy);
         bookMarkToDestroy.GetComponent<UIJournalBookMarkItem>().Remove();
 
         if (createFiller && parent == rightParent)
         {
+            yield return new WaitForSeconds(spawnTime);
+
             GameObject filler = Instantiate(fillerPrefab, parent);
             UIJournalFiller fillerComponent = filler.GetComponent<UIJournalFiller>();
 
-            filler.transform.SetSiblingIndex(bookMarkToDestroy.transform.GetSiblingIndex());
+            filler.transform.SetSiblingIndex(siblingIndex);
+
+            StartCoroutine(DelayedLayoutRebuild(parent));
         }
     }
 
     private IEnumerator SpawnBookmarks(JournalType type, Transform parent)
     {
-        DestroyBookMarkByType(type, createFiller: parent == leftParent);
+        StartCoroutine(DestroyBookMarkByTypeCoroutine(type, createFiller: parent == leftParent));
 
         yield return new WaitForSeconds(spawnTime);
 
@@ -183,6 +189,7 @@ public class UIBookMarkController : MonoBehaviour
         {
             newBookMark.transform.SetSiblingIndex(siblingIndex);
         }
+        StartCoroutine(DelayedLayoutRebuild(parent));
     }
 
     private int FindAndRemoveFiller(JournalType type, Transform parent)
@@ -222,6 +229,17 @@ public class UIBookMarkController : MonoBehaviour
         for (int i = 0; i < orderedBookmarks.Count; i++)
         {
             orderedBookmarks[i].transform.SetSiblingIndex(i);
+        }
+    }
+
+    private IEnumerator DelayedLayoutRebuild(Transform parent)
+    {
+        yield return new WaitForEndOfFrame();
+
+        var layoutGroup = parent.GetComponent<HorizontalLayoutGroup>();
+        if (layoutGroup != null)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(parent.GetComponent<RectTransform>());
         }
     }
 
