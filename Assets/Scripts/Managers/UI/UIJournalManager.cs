@@ -51,18 +51,6 @@ public class UIJournalManager : MonoBehaviour
         currentOpenType = JournalType.Closed;
     }
 
-    private void Update()
-    {
-        if(currentOpenType != JournalType.Closed)
-        {
-            bookMarks.SetActive(true);
-        }
-        else
-        {
-            bookMarks.SetActive(false);
-        }
-    }
-
     public JournalType GetCurrentState()
     {
         return currentOpenType;
@@ -70,6 +58,13 @@ public class UIJournalManager : MonoBehaviour
 
     public void SwitchState(JournalType state)
     {
+        if(state == JournalType.Closed)
+        {
+            UIBookMarkController.Instance.Close();
+            CloseAllMenues();
+            return;
+        }
+
         CloseAllMenues();
         currentOpenType = state;
         OpenMenuByType(state);
@@ -89,7 +84,8 @@ public class UIJournalManager : MonoBehaviour
    public void OpenMenuByType(JournalType type)
    {
         journalSubMenues.Where(m => m.GetComponent<UIJournalSubMenu>().JournalType == type).FirstOrDefault().OpenMenu();
-        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && UIShopManager.Instance.GetCurrentState() == ShopType.Closed)
+        UIBookMarkController.Instance.Open();
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && UIShopManager.Instance.GetCurrentState() == ShopType.Closed)
         {
             cover.SetActive(true);
             pages.SetActive(true);

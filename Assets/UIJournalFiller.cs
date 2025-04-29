@@ -6,7 +6,6 @@ public class UIJournalFiller : MonoBehaviour
     [SerializeField] private bool isRight;
 
     [SerializeField] private UIJournalFiller prevBookMark;
-    [SerializeField] private UIJournalFiller nextBookMark;
 
     [SerializeField] private UIJournalBookMarkItem currentItem;
 
@@ -32,9 +31,17 @@ public class UIJournalFiller : MonoBehaviour
     {
         return prevBookMark;
     }
-
-    public UIJournalFiller GetNextBookmark()
+    public void SwitchPosition()
     {
-        return nextBookMark;
+        GoTroughAllPreviousItems();
+    }
+
+    public void GoTroughAllPreviousItems()
+    {
+        if (prevBookMark?.CurrentItem != null)
+        {
+            UIBookMarkController.Instance.SwitchPosition(prevBookMark.CurrentItem);
+            prevBookMark.GoTroughAllPreviousItems();
+        }
     }
 }

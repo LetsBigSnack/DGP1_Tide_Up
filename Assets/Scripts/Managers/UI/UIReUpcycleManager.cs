@@ -40,6 +40,11 @@ public class UIReUpcycleManager : MonoBehaviour
 
     public void SwitchState(ReUpcyclerType state)
     {
+        if (state == ReUpcyclerType.Closed)
+        {
+            CloseAllMenues();
+            return;
+        }
         CloseAllMenues();
         OpenMenuByType(state);
         GameStateManager.Instance.SetGameState(GameStates.InMenu);

@@ -40,6 +40,12 @@ public class UIShopManager : MonoBehaviour
 
     public void SwitchState(ShopType state)
     {
+        if (state == ShopType.Closed)
+        {
+            CloseAllMenues();
+            return;
+        }
+
         CloseAllMenues();
         OpenMenuByType(state);
         GameStateManager.Instance.SetGameState(GameStates.InMenu);

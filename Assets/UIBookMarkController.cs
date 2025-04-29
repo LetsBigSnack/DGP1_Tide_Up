@@ -11,7 +11,6 @@ public class UIBookMarkController : MonoBehaviour
     [SerializeField] private float spawnTime;
 
     [SerializeField] private GameObject btnPrefab;
-    [SerializeField] private GameObject fillerPrefab;
     [SerializeField] private Transform rightParent;
     [SerializeField] private Transform leftParent;
 
@@ -32,13 +31,17 @@ public class UIBookMarkController : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    public void Open()
     {
+        if(_curBookmarks.Count > 0)
+        {
+            return;
+        }
         StopAllBookMarkCoroutines();
         StartCoroutine(CreateBookMarksRoutine());
     }
 
-    private void OnDisable()
+    public void Close()
     {
         StopAllBookMarkCoroutines();
     }
@@ -46,52 +49,61 @@ public class UIBookMarkController : MonoBehaviour
     private IEnumerator CreateBookMarksRoutine()
     {
         List<JournalType> typesToInstantiate = new List<JournalType>();
-        Transform parent = null;
+
+        bool isRight = true;
 
         if (UIJournalManager.Instance.GetCurrentState() != JournalType.Closed &&
             UIShopManager.Instance.GetCurrentState() == ShopType.Closed &&
             UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
         {
-
-        }
-        else if (UIJournalManager.Instance.GetCurrentState() != JournalType.Closed &&
-                 UIShopManager.Instance.GetCurrentState() == ShopType.Closed &&
-                 UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
-        {
-
+            typesToInstantiate.Add(JournalType.Inventory);
+            typesToInstantiate.Add(JournalType.Recipies);
+            typesToInstantiate.Add(JournalType.Quests);
+            typesToInstantiate.Add(JournalType.FriendBook);
+            typesToInstantiate.Add(JournalType.Calender);
+            typesToInstantiate.Add(JournalType.Map);
         }
 
         foreach (JournalType j in typesToInstantiate)
         {
-            Coroutine spawn = StartCoroutine(SpawnBookmarks(j, parent));
-            _bookMarkSpawnings.Add(spawn);
-            yield return spawn;
+            if(!BookmarkExistsInParent(j, ReturnBookMarkFiller(j, isRight)))
+            {
+                if(j == JournalType.Inventory) {
+                    isRight = false;
+                }
+                else
+                {
+                    isRight = true;
+                }
+
+                Coroutine spawn = StartCoroutine(SpawnBookmarks(j, ReturnBookMarkFiller(j, isRight), isRight));
+                _bookMarkSpawnings.Add(spawn);
+                yield return spawn;
+            }
         }
     }
 
-    private UIJournalFiller ReturnBookMarkFiller(JournalType type, bool isRight)
+    private Transform ReturnBookMarkFiller(JournalType type, bool isRight)
     {
-        return _fillerParents.Find(x => x.Type == type && x.IsRight == isRight);
+        return _fillerParents.Find(x => x.Type == type && x.IsRight == isRight).gameObject.transform;
     }
 
     public void SwitchPosition(UIJournalBookMarkItem bookMark)
     {
-        //StartCoroutine(SwitchPositionRoutine(bookMark));
+        StartCoroutine(SwitchPositionRoutine(bookMark));
     }
-
-    /*
+    
     private IEnumerator SwitchPositionRoutine(UIJournalBookMarkItem bookMark)
     {
-        if (bookMark.IsRight)
+        DestroyBookMarkByTypeCoroutine(bookMark.Type, bookMark.IsRight);
+        yield return new WaitForSeconds(spawnTime);
+        if (!BookmarkExistsInParent(bookMark.Type, ReturnBookMarkFiller(bookMark.Type, !bookMark.IsRight)))
         {
-               
-        }
-        else
-        {
-            
+            Coroutine spawn = StartCoroutine(SpawnBookmarks(bookMark.Type, ReturnBookMarkFiller(bookMark.Type, !bookMark.IsRight), !bookMark.IsRight));
+            _bookMarkSpawnings.Add(spawn);
+            yield return spawn;
         }
     }
-    */
 
     private bool BookmarkExistsInParent(JournalType type, Transform parent)
     {
@@ -102,91 +114,43 @@ public class UIBookMarkController : MonoBehaviour
         });
     }
 
-    public IEnumerator DestroyBookMarkByTypeCoroutine(JournalType type, bool createFiller = false)
+    public IEnumerator DestroyBookMarkByTypeCoroutine(JournalType type, bool isRight)
     {
-        GameObject bookMarkToDestroy = _curBookmarks.Find(g => g.GetComponent<UIJournalBookMarkItem>().Type == type);
+        GameObject bookMarkToDestroy = _curBookmarks.Find(g => g.GetComponent<UIJournalBookMarkItem>().Type == type 
+        && g.GetComponent<UIJournalBookMarkItem>().IsRight == isRight);
+
+        UIJournalFiller filler = ReturnFillerByTypeAndBool(type, isRight);
+        filler.CurrentItem = null;
+
         if (bookMarkToDestroy == null)
         {
             yield break;
         }
-
-        Transform parent = bookMarkToDestroy.transform.parent;
-        int siblingIndex = bookMarkToDestroy.transform.GetSiblingIndex();
-
         _curBookmarks.Remove(bookMarkToDestroy);
         bookMarkToDestroy.GetComponent<UIJournalBookMarkItem>().Remove();
-
-        if (createFiller && parent == rightParent)
-        {
-            yield return new WaitForSeconds(spawnTime);
-
-            GameObject filler = Instantiate(fillerPrefab, parent);
-            UIJournalFiller fillerComponent = filler.GetComponent<UIJournalFiller>();
-
-            filler.transform.SetSiblingIndex(siblingIndex);
-
-            StartCoroutine(DelayedLayoutRebuild(parent));
-        }
     }
 
-    private IEnumerator SpawnBookmarks(JournalType type, Transform parent)
+    private IEnumerator SpawnBookmarks(JournalType type, Transform parent, bool isRight)
     {
-        StartCoroutine(DestroyBookMarkByTypeCoroutine(type, createFiller: parent == leftParent));
+        StartCoroutine(DestroyBookMarkByTypeCoroutine(type, !isRight));
 
         yield return new WaitForSeconds(spawnTime);
-
-        int siblingIndex = -1;
-
-        if (parent == rightParent)
-        {
-            siblingIndex = FindAndRemoveFiller(type, parent);
-        }
 
         GameObject newBookMark = Instantiate(btnPrefab, parent);
         _curBookmarks.Add(newBookMark);
 
+        UIJournalFiller filler = ReturnFillerByTypeAndBool(type, isRight);
         UIJournalBookMarkItem item = newBookMark.GetComponent<UIJournalBookMarkItem>();
         item.Type = type;
-        item.IsRight = (parent != leftParent);
+        item.IsRight = isRight;
+        item.CurrentParent = filler;
 
-        if (siblingIndex >= 0)
-        {
-            newBookMark.transform.SetSiblingIndex(siblingIndex);
-        }
-        StartCoroutine(DelayedLayoutRebuild(parent));
+        filler.CurrentItem = item;
     }
 
-    private int FindAndRemoveFiller(JournalType type, Transform parent)
+    private UIJournalFiller ReturnFillerByTypeAndBool(JournalType type, bool isRight)
     {
-        foreach (Transform child in parent)
-        {
-            var filler = child.GetComponent<UIJournalFiller>();
-            if (filler != null)
-            {
-                int index = child.GetSiblingIndex();
-                Destroy(child.gameObject);
-                return index;
-            }
-        }
-        return -1; // No filler found
-    }
-
-    private void ReorderBookmarksInParent(Transform parent)
-    {
-        var bookmarksInParent = parent.GetComponentsInChildren<UIJournalBookMarkItem>(true);
-
-        List<UIJournalBookMarkItem> orderedBookmarks;
-    }
-
-    private IEnumerator DelayedLayoutRebuild(Transform parent)
-    {
-        yield return new WaitForEndOfFrame();
-
-        var layoutGroup = parent.GetComponent<HorizontalLayoutGroup>();
-        if (layoutGroup != null)
-        {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(parent.GetComponent<RectTransform>());
-        }
+        return _fillerParents.Find(x => x.Type == type && x.IsRight == isRight);
     }
 
     private void StopAllBookMarkCoroutines()
@@ -211,6 +175,12 @@ public class UIBookMarkController : MonoBehaviour
         foreach(GameObject o in _curBookmarks)
         {
             Destroy(o);
+        }
+
+        foreach(UIJournalFiller i in _fillerParents)
+        {
+            Destroy(i.CurrentItem?.gameObject);
+            i.CurrentItem = null;
         }
 
         _curBookmarks.Clear();

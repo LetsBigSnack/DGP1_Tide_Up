@@ -6,6 +6,7 @@ public class UIJournalBookMarkItem : MonoBehaviour
     [SerializeField] private JournalType type;
     [SerializeField] private Image image;
     [SerializeField] private bool isRight;
+    [SerializeField] private UIJournalFiller currentParent;
 
     [SerializeField] private Sprite inventorySprite;
     [SerializeField] private Sprite questSprite;
@@ -34,16 +35,39 @@ public class UIJournalBookMarkItem : MonoBehaviour
         set => isRight = value;
     }
 
+    public UIJournalFiller CurrentParent
+    {
+        get => currentParent;
+        set => currentParent = value;
+    }
+
     private void Start()
     {
         anim = GetComponent<Animator>();
         Setup();
     }
 
+    public void Update()
+    {
+        if(UIJournalManager.Instance.GetCurrentState() == type)
+        {
+            anim.Play("Raised");
+        }
+    }
+
     public void OnClick()
     {
+        if(UIJournalManager.Instance.GetCurrentState() == type)
+        {
+            return;
+        }
+
+        if (isRight)
+        {
+            UIBookMarkController.Instance.SwitchPosition(this);
+        }
         UIJournalManager.Instance.SwitchState(type);
-        UIBookMarkController.Instance.SwitchPosition(this);
+        currentParent.SwitchPosition();
     }
 
     private void Setup()
