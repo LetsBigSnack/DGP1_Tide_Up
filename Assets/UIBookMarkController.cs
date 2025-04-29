@@ -76,9 +76,10 @@ public class UIBookMarkController : MonoBehaviour
 
     public void SwitchPosition(UIJournalBookMarkItem bookMark)
     {
-        StartCoroutine(SwitchPositionRoutine(bookMark));
+        //StartCoroutine(SwitchPositionRoutine(bookMark));
     }
 
+    /*
     private IEnumerator SwitchPositionRoutine(UIJournalBookMarkItem bookMark)
     {
         if (bookMark.IsRight)
@@ -90,6 +91,7 @@ public class UIBookMarkController : MonoBehaviour
             
         }
     }
+    */
 
     private bool BookmarkExistsInParent(JournalType type, Transform parent)
     {
@@ -174,24 +176,6 @@ public class UIBookMarkController : MonoBehaviour
         var bookmarksInParent = parent.GetComponentsInChildren<UIJournalBookMarkItem>(true);
 
         List<UIJournalBookMarkItem> orderedBookmarks;
-
-        if (parent == rightParent)
-        {
-            orderedBookmarks = bookmarksInParent
-                .OrderBy(bookmark => _prefabPosition[bookmark.Type])
-                .ToList();
-        }
-        else
-        {
-            orderedBookmarks = bookmarksInParent
-                .OrderByDescending(bookmark => _prefabPosition[bookmark.Type])
-                .ToList();
-        }
-
-        for (int i = 0; i < orderedBookmarks.Count; i++)
-        {
-            orderedBookmarks[i].transform.SetSiblingIndex(i);
-        }
     }
 
     private IEnumerator DelayedLayoutRebuild(Transform parent)
