@@ -15,18 +15,9 @@ public class UIBookMarkController : MonoBehaviour
     [SerializeField] private Transform rightParent;
     [SerializeField] private Transform leftParent;
 
+    [SerializeField] private List<UIJournalFiller> _fillerParents;
+
     private List<GameObject> _curBookmarks = new List<GameObject>();
-
-    private Dictionary<JournalType, int> _prefabPosition = new Dictionary<JournalType, int>()
-    {
-        {JournalType.Inventory, 1 },
-        {JournalType.Quests, 2 },
-        {JournalType.Recipies, 3 },
-        {JournalType.FriendBook, 4 },
-        {JournalType.Calender, 5 },
-        {JournalType.Map, 6 },
-    };
-
     private List<Coroutine> _bookMarkSpawnings = new List<Coroutine>();
 
     private void Awake()
@@ -61,17 +52,13 @@ public class UIBookMarkController : MonoBehaviour
             UIShopManager.Instance.GetCurrentState() == ShopType.Closed &&
             UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
         {
-            parent = rightParent;
-            typesToInstantiate = _prefabPosition.Keys.ToList();
+
         }
         else if (UIJournalManager.Instance.GetCurrentState() != JournalType.Closed &&
                  UIShopManager.Instance.GetCurrentState() == ShopType.Closed &&
                  UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
         {
-            parent = leftParent;
-            typesToInstantiate = _prefabPosition.Keys
-                .Where(j => j == JournalType.Inventory || j == JournalType.Recipies)
-                .ToList();
+
         }
 
         foreach (JournalType j in typesToInstantiate)
@@ -82,6 +69,11 @@ public class UIBookMarkController : MonoBehaviour
         }
     }
 
+    private UIJournalFiller ReturnBookMarkFiller(JournalType type, bool isRight)
+    {
+        return _fillerParents.Find(x => x.Type == type && x.IsRight == isRight);
+    }
+
     public void SwitchPosition(UIJournalBookMarkItem bookMark)
     {
         StartCoroutine(SwitchPositionRoutine(bookMark));
@@ -89,44 +81,14 @@ public class UIBookMarkController : MonoBehaviour
 
     private IEnumerator SwitchPositionRoutine(UIJournalBookMarkItem bookMark)
     {
-        List<JournalType> typesToInstantiate = new List<JournalType>();
-        Transform targetParent = bookMark.IsRight ? leftParent : rightParent;
-
         if (bookMark.IsRight)
         {
-            for (int i = _prefabPosition[bookMark.Type]; i > 0; i--)
-            {
-                var match = _prefabPosition.FirstOrDefault(x => x.Value == i);
-                if (!match.Equals(default(KeyValuePair<JournalType, int>)))
-                {
-                    typesToInstantiate.Add(match.Key);
-                }
-            }
-
-            typesToInstantiate.Reverse();
+               
         }
         else
         {
-            for (int i = _prefabPosition[bookMark.Type]; i <= _prefabPosition.Max(x => x.Value); i++)
-            {
-                var match = _prefabPosition.FirstOrDefault(x => x.Value == i);
-                if (!match.Equals(default(KeyValuePair<JournalType, int>)))
-                {
-                    typesToInstantiate.Add(match.Key);
-                }
-            }
+            
         }
-
-        foreach (JournalType j in typesToInstantiate)
-        {
-            if (!BookmarkExistsInParent(j, targetParent))
-            {
-                Coroutine spawn = StartCoroutine(SpawnBookmarks(j, targetParent));
-                yield return spawn;
-            }
-        }
-
-        ReorderBookmarksInParent(targetParent);
     }
 
     private bool BookmarkExistsInParent(JournalType type, Transform parent)

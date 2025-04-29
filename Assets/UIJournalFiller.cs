@@ -2,15 +2,39 @@ using UnityEngine;
 
 public class UIJournalFiller : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private JournalType type;
+    [SerializeField] private bool isRight;
+
+    [SerializeField] private UIJournalFiller prevBookMark;
+    [SerializeField] private UIJournalFiller nextBookMark;
+
+    [SerializeField] private UIJournalBookMarkItem currentItem;
+
+    public JournalType Type
     {
-        
+        get => type;
+        set => type = value;
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool IsRight
     {
-        
+        get => isRight;
+        set => isRight = value;
+    }
+
+    public UIJournalBookMarkItem CurrentItem
+    {
+        get => currentItem;
+        set => currentItem = value;
+    }
+
+    public UIJournalFiller GetPreviousBookmark()
+    {
+        return prevBookMark;
+    }
+
+    public UIJournalFiller GetNextBookmark()
+    {
+        return nextBookMark;
     }
 }
