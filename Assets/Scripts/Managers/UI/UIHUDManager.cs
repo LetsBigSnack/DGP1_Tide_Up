@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum KeyType
 {
@@ -85,6 +86,8 @@ public class UIHUDManager : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += UpdateToolBar;
+        UIPauseMenuManager.OnTooltipToggleChange += ToggleToolbar;
+
         //testing purpose for now
         currentKeyState = GameStates.PlayingBoat;
         UpdateToolBar(GameStates.PlayingCharacter);
@@ -139,19 +142,12 @@ public class UIHUDManager : MonoBehaviour
         }
     }
 
-    public void ToggleToolbar()
+    public void ToggleToolbar(Toggle toggleState)
     {
+        toggleToolbar = toggleState.isOn;
         if (toolBarContainer != null)
         {
             toolBarContainer.gameObject.SetActive(toggleToolbar);
         }
     }
-
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        ToggleToolbar();
-    }
-#endif
-
 }

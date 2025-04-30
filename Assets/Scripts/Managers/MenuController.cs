@@ -88,7 +88,14 @@ public class MenuController : MonoBehaviour
 
         if (currentState == GameStates.PlayingCharacter || currentState == GameStates.Paused)
         {
-            UIPauseMenuManager.Instance.TogglePauseGame();
+            if(UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Off || UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Paused) 
+            {
+                UIPauseMenuManager.Instance.TogglePauseGame();
+            }
+            else if(UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Options)
+            {
+                UIPauseMenuManager.Instance.ToggleOptionMenu();
+            }
         }
         else if (currentState == GameStates.InMenu)
         {
