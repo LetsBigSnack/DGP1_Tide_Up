@@ -94,12 +94,6 @@ public class UIBookMarkController : MonoBehaviour
         return _linkedBookmarks.Find(x => x.GetCurrentType() == type);
     }
 
-    private UIJournalBookMarkItem ReturnCurrentlyActiveBookMark(JournalType type)
-    {
-        BookMarkLink link = _linkedBookmarks.Find(x => x.GetCurrentType() == type);
-        return link.GetPosLeft().gameObject.activeInHierarchy ? link.GetPosLeft() : link.GetPosRight();
-    }
-
     public void OpenMenu()
     {
         if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)

@@ -7,6 +7,10 @@ public class UIUpcyclerSubRecipeEntryItem : MonoBehaviour
 {
     [SerializeField] private GameObject materialPrefab;
     [SerializeField] private Transform materialParent;
+    [SerializeField] private Image image;
+    [SerializeField] private Sprite activeBtn;
+    [SerializeField] private Sprite inactiveBtn;
+
     private List<GameObject> _currentMaterials = new List<GameObject>();
     private List<TrashMaterialData> _materials = new List<TrashMaterialData>();
 
@@ -33,6 +37,17 @@ public class UIUpcyclerSubRecipeEntryItem : MonoBehaviour
         ClearCurrentMaterials();
         CreateMaterials();
         SpawnMaterials();
+        UpdateButton();
+    }
+
+    private void UpdateButton()
+    {
+        if (CanMaterialsBeAddedToUpcycler())
+        {
+            image.sprite = activeBtn;
+            return;
+        }
+        image.sprite = inactiveBtn;
     }
 
     private void CreateMaterials()
@@ -75,7 +90,15 @@ public class UIUpcyclerSubRecipeEntryItem : MonoBehaviour
             }
 
             GameObject mat = Instantiate(materialPrefab, materialParent);
-            Image matImage = mat.GetComponent<Image>();
+            Image matImage = null;
+            foreach (var img in mat.GetComponentsInChildren<Image>(true))
+            {
+                if (img.gameObject != mat)
+                {
+                    matImage = img;
+                    break;
+                }
+            }
             matImage.sprite = t.sprite;
 
             if(InventoryManager.Instance.GetMaterialAmount(t.type) < count)

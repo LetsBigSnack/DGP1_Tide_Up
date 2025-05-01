@@ -13,15 +13,22 @@ public class UIUpcyclerInputSlot : MonoBehaviour
         set { currentMaterial = value; }
     }
 
+    private void Start()
+    {
+        image.enabled = false;
+    }
+
     public void Setup(TrashMaterialData mat)
     {
         this.currentMaterial = mat;
         this.image.sprite = mat.sprite;
+        this.image.enabled = true;
     }
 
     public void ResetSlot()
     {
         this.currentMaterial = null;
+        this.image.enabled = false;
         this.image.sprite = null;
     }
 

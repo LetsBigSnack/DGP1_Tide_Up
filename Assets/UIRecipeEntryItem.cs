@@ -35,6 +35,9 @@ public class UIRecipeEntryItem : MonoBehaviour
             return;
         }
 
-        UIRecipeDescriptionHelper.Instance.Setup(_questItem, _knownRecipies);
+        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
+        {
+            UIRecipeDescriptionHelper.Instance.Setup(_questItem, _knownRecipies);
+        }
     }
 }

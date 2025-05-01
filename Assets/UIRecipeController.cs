@@ -93,7 +93,7 @@ public class UIRecipeController : UIJournalSubMenu
         UpdateRecipies();
         ClearEntries();
 
-        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Upcycler)
+        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
         {
             foreach (QuestItemData q in _knownRecipies.Keys)
             {
