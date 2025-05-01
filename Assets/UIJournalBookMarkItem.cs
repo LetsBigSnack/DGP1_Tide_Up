@@ -6,7 +6,7 @@ public class UIJournalBookMarkItem : MonoBehaviour
     [SerializeField] private JournalType type;
     [SerializeField] private Image image;
     [SerializeField] private bool isRight;
-    [SerializeField] private UIJournalFiller currentParent;
+    [SerializeField] private UIJournalBookMarkItem counterPart;
 
     [SerializeField] private Sprite inventorySprite;
     [SerializeField] private Sprite questSprite;
@@ -14,6 +14,11 @@ public class UIJournalBookMarkItem : MonoBehaviour
     [SerializeField] private Sprite friendsSprite;
     [SerializeField] private Sprite calenderSprite;
     [SerializeField] private Sprite mapSprite;
+    [SerializeField] private Vector3 baseY;
+    [SerializeField] private Vector3 raisedY;
+
+    [SerializeField] private UIJournalBookMarkItem prev;
+    [SerializeField] private UIJournalBookMarkItem next;
 
     private Animator anim;
 
@@ -35,39 +40,15 @@ public class UIJournalBookMarkItem : MonoBehaviour
         set => isRight = value;
     }
 
-    public UIJournalFiller CurrentParent
-    {
-        get => currentParent;
-        set => currentParent = value;
-    }
-
     private void Start()
     {
         anim = GetComponent<Animator>();
         Setup();
     }
 
-    public void Update()
-    {
-        if(UIJournalManager.Instance.GetCurrentState() == type)
-        {
-            anim.Play("Raised");
-        }
-    }
-
     public void OnClick()
     {
-        if(UIJournalManager.Instance.GetCurrentState() == type)
-        {
-            return;
-        }
-
-        if (isRight)
-        {
-            UIBookMarkController.Instance.SwitchPosition(this);
-        }
         UIJournalManager.Instance.SwitchState(type);
-        currentParent.SwitchPosition();
     }
 
     private void Setup()
@@ -95,15 +76,68 @@ public class UIJournalBookMarkItem : MonoBehaviour
         }
     }
 
-    public void Remove()
+    private void Update()
     {
-        anim.Play("End");
+        RaiseItem();
     }
 
-    public void EndBookMark()
+    public void SetActive(bool active)
     {
-        Destroy(gameObject);
+        gameObject.SetActive(active);
     }
 
+    public void Activate()
+    {
+        counterPart.CloseLinkedItems();
+        if(type != JournalType.Inventory && !isRight && UIJournalManager.Instance.GetCurrentState() == type)
+        {
+            counterPart.SetActive(false);
+            gameObject.SetActive(true);
+        }
+        OpenLinkedItems();
+    }
 
+    public void RaiseItem()
+    {
+        if (ShouldBeRaised())
+        {
+            anim.SetBool("raised", true);
+            return;
+        }
+        anim.SetBool("raised", false);
+    }
+
+    private bool ShouldBeRaised()
+    {
+        return !isRight && UIJournalManager.Instance.GetCurrentState() == type;
+    }
+
+    private void CloseLinkedItems()
+    { 
+        if (isRight && prev != null && prev.gameObject.activeInHierarchy)
+        {
+            prev.CloseLinkedItems();
+            prev.SetActive(false);
+        }
+        else if(!isRight && next != null && next.gameObject.activeInHierarchy)
+        {
+            next.CloseLinkedItems();
+            next.SetActive(false);
+        }
+    }
+
+    public void OpenLinkedItems()
+    {
+
+        if (isRight && next != null && !next.gameObject.activeInHierarchy)
+        {
+            next.SetActive(true);
+            next.OpenLinkedItems();
+        }
+        else if (!isRight && prev != null && !prev.gameObject.activeInHierarchy)
+        {
+            prev.SetActive(true);
+            prev.OpenLinkedItems();
+        }  
+    }
 }

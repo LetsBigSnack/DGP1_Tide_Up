@@ -40,7 +40,6 @@ public class UIJournalFiller : MonoBehaviour
     {
         if (prevBookMark?.CurrentItem != null)
         {
-            UIBookMarkController.Instance.SwitchPosition(prevBookMark.CurrentItem);
             prevBookMark.GoTroughAllPreviousItems();
         }
     }

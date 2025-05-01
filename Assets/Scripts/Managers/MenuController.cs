@@ -27,6 +27,9 @@ public class MenuController : MonoBehaviour
         _menuInputs.UI.ToggleX.Enable();
         _menuInputs.UI.ToggleX.performed += ToggleMenuItem;
 
+        _menuInputs.UI.Map.Enable();
+        _menuInputs.UI.Map.performed += OpenMapMenu;
+
     }
     
     private void OnDisable()
@@ -40,13 +43,18 @@ public class MenuController : MonoBehaviour
         
         _menuInputs.UI.CloseMenu.Disable();
         _menuInputs.UI.CloseMenu.performed -= HandleEscape;
-        
+
+        _menuInputs.UI.ToggleX.Disable();
+        _menuInputs.UI.ToggleX.performed -= ToggleMenuItem;
+
+        _menuInputs.UI.Map.Enable();
+        _menuInputs.UI.Map.performed -= OpenMapMenu;
 
     }
 
     private void ShowInventory(InputAction.CallbackContext value)
     {
-        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue || GameStateManager.Instance.GetGameState() == GameStates.InMenu || GameStateManager.Instance.GetGameState() == GameStates.SceneTransition)
+        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue || GameStateManager.Instance.GetGameState() == GameStates.SceneTransition)
         {
             return;
         }
@@ -80,6 +88,12 @@ public class MenuController : MonoBehaviour
         {
             UIMapController.Instance.ToggleVisiblePlaces();
         }
+    }
+
+    private void OpenMapMenu(InputAction.CallbackContext value)
+    {
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.Map);
     }
 
     private void HandleEscape(InputAction.CallbackContext value)

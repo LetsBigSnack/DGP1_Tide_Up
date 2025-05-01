@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Assets.Scripts.Data;
+using System;
 
 public enum JournalType
 {
@@ -20,13 +21,13 @@ public class UIJournalManager : MonoBehaviour
 
     [Header("CurrentState")]
     [SerializeField] private JournalType currentOpenType;
-
-    [Header("BookMarks")]
-    [SerializeField] private GameObject bookMarks;
+    public static event Action<JournalType> OnJournalStateChanged;
 
     [Header("Backdrop")]
     [SerializeField] private GameObject cover;
+    [SerializeField] private GameObject singleCover;
     [SerializeField] private GameObject pages;
+    [SerializeField] private GameObject singlePages;
 
     [Header("Journal")]
     [SerializeField] private List<UIJournalSubMenu> journalSubMenues;
@@ -58,16 +59,20 @@ public class UIJournalManager : MonoBehaviour
 
     public void SwitchState(JournalType state)
     {
-        if(state == JournalType.Closed)
+        if(currentOpenType == state)
         {
-            UIBookMarkController.Instance.Close();
-            CloseAllMenues();
             return;
         }
 
-        CloseAllMenues();
         currentOpenType = state;
+
+        if (state == JournalType.Closed)
+        {
+            UIBookMarkController.Instance.CloseMenu();
+        }
+        CloseAllMenues();
         OpenMenuByType(state);
+        OnJournalStateChanged?.Invoke(state);
     }
 
     public void CloseAllMenues()
@@ -76,20 +81,28 @@ public class UIJournalManager : MonoBehaviour
        {
             menu.CloseMenu();
        }
-        currentOpenType = JournalType.Closed;
+        singleCover.SetActive(false);
+        singlePages.SetActive(false);
         cover.SetActive(false);
         pages.SetActive(false);
     }
 
    public void OpenMenuByType(JournalType type)
    {
+        if(type == JournalType.Closed)
+        {
+            return;
+        }
+        UIBookMarkController.Instance.OpenMenu();
+
         journalSubMenues.Where(m => m.GetComponent<UIJournalSubMenu>().JournalType == type).FirstOrDefault().OpenMenu();
-        UIBookMarkController.Instance.Open();
         if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && UIShopManager.Instance.GetCurrentState() == ShopType.Closed)
         {
             cover.SetActive(true);
             pages.SetActive(true);
+            return;
         }
-   }
-
+        singleCover.SetActive(true);
+        singlePages.SetActive(true);
+    }
 }

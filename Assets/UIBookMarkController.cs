@@ -1,8 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+
+[Serializable]
+public class BookMarkLink
+{
+    [SerializeField] private JournalType type;
+
+    [SerializeField] private UIJournalBookMarkItem bookMarkPosLeft;
+    [SerializeField] private UIJournalBookMarkItem bookMarkPosRight;
+
+    public JournalType GetCurrentType()
+    {
+        return type;
+    }
+
+    public UIJournalBookMarkItem GetPosLeft()
+    {
+        return bookMarkPosLeft;
+    }
+
+    public UIJournalBookMarkItem GetPosRight()
+    {
+        return bookMarkPosRight;
+    }
+}
+
 
 public class UIBookMarkController : MonoBehaviour
 {
@@ -11,13 +36,12 @@ public class UIBookMarkController : MonoBehaviour
     [SerializeField] private float spawnTime;
 
     [SerializeField] private GameObject btnPrefab;
-    [SerializeField] private Transform rightParent;
-    [SerializeField] private Transform leftParent;
-
-    [SerializeField] private List<UIJournalFiller> _fillerParents;
+    [SerializeField] private GameObject rightParent;
+    [SerializeField] private GameObject leftParent;
+    [SerializeField] private GameObject reupcylceParent;
 
     private List<GameObject> _curBookmarks = new List<GameObject>();
-    private List<Coroutine> _bookMarkSpawnings = new List<Coroutine>();
+    [SerializeField] private List<BookMarkLink> _linkedBookmarks = new List<BookMarkLink>();
 
     private void Awake()
     {
@@ -31,159 +55,67 @@ public class UIBookMarkController : MonoBehaviour
         }
     }
 
-    public void Open()
+    private void OnEnable()
     {
-        if(_curBookmarks.Count > 0)
-        {
-            return;
-        }
-        StopAllBookMarkCoroutines();
-        StartCoroutine(CreateBookMarksRoutine());
+        UIJournalManager.OnJournalStateChanged += UpdateBookmarks;
     }
 
-    public void Close()
+    private void OnDisable()
     {
-        StopAllBookMarkCoroutines();
+        UIJournalManager.OnJournalStateChanged -= UpdateBookmarks;
     }
 
-    private IEnumerator CreateBookMarksRoutine()
+    private void UpdateBookmarks(JournalType type)
     {
-        List<JournalType> typesToInstantiate = new List<JournalType>();
-
-        bool isRight = true;
-
-        if (UIJournalManager.Instance.GetCurrentState() != JournalType.Closed &&
-            UIShopManager.Instance.GetCurrentState() == ShopType.Closed &&
-            UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
-        {
-            typesToInstantiate.Add(JournalType.Inventory);
-            typesToInstantiate.Add(JournalType.Recipies);
-            typesToInstantiate.Add(JournalType.Quests);
-            typesToInstantiate.Add(JournalType.FriendBook);
-            typesToInstantiate.Add(JournalType.Calender);
-            typesToInstantiate.Add(JournalType.Map);
-        }
-
-        foreach (JournalType j in typesToInstantiate)
-        {
-            if(!BookmarkExistsInParent(j, ReturnBookMarkFiller(j, isRight)))
-            {
-                if(j == JournalType.Inventory) {
-                    isRight = false;
-                }
-                else
-                {
-                    isRight = true;
-                }
-
-                Coroutine spawn = StartCoroutine(SpawnBookmarks(j, ReturnBookMarkFiller(j, isRight), isRight));
-                _bookMarkSpawnings.Add(spawn);
-                yield return spawn;
-            }
-        }
-    }
-
-    private Transform ReturnBookMarkFiller(JournalType type, bool isRight)
-    {
-        return _fillerParents.Find(x => x.Type == type && x.IsRight == isRight).gameObject.transform;
-    }
-
-    public void SwitchPosition(UIJournalBookMarkItem bookMark)
-    {
-        StartCoroutine(SwitchPositionRoutine(bookMark));
-    }
-    
-    private IEnumerator SwitchPositionRoutine(UIJournalBookMarkItem bookMark)
-    {
-        DestroyBookMarkByTypeCoroutine(bookMark.Type, bookMark.IsRight);
-        yield return new WaitForSeconds(spawnTime);
-        if (!BookmarkExistsInParent(bookMark.Type, ReturnBookMarkFiller(bookMark.Type, !bookMark.IsRight)))
-        {
-            Coroutine spawn = StartCoroutine(SpawnBookmarks(bookMark.Type, ReturnBookMarkFiller(bookMark.Type, !bookMark.IsRight), !bookMark.IsRight));
-            _bookMarkSpawnings.Add(spawn);
-            yield return spawn;
-        }
-    }
-
-    private bool BookmarkExistsInParent(JournalType type, Transform parent)
-    {
-        return _curBookmarks.Any(bookmark =>
-        {
-            UIJournalBookMarkItem item = bookmark.GetComponent<UIJournalBookMarkItem>();
-            return item.Type == type && bookmark.transform.parent == parent;
-        });
-    }
-
-    public IEnumerator DestroyBookMarkByTypeCoroutine(JournalType type, bool isRight)
-    {
-        GameObject bookMarkToDestroy = _curBookmarks.Find(g => g.GetComponent<UIJournalBookMarkItem>().Type == type 
-        && g.GetComponent<UIJournalBookMarkItem>().IsRight == isRight);
-
-        UIJournalFiller filler = ReturnFillerByTypeAndBool(type, isRight);
-        filler.CurrentItem = null;
-
-        if (bookMarkToDestroy == null)
-        {
-            yield break;
-        }
-        _curBookmarks.Remove(bookMarkToDestroy);
-        bookMarkToDestroy.GetComponent<UIJournalBookMarkItem>().Remove();
-    }
-
-    private IEnumerator SpawnBookmarks(JournalType type, Transform parent, bool isRight)
-    {
-        StartCoroutine(DestroyBookMarkByTypeCoroutine(type, !isRight));
-
-        yield return new WaitForSeconds(spawnTime);
-
-        GameObject newBookMark = Instantiate(btnPrefab, parent);
-        _curBookmarks.Add(newBookMark);
-
-        UIJournalFiller filler = ReturnFillerByTypeAndBool(type, isRight);
-        UIJournalBookMarkItem item = newBookMark.GetComponent<UIJournalBookMarkItem>();
-        item.Type = type;
-        item.IsRight = isRight;
-        item.CurrentParent = filler;
-
-        filler.CurrentItem = item;
-    }
-
-    private UIJournalFiller ReturnFillerByTypeAndBool(JournalType type, bool isRight)
-    {
-        return _fillerParents.Find(x => x.Type == type && x.IsRight == isRight);
-    }
-
-    private void StopAllBookMarkCoroutines()
-    {
-        if(_bookMarkSpawnings.Count > 0)
-        {
-            foreach (Coroutine c in _bookMarkSpawnings)
-            {
-                StopCoroutine(c);
-            }
-        }
-        ClearBookmarks();
-    }
-
-    private void ClearBookmarks()
-    {
-        if(_curBookmarks.Count <= 0)
+        if(type == JournalType.Closed)
         {
             return;
         }
 
-        foreach(GameObject o in _curBookmarks)
+        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
         {
-            Destroy(o);
+            return;
         }
 
-        foreach(UIJournalFiller i in _fillerParents)
-        {
-            Destroy(i.CurrentItem?.gameObject);
-            i.CurrentItem = null;
-        }
+        BookMarkLink link = ReturnBookMarkLinkByType(type);
 
-        _curBookmarks.Clear();
+        if (!link.GetPosLeft().gameObject.activeInHierarchy)
+        {
+            link.GetPosLeft().Activate();
+        }
+        else
+        {
+            link.GetPosRight().Activate();
+        }
+    }
+
+    private BookMarkLink ReturnBookMarkLinkByType(JournalType type)
+    {
+        return _linkedBookmarks.Find(x => x.GetCurrentType() == type);
+    }
+
+    private UIJournalBookMarkItem ReturnCurrentlyActiveBookMark(JournalType type)
+    {
+        BookMarkLink link = _linkedBookmarks.Find(x => x.GetCurrentType() == type);
+        return link.GetPosLeft().gameObject.activeInHierarchy ? link.GetPosLeft() : link.GetPosRight();
+    }
+
+    public void OpenMenu()
+    {
+        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
+        {
+            reupcylceParent.SetActive(true);
+            return;
+        }
+        rightParent.SetActive(true);
+        leftParent.SetActive(true);
+    }
+
+    public void CloseMenu()
+    {
+        reupcylceParent.SetActive(false);
+        rightParent.SetActive(false);
+        leftParent.SetActive(false);
     }
 }
 

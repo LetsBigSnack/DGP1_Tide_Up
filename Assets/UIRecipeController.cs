@@ -53,7 +53,7 @@ public class UIRecipeController : UIJournalSubMenu
 
     public override void OpenMenu()
     {
-        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Upcycler)
+        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
         {
             leftPage.SetActive(true);
             rightPage.SetActive(false);

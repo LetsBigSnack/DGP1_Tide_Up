@@ -50,7 +50,10 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
     public override void OpenMenu()
     {
         recyclerMenu.SetActive(true);
-        UIJournalManager.Instance.SwitchState(JournalType.Inventory);
+        if (UIJournalManager.Instance.GetCurrentState() != JournalType.Inventory && UIJournalManager.Instance.GetCurrentState() != JournalType.Recipies)
+        {
+            UIJournalManager.Instance.SwitchState(JournalType.Inventory);
+        }
     }
 
     public void AddItem(ItemInstance item)

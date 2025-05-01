@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Map",
+                    "type": "Button",
+                    "id": "7736d3f3-621a-4f47-83cb-7b0a009666f4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "CloseMenu",
                     "type": "Button",
                     "id": "e0632335-1edf-484e-807f-ca8b1bf8b081",
@@ -53,6 +62,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleX",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a148b750-22d6-4ea8-9ec6-3accf5a4af95",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

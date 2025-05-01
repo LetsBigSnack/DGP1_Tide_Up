@@ -47,7 +47,7 @@ public class UIItemDetailsHelper : MonoBehaviour
 
     public void SetupDescription(string titel, string description, Sprite image, List<TrashMaterialData> trash)
     {
-        this.titel.text = titel;
+        this.titel.text = titel.ToUpper();
         this.description.text = description;
         this.image.sprite = image;
         CreateMaterialIcons(trash);
