@@ -28,7 +28,7 @@ public class UIInventoryController : UIJournalSubMenu
 
     public override void OpenMenu()
     {
-        if (IsReUpCyclerOpen())
+        if (IsReUpCyclerOpen() || UITideUpBoxManager.Instance.IsOpen)
         {
             OpenSinglePageInventory();
             return;

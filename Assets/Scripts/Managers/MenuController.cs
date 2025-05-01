@@ -63,6 +63,7 @@ public class MenuController : MonoBehaviour
         UIJournalManager.Instance.CloseAllMenues();
         UIReUpcycleManager.Instance.CloseAllMenues();
         UIShopManager.Instance.CloseAllMenues();
+        UITideUpBoxManager.Instance.CloseTideUpBox();
         if (UITimeManager.Instance.IsTimeChangeActive())
         {
             UITimeManager.Instance.CancelTimeChange();

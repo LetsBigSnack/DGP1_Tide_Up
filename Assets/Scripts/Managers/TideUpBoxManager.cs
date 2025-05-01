@@ -11,7 +11,8 @@ public class TideUpBoxManager : MonoBehaviour
     [SerializeField] private List<TideUpBox> allTideUpBoxes;
 
     [SerializeField] private float timeToAddItems = 6f;
-    [SerializeField] private float resetDayTime = 6f;
+
+    private int _lastDayUpdate = 1;
 
     private bool _hasAddedItemsToday = false;
     private bool _waitingForDependencies = false;
@@ -32,16 +33,16 @@ public class TideUpBoxManager : MonoBehaviour
         }
     }
 
-    
-
     private void Start()
     {
         TimeManager.OnTimeChanged += HandleTimeChanged;
+        TimeManager.OnDayChanged += ResetItemsAddedToday;
     }
 
     private void OnDisable()
     {
         TimeManager.OnTimeChanged -= HandleTimeChanged;
+        TimeManager.OnDayChanged -= ResetItemsAddedToday;
     }
 
     private void HandleTimeChanged(float currentTime)
@@ -51,9 +52,13 @@ public class TideUpBoxManager : MonoBehaviour
             AddDailyItems();
             _hasAddedItemsToday = true;
         }
+    }
 
-        if (currentTime < resetDayTime && _hasAddedItemsToday)
+    private void ResetItemsAddedToday(int day)
+    {
+       if(_lastDayUpdate != day)
         {
+            _lastDayUpdate = day;
             _hasAddedItemsToday = false;
         }
     }

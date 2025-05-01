@@ -6,7 +6,7 @@ using UnityEngine;
 public class TideUpBox : Interactable
 {
     private List<TrashItemInstance> _boxInventory = new();
-    [SerializeField] private int maxTotalTrash = 10;
+    [SerializeField] private int maxTotalTrash = 12;
 
     [SerializeField] private int awarenessBoxMultiplier = 3;
 
@@ -33,7 +33,7 @@ public class TideUpBox : Interactable
 
     public override void Interact()
     {
-        CollectAllItems();
+        OpenBoxInventory();
     }
 
     public override void ShowInteractability(bool show)
@@ -41,22 +41,10 @@ public class TideUpBox : Interactable
         _isInteractable = show;
     }
 
-    public void ShowBoxInventory()
+    public void OpenBoxInventory()
     {
-#if UNITY_EDITOR
-        ConsoleUtil.ClearConsole();
-#endif
-        if (_boxInventory.Count == 0)
-        {
-            Debug.Log("This tide up box is currently empty, wait for tomorrow morning");
-            return;
-        }
-
-        Debug.Log("Currently in this Tide-Up-Box are the following items:");
-        foreach (TrashItemInstance item in _boxInventory)
-        {
-            Debug.Log(item);
-        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UITideUpBoxManager.Instance.OpenTideUpBox(this);
     }
 
     public void CollectAllItems()
