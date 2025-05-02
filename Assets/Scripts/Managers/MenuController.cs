@@ -68,9 +68,10 @@ public class MenuController : MonoBehaviour
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         //TODO: Grenus Fix
         //UIHUDManager.Instance.ToggleDateMap();
-        UIJournalManager.Instance.SwitchState(JournalType.Closed);
-        UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Closed);
-        UIShopManager.Instance.SwitchState(ShopType.Closed);
+        UIJournalManager.Instance.CloseAllMenues();
+        UIReUpcycleManager.Instance.CloseAllMenues();
+        UIShopManager.Instance.CloseAllMenues();
+        UITideUpBoxManager.Instance.CloseTideUpBox();
         if (UITimeManager.Instance.IsTimeChangeActive())
         {
             UITimeManager.Instance.CancelTimeChange();
@@ -102,7 +103,14 @@ public class MenuController : MonoBehaviour
 
         if (currentState == GameStates.PlayingCharacter || currentState == GameStates.Paused)
         {
-            UIPauseMenuManager.Instance.TogglePauseGame();
+            if(UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Off || UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Paused) 
+            {
+                UIPauseMenuManager.Instance.TogglePauseGame();
+            }
+            else if(UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Options)
+            {
+                UIPauseMenuManager.Instance.ToggleOptionMenu();
+            }
         }
         else if (currentState == GameStates.InMenu)
         {

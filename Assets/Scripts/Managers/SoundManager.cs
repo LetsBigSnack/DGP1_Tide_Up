@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -14,7 +15,6 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-
         if (Instance == null)
         {
             Instance = this;
@@ -23,6 +23,11 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        Setup();
     }
 
     // Taken from Monkepok, we prob need this later right?
@@ -35,6 +40,15 @@ public class SoundManager : MonoBehaviour
     //    myMixer.SetFloat("music", Mathf.Log10(musicVolume) * 20);
     //    myMixer.SetFloat("sfx", Mathf.Log10(sfxVolume) * 20);
     //}
+
+    //TODO: Setup should change to function above
+    private void Setup()
+    {
+        Debug.Log("Setup for sounds done");
+        SetMasterVolume(0.3f);
+        SetMusicVolume(0.001f);
+        SetSfxVolume(0.7f);
+    }
 
     public void PlaySFX(string name)
     {
@@ -57,6 +71,7 @@ public class SoundManager : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
+        Debug.Log("Volume for music = "+ volume);
         //Debug.Log(volume);
         myMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("Music", volume);
