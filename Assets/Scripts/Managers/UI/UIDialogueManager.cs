@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class UIDialogueManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class UIDialogueManager : MonoBehaviour
     [SerializeField] private GameObject choiceBox;
     [SerializeField] private TextMeshProUGUI nameText;
     [FormerlySerializedAs("dialoguwText")] [SerializeField] private TextMeshProUGUI dialogueText;
-
+    [SerializeField] private Image nameBG;
 
     private void Awake()
     {
@@ -31,17 +32,19 @@ public class UIDialogueManager : MonoBehaviour
         dialogueBox.SetActive(show);
     }
 
-    public void SetDialogueBox(string name, string text)
+    public void SetDialogueBox(string name, string text, Color favColor)
     {
         ShowDialogueBox(true);
         nameText.text = name;
         dialogueText.text = text;
+        nameBG.color = favColor;
     }
 
 
     public void ShowChoices(bool show)
     {
         choiceBox.SetActive(show);
+        UIDialogBoxHelper.Instance.Setup();
     }
 
     public void AcceptQuest()
