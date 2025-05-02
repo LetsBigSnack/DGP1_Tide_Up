@@ -37,6 +37,7 @@ public class UIItemDetailsHelper : MonoBehaviour
 
     private void OnEnable()
     {
+        image.enabled = false;
         CreateMaterialIcons(null);
     }
 
@@ -49,8 +50,17 @@ public class UIItemDetailsHelper : MonoBehaviour
     {
         this.titel.text = titel.ToUpper();
         this.description.text = description;
+        this.image.enabled = true;
         this.image.sprite = image;
         CreateMaterialIcons(trash);
+    }
+
+    public void ResetDescription()
+    {
+        this.titel.text = "";
+        this.description.text = "Nothing is selected.";
+        this.image.enabled = false;
+        this.image.sprite = null;
     }
 
     public void SetGameObjectAsSelected(UIInventoryItem item)

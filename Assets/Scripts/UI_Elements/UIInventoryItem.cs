@@ -32,6 +32,7 @@ public class UIInventoryItem : MonoBehaviour
         {
             UIRecyclerController.Instance.AddItem(item);
         }
+    }
 
     public void OnHover()
     {
