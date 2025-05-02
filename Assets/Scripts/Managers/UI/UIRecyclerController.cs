@@ -84,7 +84,17 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
 
     private void UpdateMaterialsToPreview(ItemInstance item, bool isRemoved)
     {
-        List<TrashMaterialData> materials = item.ItemData.Materials;
+        List<TrashMaterialData> materials = new List<TrashMaterialData>();
+
+        if (item is QuestItemInstance)
+        {
+            QuestItemInstance questItem = item as QuestItemInstance;
+            materials = questItem.GetMaterials();
+        }
+        else
+        {
+            materials = item.ItemData.Materials;
+        }
 
         if (materials == null || item == null)
         {

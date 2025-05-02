@@ -26,5 +26,9 @@ namespace Data
             return _usedTrashMaterials;
         }
         
+        public List<TrashMaterialData> GetUsedTrashMaterial()
+        {
+            return _usedTrashMaterials;
+        }
     }
 }
