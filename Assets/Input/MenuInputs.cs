@@ -55,6 +55,42 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Recipe"",
+                    ""type"": ""Button"",
+                    ""id"": ""92e9e510-1cd2-44eb-875f-1afddf61b87b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Friends"",
+                    ""type"": ""Button"",
+                    ""id"": ""e1f9420e-4ca7-4d6b-8343-9522b413d4c7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quests"",
+                    ""type"": ""Button"",
+                    ""id"": ""3dd94d64-6474-4a11-ba48-322fc59c30fa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Calender"",
+                    ""type"": ""Button"",
+                    ""id"": ""18c8a8e6-2ecb-40b1-b880-4ad834acb28d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""CloseMenu"",
                     ""type"": ""Button"",
                     ""id"": ""e0632335-1edf-484e-807f-ca8b1bf8b081"",
@@ -100,6 +136,50 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""dcf86201-6e0a-4320-a0e5-9d11f75c2bc0"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Recipe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f492fe43-cfe5-4b95-8b9a-2b0797a28ada"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Friends"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""790c77e3-d6f2-4608-abb4-f935018f10d6"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quests"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c76f8c9e-d980-4ceb-b057-c8138cf25eca"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Calender"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""01fc3053-6208-4ada-8a67-5c382377d619"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -119,6 +199,10 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
         m_UI_ToggleX = m_UI.FindAction("ToggleX", throwIfNotFound: true);
         m_UI_Map = m_UI.FindAction("Map", throwIfNotFound: true);
+        m_UI_Recipe = m_UI.FindAction("Recipe", throwIfNotFound: true);
+        m_UI_Friends = m_UI.FindAction("Friends", throwIfNotFound: true);
+        m_UI_Quests = m_UI.FindAction("Quests", throwIfNotFound: true);
+        m_UI_Calender = m_UI.FindAction("Calender", throwIfNotFound: true);
         m_UI_CloseMenu = m_UI.FindAction("CloseMenu", throwIfNotFound: true);
     }
 
@@ -189,6 +273,10 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Inventory;
     private readonly InputAction m_UI_ToggleX;
     private readonly InputAction m_UI_Map;
+    private readonly InputAction m_UI_Recipe;
+    private readonly InputAction m_UI_Friends;
+    private readonly InputAction m_UI_Quests;
+    private readonly InputAction m_UI_Calender;
     private readonly InputAction m_UI_CloseMenu;
     public struct UIActions
     {
@@ -197,6 +285,10 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         public InputAction @Inventory => m_Wrapper.m_UI_Inventory;
         public InputAction @ToggleX => m_Wrapper.m_UI_ToggleX;
         public InputAction @Map => m_Wrapper.m_UI_Map;
+        public InputAction @Recipe => m_Wrapper.m_UI_Recipe;
+        public InputAction @Friends => m_Wrapper.m_UI_Friends;
+        public InputAction @Quests => m_Wrapper.m_UI_Quests;
+        public InputAction @Calender => m_Wrapper.m_UI_Calender;
         public InputAction @CloseMenu => m_Wrapper.m_UI_CloseMenu;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
@@ -216,6 +308,18 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @Map.started += instance.OnMap;
             @Map.performed += instance.OnMap;
             @Map.canceled += instance.OnMap;
+            @Recipe.started += instance.OnRecipe;
+            @Recipe.performed += instance.OnRecipe;
+            @Recipe.canceled += instance.OnRecipe;
+            @Friends.started += instance.OnFriends;
+            @Friends.performed += instance.OnFriends;
+            @Friends.canceled += instance.OnFriends;
+            @Quests.started += instance.OnQuests;
+            @Quests.performed += instance.OnQuests;
+            @Quests.canceled += instance.OnQuests;
+            @Calender.started += instance.OnCalender;
+            @Calender.performed += instance.OnCalender;
+            @Calender.canceled += instance.OnCalender;
             @CloseMenu.started += instance.OnCloseMenu;
             @CloseMenu.performed += instance.OnCloseMenu;
             @CloseMenu.canceled += instance.OnCloseMenu;
@@ -232,6 +336,18 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @Map.started -= instance.OnMap;
             @Map.performed -= instance.OnMap;
             @Map.canceled -= instance.OnMap;
+            @Recipe.started -= instance.OnRecipe;
+            @Recipe.performed -= instance.OnRecipe;
+            @Recipe.canceled -= instance.OnRecipe;
+            @Friends.started -= instance.OnFriends;
+            @Friends.performed -= instance.OnFriends;
+            @Friends.canceled -= instance.OnFriends;
+            @Quests.started -= instance.OnQuests;
+            @Quests.performed -= instance.OnQuests;
+            @Quests.canceled -= instance.OnQuests;
+            @Calender.started -= instance.OnCalender;
+            @Calender.performed -= instance.OnCalender;
+            @Calender.canceled -= instance.OnCalender;
             @CloseMenu.started -= instance.OnCloseMenu;
             @CloseMenu.performed -= instance.OnCloseMenu;
             @CloseMenu.canceled -= instance.OnCloseMenu;
@@ -257,6 +373,10 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         void OnInventory(InputAction.CallbackContext context);
         void OnToggleX(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
+        void OnRecipe(InputAction.CallbackContext context);
+        void OnFriends(InputAction.CallbackContext context);
+        void OnQuests(InputAction.CallbackContext context);
+        void OnCalender(InputAction.CallbackContext context);
         void OnCloseMenu(InputAction.CallbackContext context);
     }
 }

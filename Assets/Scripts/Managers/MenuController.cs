@@ -17,7 +17,6 @@ public class MenuController : MonoBehaviour
     {
         _menuInputs.Enable();
         
-        //Inventory
         _menuInputs.UI.Inventory.Enable();
         _menuInputs.UI.Inventory.performed += ShowInventory;
         
@@ -27,8 +26,20 @@ public class MenuController : MonoBehaviour
         _menuInputs.UI.ToggleX.Enable();
         _menuInputs.UI.ToggleX.performed += ToggleMenuItem;
 
+        _menuInputs.UI.Friends.Enable();
+        _menuInputs.UI.Friends.performed += ShowFriends;
+
+        _menuInputs.UI.Quests.Enable();
+        _menuInputs.UI.Quests.performed += ShowQuests;
+
+        _menuInputs.UI.Calender.Enable();
+        _menuInputs.UI.Calender.performed += ShowCalender;
+
+        _menuInputs.UI.Recipe.Enable();
+        _menuInputs.UI.Recipe.performed += ShowRecipes;
+
         _menuInputs.UI.Map.Enable();
-        _menuInputs.UI.Map.performed += OpenMapMenu;
+        _menuInputs.UI.Map.performed += ShowMap;
 
     }
     
@@ -48,20 +59,85 @@ public class MenuController : MonoBehaviour
         _menuInputs.UI.ToggleX.performed -= ToggleMenuItem;
 
         _menuInputs.UI.Map.Enable();
-        _menuInputs.UI.Map.performed -= OpenMapMenu;
+        _menuInputs.UI.Map.performed -= ShowMap;
 
+        _menuInputs.UI.Friends.Enable();
+        _menuInputs.UI.Friends.performed -= ShowFriends;
+
+        _menuInputs.UI.Quests.Enable();
+        _menuInputs.UI.Quests.performed -= ShowQuests;
+
+        _menuInputs.UI.Calender.Enable();
+        _menuInputs.UI.Calender.performed -= ShowCalender;
+
+        _menuInputs.UI.Recipe.Enable();
+        _menuInputs.UI.Recipe.performed -= ShowRecipes;
+
+    }
+
+    private bool CanMenuBeOpen()
+    {
+        return GameStateManager.Instance.GetGameState() != GameStates.Dialogue && GameStateManager.Instance.GetGameState() != GameStates.SceneTransition;
     }
 
     private void ShowInventory(InputAction.CallbackContext value)
     {
-        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue || GameStateManager.Instance.GetGameState() == GameStates.SceneTransition)
+        if (!CanMenuBeOpen())
         {
             return;
         }
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
-        //TODO: Grenus Fix
-        //UIHUDManager.Instance.ToggleDateMap();
         UIJournalManager.Instance.SwitchState(JournalType.Inventory);
+    }
+
+    private void ShowMap(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.Map);
+    }
+
+    private void ShowRecipes(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.Recipies);
+    }
+
+    private void ShowFriends(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.FriendBook);
+    }
+
+    private void ShowQuests(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.Quests);
+    }
+
+    private void ShowCalender(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.Calender);
     }
     private void CloseMenu()
     {
@@ -91,11 +167,6 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    private void OpenMapMenu(InputAction.CallbackContext value)
-    {
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
-        UIJournalManager.Instance.SwitchState(JournalType.Map);
-    }
 
     private void HandleEscape(InputAction.CallbackContext value)
     {

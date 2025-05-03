@@ -33,6 +33,42 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Recipe",
+                    "type": "Button",
+                    "id": "92e9e510-1cd2-44eb-875f-1afddf61b87b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Friends",
+                    "type": "Button",
+                    "id": "e1f9420e-4ca7-4d6b-8343-9522b413d4c7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Quests",
+                    "type": "Button",
+                    "id": "3dd94d64-6474-4a11-ba48-322fc59c30fa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Calender",
+                    "type": "Button",
+                    "id": "18c8a8e6-2ecb-40b1-b880-4ad834acb28d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "CloseMenu",
                     "type": "Button",
                     "id": "e0632335-1edf-484e-807f-ca8b1bf8b081",
@@ -73,6 +109,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dcf86201-6e0a-4320-a0e5-9d11f75c2bc0",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Recipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f492fe43-cfe5-4b95-8b9a-2b0797a28ada",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Friends",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "790c77e3-d6f2-4608-abb4-f935018f10d6",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quests",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c76f8c9e-d980-4ceb-b057-c8138cf25eca",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Calender",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
