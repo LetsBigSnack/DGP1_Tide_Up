@@ -32,11 +32,11 @@ public class UIInventoryItem : MonoBehaviour
         {
             UIRecyclerController.Instance.AddItem(item);
         }
-    }
 
-    public void OnHover()
-    {
-        if(UIJournalManager.Instance.GetCurrentState() == JournalType.Inventory && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && !UITideUpBoxManager.Instance.IsOpen)
+        if (curJournalState == JournalType.Inventory &&
+            curReUpcyclerState == ReUpcyclerType.Closed && 
+            !UITideUpBoxManager.Instance.IsOpen && 
+            curShopState == ShopType.Closed)
         {
             UIItemDetailsHelper.Instance.SetupDescription(item.ItemData.title, item.ItemData.description, item.ItemData.sprite, item.ItemData.Materials);
             UIItemDetailsHelper.Instance.SetGameObjectAsSelected(this);
@@ -46,9 +46,5 @@ public class UIInventoryItem : MonoBehaviour
     public void ToggleIcon()
     {
         borderIcon.SetActive(!borderIcon.activeInHierarchy);
-        if (UIJournalManager.Instance.GetCurrentState() == JournalType.Inventory && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && !UITideUpBoxManager.Instance.IsOpen)
-        {
-            UIItemDetailsHelper.Instance.ResetDescription();
-        }
     }
 }

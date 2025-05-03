@@ -13,7 +13,7 @@ public class UITideUpBoxManager : MonoBehaviour
     [SerializeField] private GameObject itemSlotPrefab;    
     [SerializeField] private GameObject emptySlotPrefab;
 
-    private bool _isOpen;
+    private bool _isOpen = false;
     private TideUpBox _currBox;
 
     public bool IsOpen

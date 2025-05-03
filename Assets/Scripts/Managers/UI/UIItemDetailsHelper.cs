@@ -11,6 +11,7 @@ public class UIItemDetailsHelper : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titel;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private Image image;
+    [SerializeField] private Sprite baseSprite;
 
     [Header("Material Parent")]
     [SerializeField] private Transform matsParent;
@@ -37,17 +38,19 @@ public class UIItemDetailsHelper : MonoBehaviour
 
     private void OnEnable()
     {
-        image.enabled = false;
         CreateMaterialIcons(null);
     }
 
     private void OnDisable()
     {
         RemoveMaterialIcons();
+        _currentSelectedItem = null;
+        ResetDescription();
     }
 
     public void SetupDescription(string titel, string description, Sprite image, List<TrashMaterialData> trash)
     {
+        ResetDescription();
         this.titel.text = titel.ToUpper();
         this.description.text = description;
         this.image.enabled = true;
@@ -59,8 +62,7 @@ public class UIItemDetailsHelper : MonoBehaviour
     {
         this.titel.text = "";
         this.description.text = "Nothing is selected.";
-        this.image.enabled = false;
-        this.image.sprite = null;
+        this.image.sprite = baseSprite;
     }
 
     public void SetGameObjectAsSelected(UIInventoryItem item)
