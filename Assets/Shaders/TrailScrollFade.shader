@@ -43,8 +43,11 @@ Shader "Custom/TrailScrollFade"
             }
 
             float4 frag(v2f i) : SV_Target {
-                return float4(1, 0, 0, 1); // solid red
+                float2 offsetUV = i.uv + float2(_UVOffsetX, _UVOffsetY);
+                float4 color = tex2D(_MainTex, offsetUV);
+                return color * _FadeStrength;
             }
+            
             ENDCG
         }
     }

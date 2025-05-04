@@ -22,6 +22,11 @@ public class BoatTrailManager : MonoBehaviour
 
     void Update()
     {
+        if (scrollFadeMaterial.shader.name != "Custom/TrailScrollFade")
+        {
+            Debug.LogError("ScrollFadeMaterial shader is incorrect: " + scrollFadeMaterial.shader.name);
+        }
+        
         float scrollMultiplier = 100f;
 
         Vector3 currentPos = boat.position;
