@@ -15,6 +15,7 @@ public class UITimeManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI switchTimeText;
     [SerializeField] TextMeshProUGUI dateText;
     [SerializeField] TextMeshProUGUI weekDayText;
+    [SerializeField] TextMeshProUGUI yearText;
 
     [Header("Wait Screen")]
     [SerializeField] private GameObject waitScreen;
@@ -55,6 +56,7 @@ public class UITimeManager : MonoBehaviour
         TimeManager.OnDayChanged += UpdateDateText;
         TimeManager.OnMonthChanged += UpdateDateText;
         TimeManager.OnYearChanged += UpdateDateText;
+        TimeManager.OnYearChanged += UpdateYearText;
         TimeManager.OnWeekDayChanged += UpdateWeekDayText;
     }
 
@@ -64,7 +66,8 @@ public class UITimeManager : MonoBehaviour
         TimeManager.OnDayChanged -= UpdateDateText;
         TimeManager.OnMonthChanged -= UpdateDateText;
         TimeManager.OnYearChanged -= UpdateDateText;
-        TimeManager.OnWeekDayChanged += UpdateWeekDayText;
+        TimeManager.OnYearChanged -= UpdateYearText;
+        TimeManager.OnWeekDayChanged -= UpdateWeekDayText;
     }
 
     public void OpenTimeModal()
@@ -103,7 +106,11 @@ public class UITimeManager : MonoBehaviour
             Debug.Log("Is 0 broski");
             return;
         }
-        weekDayText.text = TimeManager.Weekdays[newDay];
+        weekDayText.text = TimeManager.Weekdays[newDay].ToUpper();
+    }
+    private void UpdateYearText(int newYear)
+    {
+        yearText.text = TimeManager.Instance.CurrentYear.ToString();
     }
 
     private void UpdateSwitchText()
