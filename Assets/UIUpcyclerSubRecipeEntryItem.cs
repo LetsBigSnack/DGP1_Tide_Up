@@ -19,11 +19,13 @@ public class UIUpcyclerSubRecipeEntryItem : MonoBehaviour
     private void OnEnable()
     {
         InventoryManager.OnTrashMaterialChanged += UpdateMaterials;
+        UIReUpcycleManager.OnReUpcycleStateChange += UpdateButton;
     }
 
     private void OnDisable()
     {
         InventoryManager.OnTrashMaterialChanged -= UpdateMaterials;
+        UIReUpcycleManager.OnReUpcycleStateChange -= UpdateButton;
     }
 
     public void Setup(List<TrashMaterialData> materials)
@@ -40,7 +42,7 @@ public class UIUpcyclerSubRecipeEntryItem : MonoBehaviour
         UpdateButton();
     }
 
-    private void UpdateButton()
+    private void UpdateButton(ReUpcyclerType type = 0)
     {
         if (CanMaterialsBeAddedToUpcycler())
         {
@@ -113,6 +115,10 @@ public class UIUpcyclerSubRecipeEntryItem : MonoBehaviour
 
     private bool CanMaterialsBeAddedToUpcycler()
     {
+        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Upcycler)
+        {
+            return false;
+        }
         bool hasEnough = false;
 
         foreach(TrashMaterialData t in _amountNeeded.Keys)
