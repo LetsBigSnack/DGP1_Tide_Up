@@ -44,6 +44,7 @@ public class Npc : MonoBehaviour
     [SerializeField] private string mbti;
     [SerializeField] private string description;
     [SerializeField] private string favColour;
+    [SerializeField] private Color favColourCode;
     [SerializeField] private string favFood;
     [SerializeField] private string favAnimal;
     [SerializeField] private string favThing;
@@ -125,6 +126,11 @@ public class Npc : MonoBehaviour
     {
         get => favColour;
         set => favColour = value;
+    }
+    public Color FavColourCode
+    {
+        get => favColourCode;
+        set => favColourCode = value;
     }
 
     public string FavFood

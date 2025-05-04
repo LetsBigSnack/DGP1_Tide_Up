@@ -15,6 +15,21 @@ public class NpcDialogueManager : MonoBehaviour
     [SerializeField] private bool isInChooseState = false;
     [SerializeField] private DialogueChoice currentChoice = DialogueChoice.Accept;
 
+    public event Action<DialogueChoice> OnChoiceChanged;
+
+    public DialogueChoice CurrentChoice
+    {
+        get => currentChoice;
+        set
+        {
+            if (currentChoice != value)
+            {
+                currentChoice = value;
+                OnChoiceChanged?.Invoke(currentChoice);
+            }
+        }
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -69,7 +84,7 @@ public class NpcDialogueManager : MonoBehaviour
     private void HandelIntroState()
     {
         _currentNpc.CurrentDialogue.NextDialogueContent();
-        UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentDialogue.GetCurrentDialogue());
+        UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentDialogue.GetCurrentDialogue(), _currentNpc.FavColourCode);
         CheckDialogueFinished();
     }
     
@@ -98,7 +113,7 @@ public class NpcDialogueManager : MonoBehaviour
                     
             _currentNpc.CurrentQuest.NextDialogueContent();
                     
-            UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentQuest.GetCurrentDialogue());
+            UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentQuest.GetCurrentDialogue(), _currentNpc.FavColourCode);
                 
             if (_currentNpc.CurrentQuest.IsDialogueComplete() && _currentNpc.CurrentQuest.QuestState == QuestState.Offer)
             {
@@ -118,7 +133,7 @@ public class NpcDialogueManager : MonoBehaviour
         }
                 
         _currentNpc.FinishedDialogue.NextDialogueContent();
-        UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.FinishedDialogue.GetCurrentDialogue());
+        UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.FinishedDialogue.GetCurrentDialogue(), _currentNpc.FavColourCode);
         CheckDialogueFinished();
     }
 
