@@ -8,8 +8,8 @@ public class EnvironmentObject : MonoBehaviour
     [SerializeField] private IslandObjectType type;
     [SerializeField] private int islandID;
     [SerializeField] private List<EnvironmentVisual> visuals = new List<EnvironmentVisual>();
-    private MeshRenderer _meshRenderer;
-    private MeshFilter _meshFilter;
+    [SerializeField] private GameObject currentActiveGameObject;
+    [SerializeField] private EnvironmentState state;
 
     public IslandObjectType Type
     {
@@ -20,8 +20,6 @@ public class EnvironmentObject : MonoBehaviour
     private void Awake()
     {
         EnvironmentManager.OnEnvironmentStateChanged += OnChangeVisualRepresentation;
-        _meshFilter = GetComponent<MeshFilter>();
-        _meshRenderer = GetComponent<MeshRenderer>();
     }
     
     private void OnDestroy()
@@ -60,16 +58,22 @@ public class EnvironmentObject : MonoBehaviour
 
     private void ChangeVisualRepresentation(EnvironmentState state)
     {
+        //TODO REMOVE AFTER MILESTONE PLANNING!
+        if(visuals.Count <= 0)
+        {
+            return;
+        }
+
+        if(currentActiveGameObject != null && this.state != state)
+        {
+            currentActiveGameObject.SetActive(false);
+        }
 
         EnvironmentVisual visual = visuals.Find(v => v.State == state);
 
-        if (visual == null)
-        {
-            throw new NullReferenceException();
-        }
-        
-        _meshFilter.mesh = visual.Mesh;
-        _meshRenderer.material = visual.Material;
+        visual.EnvironmentObj.SetActive(true);
+
+        currentActiveGameObject = visual.EnvironmentObj;
     }
 
     public void AssignIsland(int islandID)
