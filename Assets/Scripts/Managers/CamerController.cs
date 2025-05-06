@@ -58,7 +58,6 @@ public class CamerController : MonoBehaviour
         {
             case CameraTarget.Player:
                 _target = Player.Instance.gameObject.transform;
-                
                 break;
             case CameraTarget.Boat:
                 _target = Boat.Instance.gameObject.transform;

@@ -1,4 +1,3 @@
-using Helpers.Util;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,38 +7,36 @@ public class BoatController : MonoBehaviour
     private PlayerInputs _playerInputs;
     private Rigidbody _rb;
 
-    [Header("Boat Settings")]
-    public float acceleration = 10f;
+    public float acceleration = 15f;
     public float maxSpeed = 8f;
     public float turnSpeed = 50f;
-    public float waterDrag = 2f;
-    public float driftFactor = 0.95f; // 1 = no drift, lower = more drift
-
+    public float waterDrag = 0.98f;
+    public float steeringInfluence = 0.5f; 
+    public Transform pivotPoint; 
+    
     private float _steerInput = 0f;
     private float _throttleInput = 0f;
+    private Vector3 _currentVelocity;
 
     private void Awake()
     {
         _playerInputs = new PlayerInputs();
         _rb = GetComponent<Rigidbody>();
-
-        _rb.interpolation = RigidbodyInterpolation.Interpolate;
+        _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     private void OnEnable()
     {
         _playerInputs.Enable();
-        _playerInputs.Boat.Movement.Enable();
         _playerInputs.Boat.Movement.performed += OnMoveBoatPerformed;
         _playerInputs.Boat.Movement.canceled += OnMoveBoatCancelled;
     }
 
     private void OnDisable()
     {
-        _playerInputs.Boat.Movement.Disable();
-        _playerInputs.Disable();
         _playerInputs.Boat.Movement.performed -= OnMoveBoatPerformed;
         _playerInputs.Boat.Movement.canceled -= OnMoveBoatCancelled;
+        _playerInputs.Disable();
     }
 
     private void OnMoveBoatPerformed(InputAction.CallbackContext context)
@@ -57,6 +54,7 @@ public class BoatController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         if (GameStateManager.Instance.GetGameState() != GameStates.PlayingBoat)
         {
             _steerInput = 0f;
@@ -64,36 +62,41 @@ public class BoatController : MonoBehaviour
         }
 
         MoveBoat();
+        
     }
 
     private void MoveBoat()
     {
-        // Limit velocity
-        Vector3 flatVel = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
-        if (flatVel.magnitude > maxSpeed)
+        // Update forward/backward velocity
+        Vector3 targetVelocity = transform.forward * (_throttleInput * maxSpeed);
+        _currentVelocity = Vector3.MoveTowards(_currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+
+        // Apply drag when not throttling
+        if (Mathf.Abs(_throttleInput) < 0.01f)
         {
-            flatVel = flatVel.normalized * maxSpeed;
-            _rb.linearVelocity = new Vector3(flatVel.x, _rb.linearVelocity.y, flatVel.z);
+            _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, (1f - waterDrag) * acceleration * Time.fixedDeltaTime);
         }
 
-        // Apply Forward Force
-        Vector3 force = transform.forward * (_throttleInput * acceleration);
-        _rb.AddForce(force, ForceMode.Acceleration);
+        // Apply velocity
+        _rb.linearVelocity = new Vector3(_currentVelocity.x, _rb.linearVelocity.y, _currentVelocity.z);
 
-        // Apply Steering
-        if (flatVel.magnitude > 0.1f) // Only steer if moving
+        // Steering using pivot
+        float speedFactor = _currentVelocity.magnitude * steeringInfluence;
+        if (pivotPoint != null && speedFactor > 0.1f && Mathf.Abs(_steerInput) > 0.01f)
         {
-            float turnAmount = _steerInput * turnSpeed * Time.fixedDeltaTime;
-            Quaternion turnOffset = Quaternion.Euler(0f, turnAmount, 0f);
-            _rb.MoveRotation(_rb.rotation * turnOffset);
+            float direction = Mathf.Sign(Vector3.Dot(_currentVelocity, transform.forward));
+            float turn = _steerInput * turnSpeed * direction * speedFactor * Time.fixedDeltaTime;
+
+            // Rotate around pivot point
+            Vector3 pivot = pivotPoint.position;
+            Quaternion rotation = Quaternion.Euler(0f, turn, 0f);
+            Vector3 dirFromPivot = transform.position - pivot;
+            Vector3 rotatedDir = rotation * dirFromPivot;
+            Vector3 newPos = pivot + rotatedDir;
+
+            _rb.MovePosition(newPos);
+            _rb.MoveRotation(_rb.rotation * rotation);
         }
-
-        // Apply simple drift (reduce side velocity)
-        Vector3 localVel = transform.InverseTransformDirection(_rb.linearVelocity);
-        localVel.x *= driftFactor; // Dampen sideways speed
-        _rb.linearVelocity = transform.TransformDirection(localVel);
-
-        // Water Drag
-        _rb.linearDamping = waterDrag;
     }
+
 }

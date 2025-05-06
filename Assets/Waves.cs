@@ -2,6 +2,34 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EdgeType
+{
+    CornerTopLeft,
+    CornerTopRight,
+    CornerBottomLeft,
+    CornerBottomRight,
+    EdgeTop,
+    EdgeBottom,
+    EdgeLeft,
+    EdgeRight
+}
+
+[Serializable]
+public class WaveAnimationSettings
+{
+    public bool animatedEdge = false;
+    public List<EdgeSettings> edgeSettings;
+    
+}
+
+[Serializable]
+public class EdgeSettings
+{
+    public EdgeType edgeType;
+    public bool animatedEdge;
+}
+
+
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Waves : MonoBehaviour
 {
@@ -20,6 +48,15 @@ public class Waves : MonoBehaviour
     [Header("Performance Settings")]
     private float _normalUpdateTimer = 0f;
     [SerializeField] private float normalUpdateInterval = 0.1f; 
+    
+    [SerializeField] private int edgeDistance = 1;
+    
+    private List<EdgeVertex> _edgeVertices = new List<EdgeVertex>();
+
+
+    [SerializeField] private WaveAnimationSettings anitmationSetting;
+    
+    private Dictionary<EdgeType, List<EdgeVertex>> _edgeVertex = new Dictionary<EdgeType, List<EdgeVertex>>();
     
     
     private List<Octave> _octaves;
@@ -46,7 +83,17 @@ public class Waves : MonoBehaviour
 
     void FixedUpdate()
     {
-        AnimateWaves();
+
+        if (anitmationSetting.animatedEdge)
+        {
+            AnimateEdges();
+        }
+        else
+        {
+            AnimateWaves();
+        }
+        
+        
         _mesh.RecalculateNormals();
         _mesh.RecalculateBounds();
         
@@ -58,34 +105,24 @@ public class Waves : MonoBehaviour
         }
         
     }
-
-    private void LateUpdate()
-    {
-        if (GameStateManager.Instance.GetGameState() == GameStates.PlayingCharacter)
-        {
-            MoveOceanWithPlayer();
-        }else if (GameStateManager.Instance.GetGameState() == GameStates.PlayingBoat)
-        {
-            MoveOceanWithBoat();
-        }
-    }
-
-    private void MoveOceanWithBoat()
-    {
-        if (player == null) return;
-
-        Vector3 boatXZ = new Vector3(boat.position.x, 0f, boat.position.z);
-        Vector3 patchXZ = new Vector3(transform.position.x, 0f, transform.position.z);
-
-        if (Vector3.Distance(boatXZ, patchXZ) > followThreshold)
-        {
-            transform.position = new Vector3(boat.position.x, transform.position.y, boat.position.z);
-        }
-    }
+    
 
 
     void GenerateMesh()
     {
+        //Edges 
+        List<EdgeVertex> _edgeTopVertices = new List<EdgeVertex>();
+        List<EdgeVertex> _edgeBottomVertices = new List<EdgeVertex>();
+        List<EdgeVertex> _edgeLeftVertices = new List<EdgeVertex>();
+        List<EdgeVertex> _edgeRightVertices = new List<EdgeVertex>();
+
+        //Corners
+        List<EdgeVertex> _cornerTopLeftVertices = new List<EdgeVertex>();
+        List<EdgeVertex> _cornerTopRightVertices = new List<EdgeVertex>();
+        List<EdgeVertex> _cornerBottomLeftVertices = new List<EdgeVertex>();
+        List<EdgeVertex> _cornerBottomRightVertices = new List<EdgeVertex>();
+        
+        
         _mesh = new Mesh
         {
             name = gameObject.name
@@ -109,6 +146,43 @@ public class Waves : MonoBehaviour
                     (z * quadSize) - halfSize
                 );
                 _uvs[i] = new Vector2((float)x / uvScale, (float)z / uvScale);
+
+
+                if (x <= (edgeDistance - 1) && z <= (edgeDistance - 1))
+                {
+                    //topLeftCorner
+                    _cornerTopLeftVertices.Add(new EdgeVertex(i,x,z));
+                }else if (x <= (edgeDistance - 1) && z >= dimension - (edgeDistance - 1))
+                {
+                    //topRigthCorner
+                    _cornerTopRightVertices.Add(new EdgeVertex(i, x, z));
+                }else if (x >= dimension-(edgeDistance-1) && z <= (edgeDistance - 1))
+                {
+                    //bottomLeftCorner
+                    _cornerBottomLeftVertices.Add(new EdgeVertex(i, x, z));
+                }else if (x >= dimension-(edgeDistance-1) && z >= dimension - (edgeDistance - 1))
+                {
+                    //bottomRightCorner
+                    _cornerBottomRightVertices.Add(new EdgeVertex(i, x, z));
+                }else if (x <= (edgeDistance - 1))
+                {
+                    _edgeTopVertices.Add(new EdgeVertex(i,x,z));
+                }else if (x >= dimension - (edgeDistance - 1))
+                {
+                    _edgeBottomVertices.Add(new EdgeVertex(i, x, z));
+                }else if (z <= (edgeDistance - 1))
+                {
+                    _edgeLeftVertices.Add(new EdgeVertex(i,x,z));
+                }else if (z >= dimension-(edgeDistance-1))
+                {
+                    _edgeRightVertices.Add(new EdgeVertex(i,x,z));
+                }
+                
+                
+                if (x <= (edgeDistance-1) || z <= (edgeDistance-1) || x >= dimension-(edgeDistance-1) || z >= dimension-(edgeDistance-1))
+                {
+                    _edgeVertices.Add(new EdgeVertex(i,x,z));
+                }
             }
         }
 
@@ -129,37 +203,41 @@ public class Waves : MonoBehaviour
                 triangles[t++] = i + dimension + 1;
             }
         }
-
+        
+        _edgeVertex.Add(EdgeType.CornerTopLeft, _cornerTopLeftVertices);
+        _edgeVertex.Add(EdgeType.CornerTopRight, _cornerTopRightVertices);
+        _edgeVertex.Add(EdgeType.CornerBottomLeft, _cornerBottomLeftVertices);
+        _edgeVertex.Add(EdgeType.CornerBottomRight, _cornerBottomRightVertices);
+        _edgeVertex.Add(EdgeType.EdgeTop, _edgeTopVertices);
+        _edgeVertex.Add(EdgeType.EdgeBottom, _edgeBottomVertices);
+        _edgeVertex.Add(EdgeType.EdgeLeft, _edgeLeftVertices);
+        _edgeVertex.Add(EdgeType.EdgeRight, _edgeRightVertices);
+        
         _mesh.vertices = _vertices;
         _mesh.triangles = triangles;
         _mesh.uv = _uvs;
 
         GetComponent<MeshFilter>().mesh = _mesh;
     }
-
-    void MoveOceanWithPlayer()
-    {
-        if (player == null) return;
-
-        Vector3 playerXZ = new Vector3(player.position.x, 0f, player.position.z);
-        Vector3 patchXZ = new Vector3(transform.position.x, 0f, transform.position.z);
-
-        if (Vector3.Distance(playerXZ, patchXZ) > followThreshold)
-        {
-            transform.position = new Vector3(player.position.x, transform.position.y, player.position.z);
-        }
-    }
+    
 
     void AnimateWaves()
     {
         float dimensionFactor = (float)referenceDimension / dimension;
         float maxDistance = dimension / 2f;
 
+        float offsetX = transform.position.x / quadSize;
+        float offsetZ = transform.position.z / quadSize;
+
         for (int x = 0; x <= dimension; x++)
         {
             for (int z = 0; z <= dimension; z++)
             {
                 int i = Index(x, z);
+                Vector3 vertex = _vertices[i];
+
+                float sampleX = (x + offsetX);
+                float sampleZ = (z + offsetZ);
 
                 float y = 0f;
 
@@ -168,32 +246,93 @@ public class Waves : MonoBehaviour
                     if (octave.alternate)
                     {
                         float perl = Mathf.PerlinNoise(
-                            (x * octave.scale.x * dimensionFactor) / dimension,
-                            (z * octave.scale.y * dimensionFactor) / dimension
+                            (sampleX * octave.scale.x * dimensionFactor) / dimension,
+                            (sampleZ * octave.scale.y * dimensionFactor) / dimension
                         ) * Mathf.PI * 2f;
+
                         y += Mathf.Cos(perl + octave.speed.magnitude * Time.time * dimensionFactor) * octave.height;
                     }
                     else
                     {
                         float perl = Mathf.PerlinNoise(
-                            (x * octave.scale.x * dimensionFactor + Time.time * octave.speed.x * dimensionFactor) / dimension,
-                            (z * octave.scale.y * dimensionFactor + Time.time * octave.speed.y * dimensionFactor) / dimension
+                            (sampleX * octave.scale.x * dimensionFactor + Time.time * octave.speed.x * dimensionFactor) / dimension,
+                            (sampleZ * octave.scale.y * dimensionFactor + Time.time * octave.speed.y * dimensionFactor) / dimension
                         ) - 0.5f;
+
                         y += perl * octave.height;
                     }
                 }
 
-                // Calculate distance-based fade
-                Vector2 pos = new Vector2(_vertices[i].x, _vertices[i].z);
+                Vector2 pos = new Vector2(vertex.x, vertex.z);
                 float distance = pos.magnitude;
                 float normalizedDistance = Mathf.Clamp01(distance / maxDistance);
-
                 float fade = falloffCurve.Evaluate(normalizedDistance);
 
-                _vertices[i].y = y * fade;
+                vertex.y = y * fade;
+                _vertices[i] = vertex;
             }
         }
 
+        _mesh.vertices = _vertices;
+    }
+
+
+    private void AnimateEdges()
+    {
+        Debug.Log(_edgeVertices.Count + ":" + _vertices.Length);
+        float dimensionFactor = (float)referenceDimension / dimension;
+        float maxDistance = dimension / 2f;
+
+        float offsetX = transform.position.x / quadSize;
+        float offsetZ = transform.position.z / quadSize;
+
+
+        foreach (EdgeSettings edgeSetting in anitmationSetting.edgeSettings)
+        {
+            if (edgeSetting.animatedEdge)
+            {
+                foreach (EdgeVertex edge in _edgeVertex[edgeSetting.edgeType])
+                {
+                    Vector3 vertex = _vertices[edge.index];
+
+            
+                    float sampleX = edge.x + offsetX;
+                    float sampleZ = edge.z + offsetZ;
+
+                    float y = 0f;
+
+                    foreach (var octave in _octaves)
+                    {
+                        if (octave.alternate)
+                        {
+                            float perl = Mathf.PerlinNoise(
+                                (sampleX * octave.scale.x * dimensionFactor) / dimension,
+                                (sampleZ * octave.scale.y * dimensionFactor) / dimension
+                            ) * Mathf.PI * 2f;
+
+                            y += Mathf.Cos(perl + octave.speed.magnitude * Time.time * dimensionFactor) * octave.height;
+                        }
+                        else
+                        {
+                            float perl = Mathf.PerlinNoise(
+                                (sampleX * octave.scale.x * dimensionFactor + Time.time * octave.speed.x * dimensionFactor) / dimension,
+                                (sampleZ * octave.scale.y * dimensionFactor + Time.time * octave.speed.y * dimensionFactor) / dimension
+                            ) - 0.5f;
+
+                            y += perl * octave.height;
+                        }
+                    }
+
+                    Vector2 pos = new Vector2(vertex.x, vertex.z);
+                    float distance = pos.magnitude;
+                    float normalizedDistance = Mathf.Clamp01(distance / maxDistance);
+                    float fade = falloffCurve.Evaluate(normalizedDistance);
+
+                    vertex.y = y * fade;
+                    _vertices[edge.index] = vertex;
+                }
+            }
+        }
         _mesh.vertices = _vertices;
     }
 
@@ -240,18 +379,66 @@ public class Waves : MonoBehaviour
     {
         return x * (dimension + 1) + z;
     }
+    
+    public void SetAnimationSettings(WaveAnimationSettings settings)
+    {
+        this.anitmationSetting = settings;
+        foreach (EdgeSettings edgeSetting in settings.edgeSettings)
+        {
+            if (!edgeSetting.animatedEdge && _edgeVertex.TryGetValue(edgeSetting.edgeType, out var verts))
+            {
+                foreach (var edge in verts)
+                {
+                    var v = _vertices[edge.index];
+                    v.y = 0f;
+                    _vertices[edge.index] = v;
+                }
+            }
+        }
+
+        // Apply changes to the mesh
+        if (_mesh != null)
+        {
+            _mesh.vertices = _vertices;
+            _mesh.RecalculateNormals();
+            _mesh.RecalculateBounds();
+        }
+    }
+
 
     void OnDrawGizmos()
     {
         if (_vertices == null) return;
 
+        // Draw all vertices (optional, can comment out)
         Gizmos.color = Color.green;
-
         for (int i = 0; i < _vertices.Length; i++)
         {
             Vector3 worldPos = transform.TransformPoint(_vertices[i]);
-            Gizmos.DrawSphere(worldPos, 0.1f);
+            Gizmos.DrawSphere(worldPos, 0.05f);
         }
+
+        void DrawEdgeGroup(List<EdgeVertex> group, Color color, float size = 0.15f)
+        {
+            Gizmos.color = color;
+            foreach (var edge in group)
+            {
+                Vector3 worldPos = transform.TransformPoint(_vertices[edge.index]);
+                Gizmos.DrawSphere(worldPos, size);
+            }
+        }
+
+        // Edges
+        DrawEdgeGroup(_edgeVertex[EdgeType.EdgeTop], Color.blue);       // Top = Blue
+        DrawEdgeGroup(_edgeVertex[EdgeType.EdgeBottom], Color.cyan);    // Bottom = Cyan
+        DrawEdgeGroup(_edgeVertex[EdgeType.EdgeLeft], Color.yellow);    // Left = Yellow
+        DrawEdgeGroup(_edgeVertex[EdgeType.EdgeRight], Color.magenta);  // Right = Magenta
+
+        // Corners (larger + distinct)
+        DrawEdgeGroup(_edgeVertex[EdgeType.CornerTopLeft], new Color(204.0f/255.0f,85.0f/255.0f,0,1), 0.25f);
+        DrawEdgeGroup(_edgeVertex[EdgeType.CornerTopRight], new Color(104.0f/255.0f,85.0f/255.0f,0,1), 0.25f);
+        DrawEdgeGroup(_edgeVertex[EdgeType.CornerBottomLeft], new Color(104.0f/255.0f,185.0f/255.0f,10.0f/255.0f,1), 0.25f);
+        DrawEdgeGroup(_edgeVertex[EdgeType.CornerBottomRight], new Color(124.0f/255.0f,85.0f/255.0f,200.0f/255.0f,1), 0.25f);
     }
 
 
@@ -264,4 +451,19 @@ public class Octave
     public Vector2 scale;
     public float height;
     public bool alternate;
+}
+
+
+public class EdgeVertex
+{
+    public int index;
+    public int x;
+    public int z;
+
+    public EdgeVertex(int index, int x, int z)
+    {
+        this.index = index;
+        this.x = x;
+        this.z = z;
+    }
 }

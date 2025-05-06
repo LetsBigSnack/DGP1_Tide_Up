@@ -20,7 +20,15 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private float gameSpeed = 1f;
     [SerializeField] private GameStates _gameStates;
     private bool _gamePaused = false;
+    private Transform _targetTransform;
 
+    public Transform TargetTransform
+    {
+        get => _targetTransform;
+        set => _targetTransform = value;
+    }
+    
+    
     public static GameStateManager Instance;
 
     public static Action<GameStates> OnStateChanged;
@@ -43,6 +51,17 @@ public class GameStateManager : MonoBehaviour
     private void Start()
     {
         OnStateChanged.Invoke(_gameStates);
+        if (_gameStates == GameStates.PlayingCharacter)
+        {
+            Debug.Log("Game State is Playing");
+            _targetTransform = Player.Instance.gameObject.transform;
+        }
+
+        if (_gameStates == GameStates.PlayingBoat)
+        {
+            Debug.Log("Game State is Boat");
+            _targetTransform = Boat.Instance.gameObject.transform;
+        }
     }
 
     private void FixedUpdate()
@@ -90,6 +109,18 @@ public class GameStateManager : MonoBehaviour
         Debug.Log("Game state set to: " + state);
         _gameStates = state;
         OnStateChanged.Invoke(state);
+
+        if (_gameStates == GameStates.PlayingCharacter)
+        {
+            _targetTransform = Player.Instance.transform;
+        }
+
+        if (_gameStates == GameStates.PlayingBoat)
+        {
+            _targetTransform = Boat.Instance.transform;
+        }
+        
+        
     }
 
     

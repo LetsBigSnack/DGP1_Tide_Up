@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class OceanFloorManager : MonoBehaviour
 {
-    public Transform player;
+    public Transform _targetTransform;
     public GameObject oceanFloorTilePrefab;
     public int viewDistance = 3; 
     public float tileSize = 50f;
@@ -14,8 +14,7 @@ public class OceanFloorManager : MonoBehaviour
 
     void Start()
     {
-        if (player == null)
-            player = Player.Instance.transform; // or assign manually
+        _targetTransform = GameStateManager.Instance.TargetTransform;
 
         previousPlayerCoord = PlayerCoord();
         UpdateTiles();
@@ -23,6 +22,7 @@ public class OceanFloorManager : MonoBehaviour
 
     void Update()
     {
+        _targetTransform = GameStateManager.Instance.TargetTransform;
         Vector2 currentPlayerCoord = PlayerCoord();
 
         if (currentPlayerCoord != previousPlayerCoord)
@@ -35,8 +35,8 @@ public class OceanFloorManager : MonoBehaviour
     Vector2 PlayerCoord()
     {
         return new Vector2(
-            Mathf.Floor(player.position.x / tileSize),
-            Mathf.Floor(player.position.z / tileSize));
+            Mathf.Floor(_targetTransform.position.x / tileSize),
+            Mathf.Floor(_targetTransform.position.z / tileSize));
     }
 
     void UpdateTiles()

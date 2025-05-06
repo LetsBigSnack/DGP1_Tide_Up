@@ -13,10 +13,11 @@ public class WaterFloatComponent : MonoBehaviour
     public bool AffectDirection = true;
     public bool AttachToSurface = false;
     public Transform[] FloatPoints;
+    [Header("Buoyancy")]
+    public float BuoyancyStrength = 1f;
 
     //used components
     protected Rigidbody Rigidbody;
-    protected Waves Waves;
 
     //water line
     protected float WaterLine;
@@ -33,7 +34,6 @@ public class WaterFloatComponent : MonoBehaviour
     void Awake()
     {
         //get components
-        Waves = FindObjectOfType<Waves>();
         Rigidbody = GetComponent<Rigidbody>();
         Rigidbody.useGravity = false;
 
@@ -57,7 +57,7 @@ public class WaterFloatComponent : MonoBehaviour
         {
             //height
             WaterLinePoints[i] = FloatPoints[i].position;
-            WaterLinePoints[i].y = Waves.GetWorldHeight(FloatPoints[i].position);
+            WaterLinePoints[i].y = OceanManager.Instance.GetWorldHeight(FloatPoints[i].position);
             newWaterLine += WaterLinePoints[i].y / FloatPoints.Length;
             if (WaterLinePoints[i].y > FloatPoints[i].position.y)
                 pointUnderWater = true;
@@ -88,7 +88,7 @@ public class WaterFloatComponent : MonoBehaviour
                 transform.Translate(Vector3.up * waterLineDelta * 0.9f);
             }
         }
-        Rigidbody.AddForce(gravity * Mathf.Clamp(Mathf.Abs(WaterLine - Center.y),0,1));
+        Rigidbody.AddForce(gravity * Mathf.Clamp(Mathf.Abs(WaterLine - Center.y),0,1) * BuoyancyStrength);
 
         //rotation
         if (pointUnderWater)
@@ -111,14 +111,12 @@ public class WaterFloatComponent : MonoBehaviour
             if (FloatPoints[i] == null)
                 continue;
 
-            if (Waves != null)
+            if (OceanManager.Instance != null)
             {
-
-                //draw cube
                 Gizmos.color = Color.red;
                 Gizmos.DrawCube(WaterLinePoints[i], Vector3.one * 0.3f);
             }
-
+            
             //draw sphere
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(FloatPoints[i].position, 0.1f);

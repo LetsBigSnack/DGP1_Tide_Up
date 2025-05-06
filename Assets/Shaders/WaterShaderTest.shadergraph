@@ -1121,8 +1121,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 2274.000244140625,
-            "y": -548.0001220703125
+            "x": 2938.999755859375,
+            "y": -1874.0
         },
         "m_Blocks": [
             {
@@ -2099,7 +2099,7 @@
     "m_AlphaMode": 0,
     "m_RenderFace": 2,
     "m_AlphaClip": false,
-    "m_CastShadows": true,
+    "m_CastShadows": false,
     "m_ReceiveShadows": true,
     "m_DisableTint": false,
     "m_AdditionalMotionVectorMode": 0,
