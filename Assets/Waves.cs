@@ -279,7 +279,6 @@ public class Waves : MonoBehaviour
 
     private void AnimateEdges()
     {
-        Debug.Log(_edgeVertices.Count + ":" + _vertices.Length);
         float dimensionFactor = (float)referenceDimension / dimension;
         float maxDistance = dimension / 2f;
 

@@ -62,7 +62,7 @@ public class UIPauseMenuManager : MonoBehaviour
         else 
         {
             pauseMenu.SetActive(false);
-            GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+            GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
             _pauseMenuState = PauseMenuStates.Off;
             _isPaused = false;
         }
@@ -72,7 +72,7 @@ public class UIPauseMenuManager : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
-        GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+        GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
         _isPaused = false;
     }
 

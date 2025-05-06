@@ -6,7 +6,6 @@ public class MenuController : MonoBehaviour
 {
     
     private MenuInputs _menuInputs;
-    
 
     private void Awake()
     {
@@ -141,7 +140,7 @@ public class MenuController : MonoBehaviour
     }
     private void CloseMenu()
     {
-        GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+        GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
         //TODO: Grenus Fix
         //UIHUDManager.Instance.ToggleDateMap();
         UIJournalManager.Instance.SwitchState(JournalType.Closed);
@@ -172,7 +171,7 @@ public class MenuController : MonoBehaviour
     {
         var currentState = GameStateManager.Instance.GetGameState();
 
-        if (currentState == GameStates.PlayingCharacter || currentState == GameStates.Paused)
+        if (currentState == GameStates.PlayingCharacter || currentState == GameStates.Paused || currentState == GameStates.PlayingBoat)
         {
             if(UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Off || UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Paused) 
             {

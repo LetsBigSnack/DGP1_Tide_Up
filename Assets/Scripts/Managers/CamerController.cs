@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -9,6 +10,62 @@ public enum CameraTarget
 }
 
 
+
+[Serializable]
+public class CameraPreset
+{
+    [SerializeField] private CameraTarget cameraTarget;
+
+    public CameraTarget CameraTarget
+    {
+        get => cameraTarget;
+        set => cameraTarget = value;
+    }
+
+    public float DistanceToPlayer
+    {
+        get => distanceToPlayer;
+        set => distanceToPlayer = value;
+    }
+
+    public Vector3 Offset
+    {
+        get => offset;
+        set => offset = value;
+    }
+
+    public float Yaw
+    {
+        get => yaw;
+        set => yaw = value;
+    }
+
+    public float Pitch
+    {
+        get => pitch;
+        set => pitch = value;
+    }
+
+    public float Roll
+    {
+        get => roll;
+        set => roll = value;
+    }
+
+    public float SmoothTime
+    {
+        get => smoothTime;
+        set => smoothTime = value;
+    }
+
+    [SerializeField] private float distanceToPlayer;
+    [SerializeField] private Vector3 offset;
+    [Range(0f, 360f)] public float yaw = 0f;  
+    [Range(-90f, 90f)] public float pitch = 0f; 
+    [Range(-180f, 180f)] public float roll = 0f; 
+    [SerializeField] private float smoothTime;
+}
+
 public class CamerController : MonoBehaviour
 {
     public static CamerController Instance;
@@ -18,12 +75,7 @@ public class CamerController : MonoBehaviour
     
     [Header("Camera Settings")]
     [SerializeField] private CameraTarget cameraTarget = CameraTarget.Player;
-    [SerializeField] private float distanceToPlayer;
-    [SerializeField] private Vector3 offset;
-    [Range(0f, 360f)] public float yaw = 0f;  
-    [Range(-90f, 90f)] public float pitch = 0f; 
-    [Range(-180f, 180f)] public float roll = 0f; 
-    [SerializeField] private float smoothTime;
+    [SerializeField] private List<CameraPreset> presets;
     
     
     private Vector3 _velocity;
@@ -72,13 +124,16 @@ public class CamerController : MonoBehaviour
     {
         try
         {
-            Vector3 normalizedOffset = Vector3.Normalize(offset);
-            Vector3 targetPosition = (_target.position + normalizedOffset * distanceToPlayer);
-            transform.position =  Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, smoothTime);
-        
-            Quaternion baseLookRotation = Quaternion.LookRotation(normalizedOffset * distanceToPlayer);
+            CameraPreset preset = presets.Find(c => c.CameraTarget == cameraTarget);
             
-            Quaternion parametrizedRotation = baseLookRotation * Quaternion.Euler(pitch, yaw, roll);
+            
+            Vector3 normalizedOffset = Vector3.Normalize(preset.Offset);
+            Vector3 targetPosition = (_target.position + normalizedOffset * preset.DistanceToPlayer);
+            transform.position =  Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, preset.SmoothTime);
+        
+            Quaternion baseLookRotation = Quaternion.LookRotation(normalizedOffset * preset.DistanceToPlayer);
+            
+            Quaternion parametrizedRotation = baseLookRotation * Quaternion.Euler(preset.Pitch, preset.Yaw, preset.Roll);
             
             transform.rotation = parametrizedRotation;
         }

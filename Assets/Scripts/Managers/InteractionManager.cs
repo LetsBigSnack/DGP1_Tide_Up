@@ -86,6 +86,12 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
+    public void SetInteractionRadius(float radius)
+    {
+        interactionRadius = radius;
+    }
+    
+    
     public void Interact()
     {
         if (currentInteractable == null)

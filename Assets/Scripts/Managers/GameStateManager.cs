@@ -21,6 +21,13 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private GameStates _gameStates;
     private bool _gamePaused = false;
     private Transform _targetTransform;
+    [SerializeField] private GameStates _lastPlayingState = GameStates.PlayingCharacter;
+    
+    public GameStates LastPlayingState
+    {
+        get => _lastPlayingState;
+        set => _lastPlayingState = value;
+    }
 
     public Transform TargetTransform
     {
@@ -113,11 +120,13 @@ public class GameStateManager : MonoBehaviour
         if (_gameStates == GameStates.PlayingCharacter)
         {
             _targetTransform = Player.Instance.transform;
+            _lastPlayingState = GameStates.PlayingCharacter;
         }
 
         if (_gameStates == GameStates.PlayingBoat)
         {
             _targetTransform = Boat.Instance.transform;
+            _lastPlayingState = GameStates.PlayingBoat;
         }
         
         

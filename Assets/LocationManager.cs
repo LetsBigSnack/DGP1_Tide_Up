@@ -56,7 +56,7 @@ public class LocationManager : MonoBehaviour
         if (!sceneLoaded)
         {
             Debug.LogError("Scene failed to load. Aborting teleport.");
-            GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+            GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
             yield break;
         }
         
@@ -74,7 +74,7 @@ public class LocationManager : MonoBehaviour
                 break;
             }
         }
-        GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+        GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
     }
 
     private void TeleportPlayer(Transform targetPosition)

@@ -10,6 +10,7 @@ public class UIStartSceneManager : MonoBehaviour
         {
             if (loaded)
             {
+                GameStateManager.Instance?.SetGameState(GameStates.PlayingCharacter);
                 GameStateManager.Instance?.ResumeGame();
                 UIPauseMenuManager.Instance?.ResumeGame();
             }

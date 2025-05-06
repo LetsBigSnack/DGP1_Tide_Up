@@ -66,7 +66,7 @@ public class UIShopManager : MonoBehaviour
         }
         tabs.SetActive(false);
         currentOpenType = ShopType.Closed;
-        GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+        GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
     }
 
     public void OpenMenuByType(ShopType type)
