@@ -37,12 +37,12 @@ public class DockInteract : Interactable
         Rigidbody rb = player.GetComponent<Rigidbody>();
         if (rb != null)
         {
+            rb.isKinematic = true; ;
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-
-            rb.isKinematic = true; 
-            rb.MovePosition(playerDockPosition.position); 
-            rb.MoveRotation(playerDockPosition.rotation);
+            
+            player.transform.position = playerDockPosition.position;
+            player.transform.rotation = playerDockPosition.rotation;
         }
 
     
