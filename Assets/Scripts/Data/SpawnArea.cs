@@ -74,12 +74,16 @@ public class SpawnArea : MonoBehaviour
         {
             //TODO: rework height 
             Vector3 randomPosition = gameObject.transform.position + new Vector3(Random.Range(-areaSpawnSize, areaSpawnSize), gameObject.transform.position.y+0.55f, Random.Range(-areaSpawnSize, areaSpawnSize));
-
+            
+            float randomRotation = Random.Range(0f, 360f);
+            
+            
             if (CameraUtil.IsVisibleToCamera(randomPosition) && CameraUtil.HasLineOfSight(randomPosition))
                 return;
 
             GameObject trashItem = TrashSpawnerManager.Instance.GetTrashForArea(type);
             GameObject trash = Instantiate(trashItem, randomPosition, Quaternion.identity, transform);
+            trash.transform.rotation = Quaternion.Euler(0f, randomRotation, 0f);
             TrashSpawnerManager.Instance.SpawnedTrash.Add(trash);
         }
     }

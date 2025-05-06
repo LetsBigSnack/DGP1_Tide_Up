@@ -10,6 +10,20 @@ public class UIStartSceneManager : MonoBehaviour
         {
             if (loaded)
             {
+                
+                GameObject player = Player.Instance?.gameObject;
+
+                if (player != null)
+                {
+                    MeshRenderer[] meshes = player.GetComponentsInChildren<MeshRenderer>();
+                    foreach (MeshRenderer mesh in meshes)
+                    {
+                        if (mesh != null)
+                            mesh.enabled = true;
+                    }
+                }
+                
+
                 GameStateManager.Instance?.SetGameState(GameStates.PlayingCharacter);
                 GameStateManager.Instance?.ResumeGame();
                 UIPauseMenuManager.Instance?.ResumeGame();
