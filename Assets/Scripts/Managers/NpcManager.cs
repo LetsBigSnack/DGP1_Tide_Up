@@ -8,7 +8,7 @@ public class NpcManager : MonoBehaviour
 {
     
     public static NpcManager Instance;
-    [SerializeField] private List<Npc> _npcs;
+    [SerializeField] private List<Npc> _npcs = new List<Npc>();
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class NpcManager : MonoBehaviour
 
     public Npc GetNpcByName(string questNpc)
     {
-        Debug.Log(questNpc);
+        //Debug.Log(questNpc);
         Npc npc = _npcs.Find(npc => npc.NpcName == questNpc);
 
         if (npc == null)

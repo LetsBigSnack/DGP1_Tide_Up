@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScreen.unity
     guid: a05d35459d86d814c9388170f7edf5d4
   - enabled: 1
-    path: Assets/Scenes/Development/TEMPLATE_2.unity
-    guid: 173424f1108e29d46a6742968282036c
+    path: Assets/Scenes/TEMPLATE_3.unity
+    guid: 77ce0b6edc85e2648b0969ff34db6c00
   - enabled: 1
     path: Assets/Scenes/Rooms/Dev_Room_1.unity
     guid: 06f4346e517cc77499be8a6b310ee96e

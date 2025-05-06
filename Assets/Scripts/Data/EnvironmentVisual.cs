@@ -6,8 +6,7 @@ namespace Data
     public class EnvironmentVisual
     {
         [SerializeField] private EnvironmentState state;
-        [SerializeField] private Material material;
-        [SerializeField] private Mesh mesh;
+        [SerializeField] private GameObject environmentObj;
     
         public EnvironmentState State
         {
@@ -15,16 +14,10 @@ namespace Data
             set => state = value;
         }
 
-        public Material Material
+        public GameObject EnvironmentObj
         {
-            get => material;
-            set => material = value;
-        }
-
-        public Mesh Mesh
-        {
-            get => mesh;
-            set => mesh = value;
+            get => environmentObj;
+            set => environmentObj = value;
         }
     }
 }

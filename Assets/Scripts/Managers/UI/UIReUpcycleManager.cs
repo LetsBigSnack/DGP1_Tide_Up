@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Assets.Scripts.Data;
+using System;
 
 public enum ReUpcyclerType
 {
@@ -20,6 +21,8 @@ public class UIReUpcycleManager : MonoBehaviour
 
     [Header("Recycle/Upcycle")]
     [SerializeField] private List<UIReUpCyclerSubMenu> reUpcyclerSubMenues;
+
+    public static event Action<ReUpcyclerType> OnReUpcycleStateChange;
 
     private void Awake()
     {
@@ -40,7 +43,14 @@ public class UIReUpcycleManager : MonoBehaviour
 
     public void SwitchState(ReUpcyclerType state)
     {
+        if (state == ReUpcyclerType.Closed)
+        {
+            CloseAllMenues();
+            return;
+        }
         CloseAllMenues();
+        currentOpenType = state;
+        OnReUpcycleStateChange?.Invoke(state);
         OpenMenuByType(state);
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
     }
@@ -58,7 +68,6 @@ public class UIReUpcycleManager : MonoBehaviour
     public void OpenMenuByType(ReUpcyclerType type)
     {
         reUpcyclerSubMenues.Where(m => m.GetComponent<UIReUpCyclerSubMenu>().ReUpCyclerMenuType == type).FirstOrDefault().OpenMenu();
-        currentOpenType = type;
     }
 
     public void SwitchStateByInt(int state)

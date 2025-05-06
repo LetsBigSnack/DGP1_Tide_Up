@@ -4,6 +4,7 @@ using Data;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class RecipeManager : MonoBehaviour
 {
@@ -11,15 +12,21 @@ public class RecipeManager : MonoBehaviour
     
     [SerializeField] private List<RecipeData> recipes;
     [SerializeField] private List<RecipeData> knowRecipes;
-    
-    
+
+    public static event Action<bool> OnKnownRecipesChanged;
     
     public List<RecipeData> Recipes
     {
         get => recipes;
         set => recipes = value;
     }
-    
+
+    public List<RecipeData> KnownRecipies
+    {
+        get => knowRecipes;
+        set => knowRecipes = value;
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -41,6 +48,7 @@ public class RecipeManager : MonoBehaviour
                 if (!knowRecipes.Contains(recipe))
                 {
                     knowRecipes.Add(recipe);
+                    OnKnownRecipesChanged?.Invoke(true);
                 }
                 return new QuestItemInstance(recipe.questItem, recipe.ingredients);
             }

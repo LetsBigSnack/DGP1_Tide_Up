@@ -15,7 +15,6 @@ public enum QuestState
 
 public class Quest
 {
-
     private Dictionary<QuestState, Dialogue> _dialogues = new Dictionary<QuestState, Dialogue>();
     private QuestItemInstance _questItem;
     private string _questItemUse;
@@ -24,6 +23,8 @@ public class Quest
     private string _questNpc;
     private QuestState _questState;
     private bool _hasQuestAccepted;
+    private string _questTitle;
+    private string _questLocation;
 
 
     public string QuestNpc
@@ -37,9 +38,27 @@ public class Quest
         get { return _questState; }
         set { _questState = value; }
     }
-    
-    public Quest(Dialogue questDialogue, Dialogue completedDialogue)
+
+    public string QuestTitle
     {
+        get { return _questTitle; }
+        set { _questTitle = value; }
+    }
+    public string QuestLocation
+    {
+        get { return _questLocation; }
+        set { _questLocation = value; }
+    }
+
+    public Dictionary<QuestState, Dialogue> Dialogues
+    {
+        get { return _dialogues; }
+    }
+
+    public Quest(Dialogue questDialogue, Dialogue completedDialogue, string npcName, string location)
+    {
+        _questTitle = npcName + "'s quest";
+        _questLocation = location;
         _questState = QuestState.Offer;
         
         _dialogues.Add(QuestState.Offer, questDialogue);
@@ -96,6 +115,11 @@ public class Quest
             }
         }
     }
+
+    private void CreateSubTasks()
+    {
+        //TODO: create subtasks to keep track of
+    }
     
     
     private Dictionary<string, string> GenerateKeywordReplacement()
@@ -131,6 +155,7 @@ public class Quest
             return false;
         }
         InventoryManager.Instance.RemoveItem(_questItem);
+        QuestManager.Instance.CompleteQuest(this);
         return true;
     }
 
@@ -162,6 +187,8 @@ public class Quest
         Npc npc = NpcManager.Instance.GetNpcByName(_questNpc);
         _dialogues[QuestState.InProgress] = DialogueManager.Instance.GetRandomProgressDialogue(npc.NpcPersonality,npc.NpcAwareness);
         _hasQuestAccepted = true;
+
+        QuestManager.Instance.CurrentQuests.Add(this);
     }
 
     public void DeclineQuest()

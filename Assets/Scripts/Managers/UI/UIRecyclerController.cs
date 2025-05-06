@@ -50,7 +50,10 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
     public override void OpenMenu()
     {
         recyclerMenu.SetActive(true);
-        UIInventoryController.Instance.OpenSinglePageInventory();
+        if (UIJournalManager.Instance.GetCurrentState() != JournalType.Inventory && UIJournalManager.Instance.GetCurrentState() != JournalType.Recipies)
+        {
+            UIJournalManager.Instance.SwitchState(JournalType.Inventory);
+        }
     }
 
     public void AddItem(ItemInstance item)
@@ -81,7 +84,17 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
 
     private void UpdateMaterialsToPreview(ItemInstance item, bool isRemoved)
     {
-        List<TrashMaterialData> materials = item.ItemData.Materials;
+        List<TrashMaterialData> materials = new List<TrashMaterialData>();
+
+        if (item is QuestItemInstance)
+        {
+            QuestItemInstance questItem = item as QuestItemInstance;
+            materials = questItem.GetMaterials();
+        }
+        else
+        {
+            materials = item.ItemData.Materials;
+        }
 
         if (materials == null || item == null)
         {

@@ -16,12 +16,13 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private int maxDays;
 
     [Header("CurrentTime/Date")] 
-    [SerializeField] private int elapsedDays = 0;
+    [SerializeField] private int elapsedDays = 1;
     [SerializeField] private float currentTimeInHours;
     [SerializeField] private int currentDay = 1;
-    [SerializeField] private int currentSeason = 1;
+    [SerializeField] private int currentSeasonNum = 1;
     [SerializeField] private int currentYear = 1;
     [SerializeField] private int currentWeekDayCount = 1;
+    [SerializeField] private int firstWeekDayOfMonth = 1;
     [SerializeField] private string currentWeekDay = "";
     
     public static Dictionary<int, string> Weekdays = new Dictionary<int, string>(){
@@ -34,14 +35,9 @@ public class TimeManager : MonoBehaviour
     public static Action<int> OnYearChanged;
     public static Action<int> OnWeekDayChanged;
 
-    [Header("LightSource")]
-    [SerializeField] private Light mainLight;
+    [SerializeField] private Light directionalLight;
+    [SerializeField] private LightingPreset preset;
 
-    [Header("Light- & ColorPresets")]
-    [SerializeField] private Gradient ambientColor;
-    [SerializeField] private Gradient fogColor;
-    [SerializeField] private Gradient equatorColor;
-    [SerializeField] private Gradient sunColor;
 
     [Header("Testing Values")]
     //testing purpose only.
@@ -59,10 +55,10 @@ public class TimeManager : MonoBehaviour
         set { currentDay = value; }
     }
 
-    public int CurrentSeason
+    public int CurrentSeasonNum
     {
-        get { return currentSeason; }
-        set { currentSeason = value; }
+        get { return currentSeasonNum; }
+        set { currentSeasonNum = value; }
     }
 
     public int CurrentYear
@@ -76,7 +72,11 @@ public class TimeManager : MonoBehaviour
         get { return currentWeekDayCount; }
         set { currentWeekDayCount = value; }
     }
-
+    public int FirstWeekDayOfMonth
+    {
+        get { return firstWeekDayOfMonth; }
+        set { firstWeekDayOfMonth = value; }
+    }
 
     private void Awake()
     {
@@ -101,17 +101,21 @@ public class TimeManager : MonoBehaviour
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         Debug.Log("OnSceneLoaded - TIME");
-        mainLight = GameObject.FindGameObjectWithTag("Sun")?.GetComponent<Light>();
+        directionalLight = GameObject.FindGameObjectWithTag("Sun")?.GetComponent<Light>();
+        if(directionalLight != null)
+        {
+            RenderSettings.sun = directionalLight;
+        }
     }
 
-    public string getTime()
+    public string GetTime()
     {
         return TimeSpan.FromHours(currentTimeInHours).ToString(@"hh\:mm");
     }
 
-    public string getDate()
+    public string GetDate()
     {
-        string date = currentDay + " / " + currentSeason + " / " + currentYear;
+        string date = currentDay + " / " + currentSeasonNum + " / " + currentYear;
         if (currentDay < 10)
         {
             return "0" + date;
@@ -119,16 +123,32 @@ public class TimeManager : MonoBehaviour
         return date;
     }
 
+    public string GetWeekDay(int? day = null)
+    {
+        if (day == null)
+        {
+            Debug.Log("CurrWeekDayCOunt == " + currentWeekDayCount);
+            return Weekdays[currentWeekDayCount];
+        }
+
+        return Weekdays[(int)day];
+    }
+
+    public Seasons GetCurrentSeason()
+    {
+        return (Seasons)currentSeasonNum;
+    }
+
     private void Update()
     {
         if (!isTimePaused)
         {
-            currentTimeInHours += Time.deltaTime * (24 / (minutesPerDay * 60));
+            float baseTimeSpeed = (24f / (minutesPerDay * 60f));
+            currentTimeInHours += Time.deltaTime * baseTimeSpeed;
             UpdateDate();
-            if (mainLight != null)
+            if (directionalLight != null)
             {
-                UpdateMainLightRotation();
-                UpdateLight();
+                UpdateLighting((currentTimeInHours / 24f));
             }
         }
     }
@@ -152,14 +172,17 @@ public class TimeManager : MonoBehaviour
             {
                 currentDay = 1;
                 UpdateWeekDay();
-                if (currentSeason + 1 > maxSeasons)
+
+                firstWeekDayOfMonth = currentWeekDayCount;
+
+                if (currentSeasonNum + 1 > maxSeasons)
                 {
-                    currentSeason = 1;
+                    currentSeasonNum = 1;
                     currentYear += 1;
                 }
                 else
                 {
-                    currentSeason += 1;
+                    currentSeasonNum += 1;
                 }
             }
             else
@@ -174,27 +197,26 @@ public class TimeManager : MonoBehaviour
         {
             OnTimeChanged?.Invoke(currentTimeInHours);
             OnDayChanged?.Invoke(currentDay);
-            OnMonthChanged?.Invoke(currentSeason);
+            OnMonthChanged?.Invoke(currentSeasonNum);
             OnYearChanged?.Invoke(currentYear);
             OnWeekDayChanged?.Invoke(currentWeekDayCount);
         }
     }
- 
-    private void UpdateMainLightRotation()
+
+    private void UpdateLighting(float timePercent)
     {
-        mainLight.transform.rotation = Quaternion.Euler(new Vector3(((currentTimeInHours/24)*360-90f), -30, 0));
+        RenderSettings.ambientLight = preset.AmbientColor.Evaluate(timePercent);
+        RenderSettings.fogColor = preset.FogColor.Evaluate(timePercent);
+
+        if (directionalLight != null)
+        {
+            directionalLight.color = preset.DirectionalColor.Evaluate(timePercent);
+
+            directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 170f, 0));
+        }
+
     }
 
-    private void UpdateLight()
-    {
-        float timeFraction = currentTimeInHours / 24;
-        //https://docs.unity3d.com/6000.0/Documentation/ScriptReference/RenderSettings-ambientEquatorColor.html
-        //https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Gradient.Evaluate.html
-        RenderSettings.fogColor = fogColor.Evaluate(timeFraction);
-        RenderSettings.ambientEquatorColor = equatorColor.Evaluate(timeFraction);
-        RenderSettings.ambientSkyColor = ambientColor.Evaluate(timeFraction);
-        mainLight.color = sunColor.Evaluate(timeFraction);
-    }
     public void ToggleTime()
     {
         isTimePaused = !isTimePaused;
@@ -210,7 +232,7 @@ public class TimeManager : MonoBehaviour
     {
         currentTimeInHours = time;
         currentDay = day;
-        currentSeason = month;
+        currentSeasonNum = month;
         currentYear = year;
         currentWeekDayCount = weekDayCount;
     }

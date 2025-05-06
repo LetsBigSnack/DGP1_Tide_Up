@@ -2,6 +2,6 @@
 public enum Scenes
 {
     StartScreen,
-    TEMPLATE_2,
+    TEMPLATE_3,
     Dev_Room_1
 }

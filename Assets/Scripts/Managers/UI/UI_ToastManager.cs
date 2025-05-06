@@ -38,6 +38,15 @@ public class UI_ToastManager : MonoBehaviour
     [SerializeField] private List<GameObject> importantToastList;
     private Dictionary<ToastType, List<GameObject>> _toastLists = new Dictionary<ToastType, List<GameObject>>();
 
+    public GameObject ItemToastPrefab
+    {
+        get { return itemToastPrefab; }
+    }
+    public Transform ItemToastParent
+    {
+        get { return itemToastParent; }
+    }
+
     private void Awake()
     {
         if(Instance == null)
@@ -84,7 +93,7 @@ public class UI_ToastManager : MonoBehaviour
         AddToList(type, newToast);
     }
 
-    private GameObject CreateToast(GameObject prefab, Transform parent)
+    public GameObject CreateToast(GameObject prefab, Transform parent)
     {
         GameObject newToast = Instantiate(prefab, parent);
         return newToast;

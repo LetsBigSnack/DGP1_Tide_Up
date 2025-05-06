@@ -17,13 +17,30 @@ public class MenuController : MonoBehaviour
     {
         _menuInputs.Enable();
         
-        //Inventory
         _menuInputs.UI.Inventory.Enable();
         _menuInputs.UI.Inventory.performed += ShowInventory;
         
         _menuInputs.UI.CloseMenu.Enable();
         _menuInputs.UI.CloseMenu.performed += HandleEscape;
-        
+
+        _menuInputs.UI.ToggleX.Enable();
+        _menuInputs.UI.ToggleX.performed += ToggleMenuItem;
+
+        _menuInputs.UI.Friends.Enable();
+        _menuInputs.UI.Friends.performed += ShowFriends;
+
+        _menuInputs.UI.Quests.Enable();
+        _menuInputs.UI.Quests.performed += ShowQuests;
+
+        _menuInputs.UI.Calender.Enable();
+        _menuInputs.UI.Calender.performed += ShowCalender;
+
+        _menuInputs.UI.Recipe.Enable();
+        _menuInputs.UI.Recipe.performed += ShowRecipes;
+
+        _menuInputs.UI.Map.Enable();
+        _menuInputs.UI.Map.performed += ShowMap;
+
     }
     
     private void OnDisable()
@@ -37,39 +54,134 @@ public class MenuController : MonoBehaviour
         
         _menuInputs.UI.CloseMenu.Disable();
         _menuInputs.UI.CloseMenu.performed -= HandleEscape;
-        
 
+        _menuInputs.UI.ToggleX.Disable();
+        _menuInputs.UI.ToggleX.performed -= ToggleMenuItem;
+
+        _menuInputs.UI.Map.Enable();
+        _menuInputs.UI.Map.performed -= ShowMap;
+
+        _menuInputs.UI.Friends.Enable();
+        _menuInputs.UI.Friends.performed -= ShowFriends;
+
+        _menuInputs.UI.Quests.Enable();
+        _menuInputs.UI.Quests.performed -= ShowQuests;
+
+        _menuInputs.UI.Calender.Enable();
+        _menuInputs.UI.Calender.performed -= ShowCalender;
+
+        _menuInputs.UI.Recipe.Enable();
+        _menuInputs.UI.Recipe.performed -= ShowRecipes;
+
+    }
+
+    private bool CanMenuBeOpen()
+    {
+        return GameStateManager.Instance.GetGameState() != GameStates.Dialogue && GameStateManager.Instance.GetGameState() != GameStates.SceneTransition;
     }
 
     private void ShowInventory(InputAction.CallbackContext value)
     {
-        if (GameStateManager.Instance.GetGameState() == GameStates.Dialogue || GameStateManager.Instance.GetGameState() == GameStates.InMenu || GameStateManager.Instance.GetGameState() == GameStates.SceneTransition)
+        if (!CanMenuBeOpen())
         {
             return;
         }
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
-        //TODO: Grenus Fix
-        //UIHUDManager.Instance.ToggleDateMap();
         UIJournalManager.Instance.SwitchState(JournalType.Inventory);
+    }
+
+    private void ShowMap(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.Map);
+    }
+
+    private void ShowRecipes(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.Recipies);
+    }
+
+    private void ShowFriends(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.FriendBook);
+    }
+
+    private void ShowQuests(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.Quests);
+    }
+
+    private void ShowCalender(InputAction.CallbackContext value)
+    {
+        if (!CanMenuBeOpen())
+        {
+            return;
+        }
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIJournalManager.Instance.SwitchState(JournalType.Calender);
     }
     private void CloseMenu()
     {
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         //TODO: Grenus Fix
         //UIHUDManager.Instance.ToggleDateMap();
-        UIJournalManager.Instance.CloseAllMenues();
-        UIReUpcycleManager.Instance.CloseAllMenues();
-        UIShopManager.Instance.CloseAllMenues();
-        UITimeManager.Instance.CancelTimeChange();
+        UIJournalManager.Instance.SwitchState(JournalType.Closed);
+        UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Closed);
+        UIShopManager.Instance.SwitchState(ShopType.Closed);
+        UITideUpBoxManager.Instance.CloseTideUpBox();
+        if (UITimeManager.Instance.IsTimeChangeActive())
+        {
+            UITimeManager.Instance.CancelTimeChange();
+        }
     }
     
+    private void ToggleMenuItem(InputAction.CallbackContext value)
+    {
+        if (GameStateManager.Instance.GetGameState() != GameStates.InMenu)
+        {
+            return;
+        }
+
+        if(UIJournalManager.Instance.GetCurrentState() == JournalType.Map)
+        {
+            UIMapController.Instance.ToggleVisiblePlaces();
+        }
+    }
+
+
     private void HandleEscape(InputAction.CallbackContext value)
     {
         var currentState = GameStateManager.Instance.GetGameState();
 
         if (currentState == GameStates.PlayingCharacter || currentState == GameStates.Paused)
         {
-            UIPauseMenuManager.Instance.TogglePauseGame();
+            if(UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Off || UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Paused) 
+            {
+                UIPauseMenuManager.Instance.TogglePauseGame();
+            }
+            else if(UIPauseMenuManager.Instance.PauseMenuState == PauseMenuStates.Options)
+            {
+                UIPauseMenuManager.Instance.ToggleOptionMenu();
+            }
         }
         else if (currentState == GameStates.InMenu)
         {

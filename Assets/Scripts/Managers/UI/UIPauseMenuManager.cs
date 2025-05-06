@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public enum PauseMenuType
+public enum PauseMenuStates
 {
+    Off,
     Paused,
     Options,
     SaveLoad
@@ -17,7 +20,19 @@ public class UIPauseMenuManager : MonoBehaviour
     [SerializeField] private GameObject optionMenu;
     [SerializeField] private GameObject saveLoadMenu;
 
+    [SerializeField] private Toggle tooltipToggle;
+
+    public static event Action<Toggle> OnTooltipToggleChange;
+
+    private PauseMenuStates _pauseMenuState = PauseMenuStates.Off;
+
     private bool _isPaused = false;
+
+    public PauseMenuStates PauseMenuState
+    {
+        get { return _pauseMenuState; }
+        set { _pauseMenuState = value; }
+    }
 
     public static UIPauseMenuManager Instance;
 
@@ -40,6 +55,7 @@ public class UIPauseMenuManager : MonoBehaviour
         {
             pauseMenu.SetActive(true);
             GameStateManager.Instance.SetGameState(GameStates.Paused);
+            _pauseMenuState = PauseMenuStates.Paused;
             _isPaused = true;
             
         }
@@ -47,6 +63,7 @@ public class UIPauseMenuManager : MonoBehaviour
         {
             pauseMenu.SetActive(false);
             GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
+            _pauseMenuState = PauseMenuStates.Off;
             _isPaused = false;
         }
     }
@@ -58,8 +75,25 @@ public class UIPauseMenuManager : MonoBehaviour
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         _isPaused = false;
     }
-    
-    
+
+    public void ToggleOptionMenu()
+    {
+        if(_pauseMenuState == PauseMenuStates.Paused)
+        {
+            _pauseMenuState = PauseMenuStates.Options;
+            optionMenu.SetActive(true);
+            return;
+        }
+
+        _pauseMenuState = PauseMenuStates.Paused;
+        optionMenu.SetActive(false);
+    }
+
+    public void ToggleTooltip()
+    {
+        OnTooltipToggleChange?.Invoke(tooltipToggle);
+    }
+
     public void ToMainMenu()
     {
         StartCoroutine(SceneChangeManager.Instance.LoadSceneWithState(startScene));

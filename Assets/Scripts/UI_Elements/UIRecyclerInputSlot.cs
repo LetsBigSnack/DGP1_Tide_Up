@@ -20,16 +20,23 @@ public class UIRecyclerInputSlot : MonoBehaviour
         set { data = value; }
     }
 
+    public void Start()
+    {
+        image.enabled = false;
+    }
+
     public void Setup(ItemInstance item)
     {
         this.currentItem = item;
         this.data = item.ItemData;
         this.image.sprite = item.ItemData.sprite;
+        this.image.enabled = true;
     }
 
     public void ResetSlot()
     {
         this.data = null;
+        this.image.enabled = false;
         this.image.sprite = null;
     }
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Paper
   description: Thin as my nerves atm.
-  sprite: {fileID: 21300000, guid: 18b4bf9379c86334baeddbc4951f2d2e, type: 3}
+  sprite: {fileID: 21300000, guid: f7d442930d96f6f4380f69a8d05d5767, type: 3}
   materials:
   - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
   trashQual: 0

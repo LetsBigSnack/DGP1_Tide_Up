@@ -15,6 +15,7 @@ public class UITimeManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI switchTimeText;
     [SerializeField] TextMeshProUGUI dateText;
     [SerializeField] TextMeshProUGUI weekDayText;
+    [SerializeField] TextMeshProUGUI yearText;
 
     [Header("Wait Screen")]
     [SerializeField] private GameObject waitScreen;
@@ -55,6 +56,7 @@ public class UITimeManager : MonoBehaviour
         TimeManager.OnDayChanged += UpdateDateText;
         TimeManager.OnMonthChanged += UpdateDateText;
         TimeManager.OnYearChanged += UpdateDateText;
+        TimeManager.OnYearChanged += UpdateYearText;
         TimeManager.OnWeekDayChanged += UpdateWeekDayText;
     }
 
@@ -64,7 +66,8 @@ public class UITimeManager : MonoBehaviour
         TimeManager.OnDayChanged -= UpdateDateText;
         TimeManager.OnMonthChanged -= UpdateDateText;
         TimeManager.OnYearChanged -= UpdateDateText;
-        TimeManager.OnWeekDayChanged += UpdateWeekDayText;
+        TimeManager.OnYearChanged -= UpdateYearText;
+        TimeManager.OnWeekDayChanged -= UpdateWeekDayText;
     }
 
     public void OpenTimeModal()
@@ -77,7 +80,7 @@ public class UITimeManager : MonoBehaviour
 
         preChangeTime = TimeManager.Instance.CurrentTimeInHours;
         preChangeDay = TimeManager.Instance.CurrentDay;
-        preChangeMonth = TimeManager.Instance.CurrentSeason;
+        preChangeMonth = TimeManager.Instance.CurrentSeasonNum;
         preChangeYear = TimeManager.Instance.CurrentYear;
         preChangeWeekCount = TimeManager.Instance.CurrentWeekDay;
 
@@ -93,12 +96,21 @@ public class UITimeManager : MonoBehaviour
 
     private void UpdateDateText(int newDate)
     {
-        dateText.text = TimeManager.Instance.getDate();
+        dateText.text = TimeManager.Instance.GetDate();
     }
 
     private void UpdateWeekDayText(int newDay)
     {
-        weekDayText.text = TimeManager.Weekdays[newDay];
+        if(newDay == 0)
+        {
+            Debug.Log("Is 0 broski");
+            return;
+        }
+        weekDayText.text = TimeManager.Weekdays[newDay].ToUpper();
+    }
+    private void UpdateYearText(int newYear)
+    {
+        yearText.text = TimeManager.Instance.CurrentYear.ToString();
     }
 
     private void UpdateSwitchText()
@@ -126,8 +138,18 @@ public class UITimeManager : MonoBehaviour
             preChangeWeekCount);
         TimeManager.Instance.ToggleTime();
         GameStateManager.Instance.ResumeGame();
+        CloseTimeChange();
+    }
+
+    public void CloseTimeChange()
+    {
         timeChangeContainer.SetActive(false);
         timeChangeButton.SetActive(true);
+    }
+
+    public bool IsTimeChangeActive()
+    {
+        return timeChangeContainer.activeInHierarchy;
     }
 
     public void SubmitTimeChange()

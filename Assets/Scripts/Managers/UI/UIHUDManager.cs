@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum KeyType
 {
@@ -64,6 +65,19 @@ public class UIHUDManager : MonoBehaviour
 
     [Header("DateMap")]
     [SerializeField] private Transform dateMapContainer;
+    [SerializeField] private Image dayNightImg;
+    [SerializeField] private Image seasonImg;
+
+    [Header("Seasons")]
+    [SerializeField] private Sprite daySprite;
+    [SerializeField] private Sprite nightSprite;
+
+    [Header("Seasons")]
+    [SerializeField] private Sprite winterSprite;
+    [SerializeField] private Sprite springSprite;
+    [SerializeField] private Sprite summerSprite;
+    [SerializeField] private Sprite autumnSprite;
+    private Seasons _currSeason;
 
 
     [Header("CurrentButtons")]
@@ -85,6 +99,10 @@ public class UIHUDManager : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += UpdateToolBar;
+        UIPauseMenuManager.OnTooltipToggleChange += ToggleToolbar;
+        TimeManager.OnTimeChanged += UpdateDayNight;
+        TimeManager.OnMonthChanged += UpdateSeason;
+
         //testing purpose for now
         currentKeyState = GameStates.PlayingBoat;
         UpdateToolBar(GameStates.PlayingCharacter);
@@ -139,19 +157,51 @@ public class UIHUDManager : MonoBehaviour
         }
     }
 
-    public void ToggleToolbar()
+    public void ToggleToolbar(Toggle toggleState)
     {
+        toggleToolbar = toggleState.isOn;
         if (toolBarContainer != null)
         {
             toolBarContainer.gameObject.SetActive(toggleToolbar);
         }
     }
 
-#if UNITY_EDITOR
-    private void OnValidate()
+    private void UpdateDayNight(float currTime)
     {
-        ToggleToolbar();
-    }
-#endif
+        if(currTime >= 6f && currTime <= 18f)
+        {
+            dayNightImg.sprite = daySprite;
+            return;
+        }
+        dayNightImg.sprite = nightSprite;
 
+    }
+    private void UpdateSeason(int newSeason)
+    {
+        if(newSeason == (int)_currSeason)
+        {
+            return;
+        }
+
+        switch ((Seasons)newSeason)
+        {
+            case Seasons.Winter:
+                _currSeason = Seasons.Winter;
+                seasonImg.sprite = winterSprite;
+                break;
+            case Seasons.Spring:
+                _currSeason = Seasons.Spring;
+                seasonImg.sprite = springSprite;
+                break;
+            case Seasons.Summer:
+                _currSeason = Seasons.Summer;
+                seasonImg.sprite = summerSprite;
+                break;
+            case Seasons.Autumn:
+                _currSeason = Seasons.Autumn;
+                seasonImg.sprite = autumnSprite;
+                break;
+        }
+
+    }
 }
