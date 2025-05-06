@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using UnityEngine;
@@ -28,57 +29,21 @@ public class DockInteract : Interactable
     private void ExitBoat()
     {
         GameObject player = Player.Instance.gameObject;
+        
+        MeshRenderer[] meshes = player.GetComponentsInChildren<MeshRenderer>();
 
- 
-        player.transform.SetParent(null);
-        DontDestroyOnLoad(player);
-        
-        
-        Rigidbody rb = player.GetComponent<Rigidbody>();
-        if (rb != null)
+        foreach (MeshRenderer mesh in meshes)
         {
-            rb.isKinematic = true; ;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            
-            player.transform.position = playerDockPosition.position;
-            player.transform.rotation = playerDockPosition.rotation;
+            if (mesh != null)
+                mesh.enabled = true;
         }
-
-    
-        MeshRenderer mesh = player.GetComponentInChildren<MeshRenderer>();
-        if (mesh != null)
-            mesh.enabled = true;
-
-     
-        Collider col = player.GetComponentInChildren<Collider>();
-        if (col != null)
-            col.enabled = true;
-
-    
+        
         InteractionManager.Instance.SetInteractionRadius(4f);
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         CamerController.Instance.SwitchTarget(CameraTarget.Player);
-
         
-        StartCoroutine(ReenableAfterPhysics(player));
     }
-
-    private IEnumerator ReenableAfterPhysics(GameObject player)
-    {
-        yield return new WaitForFixedUpdate(); 
-
-        // Re-enable movement and physics
-        var controller = player.GetComponent<PlayerController>();
-        if (controller != null)
-            controller.enabled = true;
-
-        var rb = player.GetComponent<Rigidbody>();
-        if (rb != null)
-            rb.isKinematic = false;
-
-        rb.detectCollisions = true;
-    }
+    
 
     
     
@@ -88,27 +53,16 @@ public class DockInteract : Interactable
 
        
         InteractionManager.Instance.SetInteractionRadius(10);
+      
         
-        player.transform.SetParent(Boat.Instance.gameObject.transform);
+        MeshRenderer[] meshes = player.GetComponentsInChildren<MeshRenderer>();
 
-  
-        player.transform.localPosition = new Vector3(0, 0.5f, 0);
-        player.transform.localRotation = Quaternion.identity;
-        
-        MeshRenderer mesh = player.GetComponentInChildren<MeshRenderer>();
-        if (mesh != null)
-            mesh.enabled = false;
-        
-        
-        Rigidbody rb = player.GetComponent<Rigidbody>();
-        if (rb != null)
+        foreach (MeshRenderer mesh in meshes)
         {
-            rb.isKinematic = true; 
-            rb.linearVelocity = Vector3.zero;
+            if (mesh != null)
+                mesh.enabled = false;
         }
         
-        player.GetComponent<Rigidbody>().detectCollisions = false;
-        player.GetComponentInChildren<Collider>().enabled = false;
         
         GameStateManager.Instance.SetGameState(GameStates.PlayingBoat);
         CamerController.Instance.SwitchTarget(CameraTarget.Boat);

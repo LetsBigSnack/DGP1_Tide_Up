@@ -28,6 +28,13 @@ public class InteractionManager : MonoBehaviour
     public void FixedUpdate()
     {
 
+        if (GameStateManager.Instance == null)
+        {
+            return;
+        }
+        
+        gameObject.transform.position = GameStateManager.Instance.TargetTransform.position;
+        
         CheckCurrentInteractable();
 
         GetInteractablesInRadius();
