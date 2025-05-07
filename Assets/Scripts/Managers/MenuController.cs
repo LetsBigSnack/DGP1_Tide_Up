@@ -76,7 +76,7 @@ public class MenuController : MonoBehaviour
 
     private bool CanMenuBeOpen()
     {
-        return GameStateManager.Instance.GetGameState() != GameStates.Dialogue && GameStateManager.Instance.GetGameState() != GameStates.SceneTransition;
+        return GameStateManager.Instance.GetGameState() != GameStates.Dialogue && GameStateManager.Instance.GetGameState() != GameStates.SceneTransition && TutorialManager.Instance == null;
     }
 
     private void ShowInventory(InputAction.CallbackContext value)

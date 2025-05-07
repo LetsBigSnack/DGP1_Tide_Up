@@ -17,7 +17,8 @@ public enum NpcPersonalities
 {
     Sporty,
     Nerdy,
-    Hyper
+    Hyper,
+    Tutorial
 }
 
 public enum NpcAwareness
@@ -222,6 +223,10 @@ public class Npc : MonoBehaviour
     
     public void AddCompletedQuest()
     {
+        if(npcPersonality == NpcPersonalities.Tutorial)
+        {
+            completedQuests++;
+        }
         completedQuests++;
         EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.Quest);
     }

@@ -55,7 +55,7 @@ public class Quest
         get { return _dialogues; }
     }
 
-    public Quest(Dialogue questDialogue, Dialogue completedDialogue, string npcName, string location)
+    public Quest(Dialogue questDialogue, Dialogue completedDialogue, NpcPersonalities npcPersonality, string npcName, string location)
     {
         _questTitle = npcName + "'s quest";
         _questLocation = location;
@@ -64,7 +64,14 @@ public class Quest
         _dialogues.Add(QuestState.Offer, questDialogue);
         _dialogues.Add(QuestState.Completed, completedDialogue);
         
-        InitializeQuestItem();
+        if(npcPersonality != NpcPersonalities.Tutorial)
+        {
+            InitializeQuestItem();
+        } 
+        else
+        {
+            InitializeTutorialtItem();
+        }
         GenerateMaterials();
         GenerateDialogueText();
         
@@ -76,7 +83,13 @@ public class Quest
         _questItem = DataUtil.Instance.GetRandomQuestItem();
         _questItemUse = _questItem.GetUse();
     }
-    
+
+    private void InitializeTutorialtItem()
+    {
+        _questItem = DataUtil.Instance.GetTutorialItem();
+        _questItemUse = _questItem.GetUse();
+    }
+
     //TODO: rework with recipes
     private void GenerateMaterials()
     {
