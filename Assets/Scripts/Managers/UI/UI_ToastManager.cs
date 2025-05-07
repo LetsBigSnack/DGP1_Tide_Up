@@ -46,6 +46,22 @@ public class UI_ToastManager : MonoBehaviour
     {
         get { return itemToastParent; }
     }
+    public GameObject EnvironmentToastPrefab
+    {
+        get { return environmentToastPrefab; }
+    }
+    public Transform EnvironmentToastParent
+    {
+        get { return environmentToastParent; }
+    }
+    public GameObject ImportantToastPrefab
+    {
+        get { return importantToastPrefab; }
+    }
+    public Transform ImportantToastParent
+    {
+        get { return importantToastParent; }
+    }
 
     private void Awake()
     {

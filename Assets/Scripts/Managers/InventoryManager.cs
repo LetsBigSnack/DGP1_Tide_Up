@@ -79,6 +79,10 @@ public class InventoryManager : MonoBehaviour
 
         _items.Add(item);
         OnInventoryChanged?.Invoke(_items);
+
+        GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ItemToastPrefab, UI_ToastManager.Instance.ItemToastParent);
+        newToast.GetComponent<ToastNotificationItem>().SetToast(titleText: item.ItemData.title, sprite: item.ItemData.sprite);
+        
         Debug.Log("Picked up: " + item.ItemData.name);
         return true;
     }
