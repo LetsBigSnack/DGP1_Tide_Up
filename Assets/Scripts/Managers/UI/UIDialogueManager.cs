@@ -43,6 +43,10 @@ public class UIDialogueManager : MonoBehaviour
 
     public void ShowChoices(bool show)
     {
+        if(choiceBox == null) 
+        {
+            return;        
+        }
         choiceBox.SetActive(show);
         UIDialogBoxHelper.Instance.Setup();
     }

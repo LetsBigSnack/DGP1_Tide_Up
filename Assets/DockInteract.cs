@@ -41,7 +41,10 @@ public class DockInteract : Interactable
         InteractionManager.Instance.SetInteractionRadius(4f);
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         CamerController.Instance.SwitchTarget(CameraTarget.Player);
-        
+
+        //TODO: Add sound
+        GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.EnvironmentToastPrefab, UI_ToastManager.Instance.EnvironmentToastParent);
+        newToast.GetComponent<ToastNotificationItem>().SetToast("Welcome to:", EnvironmentManager.Instance.CurrentIsland.IslandName);
     }
     
 
@@ -66,6 +69,9 @@ public class DockInteract : Interactable
         
         GameStateManager.Instance.SetGameState(GameStates.PlayingBoat);
         CamerController.Instance.SwitchTarget(CameraTarget.Boat);
+
+        GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.EnvironmentToastPrefab, UI_ToastManager.Instance.EnvironmentToastParent);
+        newToast.GetComponent<ToastNotificationItem>().SetToast("Welcome to:", "Delkid Sea");
     }
 
     public override void ShowInteractability(bool show)

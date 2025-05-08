@@ -75,6 +75,11 @@ public class LocationManager : MonoBehaviour
             }
         }
         GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
+
+        yield return new WaitForSeconds(0.1f);
+        //TODO: Add sound
+        GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.EnvironmentToastPrefab, UI_ToastManager.Instance.EnvironmentToastParent);
+        newToast.GetComponent<ToastNotificationItem>().SetToast("Welcome to:", EnvironmentManager.Instance.CurrentIsland.IslandName);
     }
 
     private void TeleportPlayer(Transform targetPosition)
@@ -85,6 +90,7 @@ public class LocationManager : MonoBehaviour
             player.transform.position = targetPosition.position;
             player.transform.rotation = targetPosition.rotation; 
             Debug.Log("Player teleported to spawn point.");
+
         }
         else
         {

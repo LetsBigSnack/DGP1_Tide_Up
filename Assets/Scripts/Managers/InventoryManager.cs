@@ -73,6 +73,10 @@ public class InventoryManager : MonoBehaviour
 
         if (_items.Count >= maxItems)
         {
+            //TODO: Add error sound
+            GameObject newErrorToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
+            newErrorToast.GetComponent<ToastNotificationItem>().SetToast("Your inventory is full!", " ");
+            
             Debug.Log("Inventory full! Can't pick up more trash.");
             return false;
         }

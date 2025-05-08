@@ -58,6 +58,10 @@ public class QuestManager : MonoBehaviour
             return;
         }
 
+        //TODO: Add sound
+        GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
+        newToast.GetComponent<ToastNotificationItem>().SetToast("Well done! You completed " + quest.QuestTitle, " ");
+
         _currentQuests.Remove(quest);
         _completedQuests.Add(quest);
     }

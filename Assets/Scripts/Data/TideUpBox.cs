@@ -51,6 +51,9 @@ public class TideUpBox : Interactable
     {
         if (_boxInventory.Count == 0)
         {
+            //TODO: Add error sound
+            GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
+            newToast.GetComponent<ToastNotificationItem>().SetToast("There are no items to collect, wait until the next morning", " ");
             Debug.Log("There are no items to collect, wait until the next morning");
             return;
         }
@@ -59,6 +62,9 @@ public class TideUpBox : Interactable
 
         if (_boxInventory.Count > spaceLeft)
         {
+            //TODO: Add error sound
+            GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
+            newToast.GetComponent<ToastNotificationItem>().SetToast("Not enough space free in your inventory to collect all items", " ");
             Debug.Log("Not enough space free to collect all items");
             return;
         }

@@ -130,6 +130,7 @@ public abstract class Upgrade : ScriptableObject
             }
         }
 
+        //TODO: Add sound
         GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
         newToast.GetComponent<ToastNotificationItem>().SetToast("You upgraded your "+ type + " to level: " + upgradeLevel, " ");
 

@@ -49,6 +49,10 @@ public class RecipeManager : MonoBehaviour
                 {
                     knowRecipes.Add(recipe);
                     OnKnownRecipesChanged?.Invoke(true);
+
+                    //TODO: Add sound
+                    GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
+                    newToast.GetComponent<ToastNotificationItem>().SetToast("You unlucked a new recipe: " + recipe.questItem.title, " ");
                 }
                 return new QuestItemInstance(recipe.questItem, recipe.ingredients);
             }
