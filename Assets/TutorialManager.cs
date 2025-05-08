@@ -13,7 +13,6 @@ public enum TutorialState
     End
 }
 
-
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance;
@@ -39,9 +38,21 @@ public class TutorialManager : MonoBehaviour
     public bool A = false;
     public bool S = false;
     public bool D = false;
+    public bool E = false;
+
+    public bool itemsAreEnabled = false;
+
+    public GameObject uiTutorialParent;
+
+    public GameObject buttonA;
+    public GameObject buttonW;
+    public GameObject buttonS;
+    public GameObject buttonD;
+    public GameObject buttonE;
+
+    public GameObject tutorialDoor;
 
     public bool tutorialIntroEnded;
-
 
     private void OnEnable()
     {
@@ -68,12 +79,23 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         recycler.enabled = false;
+        engineer.GetComponent<NpcInteractable>().enabled = false;
         ToggleItems(false);
         StartCoroutine(FadeInWaitBG());
     }
 
     private void Update()
     {
+        if(state == TutorialState.ItemPickUp && engineer.CurrentQuest?.QuestState == QuestState.InProgress && !itemsAreEnabled)
+        {
+            ToggleItems(true);
+        }
+
+        if (!engineer.GetComponent<NpcInteractable>().enabled && GameStateManager.Instance.GetGameState() != GameStates.Dialogue && !AllButtonsDone())
+        {
+            CheckForInput();
+        }
+
         if (Input.GetKeyDown(KeyCode.E) && !tutorialIntroEnded)
         {
             ProceedDialogue();
@@ -81,13 +103,18 @@ public class TutorialManager : MonoBehaviour
             {
                 Debug.Log("notpossiblenexttime");
                 tutorialIntroEnded = true;
+                buttonA.SetActive(true);
+                buttonD.SetActive(true);
+                buttonW.SetActive(true);
+                buttonS.SetActive(true);
+                buttonE.SetActive(true);
             }
         }
+    }
 
-        if (!engineer.GetComponent<NpcInteractable>().enabled && GameStateManager.Instance.GetGameState() != GameStates.Dialogue)
-        {
-            CheckForInput();
-        }
+    private bool AllButtonsDone()
+    {
+        return A && W && S && D && E;
     }
 
     private void ProceedDialogue()
@@ -102,10 +129,17 @@ public class TutorialManager : MonoBehaviour
 
     private void ToggleItems(bool isEnabled)
     {
+        if(items == null)
+        {
+            return;
+        }
+
         foreach(ItemInteractable i in items)
         {
             i.enabled = isEnabled;
         }
+
+        itemsAreEnabled = isEnabled;
     }
 
     private void CheckForInput()
@@ -113,28 +147,36 @@ public class TutorialManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             W = true;
+            buttonW.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
             A = true;
+            buttonA.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             S = true;
+            buttonS.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
             D = true;
+            buttonD.SetActive(false);
         }
 
-        if(state == TutorialState.Intro && W && A && S && D)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            E = true;
+            buttonE.SetActive(false);
+        }
+
+        if (state == TutorialState.Intro && AllButtonsDone())
         {
             if (!InventoryManager.Instance.Items.Exists(t => t.ItemData.title == "Tutorial_Item"))
             {
-                QuestItemInstance questItem = DataUtil.Instance.GetTutorialItem();
-                InventoryManager.Instance.AddItem(questItem);
-                ToggleItems(true);
-                state = TutorialState.Crafting;
+                state = TutorialState.ItemPickUp;
+                engineer.GetComponent<NpcInteractable>().enabled = true;
             }
         }
     }
@@ -164,6 +206,11 @@ public class TutorialManager : MonoBehaviour
                 InventoryManager.Instance.AddItem(questItem);
                 state = TutorialState.End;
             }
+        }
+
+        if(!items.Exists(t => t.ItemData.title == "Tutorial_Item") && state == TutorialState.End)
+        {
+            tutorialDoor.SetActive(true);
         }
     }
 
@@ -195,5 +242,44 @@ public class TutorialManager : MonoBehaviour
             yield return null;
         }
         waitScreenParent.SetActive(false);
+    }
+
+    private IEnumerator FadeOutWaitBG()
+    {
+        GameStateManager.Instance.SetGameState(GameStates.Dialogue);
+
+        waitScreenParent.SetActive(true);
+
+        float elapsed = 0f;
+
+        Color colorBg = waitScreenBackground.color;
+
+        while (elapsed < fadeOutDuration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(0f, 1f, elapsed / fadeOutDuration);
+            colorBg.a = alpha;
+            waitScreenBackground.color = colorBg;
+            yield return null;
+        }
+
+        slider.gameObject.SetActive(true);
+        waitScreenLogo.gameObject.SetActive(true);
+
+        elapsed = 0f;
+
+        while (elapsed < loadingDuration)
+        {
+            elapsed += Time.deltaTime;
+            slider.maxValue = loadingDuration;
+            slider.value = elapsed;
+            yield return null;
+        }
+        LocationManager.Instance.TravelToScene(Scenes.TEMPLATE_4);
+    }
+
+    public void LeaveTutorial()
+    {
+        StartCoroutine(FadeOutWaitBG());
     }
 }

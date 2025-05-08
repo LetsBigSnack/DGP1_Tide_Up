@@ -24,7 +24,16 @@ public class UIDialogBoxHelper : MonoBehaviour
     {
         NpcDialogueManager.Instance.CurrentChoice = DialogueChoice.Accept;
         acceptButton.GetComponent<UIDialogBoxButton>().HandelHover(NpcDialogueManager.Instance.CurrentChoice);
-        declineButton.GetComponent<UIDialogBoxButton>().HandelHover(NpcDialogueManager.Instance.CurrentChoice);
+        if(TutorialManager.Instance == null)
+        {
+            declineButton.SetActive(true);
+            declineButton.GetComponent<UIDialogBoxButton>().HandelHover(NpcDialogueManager.Instance.CurrentChoice);
+        } 
+        else
+        {
+            declineButton.SetActive(false);
+        }
+
     }
 }
 

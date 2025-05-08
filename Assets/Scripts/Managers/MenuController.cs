@@ -57,19 +57,19 @@ public class MenuController : MonoBehaviour
         _menuInputs.UI.ToggleX.Disable();
         _menuInputs.UI.ToggleX.performed -= ToggleMenuItem;
 
-        _menuInputs.UI.Map.Enable();
+        _menuInputs.UI.Map.Disable();
         _menuInputs.UI.Map.performed -= ShowMap;
 
-        _menuInputs.UI.Friends.Enable();
+        _menuInputs.UI.Friends.Disable();
         _menuInputs.UI.Friends.performed -= ShowFriends;
 
-        _menuInputs.UI.Quests.Enable();
+        _menuInputs.UI.Quests.Disable();
         _menuInputs.UI.Quests.performed -= ShowQuests;
 
-        _menuInputs.UI.Calender.Enable();
+        _menuInputs.UI.Calender.Disable();
         _menuInputs.UI.Calender.performed -= ShowCalender;
 
-        _menuInputs.UI.Recipe.Enable();
+        _menuInputs.UI.Recipe.Disable();
         _menuInputs.UI.Recipe.performed -= ShowRecipes;
 
     }
@@ -186,7 +186,7 @@ public class MenuController : MonoBehaviour
         {
             CloseMenu(); // optionally pass null instead
         }
-        else if (currentState == GameStates.Dialogue)
+        else if (currentState == GameStates.Dialogue && TutorialManager.Instance == null)
         {
             NpcDialogueManager.Instance.ResetDialogue();
         }
