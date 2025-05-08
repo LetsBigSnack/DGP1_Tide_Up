@@ -55,7 +55,7 @@ public class InteractionManager : MonoBehaviour
         foreach (Collider hit in hits)
         {
             Interactable item = hit.GetComponentInParent<Interactable>();
-            if (item != null)
+            if (item != null && item.isActiveAndEnabled)
             {
                 interactables.Add(item);
                 float dist = Vector3.Distance(transform.position, item.transform.position);

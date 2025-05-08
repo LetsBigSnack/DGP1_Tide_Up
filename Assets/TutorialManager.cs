@@ -35,10 +35,12 @@ public class TutorialManager : MonoBehaviour
     public float fadeOutDuration;
     public float loadingDuration;
 
-    public bool W;
-    public bool A;
-    public bool S;
-    public bool D;
+    public bool W = false;
+    public bool A = false;
+    public bool S = false;
+    public bool D = false;
+
+    public bool tutorialIntroEnded;
 
 
     private void OnEnable()
@@ -65,24 +67,44 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        recycler.isEnabled = false;
+        recycler.enabled = false;
         ToggleItems(false);
         StartCoroutine(FadeInWaitBG());
     }
 
     private void Update()
     {
-        if(engineer.NpcState != NpcStates.Intro)
+        if (Input.GetKeyDown(KeyCode.E) && !tutorialIntroEnded)
+        {
+            ProceedDialogue();
+            if(engineer.NpcState != NpcStates.Intro)
+            {
+                Debug.Log("notpossiblenexttime");
+                tutorialIntroEnded = true;
+            }
+        }
+
+        if (!engineer.GetComponent<NpcInteractable>().enabled && GameStateManager.Instance.GetGameState() != GameStates.Dialogue)
         {
             CheckForInput();
         }
+    }
+
+    private void ProceedDialogue()
+    {
+        if(engineer.NpcState == NpcStates.Quest)
+        {
+            NpcDialogueManager.Instance.EndDialogue();
+        }
+        NpcDialogueManager.Instance.StartDialogue(engineer);
+        NpcDialogueManager.Instance.InteractDialogue();
     }
 
     private void ToggleItems(bool isEnabled)
     {
         foreach(ItemInteractable i in items)
         {
-            i.IsInteractable = isEnabled;
+            i.enabled = isEnabled;
         }
     }
 
@@ -131,7 +153,7 @@ public class TutorialManager : MonoBehaviour
 
         if(!items.Exists(t => t.ItemData.title == "Tutorial_Item") && state == TutorialState.Crafting)
         {
-            recycler.isEnabled = true;
+            recycler.enabled = true;
         }
 
         if(items.Exists(t => t.ItemData.title == "Shovel") && state == TutorialState.Crafting)
@@ -147,6 +169,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator FadeInWaitBG()
     {
+        GameStateManager.Instance.SetGameState(GameStates.Dialogue);
         float elapsed = 0f;
         while (elapsed < loadingDuration)
         {
@@ -161,6 +184,7 @@ public class TutorialManager : MonoBehaviour
         elapsed = 0f;
 
         Color colorBg = waitScreenBackground.color;
+        ProceedDialogue();
 
         while (elapsed < fadeOutDuration)
         {

@@ -202,6 +202,7 @@ public class NpcDialogueManager : MonoBehaviour
                 if (_currentNpc.CurrentDialogue.IsDialogueFinished)
                 {
                     _currentNpc.CreateQuest();
+                    CloseDialogue();
                 }
                 break;
             case NpcStates.Quest:
