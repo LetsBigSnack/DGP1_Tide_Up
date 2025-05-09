@@ -76,6 +76,10 @@ public class UI_ToastManager : MonoBehaviour
         switch (type)
         {
             case ToastType.Item:
+                if(title == "Tutorial_Item")
+                {
+                    break;
+                }
                 newToast = CreateToast(itemToastPrefab, itemToastParent);
                 newToast.GetComponent<ToastNotificationItem>().SetToast(titleText:title, sprite:sprite);
                 break;

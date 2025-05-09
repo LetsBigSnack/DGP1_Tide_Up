@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public enum TutorialState
 {
@@ -21,18 +22,9 @@ public class TutorialManager : MonoBehaviour
 
     public Npc engineer;
 
-    public GameObject waitScreenParent;
-    public Image waitScreenBackground;
-    public Image waitScreenLogo;
-    public GameObject waitScreenContent;
-    public Slider slider;
-
     public List<ItemInteractable> items = new List<ItemInteractable>();
 
     public Recycler recycler;
-
-    public float fadeOutDuration;
-    public float loadingDuration;
 
     public bool W = false;
     public bool A = false;
@@ -52,6 +44,8 @@ public class TutorialManager : MonoBehaviour
     public GameObject tutorialDoor;
 
     public bool tutorialIntroEnded;
+
+    public Scenes scene;
 
     private void OnEnable()
     {
@@ -80,8 +74,8 @@ public class TutorialManager : MonoBehaviour
         recycler.enabled = false;
         engineer.GetComponent<NpcInteractable>().enabled = false;
         ToggleItems(false);
-        StartCoroutine(FadeInWaitBG());
-        buttonE.SetActive(true);
+
+        StartCoroutine(StartTutorial());
     }
 
     private void Update()
@@ -110,6 +104,14 @@ public class TutorialManager : MonoBehaviour
                 buttonS.SetActive(true);
             }
         }
+    }
+
+    private IEnumerator StartTutorial()
+    {
+        GameStateManager.Instance.SetGameState(GameStates.Dialogue);
+        yield return UIFadeScreenHelper.Instance.EndTransition();
+        buttonE.SetActive(true);
+        ProceedDialogue();
     }
 
     private bool AllButtonsDone()
@@ -208,72 +210,8 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeInWaitBG()
-    {
-        GameStateManager.Instance.SetGameState(GameStates.Dialogue);
-        float elapsed = 0f;
-        while (elapsed < loadingDuration)
-        {
-            elapsed += Time.deltaTime;
-            slider.maxValue = loadingDuration;
-            slider.value = elapsed;
-            yield return null;
-        }
-        slider.gameObject.SetActive(false);
-        waitScreenLogo.gameObject.SetActive(false);
-
-        elapsed = 0f;
-
-        Color colorBg = waitScreenBackground.color;
-        ProceedDialogue();
-
-        while (elapsed < fadeOutDuration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeOutDuration);
-            colorBg.a = alpha;
-            waitScreenBackground.color = colorBg;
-            yield return null;
-        }
-        waitScreenParent.SetActive(false);
-    }
-
-    private IEnumerator FadeOutWaitBG()
-    {
-        GameStateManager.Instance.SetGameState(GameStates.Dialogue);
-
-        waitScreenParent.SetActive(true);
-
-        float elapsed = 0f;
-
-        Color colorBg = waitScreenBackground.color;
-
-        while (elapsed < fadeOutDuration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, 1f, elapsed / fadeOutDuration);
-            colorBg.a = alpha;
-            waitScreenBackground.color = colorBg;
-            yield return null;
-        }
-
-        slider.gameObject.SetActive(true);
-        waitScreenLogo.gameObject.SetActive(true);
-
-        elapsed = 0f;
-
-        while (elapsed < loadingDuration)
-        {
-            elapsed += Time.deltaTime;
-            slider.maxValue = loadingDuration;
-            slider.value = elapsed;
-            yield return null;
-        }
-        LocationManager.Instance.TravelToScene(Scenes.TEMPLATE_4);
-    }
-
     public void LeaveTutorial()
     {
-        StartCoroutine(FadeOutWaitBG());
+        LocationManager.Instance.TravelToScene(scene);
     }
 }

@@ -98,6 +98,8 @@ public class SceneChangeManager : MonoBehaviour
         {
             Debug.Log("SceneChangeManager detected scene loaded.");
             sceneFullyLoaded = true;
+            UIFadeScreenHelper.Instance.EndTransition();
+
             //TOOD: talk with lucas about fix 
             isSceneChanging = false;
         }
@@ -108,4 +110,5 @@ public class SceneChangeManager : MonoBehaviour
         Debug.Log("Exiting application.");
         Application.Quit();
     }
+
 }

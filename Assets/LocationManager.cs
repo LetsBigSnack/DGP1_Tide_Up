@@ -45,7 +45,7 @@ public class LocationManager : MonoBehaviour
     {
  
         GameStateManager.Instance.SetGameState(GameStates.SceneTransition);
-        yield return new WaitForSeconds(transitionWaitTime);
+        yield return UIFadeScreenHelper.Instance.StartTransition();
 
         // TODO: Play scene transition animation here
         Debug.Log("Play transition animation here.");

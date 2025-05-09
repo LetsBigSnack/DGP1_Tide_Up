@@ -12,10 +12,10 @@ public class TideUpBoxManager : MonoBehaviour
 
     [SerializeField] private float timeToAddItems = 6f;
 
-    private int _lastDayUpdate = 1;
+    public int _lastDayUpdate = 1;
 
-    private bool _hasAddedItemsToday = false;
-    private bool _waitingForDependencies = false;
+    public bool _hasAddedItemsToday = false;
+    public bool _waitingForDependencies = false;
 
     public static TideUpBoxManager Instance;
 
@@ -50,7 +50,6 @@ public class TideUpBoxManager : MonoBehaviour
         if (currentTime >= timeToAddItems && !_hasAddedItemsToday)
         {
             AddDailyItems();
-            _hasAddedItemsToday = true;
         }
     }
 
@@ -81,7 +80,8 @@ public class TideUpBoxManager : MonoBehaviour
         {
             if (box == null)
             {
-                continue;
+                _hasAddedItemsToday = false;
+                return;
             }
             int spaceLeft = box.MaxTotalTrash - box.BoxInventory.Count;
             if (spaceLeft <= 0)
@@ -100,6 +100,7 @@ public class TideUpBoxManager : MonoBehaviour
                 Debug.Log("Added " + randomTrash + " to the Tide-Up-Box");
             }
 
+            _hasAddedItemsToday = true;
             Debug.Log("Tide-Up-Box currently has: " + box.BoxInventory.Count + " items");
         }
     }
