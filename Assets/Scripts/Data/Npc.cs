@@ -58,8 +58,9 @@ public class Npc : MonoBehaviour
 
     [Header("Npc Island")]
     [SerializeField] private int islandID;
-    
-    
+
+    public static event Action<int, Npc> OnCompletedQuests;
+
     public NpcStates NpcState
     {
         get => npcState;
@@ -245,6 +246,8 @@ public class Npc : MonoBehaviour
                 npcAwareness = NpcAwareness.High;
                 break;
         }
+
+        OnCompletedQuests?.Invoke(completedQuests, this);
     }
 
     public bool HasMaxQuests()

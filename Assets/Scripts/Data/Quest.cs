@@ -26,12 +26,20 @@ public class Quest
     private string _questTitle;
     private string _questLocation;
 
+    public static event Action<QuestState, string> OnQuestStateChanged;
 
     public string QuestNpc
     {
         get { return _questNpc; }
         set { _questNpc = value; }
     }
+
+    public QuestItemInstance QuestItem
+    {
+        get { return _questItem; }
+        set { _questItem = value; }
+    }
+
 
     public QuestState QuestState
     {
@@ -60,6 +68,7 @@ public class Quest
         _questTitle = npcName + "'s quest";
         _questLocation = location;
         _questState = QuestState.Offer;
+        OnQuestStateChanged?.Invoke(_questState, _questNpc);
         
         _dialogues.Add(QuestState.Offer, questDialogue);
         _dialogues.Add(QuestState.Completed, completedDialogue);
@@ -151,6 +160,7 @@ public class Quest
         if (CanQuestComplete())
         {
             _questState = QuestState.Completed;
+            OnQuestStateChanged?.Invoke(QuestState.Completed, _questNpc);
         }
         
         string returnText = "";
@@ -197,6 +207,7 @@ public class Quest
     public void AcceptQuest()
     {
         _questState = QuestState.InProgress;
+        OnQuestStateChanged?.Invoke(QuestState.InProgress, _questNpc);
         Npc npc = NpcManager.Instance.GetNpcByName(_questNpc);
         _dialogues[QuestState.InProgress] = DialogueManager.Instance.GetRandomProgressDialogue(npc.NpcPersonality,npc.NpcAwareness);
         _hasQuestAccepted = true;
