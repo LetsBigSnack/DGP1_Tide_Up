@@ -85,7 +85,7 @@ public class TutorialManager : MonoBehaviour
             ToggleItems(true);
         }
 
-        if (!engineer.GetComponent<NpcInteractable>().enabled && GameStateManager.Instance.GetGameState() != GameStates.Dialogue && !AllButtonsDone())
+        if (!engineer.GetComponent<NpcInteractable>().isActiveAndEnabled && GameStateManager.Instance.GetGameState() != GameStates.Dialogue && !AllButtonsDone())
         {
             CheckForInput();
         }
@@ -212,6 +212,10 @@ public class TutorialManager : MonoBehaviour
 
     public void LeaveTutorial()
     {
+        QuestManager.Instance.CurrentQuests = new List<Quest>();
+        QuestManager.Instance.CompletedQuests = new List<Quest>();
+        UIFriendBookController.Instance.ClearEntries();
+
         LocationManager.Instance.TravelToScene(scene);
     }
 }
