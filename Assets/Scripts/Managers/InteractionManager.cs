@@ -39,10 +39,15 @@ public class InteractionManager : MonoBehaviour
 
         GetInteractablesInRadius();
 
-        if (currentInteractable != null)
+        if (currentInteractable != null && GameStateManager.Instance.GetGameState() != GameStates.Dialogue)
         {
             currentInteractable?.ShowInteractability(true);
             OnInteractionChanged?.Invoke(true, currentInteractable.Type, currentInteractable.gameObject);
+        }
+        else
+        {
+            currentInteractable?.ShowInteractability(false);
+            OnInteractionChanged?.Invoke(false, null, null);
         }
     }
 

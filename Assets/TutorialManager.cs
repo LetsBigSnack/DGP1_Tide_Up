@@ -38,7 +38,6 @@ public class TutorialManager : MonoBehaviour
     public bool A = false;
     public bool S = false;
     public bool D = false;
-    public bool E = false;
 
     public bool itemsAreEnabled = false;
 
@@ -82,6 +81,7 @@ public class TutorialManager : MonoBehaviour
         engineer.GetComponent<NpcInteractable>().enabled = false;
         ToggleItems(false);
         StartCoroutine(FadeInWaitBG());
+        buttonE.SetActive(true);
     }
 
     private void Update()
@@ -99,7 +99,8 @@ public class TutorialManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && !tutorialIntroEnded)
         {
             ProceedDialogue();
-            if(engineer.NpcState != NpcStates.Intro)
+            buttonE.SetActive(false);
+            if (engineer.NpcState != NpcStates.Intro)
             {
                 Debug.Log("notpossiblenexttime");
                 tutorialIntroEnded = true;
@@ -107,14 +108,13 @@ public class TutorialManager : MonoBehaviour
                 buttonD.SetActive(true);
                 buttonW.SetActive(true);
                 buttonS.SetActive(true);
-                buttonE.SetActive(true);
             }
         }
     }
 
     private bool AllButtonsDone()
     {
-        return A && W && S && D && E;
+        return A && W && S && D;
     }
 
     private void ProceedDialogue()
@@ -165,12 +165,6 @@ public class TutorialManager : MonoBehaviour
             buttonD.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            E = true;
-            buttonE.SetActive(false);
-        }
-
         if (state == TutorialState.Intro && AllButtonsDone())
         {
             if (!InventoryManager.Instance.Items.Exists(t => t.ItemData.title == "Tutorial_Item"))
@@ -193,7 +187,7 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if(!items.Exists(t => t.ItemData.title == "Tutorial_Item") && state == TutorialState.Crafting)
+        if(!items.Exists(t => t.ItemData.title == "Tutorial_Item") && state == TutorialState.Crafting && engineer.CurrentQuest.QuestState == QuestState.InProgress)
         {
             recycler.enabled = true;
         }

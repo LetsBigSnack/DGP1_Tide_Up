@@ -28,6 +28,5 @@ public class UIInteractIndicator : MonoBehaviour
         text.text = interactRepresentation.Text;
         image.sprite = interactRepresentation.Sprite;
         transform.position = topPosition + Vector3.up * (interactRepresentation.Padding);
-    }
-    
+    }    
 }
