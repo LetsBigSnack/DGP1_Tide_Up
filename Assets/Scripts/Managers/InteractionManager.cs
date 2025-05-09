@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractionManager : MonoBehaviour
 {
     [SerializeField] private float interactionRadius = 4.0f;
+    private float _wiggleRoom = 2f;
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private Interactable currentInteractable;
     
@@ -68,7 +69,6 @@ public class InteractionManager : MonoBehaviour
                 {
                     closestDistance = dist;
                     currentInteractable = item;
-                    
                 }
             }
         }
@@ -90,7 +90,7 @@ public class InteractionManager : MonoBehaviour
         }
         
         float dist = Vector3.Distance(transform.position, currentInteractable.transform.position);
-        if (dist > interactionRadius)
+        if (dist > interactionRadius + _wiggleRoom)
         {
             currentInteractable?.ShowInteractability(false);
             OnInteractionChanged?.Invoke(false, null, null);

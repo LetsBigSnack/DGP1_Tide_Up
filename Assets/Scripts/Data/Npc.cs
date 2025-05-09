@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
 
-
 public enum NpcStates
 {
     Intro,
@@ -30,234 +29,211 @@ public enum NpcAwareness
 
 public class Npc : MonoBehaviour
 {
-    [Header("Current State")]
-    [SerializeField] private NpcStates npcState = NpcStates.Intro;
-
-    [Header("Npc Attributes")]
-    [SerializeField] private NpcPersonalities npcPersonality;
     [SerializeField] private string npcName;
-    [SerializeField] private string title;
-    [SerializeField] private string homeDetails;
-    [SerializeField] private string vibe;
-    [SerializeField] private string birthday;
-    [SerializeField] private int birthDay;
-    [SerializeField] private Seasons birthSeason;
-    [SerializeField] private string mbti;
-    [SerializeField] private string description;
-    [SerializeField] private string favColour;
-    [SerializeField] private Color favColourCode;
-    [SerializeField] private string favFood;
-    [SerializeField] private string favAnimal;
-    [SerializeField] private string favThing;
-    [SerializeField] private Sprite portrait;
-
-    [Header("Npc Awareness")]
-    [SerializeField] private NpcAwareness npcAwareness = NpcAwareness.Low;
-    [SerializeField] private int completedQuests = 0;
-    [SerializeField] private int maxCompletedQuests = 6;
-
-    [Header("Npc Island")]
-    [SerializeField] private int islandID;
+    [SerializeField] private NpcData data;
 
     public static event Action<int, Npc> OnCompletedQuests;
 
+    public NpcData NpcData
+    {
+        get => data;
+        set => data = value;
+    }
+
     public NpcStates NpcState
     {
-        get => npcState;
-        set => npcState = value;
+        get => data.NpcState;
+        set => data.NpcState = value;
     }
 
     public NpcPersonalities NpcPersonality
     {
-        get => npcPersonality;
-        set => npcPersonality = value;
+        get => data.NpcPersonality;
+        set => data.NpcPersonality = value;
     }
     public string NpcName
     {
-        get => npcName;
-        set => npcName = value;
+        get => data.NpcName;
+        set => data.NpcName = value;
     }
 
     public string Title
     {
-        get => title;
-        set => title = value;
+        get => data.Title;
+        set => data.Title = value;
     }
 
     public string HomeDetails
     {
-        get => homeDetails;
-        set => homeDetails = value;
+        get => data.HomeDetails;
+        set => data.HomeDetails = value;
     }
 
     public string Vibe
     {
-        get => vibe;
-        set => vibe = value;
+        get => data.Vibe;
+        set => data.Vibe = value;
     }
 
     public string Birthday
     {
-        get => birthday;
-        set => birthday = value;
+        get => data.Birthday;
+        set => data.Birthday = value;
     }
     public int BirthDay
     {
-        get => birthDay;
-        set => birthDay = value;
+        get => data.BirthDay;
+        set => data.BirthDay = value;
     }
     public Seasons BirthSeason
     {
-        get => birthSeason;
-        set => birthSeason = value;
+        get => data.BirthSeason;
+        set => data.BirthSeason = value;
     }
 
     public string Mbti
     {
-        get => mbti;
-        set => mbti = value;
+        get => data.Mbti;
+        set => data.Mbti = value;
     }
 
     public string Description
     {
-        get => description;
-        set => description = value;
+        get => data.Description;
+        set => data.Description = value;
     }
 
     public string FavColour
     {
-        get => favColour;
-        set => favColour = value;
+        get => data.FavColour;
+        set => data.FavColour = value;
     }
     public Color FavColourCode
     {
-        get => favColourCode;
-        set => favColourCode = value;
+        get => data.FavColourCode;
+        set => data.FavColourCode = value;
     }
 
     public string FavFood
     {
-        get => favFood;
-        set => favFood = value;
+        get => data.FavFood;
+        set => data.FavFood = value;
     }
 
     public string FavAnimal
     {
-        get => favAnimal;
-        set => favAnimal = value;
+        get => data.FavAnimal;
+        set => data.FavAnimal = value;
     }
 
     public string FavThing
     {
-        get => favThing;
-        set => favThing = value;
+        get => data.FavThing;
+        set => data.FavThing = value;
     }
 
     public Sprite Portrait
     {
-        get => portrait;
-        set => portrait = value;
+        get => data.Portrait;
+        set => data.Portrait = value;
     }
 
     public NpcAwareness NpcAwareness
     {
-        get => npcAwareness;
-        set => npcAwareness = value;
+        get => data.NpcAwareness;
+        set => data.NpcAwareness = value;
     }
 
     public int CompletedQuests
     {
-        get => completedQuests;
-        set => completedQuests = value;
+        get => data.CompletedQuests;
+        set => data.CompletedQuests = value;
     }
 
     public int MaxCompletedQuests
     {
-        get => maxCompletedQuests;
-        set => maxCompletedQuests = value;
-    }
-
-    public Dialogue CurrentDialogue
-    {
-        get => _currentDialogue;
-        set => _currentDialogue = value;
-    }
-    
-    public Dialogue FinishedDialogue
-    {
-        get => _finishedDialogue;
-        set => _finishedDialogue = value;
-    }
-
-    public Quest CurrentQuest
-    {
-        get => _currentQuest;
-        set => _currentQuest = value;
+        get => data.MaxCompletedQuests;
+        set => data.MaxCompletedQuests = value;
     }
 
     public int IslandID
     {
-        get => islandID;
-        set => islandID = value;
+        get => data.IslandID;
+        set => data.IslandID = value;
     }
 
-    private Dialogue _currentDialogue;
-    private Dialogue _finishedDialogue;
-    private Quest _currentQuest;
-    
-    
+    public Dialogue CurrentDialogue
+    {
+        get => data.CurrentDialogue;
+        set => data.CurrentDialogue = value;
+    }
+
+    public Dialogue FinishedDialogue
+    {
+        get => data.FinishedDialogue;
+        set => data.FinishedDialogue = value;
+    }
+
+    public Quest CurrentQuest
+    {
+        get => data.CurrentQuest;
+        set => data.CurrentQuest = value;
+    }
+
+
     void Start()
     {
-        _currentDialogue = DialogueManager.Instance.GetIntro(npcName);
-        _currentQuest = QuestManager.Instance.GetQuestByName(npcName);
-        if (_currentQuest != null)
+        data = NpcManager.Instance.GetNpcDataByName(npcName);
+        data.CurrentDialogue = DialogueManager.Instance.GetIntro(data.NpcName);
+        data.CurrentQuest = QuestManager.Instance.GetQuestByName(data.NpcName);
+        if (data.CurrentQuest != null)
         {
-            _currentQuest.QuestNpc = npcName;
+            data.CurrentQuest.QuestNpc = data.NpcName;
         }
     }
 
     public void CreateQuest()
     {
-        npcState = NpcStates.Quest;
+        data.NpcState = NpcStates.Quest;
         InitializeQuest();
     }
     
     public void AddCompletedQuest()
     {
-        if(npcPersonality == NpcPersonalities.Tutorial)
+        if(data.NpcPersonality == NpcPersonalities.Tutorial)
         {
-            completedQuests++;
+            data.CompletedQuests++;
         }
-        completedQuests++;
+        data.CompletedQuests++;
         EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.Quest);
     }
     
     public void UpdateAwarness()
     {
-        switch (completedQuests)
+        switch (data.CompletedQuests)
         {
             case <= 2:
-                npcAwareness = NpcAwareness.Low;
+                data.NpcAwareness = NpcAwareness.Low;
                 break;
             case <= 4:
-                npcAwareness = NpcAwareness.Medium;
+                data.NpcAwareness = NpcAwareness.Medium;
                 break;
             case <= 6:
-                npcAwareness = NpcAwareness.High;
+                data.NpcAwareness = NpcAwareness.High;
                 break;
         }
 
-        OnCompletedQuests?.Invoke(completedQuests, this);
+        OnCompletedQuests?.Invoke(data.CompletedQuests, this);
     }
 
     public bool HasMaxQuests()
     {
-        bool hasMaxQuests = completedQuests >= maxCompletedQuests;
+        bool hasMaxQuests = data.CompletedQuests >= data.MaxCompletedQuests;
 
         if (hasMaxQuests)
         {
-            npcState = NpcStates.Finished;
-            _finishedDialogue = DialogueManager.Instance.GetFinishedDialogByName(npcName);
+            data.NpcState = NpcStates.Finished;
+            data.FinishedDialogue = DialogueManager.Instance.GetFinishedDialogByName(data.NpcName);
         }
         
         return hasMaxQuests;
@@ -270,12 +246,12 @@ public class Npc : MonoBehaviour
 
     private void InitializeQuest()
     {
-        _currentQuest = QuestManager.Instance.CreateQuest(npcAwareness, npcPersonality, npcName, homeDetails);
-        _currentQuest.QuestNpc = this.npcName;
+        data.CurrentQuest = QuestManager.Instance.CreateQuest(data.NpcAwareness, data.NpcPersonality, data.NpcName, data.HomeDetails);
+        data.CurrentQuest.QuestNpc = this.data.NpcName;
     }
 
     public void AssignIsland(int islandID)
     {
-        this.islandID = islandID;
+        this.data.IslandID = islandID;
     }
 }

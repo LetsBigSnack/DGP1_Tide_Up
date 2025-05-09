@@ -1,3 +1,4 @@
+using Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +39,7 @@ public class UIFriendBookDescriptionHelper : MonoBehaviour
         }
     }
 
-    public void Setup(Npc npc)
+    public void Setup(NpcData npc)
     {
         this.portrait.sprite = npc.Portrait;
         this.npcName.text = npc.NpcName;
@@ -72,7 +73,7 @@ public class UIFriendBookDescriptionHelper : MonoBehaviour
         }
     }
 
-    public void SetupSlider(Npc npc)
+    public void SetupSlider(NpcData npc)
     {
         awarenessSlider.maxValue = npc.MaxCompletedQuests;
         awarenessSlider.value = npc.CompletedQuests;

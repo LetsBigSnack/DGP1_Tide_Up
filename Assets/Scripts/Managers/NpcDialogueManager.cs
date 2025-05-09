@@ -203,12 +203,8 @@ public class NpcDialogueManager : MonoBehaviour
                 {
                     CloseDialogue();
                     _currentNpc.CreateQuest();
-
                     //TODO: Add sound
-                    if(TutorialManager.Instance == null)
-                    {
-                        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "New friendbook entry! " + _currentNpc.NpcName + " got added to your friendbook");
-                    }
+                    UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "New friendbook entry! " + _currentNpc.NpcName + " got added to your friendbook");
                 }
                 break;
             case NpcStates.Quest:

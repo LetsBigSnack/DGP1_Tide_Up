@@ -212,10 +212,6 @@ public class TutorialManager : MonoBehaviour
 
     public void LeaveTutorial()
     {
-        QuestManager.Instance.CurrentQuests = new List<Quest>();
-        QuestManager.Instance.CompletedQuests = new List<Quest>();
-        UIFriendBookController.Instance.ClearEntries();
-
         LocationManager.Instance.TravelToScene(scene);
     }
 }

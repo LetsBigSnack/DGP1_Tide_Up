@@ -1,3 +1,4 @@
+using Data;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
@@ -22,7 +23,7 @@ public class UICalendarDescriptionHelper : MonoBehaviour
     [SerializeField] private GameObject noteItemContainer;
 
     private int _lastUpdatedDay = 0;
-    private List<Npc> _birthdays = new();
+    private List<NpcData> _birthdays = new();
 
     public static UICalendarDescriptionHelper Instance;
     private void Awake()
@@ -62,9 +63,9 @@ public class UICalendarDescriptionHelper : MonoBehaviour
         weekdayDaynumber.text = DisplayNoteDate(TimeManager.Instance.GetWeekDay(), TimeManager.Instance.CurrentDay);
         ClearEventContainer();
 
-        List<Npc> allNpcs = NpcManager.Instance.GetNpcs();
+        List<NpcData> allNpcs = NpcManager.Instance.GetNpcs();
 
-        foreach (Npc npc in allNpcs)
+        foreach (NpcData npc in allNpcs)
         {
             if (npc.BirthSeason == TimeManager.Instance.GetCurrentSeason() &&
                 npc.BirthDay == TimeManager.Instance.CurrentDay)
@@ -97,7 +98,7 @@ public class UICalendarDescriptionHelper : MonoBehaviour
         yearNumber.text = TimeManager.Instance.CurrentYear.ToString();
     }
 
-    public void Setup(string weekDay, int dayNumber, List<Npc> birthdays)
+    public void Setup(string weekDay, int dayNumber, List<NpcData> birthdays)
     {
         weekdayDaynumber.text = DisplayNoteDate(weekDay, dayNumber);
 

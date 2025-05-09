@@ -208,7 +208,7 @@ public class Quest
     {
         _questState = QuestState.InProgress;
         OnQuestStateChanged?.Invoke(QuestState.InProgress, _questNpc);
-        Npc npc = NpcManager.Instance.GetNpcByName(_questNpc);
+        NpcData npc = NpcManager.Instance.GetNpcByName(_questNpc);
         _dialogues[QuestState.InProgress] = DialogueManager.Instance.GetRandomProgressDialogue(npc.NpcPersonality,npc.NpcAwareness);
         _hasQuestAccepted = true;
 
