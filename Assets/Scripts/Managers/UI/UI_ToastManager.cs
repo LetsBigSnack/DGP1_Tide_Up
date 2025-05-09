@@ -43,39 +43,6 @@ public class UI_ToastManager : MonoBehaviour
     [SerializeField] private List<GameObject> awarenessToastList;
     private Dictionary<ToastType, List<GameObject>> _toastLists = new Dictionary<ToastType, List<GameObject>>();
 
-    public GameObject ItemToastPrefab
-    {
-        get { return itemToastPrefab; }
-    }
-    public Transform ItemToastParent
-    {
-        get { return itemToastParent; }
-    }
-    public GameObject EnvironmentToastPrefab
-    {
-        get { return environmentToastPrefab; }
-    }
-    public Transform EnvironmentToastParent
-    {
-        get { return environmentToastParent; }
-    }
-    public GameObject ImportantToastPrefab
-    {
-        get { return importantToastPrefab; }
-    }
-    public Transform ImportantToastParent
-    {
-        get { return importantToastParent; }
-    }
-    public GameObject AwarenessToastPrefab
-    {
-        get { return awarenessToastPrefab; }
-    }
-    public Transform AwarenessToastParent
-    {
-        get { return awarenessToastParent; }
-    }
-
     private void Awake()
     {
         if(Instance == null)
@@ -114,11 +81,11 @@ public class UI_ToastManager : MonoBehaviour
                 break;
             case ToastType.Environment:
                 newToast = CreateToast(environmentToastPrefab, environmentToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(title);
+                newToast.GetComponent<ToastNotificationItem>().SetToast(title, description);
                 break;
             case ToastType.Important:
                 newToast = CreateToast(importantToastPrefab, importantToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(title, description);
+                newToast.GetComponent<ToastNotificationItem>().SetToast(title);
                 break;
             case ToastType.Awareness:
                 newToast = CreateToast(awarenessToastPrefab, awarenessToastParent);

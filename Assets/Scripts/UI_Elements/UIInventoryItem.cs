@@ -36,8 +36,7 @@ public class UIInventoryItem : MonoBehaviour
         if (curJournalState == JournalType.Inventory && curReUpcyclerState == ReUpcyclerType.Upcycler && curShopState == ShopType.Closed)
         {
             //TODO: Add error sound
-            GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
-            newToast.GetComponent<ToastNotificationItem>().SetToast("Try doing that in the Recycler in the other tab", " ");
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Try doing that in the Recycler in the other tab");
         }
 
         if (curJournalState == JournalType.Inventory &&

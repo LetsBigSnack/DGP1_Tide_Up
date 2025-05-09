@@ -75,8 +75,7 @@ public class InventoryManager : MonoBehaviour
         if (_items.Count >= maxItems)
         {
             //TODO: Add error sound
-            GameObject newErrorToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
-            newErrorToast.GetComponent<ToastNotificationItem>().SetToast("Your inventory is full!", " ");
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Your inventory is full!");
             
             Debug.Log("Inventory full! Can't pick up more trash.");
             return false;
@@ -85,8 +84,8 @@ public class InventoryManager : MonoBehaviour
         _items.Add(item);
         OnInventoryChanged?.Invoke(_items);
 
-        GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ItemToastPrefab, UI_ToastManager.Instance.ItemToastParent);
-        newToast.GetComponent<ToastNotificationItem>().SetToast(titleText: item.ItemData.title, sprite: item.ItemData.sprite);
+        //TODO: Add sound
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Item, item.ItemData.title, sprite: item.ItemData.sprite);
         
         Debug.Log("Picked up: " + item.ItemData.name);
         return true;
@@ -163,8 +162,7 @@ public class InventoryManager : MonoBehaviour
         Debug.Log($"+ {amount}x {materialType}");
 
         //TODO: Add sound
-        GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ItemToastPrefab, UI_ToastManager.Instance.ItemToastParent);
-        newToast.GetComponent<ToastNotificationItem>().SetToast(titleText: entry.TrashMaterialData.name, sprite: entry.TrashMaterialData.sprite);
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Item, entry.TrashMaterialData.name, sprite: entry.TrashMaterialData.sprite);
         return true;
     }
 

@@ -204,8 +204,7 @@ public class NpcDialogueManager : MonoBehaviour
                     _currentNpc.CreateQuest();
 
                     //TODO: Add sound
-                    GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
-                    newToast.GetComponent<ToastNotificationItem>().SetToast("New friendbook entry! " + _currentNpc.NpcName + " got added to your friendbook", " ");
+                    UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "New friendbook entry! " + _currentNpc.NpcName + " got added to your friendbook");
                     CloseDialogue();
                 }
                 break;

@@ -51,8 +51,7 @@ public class RecipeManager : MonoBehaviour
                     OnKnownRecipesChanged?.Invoke(true);
 
                     //TODO: Add sound
-                    GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
-                    newToast.GetComponent<ToastNotificationItem>().SetToast("You unlocked a new recipe: " + recipe.questItem.title, " ");
+                    UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "You unlocked a new recipe: " + recipe.questItem.title);
                 }
                 return new QuestItemInstance(recipe.questItem, recipe.ingredients);
             }

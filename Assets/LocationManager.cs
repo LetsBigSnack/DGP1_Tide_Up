@@ -78,8 +78,7 @@ public class LocationManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
         //TODO: Add sound
-        GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.EnvironmentToastPrefab, UI_ToastManager.Instance.EnvironmentToastParent);
-        newToast.GetComponent<ToastNotificationItem>().SetToast("Welcome to:", EnvironmentManager.Instance.CurrentIsland.IslandName);
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Environment, "Welcome to:", EnvironmentManager.Instance?.CurrentIsland.IslandName);
     }
 
     private void TeleportPlayer(Transform targetPosition)
