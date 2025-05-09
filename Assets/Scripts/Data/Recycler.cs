@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Recycler : Interactable
 {
-
     private bool _isInteractable = false;
 
     public override InteractableType Type => InteractableType.Recycler;
     public override void Interact()
     {
-        UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Recycler);
+         UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Recycler);
     }
 
     public override void ShowInteractability(bool show)
     {
-        _isInteractable = show;
+         _isInteractable = show;
     }
 
     private void OnDrawGizmos()

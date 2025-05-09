@@ -7,17 +7,17 @@ public class ItemInteractable : Interactable
     
     [SerializeField] private TrashData trashData;
     [SerializeField] private bool highlight;
-
     public override InteractableType Type => InteractableType.Pickup;
 
     public override void Interact()
     {
-        Debug.Log("Interact");
+
         if (InventoryManager.Instance.AddItem(new TrashItemInstance(trashData, false)))
         {
             EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
             Destroy(gameObject);
         }
+
     }
 
     public override void ShowInteractability(bool show)

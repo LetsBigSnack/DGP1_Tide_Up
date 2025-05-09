@@ -127,10 +127,6 @@ public class GameStateManager : MonoBehaviour
         {
             _targetTransform = Boat.Instance.transform;
             _lastPlayingState = GameStates.PlayingBoat;
-        }
-        
-        
+        }   
     }
-
-    
 }
