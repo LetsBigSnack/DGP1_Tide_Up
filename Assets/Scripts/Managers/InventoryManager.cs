@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Data;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -160,6 +161,10 @@ public class InventoryManager : MonoBehaviour
 
         OnTrashMaterialChanged?.Invoke(_materialWallet);
         Debug.Log($"+ {amount}x {materialType}");
+
+        //TODO: Add sound
+        GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ItemToastPrefab, UI_ToastManager.Instance.ItemToastParent);
+        newToast.GetComponent<ToastNotificationItem>().SetToast(titleText: entry.TrashMaterialData.name, sprite: entry.TrashMaterialData.sprite);
         return true;
     }
 

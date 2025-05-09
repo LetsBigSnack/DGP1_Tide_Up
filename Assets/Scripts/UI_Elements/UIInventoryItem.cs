@@ -37,7 +37,7 @@ public class UIInventoryItem : MonoBehaviour
         {
             //TODO: Add error sound
             GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ImportantToastPrefab, UI_ToastManager.Instance.ImportantToastParent);
-            newToast.GetComponent<ToastNotificationItem>().SetToast("Try doing that in the Upcycler on the other tab", " ");
+            newToast.GetComponent<ToastNotificationItem>().SetToast("Try doing that in the Recycler in the other tab", " ");
         }
 
         if (curJournalState == JournalType.Inventory &&

@@ -89,7 +89,7 @@ public class EnvironmentManager : MonoBehaviour
             OnEnvironmentStateChanged?.Invoke(currentIsland.State, currentIsland.IslandID);
 
             //TODO: Add sound
-            GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.EnvironmentToastPrefab, UI_ToastManager.Instance.EnvironmentToastParent);
+            GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.AwarenessToastPrefab, UI_ToastManager.Instance.AwarenessToastParent);
             newToast.GetComponent<ToastNotificationItem>().SetToast("New State:", currentIsland.State.ToString());
         }
     }
