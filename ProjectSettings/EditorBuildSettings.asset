@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScreen.unity
     guid: a05d35459d86d814c9388170f7edf5d4
   - enabled: 1
+    path: Assets/Scenes/Rooms/Tutorial_Room.unity
+    guid: d715d1faad147444ab2f5f067fa2ebca
+  - enabled: 1
     path: Assets/Scenes/Rooms/Dev_Room_1.unity
     guid: 06f4346e517cc77499be8a6b310ee96e
-  - enabled: 1
-    path: Assets/Scenes/TEMPLATE_4.unity
-    guid: bfa3c23281cf0414a9a82389c382cfcb
   - enabled: 1
     path: Assets/Scenes/Development/FE_182_AnimationController.unity
     guid: 82b24f232f81f7f46a19c74f0b4e5d33
