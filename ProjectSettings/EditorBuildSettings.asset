@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TEMPLATE_4.unity
     guid: bfa3c23281cf0414a9a82389c382cfcb
   - enabled: 1
-    path: Assets/Scenes/Development/FE_181_Connection_Toasts.unity
-    guid: a70db8c53c6496144b8ebf700618d82e
+    path: Assets/Scenes/Development/FE_182_AnimationController.unity
+    guid: 82b24f232f81f7f46a19c74f0b4e5d33
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

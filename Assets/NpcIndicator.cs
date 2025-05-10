@@ -14,6 +14,7 @@ public class NpcIndicator : MonoBehaviour
     private void Start()
     {
         npc = GetComponent<Npc>();
+        worldCanvas = UIInstance.Instance.WorldSpace;
     }
 
     private void OnEnable()
@@ -29,7 +30,8 @@ public class NpcIndicator : MonoBehaviour
     private void FixedUpdate()
     {
         NpcInteractable npcIndicator = npc.gameObject.GetComponent<NpcInteractable>();
-        if (npcIndicator != null && !npcIndicator.isActiveAndEnabled)
+
+        if (npcIndicator == null || !npcIndicator.isActiveAndEnabled || GameStateManager.Instance.GetGameState() == GameStates.Dialogue)
         {
             questionIndicator.SetActive(false);
             exclamationIndicator.SetActive(false);
@@ -37,40 +39,52 @@ public class NpcIndicator : MonoBehaviour
             return;
         }
 
-        if(npc.NpcState == NpcStates.Finished)
+        if(npc.NpcState == NpcStates.Intro)
         {
-            questionIndicator.SetActive(false);
-            exclamationIndicator.SetActive(false);
+            exclamationIndicator.SetActive(true);
             return;
         }
 
-        if(npc.CurrentQuest?.QuestState == QuestState.Offer && npc.CompletedQuests != npc.MaxCompletedQuests && GameStateManager.Instance.GetGameState() != GameStates.Dialogue)
+        if (npc.CurrentQuest?.QuestState == QuestState.Offer &&
+            npc.CompletedQuests < npc.MaxCompletedQuests &&
+            GameStateManager.Instance.GetGameState() != GameStates.Dialogue)
         {
             exclamationIndicator.SetActive(true);
-        }
-        else
-        {
-            exclamationIndicator.SetActive(false);
+            questionIndicator.SetActive(false);
+            readyToDeliverIndicator.SetActive(false);
+            return;
         }
 
-        if (npc.CurrentQuest?.QuestState == QuestState.InProgress && npc.CompletedQuests != npc.MaxCompletedQuests && GameStateManager.Instance.GetGameState() != GameStates.Dialogue)
+        if (npc.CurrentQuest?.QuestState == QuestState.InProgress &&
+            npc.CompletedQuests < npc.MaxCompletedQuests &&
+            GameStateManager.Instance.GetGameState() != GameStates.Dialogue)
         {
             if (InventoryManager.Instance.HasItem(npc.CurrentQuest.QuestItem))
             {
                 readyToDeliverIndicator.SetActive(true);
                 questionIndicator.SetActive(false);
+                exclamationIndicator.SetActive(false);
             }
             else
             {
                 questionIndicator.SetActive(true);
                 readyToDeliverIndicator.SetActive(false);
+                exclamationIndicator.SetActive(false);
             }
+            return;
         }
-        else
+
+        if (npc.NpcState == NpcStates.Finished)
         {
             questionIndicator.SetActive(false);
+            exclamationIndicator.SetActive(false);
             readyToDeliverIndicator.SetActive(false);
+            return;
         }
+
+        questionIndicator.SetActive(false);
+        exclamationIndicator.SetActive(false);
+        readyToDeliverIndicator.SetActive(false);
     }
 
     private void InstantiateAwarenessSlider(int completedQuests, Npc npc)
