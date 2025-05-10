@@ -46,7 +46,6 @@ public class NPC_Controller : MonoBehaviour
         else
         {
             MoveTowardsTarget();
-            _anim.EnableAnimation(Animations.Move);
         }      
     }
 
@@ -62,13 +61,14 @@ public class NPC_Controller : MonoBehaviour
             Vector3 newDestination = GetPointInAreas();
             currentTarget = newDestination;
             _aiAgent.SetDestination(newDestination);
-            canMove = true;
+            _aiAgent.isStopped = false;
+            _anim.EnableAnimation(Animations.Move);
         }
 
         if (DestinationReached())
         {
             currentTarget = Vector3.zero;
-            canMove = false;
+            _aiAgent.isStopped = true;
             _anim.DisableAnimation(Animations.Move);
             StartIdle();
         }

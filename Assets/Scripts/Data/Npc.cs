@@ -31,6 +31,7 @@ public class Npc : MonoBehaviour
 {
     [SerializeField] private string npcName;
     [SerializeField] private NpcData data;
+    private AnimationController _anim;
 
     public static event Action<int, Npc> OnCompletedQuests;
 
@@ -180,6 +181,11 @@ public class Npc : MonoBehaviour
         set => data.CurrentQuest = value;
     }
 
+    public AnimationController Anim
+    {
+        get => _anim;
+    }
+
 
     void Start()
     {
@@ -190,6 +196,7 @@ public class Npc : MonoBehaviour
         {
             data.CurrentQuest.QuestNpc = data.NpcName;
         }
+        _anim = GetComponent<AnimationController>();
     }
 
     public void CreateQuest()

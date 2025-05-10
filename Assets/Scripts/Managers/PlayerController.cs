@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
     {
         if( InteractionManager.Instance.ReturnInteractableType() == Data.InteractableType.Pickup)
         {
+            playerCanMove = false;
             _anim.EnableAnimation(Animations.Pick);
             return;
         }
@@ -121,11 +122,6 @@ public class PlayerController : MonoBehaviour
         playerCanMove = true;
     }
 
-    public void SetPlayerCantMove()
-    {
-        playerCanMove = false;
-    }
-
     private void OnMovePlayerPreformed(InputAction.CallbackContext value)
     {
         Vector2 axis = value.ReadValue<Vector2>();
@@ -140,7 +136,7 @@ public class PlayerController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter)
+        if (GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter || !playerCanMove)
         { 
             _playerMoveVector = Vector3.zero;
         }
@@ -200,7 +196,7 @@ public class PlayerController : MonoBehaviour
 
         _anim.Velocity = currentMultiplier;
 
-        if (_playerMoveVector == Vector3.zero)
+        if (_playerMoveVector == Vector3.zero )
         {
             _rb.linearVelocity = Vector3.zero;
             _anim.DisableAnimation(Animations.Move);

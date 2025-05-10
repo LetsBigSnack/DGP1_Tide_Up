@@ -74,10 +74,19 @@ public class AnimationController : MonoBehaviour
         switch (emotion)
         {
             case Emotion.Angry:
-                anim.Play("Angry");
+                anim.SetTrigger("angry");
                 break;
             case Emotion.Happy:
-                anim.Play("Happy");
+                anim.SetTrigger("happy");
+                break;
+            case Emotion.Thinking:
+                anim.SetTrigger("thinking");
+                break;
+            case Emotion.Surprised:
+                anim.SetTrigger("surpised");
+                break;
+            case Emotion.Sad:
+                anim.SetTrigger("sad");
                 break;
         }
     }

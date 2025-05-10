@@ -61,7 +61,7 @@ public class UIDialogueManager : MonoBehaviour
 
     private void SpawnInLetters(char character)
     {
-        if(TextToSpeechManager.Instance.IsTalking == true)
+        if(TextToSpeechManager.Instance.IsTalking == true && !TextToSpeechManager.Instance.CharIsEmotion(character))
         {
             dialogueText.text += character;
         }
@@ -71,7 +71,17 @@ public class UIDialogueManager : MonoBehaviour
     {
         TextToSpeechManager.Instance.IsTalking = false;
         TextToSpeechManager.Instance.StopTalking();
-        dialogueText.text = _currDialogueText;
+
+        string sentence = "";
+        foreach(char c in _currDialogueText)
+        {
+            if (!TextToSpeechManager.Instance.CharIsEmotion(c))
+            {
+                sentence += c;
+            }
+        }
+
+        dialogueText.text = sentence;
     }
 
 

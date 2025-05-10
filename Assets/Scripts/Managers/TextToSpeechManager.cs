@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using Data;
 
 [Serializable]
 public class TextToSpeechLetterData
@@ -16,7 +17,10 @@ public class TextToSpeechLetterData
 public enum Emotion
 {
     Angry,
-    Happy
+    Happy,
+    Thinking,
+    Surprised,
+    Sad
 }
 
 public class TextToSpeechManager : MonoBehaviour
@@ -35,16 +39,20 @@ public class TextToSpeechManager : MonoBehaviour
     [SerializeField]
     private List<TextToSpeechLetterData> letters;
 
-    public static Dictionary<Emotion, char> EmotionSymbols = new Dictionary<Emotion, char>()
+    private AnimationController _anim = null;
+
+    public static Dictionary<Emotion, char> emotionSymbols = new Dictionary<Emotion, char>()
     {
         { Emotion.Angry, '%'},
         { Emotion.Happy, '$'},
+        { Emotion.Thinking, '+'},
+        { Emotion.Surprised, '#'},
+        { Emotion.Sad, '§'},
     };
 
     public static event Action<char> OnTranslateLetterValueChanged;
 
     private bool _isTalking;
-    private Dictionary<char, Action> _emotionAnimations = new Dictionary<char, Action>();
 
     private Coroutine _talkCoroutine;
 
@@ -65,9 +73,6 @@ public class TextToSpeechManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //TODO fill the emotionthings with real animations
-        _emotionAnimations.Add(EmotionSymbols[Emotion.Angry], ExpressAngry);
-        _emotionAnimations.Add(EmotionSymbols[Emotion.Happy], ExpressHappy);
     }
 
     //todo expand on expressions
@@ -81,13 +86,14 @@ public class TextToSpeechManager : MonoBehaviour
         Debug.Log("I'm Happy!");
     }
 
-    public void TranslateTextToAudio(string text)
+    public void TranslateTextToAudio(string text, AnimationController anim)
     {
         if (_isTalking)
         {
             return;
         }
 
+        _anim = anim; 
         _isTalking = true;
         _talkCoroutine = StartCoroutine(TranslateToAudio(text));
     }
@@ -154,16 +160,17 @@ public class TextToSpeechManager : MonoBehaviour
         return letters.Exists(l => l.letter == letter);
     }
 
-    public Dictionary<char, Action> GetEmotionDictionary()
+    public bool CharIsEmotion(char c)
     {
-        return _emotionAnimations;
+        return emotionSymbols.ContainsValue(c);
     }
 
     private bool PlayEmotion(char emotionSymbol)
     {
-        if (_emotionAnimations.ContainsKey(emotionSymbol))
+        if (emotionSymbols.ContainsValue(emotionSymbol))
         {
-            _emotionAnimations[emotionSymbol].Invoke();
+            var type = emotionSymbols.FirstOrDefault(x => x.Value == emotionSymbol).Key;
+            _anim.PlayOnShotEmotion(type);
             return true;
         }
         return false;

@@ -90,7 +90,7 @@ public class NpcDialogueManager : MonoBehaviour
         }
         _currentNpc.CurrentDialogue.NextDialogueContent();
         UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentDialogue.GetCurrentDialogue(), _currentNpc.FavColourCode);
-        TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.CurrentDialogue.GetCurrentDialogue());
+        TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.CurrentDialogue.GetCurrentDialogue(), _currentNpc.Anim);
         CheckDialogueFinished();
     }
     
@@ -126,7 +126,7 @@ public class NpcDialogueManager : MonoBehaviour
             _currentNpc.CurrentQuest.NextDialogueContent();
                     
             UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentQuest.GetCurrentDialogue(), _currentNpc.FavColourCode);
-            TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.CurrentQuest.GetCurrentDialogue());
+            TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.CurrentQuest.GetCurrentDialogue(), _currentNpc.Anim);
 
             if (_currentNpc.CurrentQuest.IsDialogueComplete() && _currentNpc.CurrentQuest.QuestState == QuestState.Offer)
             {
@@ -152,7 +152,7 @@ public class NpcDialogueManager : MonoBehaviour
                 
         _currentNpc.FinishedDialogue.NextDialogueContent();
         UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.FinishedDialogue.GetCurrentDialogue(), _currentNpc.FavColourCode);
-        TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.FinishedDialogue.GetCurrentDialogue());
+        TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.FinishedDialogue.GetCurrentDialogue(), _currentNpc.Anim);
 
         CheckDialogueFinished();
     }

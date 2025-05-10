@@ -8,6 +8,5 @@ public class TestTextToSpeechInput : MonoBehaviour
 
     public void ReadText()
     {
-        TextToSpeechManager.Instance.TranslateTextToAudio(inputField.text);
     }
 }
