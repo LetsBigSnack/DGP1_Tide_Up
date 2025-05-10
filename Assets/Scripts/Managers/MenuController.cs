@@ -189,6 +189,7 @@ public class MenuController : MonoBehaviour
         else if (currentState == GameStates.Dialogue && TutorialManager.Instance == null)
         {
             NpcDialogueManager.Instance.ResetDialogue();
+            UIDialogueManager.Instance.FinishSpeaking();
         }
     }
 }

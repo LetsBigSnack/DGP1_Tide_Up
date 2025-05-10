@@ -83,13 +83,25 @@ public class NpcDialogueManager : MonoBehaviour
 
     private void HandelIntroState()
     {
+        if(TextToSpeechManager.Instance.IsTalking)
+        {
+            UIDialogueManager.Instance.FinishSpeaking();
+            return;
+        }
         _currentNpc.CurrentDialogue.NextDialogueContent();
         UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentDialogue.GetCurrentDialogue(), _currentNpc.FavColourCode);
+        TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.CurrentDialogue.GetCurrentDialogue());
         CheckDialogueFinished();
     }
     
     private void HandelQuestState()
     {
+        if (TextToSpeechManager.Instance.IsTalking)
+        {
+            UIDialogueManager.Instance.FinishSpeaking();
+            return;
+        }
+
         if (isInChooseState)
         {
             MakeChoice(currentChoice);
@@ -114,7 +126,8 @@ public class NpcDialogueManager : MonoBehaviour
             _currentNpc.CurrentQuest.NextDialogueContent();
                     
             UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentQuest.GetCurrentDialogue(), _currentNpc.FavColourCode);
-                
+            TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.CurrentQuest.GetCurrentDialogue());
+
             if (_currentNpc.CurrentQuest.IsDialogueComplete() && _currentNpc.CurrentQuest.QuestState == QuestState.Offer)
             {
                 isInChooseState = true;
@@ -126,6 +139,11 @@ public class NpcDialogueManager : MonoBehaviour
     
     private void HandelFinishedState()
     {
+        if (TextToSpeechManager.Instance.IsTalking)
+        {
+            UIDialogueManager.Instance.FinishSpeaking();
+            return;
+        }
         if (_currentNpc.FinishedDialogue.IsDialogueFinished)
         {
             ResetDialogue();
@@ -134,6 +152,8 @@ public class NpcDialogueManager : MonoBehaviour
                 
         _currentNpc.FinishedDialogue.NextDialogueContent();
         UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.FinishedDialogue.GetCurrentDialogue(), _currentNpc.FavColourCode);
+        TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.FinishedDialogue.GetCurrentDialogue());
+
         CheckDialogueFinished();
     }
 
@@ -201,10 +221,10 @@ public class NpcDialogueManager : MonoBehaviour
             case NpcStates.Intro:
                 if (_currentNpc.CurrentDialogue.IsDialogueFinished)
                 {
-                    CloseDialogue();
-                    _currentNpc.CreateQuest();
                     //TODO: Add sound
                     UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "New friendbook entry! " + _currentNpc.NpcName + " got added to your friendbook");
+                    _currentNpc.CreateQuest();
+                    ResetDialogue();
                 }
                 break;
             case NpcStates.Quest:

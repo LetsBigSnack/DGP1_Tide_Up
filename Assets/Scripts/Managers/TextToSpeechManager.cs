@@ -46,6 +46,14 @@ public class TextToSpeechManager : MonoBehaviour
     private bool _isTalking;
     private Dictionary<char, Action> _emotionAnimations = new Dictionary<char, Action>();
 
+    private Coroutine _talkCoroutine;
+
+    public bool IsTalking
+    {
+        get { return _isTalking; }
+        set { _isTalking = value; }
+    }
+
     public void Awake()
     {
         if(Instance == null)
@@ -79,7 +87,9 @@ public class TextToSpeechManager : MonoBehaviour
         {
             return;
         }
-        StartCoroutine(TranslateToAudio(text));
+
+        _isTalking = true;
+        _talkCoroutine = StartCoroutine(TranslateToAudio(text));
     }
 
     public void PlayLetter(char letter)
@@ -100,9 +110,13 @@ public class TextToSpeechManager : MonoBehaviour
     public IEnumerator TranslateToAudio(string text)
     {
         _isTalking = true;
-        for(int i = 0; i < text.Length; i++)
+        for (int i = 0; i < text.Length; i++)
         {
-             if (!LetterExists(text[i]))
+            if(!_isTalking)
+            {
+                yield break;
+            }
+            if (!LetterExists(text[i]))
             {
                 if (PlayEmotion(text[i]))
                 {
@@ -119,9 +133,19 @@ public class TextToSpeechManager : MonoBehaviour
                 yield return new WaitForSeconds(timeBetweenLetters);
             }
 
-            OnTranslateLetterValueChanged(text[i]);
+            OnTranslateLetterValueChanged?.Invoke(text[i]);
         }
         _isTalking = false;        
+    }
+
+    public void StopTalking()
+    {
+        if(_talkCoroutine == null)
+        {
+            return;
+        }
+        StopCoroutine(_talkCoroutine);
+        _talkCoroutine = null;
     }
 
     private bool LetterExists(char letter)
