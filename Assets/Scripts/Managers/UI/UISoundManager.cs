@@ -6,12 +6,14 @@ public class UISoundManager : MonoBehaviour
     [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private Slider dialogueSlider;
 
     private void Start()
     {
         MasterVolumeChange();
         MusicVolumeChange();
         SFXVolumeChange();
+        DialogueVolumeChange();
     }
 
     public void MasterVolumeChange()
@@ -48,5 +50,16 @@ public class UISoundManager : MonoBehaviour
 
         float volume = sfxSlider.value;
         SoundManager.Instance.SetSfxVolume(volume);
+    }
+    public void DialogueVolumeChange()
+    {
+        if (dialogueSlider == null)
+        {
+            Debug.Log("No music slider");
+            return;
+        }
+
+        float volume = dialogueSlider.value;
+        SoundManager.Instance.SetDialogueVolume(volume);
     }
 }
