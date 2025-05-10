@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
-
+using static AnimationController;
 
 public class PlayerController : MonoBehaviour
 {
@@ -38,10 +38,15 @@ public class PlayerController : MonoBehaviour
     private PlayerInputs _playerInputs;
     private Vector3 _playerMoveVector = Vector3.zero;
     private Rigidbody _rb;
+    private bool playerCanMove = true;
+
+    private AnimationController _anim;
     
 
     private void Awake()
     {
+        _anim = GetComponent<AnimationController>();
+
         _playerInputs = new PlayerInputs();
         _rb = GetComponent<Rigidbody>();
         
@@ -97,9 +102,30 @@ public class PlayerController : MonoBehaviour
     
     private void Interact(InputAction.CallbackContext value)
     {
+        if( InteractionManager.Instance.ReturnInteractableType() == Data.InteractableType.Pickup)
+        {
+            _anim.EnableAnimation(Animations.Pick);
+            return;
+        }
+
         InteractionManager.Instance.Interact();
     }
-    
+
+    public void DelayedInteract()
+    {
+        InteractionManager.Instance.Interact();
+    }
+
+    public void SetPlayerCanMove()
+    {
+        playerCanMove = true;
+    }
+
+    public void SetPlayerCantMove()
+    {
+        playerCanMove = false;
+    }
+
     private void OnMovePlayerPreformed(InputAction.CallbackContext value)
     {
         Vector2 axis = value.ReadValue<Vector2>();
@@ -149,28 +175,35 @@ public class PlayerController : MonoBehaviour
         }
         
         currentMultiplier = Mathf.Lerp(currentMultiplier, sprintMultiplier, Time.deltaTime * sprintTimeStep);
-        
     }
     
     private void MovePlayer()
     {
         Vector3 move = _playerMoveVector * (Player.Instance.MoveSpeed * currentMultiplier);
-        
-        if (isGrounded)
+
+        if (playerCanMove)
         {
-            move = Vector3.ProjectOnPlane(move, _groundNormal);
-            
-            Vector3 downForce = _groundNormal * groundDownwardForce;
-            _rb.linearVelocity = new Vector3(move.x, _rb.linearVelocity.y + downForce.y, move.z);
+            if (isGrounded)
+            {
+                move = Vector3.ProjectOnPlane(move, _groundNormal);
+
+                Vector3 downForce = _groundNormal * groundDownwardForce;
+                _rb.linearVelocity = new Vector3(move.x, _rb.linearVelocity.y + downForce.y, move.z);
+                _anim.EnableAnimation(Animations.Move);
+            }
+            else
+            {
+                _rb.linearVelocity = new Vector3(move.x, _rb.linearVelocity.y, move.z);
+            }
+
         }
-        else
-        {
-            _rb.linearVelocity = new Vector3(move.x, _rb.linearVelocity.y, move.z);
-        }
-        
+
+        _anim.Velocity = currentMultiplier;
+
         if (_playerMoveVector == Vector3.zero)
         {
             _rb.linearVelocity = Vector3.zero;
+            _anim.DisableAnimation(Animations.Move);
             return;
         }
         LookInMovingDirection();

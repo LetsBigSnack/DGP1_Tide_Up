@@ -14,11 +14,14 @@ public class NPC_Controller : MonoBehaviour
 
     [Header("IdleSettings")]
     [SerializeField] private bool isIdling;
+    [SerializeField] private float minIdleTime;
     [SerializeField] private float maxIdleTime;
 
     private Coroutine _idleRoutine;
     [SerializeField] private bool canMove = true;
     [SerializeField] private float rotationSpeed = 3.0f;
+
+    private AnimationController _anim;
     public bool CanMove
     {
         get => canMove;
@@ -29,18 +32,22 @@ public class NPC_Controller : MonoBehaviour
     private void Start()
     {
         _aiAgent = GetComponent<NavMeshAgent>();
+        _anim = GetComponent<AnimationController>();
     }
 
     void Update()
     {
-        //TODO: change later on this is for MileStone scene
         _aiAgent.isStopped = !canMove;
         if (!canMove)
         {
             _aiAgent.velocity = Vector3.zero;
+            _anim.DisableAnimation(Animations.Move);
         }
-        
-        MoveTowardsTarget();
+        else
+        {
+            MoveTowardsTarget();
+            _anim.EnableAnimation(Animations.Move);
+        }      
     }
 
     private void MoveTowardsTarget()
@@ -50,18 +57,19 @@ public class NPC_Controller : MonoBehaviour
             return;
         }
 
-        if(currentTarget == Vector3.zero)
+        if (currentTarget == Vector3.zero)
         {
             Vector3 newDestination = GetPointInAreas();
             currentTarget = newDestination;
             _aiAgent.SetDestination(newDestination);
-            _aiAgent.isStopped = false;
+            canMove = true;
         }
 
         if (DestinationReached())
         {
             currentTarget = Vector3.zero;
-            _aiAgent.isStopped = true;
+            canMove = false;
+            _anim.DisableAnimation(Animations.Move);
             StartIdle();
         }
     }
@@ -102,7 +110,7 @@ public class NPC_Controller : MonoBehaviour
     private IEnumerator IdleRoutine()
     {
         isIdling = true;
-        yield return new WaitForSeconds(Random.Range(0, maxIdleTime));
+        yield return new WaitForSeconds(Random.Range(minIdleTime, maxIdleTime));
         isIdling = false;
     }
 

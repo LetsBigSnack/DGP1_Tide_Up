@@ -30,9 +30,9 @@ public class DockInteract : Interactable
     {
         GameObject player = Player.Instance.gameObject;
         
-        MeshRenderer[] meshes = player.GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] meshes = player.GetComponentsInChildren<SkinnedMeshRenderer>();
 
-        foreach (MeshRenderer mesh in meshes)
+        foreach (SkinnedMeshRenderer mesh in meshes)
         {
             if (mesh != null)
                 mesh.enabled = true;
@@ -57,9 +57,9 @@ public class DockInteract : Interactable
         InteractionManager.Instance.SetInteractionRadius(10);
       
         
-        MeshRenderer[] meshes = player.GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] meshes = player.GetComponentsInChildren<SkinnedMeshRenderer>();
 
-        foreach (MeshRenderer mesh in meshes)
+        foreach (SkinnedMeshRenderer mesh in meshes)
         {
             if (mesh != null)
                 mesh.enabled = false;

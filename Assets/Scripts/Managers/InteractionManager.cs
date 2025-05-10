@@ -103,6 +103,14 @@ public class InteractionManager : MonoBehaviour
         interactionRadius = radius;
     }
     
+    public InteractableType ReturnInteractableType()
+    {
+        if (currentInteractable == null)
+        {
+            return InteractableType.None;
+        }
+        return currentInteractable.Type;
+    }
     
     public void Interact()
     {
