@@ -146,6 +146,7 @@ public class UICalendarDescriptionHelper : MonoBehaviour
             );
         }
     }
+
     public void SetGameObjectAsSelected(UIMonthDayItem item)
     {
         if (_currentSelectedItem == item)

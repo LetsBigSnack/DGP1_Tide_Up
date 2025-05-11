@@ -13,6 +13,8 @@ public class UIRecipeEntryItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI amountText;
 
+    [SerializeField] private GameObject selectCircle;
+
     public void Setup(QuestItemData questItem, List<RecipeData> knownRecipies)
     {
         if(questItem == null || knownRecipies == null)
@@ -38,6 +40,12 @@ public class UIRecipeEntryItem : MonoBehaviour
         if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
         {
             UIRecipeDescriptionHelper.Instance.Setup(_questItem, _knownRecipies);
+            UIRecipeDescriptionHelper.Instance.SetGameObjectAsSelected(this);
         }
+    }
+
+    public void ToggleIcon()
+    {
+        selectCircle.SetActive(!selectCircle.activeInHierarchy);
     }
 }
