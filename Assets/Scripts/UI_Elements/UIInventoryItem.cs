@@ -38,7 +38,7 @@ public class UIInventoryItem : MonoBehaviour
             !UITideUpBoxManager.Instance.IsOpen && 
             curShopState == ShopType.Closed)
         {
-            UIItemDetailsHelper.Instance.SetupDescription(item.ItemData.title, item.ItemData.description, item.ItemData.sprite, item.ItemData.Materials);
+            UIItemDetailsHelper.Instance.SetupDescription(item.ItemData.title, item.ItemData.description, item.ItemData.sprite, item.GetMaterials());
             UIItemDetailsHelper.Instance.SetGameObjectAsSelected(this);
         }
     }

@@ -2,13 +2,13 @@ using System;
 using Data;
 using UnityEngine;
 
-public class ItemInteractable : Interactable
+public class DiggingSpot : Interactable
 {
     
     [SerializeField] private TrashData trashData;
     [SerializeField] private bool highlight;
 
-    public override InteractableType Type => InteractableType.Pickup;
+    public override InteractableType Type => InteractableType.Digging;
 
     public override void Interact()
     {
@@ -18,7 +18,7 @@ public class ItemInteractable : Interactable
             return;
         }
         
-        MiniGameManager.Instance.StartMiniGame(MiniGameType.PickUp, success =>
+        MiniGameManager.Instance.StartMiniGame(MiniGameType.Digging, success =>
         {
             TrashItemInstance trash = new TrashItemInstance(trashData, success);
             
@@ -31,6 +31,11 @@ public class ItemInteractable : Interactable
                 newToast.GetComponent<ToastNotificationItem>().SetToast(titleText: trashData.title, sprite: trashData.sprite);
             }
         });
+    }
+
+    public void Awake()
+    {
+        trashData = DataUtil.Instance.GetRandomTrashData();
     }
 
     public override void ShowInteractability(bool show)

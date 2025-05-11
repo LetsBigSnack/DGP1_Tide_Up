@@ -10,7 +10,8 @@ public enum GameStates
     Paused,
     InMenu,
     SceneTransition,
-    Dialogue
+    Dialogue,
+    MiniGame
 }
 
 
