@@ -104,12 +104,26 @@ public class UIRecipeController : UIJournalSubMenu
             return;
         }
 
+        QuestItemData firstItemData = null;
+        UIRecipeEntryItem firstItem = null;
+        int counter = 0;
+
         foreach(QuestItemData q in _knownRecipies.Keys)
         {
             GameObject newRecipeEntry = Instantiate(recipePrefab, recipeParent);
             newRecipeEntry.GetComponent<UIRecipeEntryItem>().Setup(q, _knownRecipies[q]);
             curEntries.Add(newRecipeEntry);
+
+            if (counter == 0)
+            {
+                counter = 1;
+                firstItemData = q;
+                firstItem = newRecipeEntry.GetComponent<UIRecipeEntryItem>();
+            }
         }
+        List<RecipeData> curKnownRecipies = RecipeManager.Instance.KnownRecipies;
+        UIRecipeDescriptionHelper.Instance.Setup(firstItemData, curKnownRecipies);
+        UIRecipeDescriptionHelper.Instance.SetGameObjectAsSelected(firstItem);
     }
 
     public void SwitchSubItem(UIUpcyclerRecipeEntryItem sub)
