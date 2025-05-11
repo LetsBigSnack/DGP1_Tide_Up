@@ -82,4 +82,9 @@ public class SoundManager : MonoBehaviour
         myMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("SFX", volume);
     }
+    public void SetDialogueVolume(float volume)
+    {
+        myMixer.SetFloat("Dialogue", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("Dialogue", volume);
+    }
 }

@@ -22,6 +22,8 @@ public class UIPauseMenuManager : MonoBehaviour
 
     [SerializeField] private Toggle tooltipToggle;
 
+    [SerializeField] private GameObject borderIcon;
+
     public static event Action<Toggle> OnTooltipToggleChange;
 
     private PauseMenuStates _pauseMenuState = PauseMenuStates.Off;
@@ -32,6 +34,12 @@ public class UIPauseMenuManager : MonoBehaviour
     {
         get { return _pauseMenuState; }
         set { _pauseMenuState = value; }
+    }
+
+    public GameObject BorderIcon
+    {
+        get { return borderIcon; }
+        set { borderIcon = value; }
     }
 
     public static UIPauseMenuManager Instance;
@@ -107,4 +115,6 @@ public class UIPauseMenuManager : MonoBehaviour
 #endif
         Application.Quit();
     }
+
+
 }

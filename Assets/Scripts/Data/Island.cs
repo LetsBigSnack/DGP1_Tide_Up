@@ -180,6 +180,7 @@ public class Island : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("HiHi triggered");
         if (_player.Contains(other.transform.root.gameObject))
         {
             return;

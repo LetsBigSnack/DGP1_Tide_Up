@@ -72,8 +72,6 @@ public class UIInteractionIndicationManager : MonoBehaviour
         }
     }
 
-    //For testing there is a text and the type gets converted to it.
-    //TODO: Make it so correct img will be shown depending on type
     private void ShowIndicator(UIInteractionRepresentation interactRepresentation, GameObject target)
     {
         if (_activeIndicator == null)

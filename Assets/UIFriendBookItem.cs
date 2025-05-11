@@ -1,10 +1,11 @@
+using Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIFriendBookItem : MonoBehaviour
 {
-    [SerializeField] private Npc currentNpc;
+    [SerializeField] private NpcData currentNpc;
 
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI titleText;
@@ -16,7 +17,7 @@ public class UIFriendBookItem : MonoBehaviour
     [SerializeField] private string emptyNameText;
     [SerializeField] private string emptyResidenceText;
 
-    public void Setup(Npc npc)
+    public void Setup(NpcData npc)
     {
         if(npc == null)
         {

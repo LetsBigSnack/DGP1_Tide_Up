@@ -26,7 +26,7 @@ public class TestDialogueText : MonoBehaviour
             return;
         }
 
-        if (TextToSpeechManager.Instance.GetEmotionDictionary().ContainsKey(text))
+        if (TextToSpeechManager.Instance.CharIsEmotion(text))
         {
             return;
         }

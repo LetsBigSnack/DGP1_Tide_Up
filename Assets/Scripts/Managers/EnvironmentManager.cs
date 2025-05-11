@@ -52,6 +52,11 @@ public class EnvironmentManager : MonoBehaviour
    
     public int TotalCleanlinessScore => islands.Sum(i => i.IslandCleanlinessScore);
 
+    public Island CurrentIsland
+    {
+        get { return currentIsland; }
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -82,6 +87,9 @@ public class EnvironmentManager : MonoBehaviour
         if (currentIsland.AddCleanlinessScore(entry.Score))
         {
             OnEnvironmentStateChanged?.Invoke(currentIsland.State, currentIsland.IslandID);
+
+            //TODO: Add sound
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Awareness, "New State:", currentIsland.State.ToString());
         }
     }
     

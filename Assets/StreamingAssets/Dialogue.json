@@ -2,7 +2,7 @@
   "Intros": {
     "Betty": {
       "DialogueContent": [
-        "Hello I am Betty the gooner's dream",
+        "Hello I am Betty$ the gooner's dream",
         "I have fishnets and black painted toenails",
         "3",
         "4",
@@ -12,18 +12,59 @@
     "Deki": {
       "DialogueContent": [
         "Pa brate",
-        "Papushi kurac"
+        "Papushi# kurac"
       ]
     },
     "Igor": {
       "DialogueContent": [
-        "Hallo am I Igor",
+        "Hallo% am I Igor",
         "Also known as the god of gamers",
         "I will defeat you in LoL"
+      ]
+    },
+    "Engineer": {
+      "DialogueContent": [
+        "Oh,... you're finally awake!",
+        "I found you on the beach... Your boat got damaged during the storm... don't worry about it we can fix it.",
+        "Maybe you want to slowly try to walk around - as soon as you feel ready come talk to me!",
+        "System: Press W A S D to move around and E to interact."
       ]
     }
   },
   "Quests": {
+    "Tutorial": {
+      "Low": [
+        {
+          "DialogueContent": [
+            "Alright seems like you recovered a bit - thats good! I fixed what was fixable for your boat but it's not as good as it was... we would need way more resources for that.",
+            "But 'luckily' we got a hell of resources lying around this island, ... it used to be so nice... maybe we can help each other!",
+            "There's a machine I build over there and I need to test it... can you please collect the trash over there?"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "DialogueContent": [
+            "Now go to the Re-Upcycler over there and use the recylcer to add the items into it!",
+            "System: You can add the items by simply clicking on them with your mouse.",
+            "After you recycled them all put the materials you got into the upcycler and upcycle them!",
+            "System: Switching between them is easy! Just press the right tab on the top of the recycler UI! To add the materials just click on the material icons on the left side!",
+            "Bring me the finished item!"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "DialogueContent": [
+            "Help me tidy up the island and i'll help you upgrade your boat!",
+            "Before I forget you also lost this - *hands over journal* - I didn't want to look but I saw... a friends page...",
+            "This might be a good start - Try to find the islanders and learn about them. If you ever want to upgrade your boat or inventory you can find me in this shop.",
+            "And since this huge recycler is way to big, I will put it outside for you!",
+            "Let's make this island a better place!"
+          ]
+        }
+      ]
+    },
     "Sporty": {
       "Low": [
         {
@@ -158,6 +199,32 @@
     }
   },
   "InProgress": {
+    "Tutorial": {
+      "Low": [
+        {
+          "DialogueContent": [
+            "Ye, just over there - pick em up and bring them to me."
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "DialogueContent": [
+            "Yes yes - don't wait! Let's see if it works!",
+            "System: You can add the items by simply clicking on them with your mouse.",
+            "System: Switching between them is easy! Just press the right tab on the top of the recycler UI! To add the materials just click on the material icons on the left side!"
+          ]
+        }
+      ],
+        "High": [
+        {
+          "DialogueContent": [
+            "System: It's time to explore! Start your journey in Tide Up and help the islanders learn about the cool things recycling and upcylcing can do!",
+            "System: The further you progress, the more the island will change - but don't forget to have fun!"
+          ]
+        }
+      ]
+    },
     "Sporty": {
       "Low": [
         {
@@ -274,6 +341,40 @@
     }
   },
   "Complete": {
+    "Tutorial": {
+      "Low": [
+        {
+          "DialogueContent": [
+            "Perfect! Well you're quite skilled in picking up trash i see! Talk to me when you're ready for the nexts step!"
+          ]
+        }
+      ],
+      "Medium": [
+        {
+          "DialogueContent": [
+            "Perfect, you got it! You can keep the shovel and take this fishing rod as well",
+            "System: Along your journey you will find other mini games to try! No worries no need to equip any tools, they will be ready when you're at the right spot!",
+            "Also I found this when you stranded - hands you your journal - and I didn't want to look but I saw a page for friends...",
+            "Well, here's the deal - go out and introduce yourself to the islanders and you might understand my struggle and the current state of the island...",
+            "Help me teach them how to be more environmental aware and bring me Upcycled trash and materials and I will help you with your boat, sounds like a deal?",
+            "Perfect, also this re-upcylcer is way to big for my small shop I will put it out and you can use it when necessary! Talk to me if you need help.",
+            "System: Your Journey is about to start - Introduce yourself to the islanders and help them care for the environment and you might see the island change, it's up to you to help them understand!"
+          ]
+        }
+      ],
+      "High": [
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Thanks i really needed [QUEST-ITEM]"
+          ]
+        }
+      ]
+    },
     "Sporty": {
       "Low": [
         {
@@ -390,6 +491,16 @@
     }
   },
   "Finished": {
+    "Engineer": [{
+      "DialogueContent": [
+        "What are you waiting for the door is over there? Go make some new friends!"
+      ]
+    },
+      {
+        "DialogueContent": [
+          "Darling,... can you remember how beautiful this island once was?... I wish i was a little bit younger... Erm... Are you still looking for the door?!"
+        ]
+      }],
     "Betty": [{
       "DialogueContent": [
         "Betty GOONED"

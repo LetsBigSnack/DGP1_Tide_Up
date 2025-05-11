@@ -23,7 +23,7 @@ public class ToastNotificationItem : MonoBehaviour
 
     public void SetToast(string titleText ="", string descriptionText = "", Sprite sprite = null)
     {
-        if(image != null)
+        if(image != null && type != ToastType.Awareness)
         {
             image.sprite = sprite;
         }

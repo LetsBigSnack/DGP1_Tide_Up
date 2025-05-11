@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractionManager : MonoBehaviour
 {
     [SerializeField] private float interactionRadius = 4.0f;
+    private float _wiggleRoom = 2f;
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private Interactable currentInteractable;
     
@@ -39,10 +40,15 @@ public class InteractionManager : MonoBehaviour
 
         GetInteractablesInRadius();
 
-        if (currentInteractable != null)
+        if (currentInteractable != null && GameStateManager.Instance.GetGameState() != GameStates.Dialogue)
         {
             currentInteractable?.ShowInteractability(true);
             OnInteractionChanged?.Invoke(true, currentInteractable.Type, currentInteractable.gameObject);
+        }
+        else
+        {
+            currentInteractable?.ShowInteractability(false);
+            OnInteractionChanged?.Invoke(false, null, null);
         }
     }
 
@@ -55,7 +61,7 @@ public class InteractionManager : MonoBehaviour
         foreach (Collider hit in hits)
         {
             Interactable item = hit.GetComponentInParent<Interactable>();
-            if (item != null)
+            if (item != null && item.isActiveAndEnabled)
             {
                 interactables.Add(item);
                 float dist = Vector3.Distance(transform.position, item.transform.position);
@@ -63,7 +69,6 @@ public class InteractionManager : MonoBehaviour
                 {
                     closestDistance = dist;
                     currentInteractable = item;
-                    
                 }
             }
         }
@@ -85,7 +90,7 @@ public class InteractionManager : MonoBehaviour
         }
         
         float dist = Vector3.Distance(transform.position, currentInteractable.transform.position);
-        if (dist > interactionRadius)
+        if (dist > interactionRadius + _wiggleRoom)
         {
             currentInteractable?.ShowInteractability(false);
             OnInteractionChanged?.Invoke(false, null, null);
@@ -98,6 +103,14 @@ public class InteractionManager : MonoBehaviour
         interactionRadius = radius;
     }
     
+    public InteractableType ReturnInteractableType()
+    {
+        if (currentInteractable == null)
+        {
+            return InteractableType.None;
+        }
+        return currentInteractable.Type;
+    }
     
     public void Interact()
     {

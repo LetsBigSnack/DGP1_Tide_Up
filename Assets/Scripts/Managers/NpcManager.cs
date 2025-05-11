@@ -1,3 +1,4 @@
+using Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ public class NpcManager : MonoBehaviour
     
     public static NpcManager Instance;
     [SerializeField] private List<Npc> _npcs = new List<Npc>();
+    [SerializeField] private List<NpcData> _npcsData = new List<NpcData>();
 
     private void Awake()
     {
@@ -24,9 +26,14 @@ public class NpcManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     
-    public List<Npc> GetNpcs()
+    public NpcData GetNpcDataByName(string name)
     {
-        return _npcs;
+        return _npcsData.Find(npc => npc.NpcName == name);
+    }
+
+    public List<NpcData> GetNpcs()
+    {
+        return _npcsData;
     }
 
     public void AddNpc(Npc npc)
@@ -34,10 +41,10 @@ public class NpcManager : MonoBehaviour
         _npcs.Add(npc);
     }
 
-    public Npc GetNpcByName(string questNpc)
+    public NpcData GetNpcByName(string questNpc)
     {
         //Debug.Log(questNpc);
-        Npc npc = _npcs.Find(npc => npc.NpcName == questNpc);
+        NpcData npc = _npcsData.Find(npc => npc.NpcName == questNpc);
 
         if (npc == null)
         {

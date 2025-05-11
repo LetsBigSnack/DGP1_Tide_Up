@@ -33,6 +33,12 @@ public class UIInventoryItem : MonoBehaviour
             UIRecyclerController.Instance.AddItem(item);
         }
 
+        if (curJournalState == JournalType.Inventory && curReUpcyclerState == ReUpcyclerType.Upcycler && curShopState == ShopType.Closed)
+        {
+            //TODO: Add error sound
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Try doing that in the Recycler in the other tab");
+        }
+
         if (curJournalState == JournalType.Inventory &&
             curReUpcyclerState == ReUpcyclerType.Closed && 
             !UITideUpBoxManager.Instance.IsOpen && 

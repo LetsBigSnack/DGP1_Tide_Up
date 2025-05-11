@@ -7,7 +7,6 @@ public class ItemInteractable : Interactable
     
     [SerializeField] private TrashData trashData;
     [SerializeField] private bool highlight;
-
     public override InteractableType Type => InteractableType.Pickup;
 
     public override void Interact()
@@ -26,9 +25,6 @@ public class ItemInteractable : Interactable
             {
                 EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
                 Destroy(gameObject);
-
-                GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ItemToastPrefab, UI_ToastManager.Instance.ItemToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText: trashData.title, sprite: trashData.sprite);
             }
         });
     }

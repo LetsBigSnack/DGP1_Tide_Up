@@ -30,9 +30,9 @@ public class DockInteract : Interactable
     {
         GameObject player = Player.Instance.gameObject;
         
-        MeshRenderer[] meshes = player.GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] meshes = player.GetComponentsInChildren<SkinnedMeshRenderer>();
 
-        foreach (MeshRenderer mesh in meshes)
+        foreach (SkinnedMeshRenderer mesh in meshes)
         {
             if (mesh != null)
                 mesh.enabled = true;
@@ -41,7 +41,9 @@ public class DockInteract : Interactable
         InteractionManager.Instance.SetInteractionRadius(4f);
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         CamerController.Instance.SwitchTarget(CameraTarget.Player);
-        
+
+        //TODO: Add sound
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Environment, "Welcome to:", EnvironmentManager.Instance.CurrentIsland.IslandName);
     }
     
 
@@ -55,9 +57,9 @@ public class DockInteract : Interactable
         InteractionManager.Instance.SetInteractionRadius(10);
       
         
-        MeshRenderer[] meshes = player.GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] meshes = player.GetComponentsInChildren<SkinnedMeshRenderer>();
 
-        foreach (MeshRenderer mesh in meshes)
+        foreach (SkinnedMeshRenderer mesh in meshes)
         {
             if (mesh != null)
                 mesh.enabled = false;
@@ -66,6 +68,9 @@ public class DockInteract : Interactable
         
         GameStateManager.Instance.SetGameState(GameStates.PlayingBoat);
         CamerController.Instance.SwitchTarget(CameraTarget.Boat);
+
+        //TODO: Add sound
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Environment, "Welcome to:", "Delkid Sea");
     }
 
     public override void ShowInteractability(bool show)

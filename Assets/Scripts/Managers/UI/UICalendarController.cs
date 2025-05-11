@@ -85,11 +85,23 @@ public class UICalendarController : UIJournalSubMenu
             else
             {
                 // Current month
-                prefabToSpawn = (displayedDay == currentDay) ? UICurrDayItemPrefab : UICurrMonthDayItemPrefab;
+                if (displayedDay == currentDay)
+                {
+                    prefabToSpawn = UICurrDayItemPrefab;
+                }
+                else
+                {
+                    prefabToSpawn = UICurrMonthDayItemPrefab;
+                }
             }
 
             GameObject newDayItem = Instantiate(prefabToSpawn, GetParentForSlot(slot));
             newDayItem.GetComponent<UIMonthDayItem>().Setup(displayedDay);
+            if (displayedDay == currentDay)
+            {
+                UIMonthDayItem currUIMonthDayItem = newDayItem.GetComponent<UIMonthDayItem>();
+                UICalendarDescriptionHelper.Instance?.SetGameObjectAsSelected(currUIMonthDayItem);
+            }
         }
     }
 

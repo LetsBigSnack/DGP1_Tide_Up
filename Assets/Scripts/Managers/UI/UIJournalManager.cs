@@ -89,7 +89,7 @@ public class UIJournalManager : MonoBehaviour
 
    public void OpenMenuByType(JournalType type)
    {
-        if(type == JournalType.Closed)
+        if(type == JournalType.Closed || TutorialManager.Instance != null && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
         {
             return;
         }

@@ -73,12 +73,19 @@ public class InventoryManager : MonoBehaviour
 
         if (_items.Count >= maxItems)
         {
+            //TODO: Add error sound
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Your inventory is full!");
+            
             Debug.Log("Inventory full! Can't pick up more trash.");
             return false;
         }
 
         _items.Add(item);
         OnInventoryChanged?.Invoke(_items);
+
+        //TODO: Add sound
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Item, item.ItemData.title, sprite: item.ItemData.sprite);
+        
         Debug.Log("Picked up: " + item.ItemData.name);
         return true;
     }
@@ -152,6 +159,9 @@ public class InventoryManager : MonoBehaviour
 
         OnTrashMaterialChanged?.Invoke(_materialWallet);
         Debug.Log($"+ {amount}x {materialType}");
+
+        //TODO: Add sound
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Item, entry.TrashMaterialData.name, sprite: entry.TrashMaterialData.sprite);
         return true;
     }
 

@@ -129,6 +129,10 @@ public abstract class Upgrade : ScriptableObject
                 }
             }
         }
+
+        //TODO: Add sound
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "You upgraded your " + type + " to level: " + upgradeLevel);
+
     }
 
     public bool IsPreviousUpgradeUnlocked()

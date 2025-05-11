@@ -12,7 +12,8 @@ public class DataUtil : MonoBehaviour
     [SerializeField] private List<TrashData> listOfTrash = new();
     [SerializeField] private List<TrashMaterialData> listOfMaterials = new();
     [SerializeField] private List<QuestItemData> listOfItems = new List<QuestItemData>();
-    
+    [SerializeField] private List<QuestItemData> listOfTutorialItems = new List<QuestItemData>();
+
     public void Awake()
     {
         if (Instance == null)
@@ -54,5 +55,13 @@ public class DataUtil : MonoBehaviour
     public TrashData GetRandomTrashData()
     {
         return listOfTrash[UnityEngine.Random.Range(0, listOfTrash.Count)];
+    }
+    
+    public QuestItemInstance GetTutorialItem()
+    {
+        QuestItemData questItem = listOfTutorialItems[UnityEngine.Random.Range(0, listOfItems.Count)];
+        RecipeData recipe = RecipeManager.Instance.GetRandomRecipe(questItem);
+
+        return new QuestItemInstance(questItem, recipe.ingredients);
     }
 }

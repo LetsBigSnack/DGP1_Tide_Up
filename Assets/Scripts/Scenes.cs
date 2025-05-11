@@ -2,6 +2,7 @@
 public enum Scenes
 {
     StartScreen,
+    Tutorial_Room,
     Dev_Room_1,
-    TEMPLATE_4
+    FE_182_AnimationController
 }

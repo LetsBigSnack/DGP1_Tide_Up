@@ -44,9 +44,12 @@ public class QuestManager : MonoBehaviour
 
     public Quest CreateQuest(NpcAwareness npcAwareness, NpcPersonalities npcPersonalities, string npcName, string location)
     {
+        Quest quest;
+
         Dialogue questDialogue = DialogueManager.Instance.GetRandomQuestDialogue(npcPersonalities, npcAwareness);
         Dialogue completeDialogue = DialogueManager.Instance.GetRandomCompleteDialogue(npcPersonalities, npcAwareness);
-        Quest quest = new Quest(questDialogue, completeDialogue, npcName, location);
+
+        quest = new Quest(questDialogue, completeDialogue,npcPersonalities, npcName, location);
 
         return quest;
     }
@@ -57,6 +60,9 @@ public class QuestManager : MonoBehaviour
         {
             return;
         }
+
+        //TODO: Add sound
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Well done! You completed " + quest.QuestTitle);
 
         _currentQuests.Remove(quest);
         _completedQuests.Add(quest);

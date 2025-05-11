@@ -39,7 +39,7 @@ public class UIQuestDescriptionHelper : MonoBehaviour
             return;
         }
 
-        Npc questNpc = NpcManager.Instance.GetNpcByName(quest.QuestNpc);
+        NpcData questNpc = NpcManager.Instance.GetNpcByName(quest.QuestNpc);
 
         questNpcIcon.sprite = questNpc.Portrait;
         questTitle.text = quest.QuestTitle;

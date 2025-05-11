@@ -14,5 +14,10 @@ public class UIMaterialButtonItem : MonoBehaviour
                 UIUpcyclerController.Instance.AddMaterial(currentData.TrashMaterialData);
             }
         }
+        else
+        {
+            //TODO: Add error sound
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Try doing that in the Upcycler in the other tab");
+        }
     }
 }

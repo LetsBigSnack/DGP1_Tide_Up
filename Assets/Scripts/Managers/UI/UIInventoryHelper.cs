@@ -94,11 +94,14 @@ public class UIInventoryHelper : MonoBehaviour
 
         for (int i = 0; i < items.Count; i++)
         {
-            GameObject newItem = Instantiate(itemPrefab, itemParent);
-            newItem.GetComponent<UIInventoryItem>().Setup(items[i]);
-            _currentItems.Add(newItem);
+            if (!items[i].ItemData.title.Contains("Tutorial"))
+            {
+                GameObject newItem = Instantiate(itemPrefab, itemParent);
+                newItem.GetComponent<UIInventoryItem>().Setup(items[i]);
+                _currentItems.Add(newItem);
+            }
         }
-        
+
         for (int i = items.Count; i < maxSpaces; i++)
         {
             GameObject newItem = Instantiate(emptyItemPrefab, itemParent);

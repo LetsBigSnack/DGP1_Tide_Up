@@ -43,15 +43,12 @@ public class UIFriendBookController : UIJournalSubMenu
     private void UpdateFriendBook()
     {
         ClearEntries();
-        List<Npc> npcs = NpcManager.Instance.GetNpcs().OrderBy(n => n.IslandID).ThenByDescending(n => n.NpcState).ThenBy(n => n.NpcName).ToList();
-        foreach(Npc n in npcs)
+        List<NpcData> npcs = NpcManager.Instance.GetNpcs().OrderBy(n => n.IslandID).ThenByDescending(n => n.NpcState).ThenBy(n => n.NpcName).ToList();
+        foreach(NpcData n in npcs)
         {
-            if (EnvironmentManager.Instance.IsIslandUnlocked(n.IslandID))
-            {
-                GameObject newBookEntry = Instantiate(friendBookPrefab, friendBookParent);
-                newBookEntry.GetComponent<UIFriendBookItem>().Setup(n);
-                _currentFriendBookEntries.Add(newBookEntry);
-            }
+             GameObject newBookEntry = Instantiate(friendBookPrefab, friendBookParent);
+             newBookEntry.GetComponent<UIFriendBookItem>().Setup(n);
+             _currentFriendBookEntries.Add(newBookEntry);
         }
     }
 

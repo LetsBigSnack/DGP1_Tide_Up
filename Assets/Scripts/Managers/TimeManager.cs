@@ -141,7 +141,7 @@ public class TimeManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isTimePaused)
+        if (!isTimePaused && GameStateManager.Instance.GetGameState() != GameStates.SceneTransition)
         {
             float baseTimeSpeed = (24f / (minutesPerDay * 60f));
             currentTimeInHours += Time.deltaTime * baseTimeSpeed;

@@ -50,22 +50,20 @@ namespace Data
         
         public string GetCurrentDialogue()
         {
+
             if (_dialogueContent == null || _dialogueContent.Count == 0)
             {
                 return string.Empty;
             }
 
-            if (_currentDialogueState >= _dialogueContent.Count)
-            {
-                return string.Empty;
-            }
-            
-            string result = _dialogueContent[_currentDialogueState];
-            
-            if (_currentDialogueState >= _dialogueContent.Count-1)
+            if (_currentDialogueState > _dialogueContent.Count-1)
             {
                 _isDialogueFinished = true;
+                return string.Empty;
             }
+
+            string result = _dialogueContent[_currentDialogueState];
+
             return result;
         }
 

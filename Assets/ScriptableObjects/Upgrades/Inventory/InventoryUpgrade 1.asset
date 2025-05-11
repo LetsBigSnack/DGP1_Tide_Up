@@ -32,5 +32,5 @@ MonoBehaviour:
     amount: 1
   previousUpgrade: {fileID: 11400000, guid: f442b5796bd9b5b4e91bb3f58a410552, type: 2}
   nextUpgrade: {fileID: 11400000, guid: 7db54880a4d446241aa1ab825aed4e35, type: 2}
-  isUnlocked: 0
+  isUnlocked: 1
   slotsToAdd: 3

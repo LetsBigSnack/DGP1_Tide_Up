@@ -26,12 +26,20 @@ public class Quest
     private string _questTitle;
     private string _questLocation;
 
+    public static event Action<QuestState, string> OnQuestStateChanged;
 
     public string QuestNpc
     {
         get { return _questNpc; }
         set { _questNpc = value; }
     }
+
+    public QuestItemInstance QuestItem
+    {
+        get { return _questItem; }
+        set { _questItem = value; }
+    }
+
 
     public QuestState QuestState
     {
@@ -55,16 +63,24 @@ public class Quest
         get { return _dialogues; }
     }
 
-    public Quest(Dialogue questDialogue, Dialogue completedDialogue, string npcName, string location)
+    public Quest(Dialogue questDialogue, Dialogue completedDialogue, NpcPersonalities npcPersonality, string npcName, string location)
     {
         _questTitle = npcName + "'s quest";
         _questLocation = location;
         _questState = QuestState.Offer;
+        OnQuestStateChanged?.Invoke(_questState, _questNpc);
         
         _dialogues.Add(QuestState.Offer, questDialogue);
         _dialogues.Add(QuestState.Completed, completedDialogue);
         
-        InitializeQuestItem();
+        if(npcPersonality != NpcPersonalities.Tutorial)
+        {
+            InitializeQuestItem();
+        } 
+        else
+        {
+            InitializeTutorialtItem();
+        }
         GenerateMaterials();
         GenerateDialogueText();
         
@@ -76,7 +92,13 @@ public class Quest
         _questItem = DataUtil.Instance.GetRandomQuestItem();
         _questItemUse = _questItem.GetUse();
     }
-    
+
+    private void InitializeTutorialtItem()
+    {
+        _questItem = DataUtil.Instance.GetTutorialItem();
+        _questItemUse = _questItem.GetUse();
+    }
+
     //TODO: rework with recipes
     private void GenerateMaterials()
     {
@@ -138,6 +160,7 @@ public class Quest
         if (CanQuestComplete())
         {
             _questState = QuestState.Completed;
+            OnQuestStateChanged?.Invoke(QuestState.Completed, _questNpc);
         }
         
         string returnText = "";
@@ -184,7 +207,8 @@ public class Quest
     public void AcceptQuest()
     {
         _questState = QuestState.InProgress;
-        Npc npc = NpcManager.Instance.GetNpcByName(_questNpc);
+        OnQuestStateChanged?.Invoke(QuestState.InProgress, _questNpc);
+        NpcData npc = NpcManager.Instance.GetNpcByName(_questNpc);
         _dialogues[QuestState.InProgress] = DialogueManager.Instance.GetRandomProgressDialogue(npc.NpcPersonality,npc.NpcAwareness);
         _hasQuestAccepted = true;
 

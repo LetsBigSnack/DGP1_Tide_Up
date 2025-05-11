@@ -45,7 +45,7 @@ public class LocationManager : MonoBehaviour
     {
  
         GameStateManager.Instance.SetGameState(GameStates.SceneTransition);
-        yield return new WaitForSeconds(transitionWaitTime);
+        yield return UIFadeScreenHelper.Instance.StartTransition();
 
         // TODO: Play scene transition animation here
         Debug.Log("Play transition animation here.");
@@ -75,6 +75,10 @@ public class LocationManager : MonoBehaviour
             }
         }
         GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
+
+        yield return new WaitForSeconds(0.1f);
+        //TODO: Add sound
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Environment, "Welcome to:", EnvironmentManager.Instance?.CurrentIsland.IslandName);
     }
 
     private void TeleportPlayer(Transform targetPosition)
@@ -85,6 +89,7 @@ public class LocationManager : MonoBehaviour
             player.transform.position = targetPosition.position;
             player.transform.rotation = targetPosition.rotation; 
             Debug.Log("Player teleported to spawn point.");
+
         }
         else
         {

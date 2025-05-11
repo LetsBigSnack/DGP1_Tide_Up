@@ -1,3 +1,4 @@
+using Data;
 using NUnit.Framework;
 using System.Collections.Generic;
 using TMPro;
@@ -13,11 +14,19 @@ public class UIMonthDayItem : MonoBehaviour
     [SerializeField] private int dayNumInSeason;
     [SerializeField] private string weekDay;
 
-    private List<Npc> _birthdaysOnThisDay = new();
+    [SerializeField] private GameObject selectCircle;
+
+    private List<NpcData> _birthdaysOnThisDay = new();
 
     public void OnClick()
     {
         UICalendarDescriptionHelper.Instance.Setup(weekDay, dayNumInSeason, _birthdaysOnThisDay);
+        UICalendarDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+    }
+
+    public void ToggleIcon()
+    {
+        selectCircle.SetActive(!selectCircle.activeInHierarchy);
     }
 
     public void Setup(int number)
@@ -63,14 +72,14 @@ public class UIMonthDayItem : MonoBehaviour
 
         dayNumber.text = dayNumInSeason.ToString();
 
-        List<Npc> allNpcs = NpcManager.Instance?.GetNpcs();
+        List<NpcData> allNpcs = NpcManager.Instance?.GetNpcs();
 
         if(allNpcs == null)
         {
             return;
         }
 
-        foreach (Npc npc in allNpcs)
+        foreach (NpcData npc in allNpcs)
         {
             if (npc.BirthSeason == currSeason && isCurrSeason ||
                 npc.BirthSeason == nextSeason && isNextSeason ||
@@ -90,5 +99,6 @@ public class UIMonthDayItem : MonoBehaviour
         }
 
         //TODO: add and create events
+
     }
 }

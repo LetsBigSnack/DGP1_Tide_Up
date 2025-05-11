@@ -9,7 +9,8 @@ public enum ToastType
 {
     Item,
     Environment,
-    Important
+    Important,
+    Awareness
 }
 
 public class UI_ToastManager : MonoBehaviour
@@ -20,32 +21,27 @@ public class UI_ToastManager : MonoBehaviour
     [SerializeField] private GameObject itemToastPrefab;
     [SerializeField] private GameObject environmentToastPrefab;
     [SerializeField] private GameObject importantToastPrefab;
+    [SerializeField] private GameObject awarenessToastPrefab;
 
     [Header("ToastParents")]
     [SerializeField] private Transform itemToastParent;
     [SerializeField] private Transform environmentToastParent;
     [SerializeField] private Transform importantToastParent;
+    [SerializeField] private Transform awarenessToastParent;
 
     [Header("MaxToastStack")]
     [SerializeField] private int itemToastStackSize;
     [SerializeField] private int environmentToastStackSize;
     [SerializeField] private int importantToastStackSize;
+    [SerializeField] private int awarenessToastStackSize;
     private Dictionary<ToastType, int> _toastCapLists = new Dictionary<ToastType, int>();
 
     [Header("CurrentToastLists")]
     [SerializeField] private List<GameObject> itemToastList;
     [SerializeField] private List<GameObject> environmentToastList;
     [SerializeField] private List<GameObject> importantToastList;
+    [SerializeField] private List<GameObject> awarenessToastList;
     private Dictionary<ToastType, List<GameObject>> _toastLists = new Dictionary<ToastType, List<GameObject>>();
-
-    public GameObject ItemToastPrefab
-    {
-        get { return itemToastPrefab; }
-    }
-    public Transform ItemToastParent
-    {
-        get { return itemToastParent; }
-    }
 
     private void Awake()
     {
@@ -65,10 +61,12 @@ public class UI_ToastManager : MonoBehaviour
         _toastLists.Add(ToastType.Item, itemToastList);
         _toastLists.Add(ToastType.Environment, environmentToastList);
         _toastLists.Add(ToastType.Important, importantToastList);
+        _toastLists.Add(ToastType.Awareness, awarenessToastList);
 
         _toastCapLists.Add(ToastType.Item, itemToastStackSize);
         _toastCapLists.Add(ToastType.Environment, environmentToastStackSize);
         _toastCapLists.Add(ToastType.Important, importantToastStackSize);
+        _toastCapLists.Add(ToastType.Awareness, awarenessToastStackSize);
     }
 
     public void SpawnToastMessage(ToastType type, string title = "", string description="", Sprite sprite = null)
@@ -78,15 +76,23 @@ public class UI_ToastManager : MonoBehaviour
         switch (type)
         {
             case ToastType.Item:
+                if(title == "Tutorial_Item")
+                {
+                    break;
+                }
                 newToast = CreateToast(itemToastPrefab, itemToastParent);
                 newToast.GetComponent<ToastNotificationItem>().SetToast(titleText:title, sprite:sprite);
                 break;
             case ToastType.Environment:
                 newToast = CreateToast(environmentToastPrefab, environmentToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(title);
+                newToast.GetComponent<ToastNotificationItem>().SetToast(title, description);
                 break;
             case ToastType.Important:
                 newToast = CreateToast(importantToastPrefab, importantToastParent);
+                newToast.GetComponent<ToastNotificationItem>().SetToast(title);
+                break;
+            case ToastType.Awareness:
+                newToast = CreateToast(awarenessToastPrefab, awarenessToastParent);
                 newToast.GetComponent<ToastNotificationItem>().SetToast(title, description);
                 break;
         }
@@ -115,7 +121,7 @@ public class UI_ToastManager : MonoBehaviour
 
     public void RemoveFromList(ToastType type, GameObject toast)
     {
-        _toastLists[type].Remove(_toastLists[type].Find(t => t == toast));      
+        _toastLists[type].Remove(_toastLists[type].Find(t => t == toast));
     }
 
     private bool ListCapReached(List<GameObject> list, int maxCap)
