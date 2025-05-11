@@ -94,5 +94,4 @@ public class UIInteractionIndicationManager : MonoBehaviour
         if (_activeIndicator != null)
             _activeIndicator.Hide();
     }
-
 }
