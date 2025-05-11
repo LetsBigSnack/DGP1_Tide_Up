@@ -26,9 +26,7 @@ public class DiggingSpot : Interactable
             {
                 EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
                 Destroy(gameObject);
-
-                GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ItemToastPrefab, UI_ToastManager.Instance.ItemToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText: trashData.title, sprite: trashData.sprite);
+                
             }
         });
     }

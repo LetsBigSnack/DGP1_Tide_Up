@@ -30,8 +30,6 @@ public class FishingSpot : Interactable
                 canFish = false;
                 elapsedTime = 0.0f;
                 EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
-                GameObject newToast = UI_ToastManager.Instance.CreateToast(UI_ToastManager.Instance.ItemToastPrefab, UI_ToastManager.Instance.ItemToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText: trashData.title, sprite: trashData.sprite);
             }
         });
     }
