@@ -41,7 +41,7 @@ public class MiniGameManager : MonoBehaviour
         GameStateManager.Instance.SetGameState(GameStates.MiniGame);
         MiniGame miniGame = miniGames.Find(c => c.type == type);
         AnimationController _animation = PlayerController.Instance.GetAnimationController();
-        PlayerController.Instance?.SetPlayerCanMove(false);
+        PlayerController.Instance?.SetPlayerCantMove();
     
         switch (type)
         {
@@ -61,18 +61,20 @@ public class MiniGameManager : MonoBehaviour
             {
                 GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
                 callback(returnValue);
-
-                if (returnValue)
+                switch (type)
                 {
-                    switch (type)
-                    {
-                        case MiniGameType.PickUp:
-                            PlayerController.Instance?.SetPlayerCanMove(true);
-                            _animation?.DisableAnimation(Animations.Pick);
-                            break;
-                    }
+                    case MiniGameType.PickUp:
+                        PlayerController.Instance?.SetPlayerCanMove();
+                        _animation?.DisableAnimation(Animations.Pick);
+                        break;
+                    case MiniGameType.Fishing:
+                        _animation?.DisableAnimation(Animations.Fish);
+                        break;
+                    case MiniGameType.Digging:
+                        _animation?.DisableAnimation(Animations.Dig);
+                        break;
+
                 }
-                
             }
         ));
     }

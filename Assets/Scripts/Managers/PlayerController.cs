@@ -197,9 +197,14 @@ public class PlayerController : MonoBehaviour
         InteractionManager.Instance.Interact();
     }
     
-    public void SetPlayerCanMove(bool move = true)
+    public void SetPlayerCanMove()
     {
-        playerCanMove = move;
+        playerCanMove = true;
+    }
+
+    public void SetPlayerCantMove()
+    {
+        playerCanMove = false;
     }
 
     private void OnMovePlayerPreformed(InputAction.CallbackContext value)

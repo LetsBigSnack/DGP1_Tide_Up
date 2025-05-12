@@ -38,7 +38,7 @@ public class NPC_Controller : MonoBehaviour
     void Update()
     {
         _aiAgent.isStopped = !canMove;
-        if (!canMove)
+        if (!canMove || isIdling)
         {
             _aiAgent.velocity = Vector3.zero;
             _anim.DisableAnimation(Animations.Move);
@@ -46,6 +46,7 @@ public class NPC_Controller : MonoBehaviour
         else
         {
             MoveTowardsTarget();
+            _anim.EnableAnimation(Animations.Move);
         }      
     }
 
@@ -61,8 +62,8 @@ public class NPC_Controller : MonoBehaviour
             Vector3 newDestination = GetPointInAreas();
             currentTarget = newDestination;
             _aiAgent.SetDestination(newDestination);
-            _aiAgent.isStopped = false;
             _anim.EnableAnimation(Animations.Move);
+            _aiAgent.isStopped = false;
         }
 
         if (DestinationReached())
@@ -110,6 +111,7 @@ public class NPC_Controller : MonoBehaviour
     private IEnumerator IdleRoutine()
     {
         isIdling = true;
+        _anim.DisableAnimation(Animations.Move);
         yield return new WaitForSeconds(Random.Range(minIdleTime, maxIdleTime));
         isIdling = false;
     }
