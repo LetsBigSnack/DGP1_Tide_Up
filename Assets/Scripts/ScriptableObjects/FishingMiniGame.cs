@@ -25,11 +25,14 @@ namespace ScriptableObjects
         [SerializeField] private float directionChangeChance = 0.6f;
         [SerializeField] private float defaultSpeed = 0.4f;
         
+        [SerializeField] private bool decay = false;
+        [SerializeField] private float decayRate = 0.01f;
+        [SerializeField] private float trackRate = 0.3f;
         
         private float _playerPosition;
         private float _trashPosition;
-        private float _trackingTime;
         private bool _isActive;
+        private float _score;
         
         private Action<float, float> OnMiniGameVertProgress = delegate { };
 
@@ -39,7 +42,7 @@ namespace ScriptableObjects
             trashMoveSpeed = defaultSpeed;
             _playerPosition = 0.5f;
             _trashPosition = 0.5f;
-            _trackingTime = 0f;
+            _score = 0f;
             _isActive = true;
 
             MiniGameController.OnMoveBar += OnMoveBar;
@@ -54,8 +57,7 @@ namespace ScriptableObjects
             
             float changeDirectionTimer = 0f;
             float directionChangeInterval = UnityEngine.Random.Range(directionIntervalMin, directionIntervalMax); // Randomize when direction might change
-            float score = 0;
-            
+   
             while (elapsed < duration)
             {
                 changeDirectionTimer += Time.deltaTime;
@@ -87,13 +89,19 @@ namespace ScriptableObjects
                 // Track if within tolerance
                 if (Mathf.Abs(_playerPosition - _trashPosition) <= trackingTolerance)
                 {
-                    _trackingTime += Time.deltaTime;
+                    _score = Mathf.Min(1f, _score + trackRate * Time.deltaTime);
+                }
+                else
+                {
+                    if (decay)
+                    {
+                        _score = Mathf.Max(0f, _score - decayRate * Time.deltaTime);
+                    }
                 }
                 
-                score = Mathf.Clamp01(_trackingTime / duration);
-                // Emit current positions
+               
                 OnMiniGameProgress?.Invoke(_playerPosition, _trashPosition);
-                OnMiniGameVertProgress?.Invoke(score, successThreshold);
+                OnMiniGameVertProgress?.Invoke(_score, successThreshold);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
@@ -103,9 +111,9 @@ namespace ScriptableObjects
             UIUnsubscribe();
             _isActive = false;
             
-            Debug.Log($"[FishingMiniGame] Score: {score:F2}");
+            Debug.Log($"[FishingMiniGame] Score: {_score:F2}");
         
-            callback(score > successThreshold);
+            callback(_score > successThreshold);
         }
 
         protected override void OnInteract()
