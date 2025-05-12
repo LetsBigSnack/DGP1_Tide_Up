@@ -61,20 +61,18 @@ public class MiniGameManager : MonoBehaviour
             {
                 GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
                 callback(returnValue);
-                
-                switch (type)
+
+                if (returnValue)
                 {
-                    case MiniGameType.PickUp:
-                        PlayerController.Instance?.SetPlayerCanMove(true);
-                        _animation?.DisableAnimation(Animations.Pick);
-                        break;
-                    case MiniGameType.Digging:
-                        _animation?.DisableAnimation(Animations.Dig);
-                        break;
-                    case MiniGameType.Fishing:
-                        _animation?.DisableAnimation(Animations.Fish);
-                        break;
+                    switch (type)
+                    {
+                        case MiniGameType.PickUp:
+                            PlayerController.Instance?.SetPlayerCanMove(true);
+                            _animation?.DisableAnimation(Animations.Pick);
+                            break;
+                    }
                 }
+                
             }
         ));
     }
