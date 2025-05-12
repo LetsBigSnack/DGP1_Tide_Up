@@ -32,7 +32,6 @@ public class NpcIndicator : MonoBehaviour
         {
             return;
         }
-        UIQuestIndicatorManager.Instance.HandleChangeIndicator(npc.NpcData, npc.gameObject);
     }
 
     private void InstantiateAwarenessSlider(int completedQuests, Npc npc)

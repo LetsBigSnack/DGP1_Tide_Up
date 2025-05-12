@@ -71,6 +71,7 @@ public class AnimationController : MonoBehaviour
 
     public void PlayOnShotEmotion(Emotion emotion)
     {
+        Debug.Log("I have been called");
         switch (emotion)
         {
             case Emotion.Angry:
@@ -89,5 +90,6 @@ public class AnimationController : MonoBehaviour
                 anim.SetTrigger("sad");
                 break;
         }
+        UIEmotionIndicatorManager.Instance.HandleChangeIndicator(gameObject, emotion);
     }
 }
