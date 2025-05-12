@@ -10,6 +10,7 @@ using static AnimationController;
 public class PlayerController : MonoBehaviour
 {
     
+    public static PlayerController Instance;
     
     [Header("Rotation")]
     [SerializeField] private float rotateStepSpeed = 500;
@@ -64,6 +65,16 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
+        
         _anim = GetComponent<AnimationController>();
 
         _playerInputs = new PlayerInputs();
@@ -162,7 +173,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if( InteractionManager.Instance.ReturnInteractableType() == Data.InteractableType.Pickup)
+            if( InteractionManager.Instance.ReturnInteractableType() == Data.InteractableType.Pickup && InventoryManager.Instance.HasSpaceForItem())
             {
                 playerCanMove = false;
                 _anim.EnableAnimation(Animations.Pick);
@@ -170,17 +181,25 @@ public class PlayerController : MonoBehaviour
             }
 
             InteractionManager.Instance.Interact();
+            
         }
     }
+
+    public AnimationController GetAnimationController()
+    {
+        return _anim;
+    }
+
+
 
     public void DelayedInteract()
     {
         InteractionManager.Instance.Interact();
     }
-
-    public void SetPlayerCanMove()
+    
+    public void SetPlayerCanMove(bool move = true)
     {
-        playerCanMove = true;
+        playerCanMove = move;
     }
 
     private void OnMovePlayerPreformed(InputAction.CallbackContext value)

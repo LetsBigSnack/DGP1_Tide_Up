@@ -38,12 +38,13 @@ public class AnimationController : MonoBehaviour
                 anim.SetFloat("velocity", _velocity);
                 break;
             case Animations.Fish:
-                anim.SetBool("Fish", true);
+                anim.SetBool("fish", true);
                 break;
             case Animations.Dig:
-                anim.SetBool("Dig", true);
+                anim.SetBool("dig", true);
                 break;
             case Animations.Pick:
+                anim.SetBool("pick", true);
                 anim.Play("PickUp");
                 break;
         }
@@ -61,10 +62,13 @@ public class AnimationController : MonoBehaviour
                 anim.SetFloat("velocity", _velocity);
                 break;
             case Animations.Fish:
-                anim.SetBool("Fish", false);
+                anim.SetBool("fish", false);
                 break;
             case Animations.Dig:
-                anim.SetBool("Dig", false);
+                anim.SetBool("dig", false);
+                break;
+            case Animations.Pick:
+                anim.SetBool("pick", false);
                 break;
         }
     }
