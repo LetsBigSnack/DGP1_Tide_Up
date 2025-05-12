@@ -12,6 +12,8 @@ namespace ScriptableObjects
         [SerializeField] private float miniGameDuration = 2.0f;
         [SerializeField] private float miniGameGoalTime = 1.75f;
         [SerializeField] private float miniGameMargin = 0.1f;
+        [SerializeField] private bool missPlaysFulltime = true;
+        
         
         private bool _isPressed = false;
         private bool _isSuccess = false;
@@ -33,9 +35,19 @@ namespace ScriptableObjects
             
             UIMiniGameManager.Instance.Initialize(miniGameDuration, goalPercentage, Player.Instance.gameObject.transform);
             
-            while (!_isPressed && Time.time < endTime)
+            while (Time.time < endTime)
             {
-                OnMiniGameProgress?.Invoke((Time.time-_startTime)/miniGameDuration, goalPercentage);
+
+                if (_isSuccess || (!missPlaysFulltime && _isPressed))
+                {
+                    break;
+                }
+                
+                
+                if (!_isPressed)
+                {
+                    OnMiniGameProgress?.Invoke((Time.time-_startTime)/miniGameDuration, goalPercentage);
+                }
                 
                 Debug.Log($"[MiniGame] Current Time: {Time.time:F2} | Time Left: {(endTime - Time.time):F2}s");
                 yield return null;

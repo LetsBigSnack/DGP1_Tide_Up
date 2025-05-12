@@ -17,7 +17,7 @@ MonoBehaviour:
   moveSpeed: 0.4
   trackingTolerance: 0.1
   successThreshold: 0.7
-  trashMoveSpeed: 0.1
+  trashMoveSpeed: 0.7
   trashMoveRangeMin: -1.27
   trashMoveRangeMax: 1.72
   trashSpeedMin: 0.1
@@ -26,3 +26,6 @@ MonoBehaviour:
   directionIntervalMax: 1.5
   directionChangeChance: 0.6
   defaultSpeed: 0.4
+  decay: 1
+  decayRate: 0.01
+  trackRate: 0.3

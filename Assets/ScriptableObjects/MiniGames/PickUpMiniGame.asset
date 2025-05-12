@@ -16,3 +16,4 @@ MonoBehaviour:
   miniGameDuration: 1
   miniGameGoalTime: 0.75
   miniGameMargin: 0.075
+  missPlaysFulltime: 1
