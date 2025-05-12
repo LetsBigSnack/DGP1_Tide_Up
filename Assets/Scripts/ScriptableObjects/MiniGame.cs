@@ -14,14 +14,14 @@ namespace Data
 
         protected abstract void OnInteract();
 
-        protected void UISubscribe()
+        protected virtual void UISubscribe()
         {
-            OnMiniGameProgress += UIMiniGameManager.Instance.UpdateSlider;
+            OnMiniGameProgress += UIMiniGameManager.Instance.UpdateHorSlider;
         }
 
-        protected void UIUnsubscribe()
+        protected virtual void UIUnsubscribe()
         {
-            OnMiniGameProgress -= UIMiniGameManager.Instance.UpdateSlider;
+            OnMiniGameProgress -= UIMiniGameManager.Instance.UpdateHorSlider;
         }
     }
 }

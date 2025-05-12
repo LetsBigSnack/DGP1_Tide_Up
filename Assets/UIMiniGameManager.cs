@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIMiniGameManager : MonoBehaviour
@@ -8,16 +9,16 @@ public class UIMiniGameManager : MonoBehaviour
     public static UIMiniGameManager Instance;
     
     [SerializeField] private GameObject uiMiniGameHolder;
-    [SerializeField] private Slider timeSlider;
-    [SerializeField] private RectTransform sweetSpotMarker;
-
+    [SerializeField] private Slider horSlider; 
+    [SerializeField] private RectTransform horSweetSpotMarker;
+    [SerializeField] private Slider vertSlider; 
+    [SerializeField] private RectTransform vertSweetSpotMarker;
     [SerializeField] private float indicatorHeight = 2.0f;
     
-    private float _totalTime;
-    private float _goalTime;
-    private float _startTime;
+    
     private bool _isRunning;
-    private float _lastGoalPct;
+    private float _horLastGoalPct;
+    private float _verLastGoalPct;
 
     public void Awake()
     {
@@ -31,54 +32,96 @@ public class UIMiniGameManager : MonoBehaviour
         }
     }
     
-    public void Initialize(float totalTime, float initialGoalPct, Transform target)
+    public void Initialize(float totalTime, float initialGoalPct, Transform target, MiniGameType gameType = MiniGameType.PickUp, float verTime = 0, float vertGoalPct = 0)
     {
-        Show();
-        _startTime = Time.time;
+        Show(gameType);
         _isRunning = true;
-        timeSlider.value = 0;
-        timeSlider.maxValue = 1.0f;
+        horSlider.value = 0;
+        horSlider.maxValue = 1.0f;
         transform.position = target.position + Vector3.up * indicatorHeight;
         
-        _lastGoalPct = -1f; // reset state to force placement on first update
-        UpdateSlider(0f, initialGoalPct);
+        _horLastGoalPct = -1f; // reset state to force placement on first update
+        UpdateHorSlider(0f, initialGoalPct);
+        
+        
+        if (gameType == MiniGameType.Fishing)
+        {
+            vertSlider.value = 0;
+            vertSlider.maxValue = 1.0f;
+            _verLastGoalPct = -1f; // reset state to force placement on first update
+            UpdateVerSlider(0f, initialGoalPct);
+        }
+        
     }
 
 
-    public void UpdateSlider(float progress, float goalPct)
+    public void UpdateHorSlider(float progress, float goalPct)
     {
         if (!_isRunning) return;
 
-        timeSlider.value = progress;
+        horSlider.value = progress;
 
-        // Only reposition sweet spot if the goal has changed
-        if (!Mathf.Approximately(goalPct, _lastGoalPct))
+        if (!Mathf.Approximately(goalPct, _horLastGoalPct))
         {
-            PositionSweetSpot(goalPct);
-            _lastGoalPct = goalPct;
+            HorPositionSweetSpot(goalPct);
+            _horLastGoalPct = goalPct;
         }
     }
     
-    private void PositionSweetSpot(float pct)
+    public void UpdateVerSlider(float progress, float goalPct)
     {
-        RectTransform sliderRect = timeSlider.GetComponent<RectTransform>();
+        if (!_isRunning) return;
+
+        vertSlider.value = progress;
+
+        if (!Mathf.Approximately(goalPct, _verLastGoalPct))
+        {
+            VertPositionSweetSpot(goalPct);
+            _verLastGoalPct = goalPct;
+        }
+    }
+    
+    private void HorPositionSweetSpot(float pct)
+    {
+        RectTransform sliderRect = horSlider.GetComponent<RectTransform>();
         float width = sliderRect.rect.width;
 
-        Vector2 pos = sweetSpotMarker.anchoredPosition;
-        float markerWidth = sweetSpotMarker.rect.width;
+        Vector2 pos = horSweetSpotMarker.anchoredPosition;
+        float markerWidth = horSweetSpotMarker.rect.width;
 
-        pos.x = width * pct - (markerWidth * sweetSpotMarker.pivot.x);
-        sweetSpotMarker.anchoredPosition = pos;
+        pos.x = width * pct - (markerWidth * horSweetSpotMarker.pivot.x);
+        horSweetSpotMarker.anchoredPosition = pos;
+    }
+    
+    private void VertPositionSweetSpot(float pct)
+    {
+        RectTransform sliderRect = vertSlider.GetComponent<RectTransform>();
+        float width = sliderRect.rect.width;
+
+        Vector2 pos = vertSweetSpotMarker.anchoredPosition;
+        float markerWidth = vertSweetSpotMarker.rect.width;
+
+        pos.x = width * pct - (markerWidth * vertSweetSpotMarker.pivot.x);
+        vertSweetSpotMarker.anchoredPosition = pos;
     }
 
-    public void Show()
+    public void Show(MiniGameType gameType)
     {
         uiMiniGameHolder.SetActive(true);
+
+        if (gameType == MiniGameType.Fishing)
+        {
+            vertSlider.gameObject.SetActive(true);
+            vertSweetSpotMarker.gameObject.SetActive(true);
+        }
+        
     }
     
     public void Hide()
     {
         _isRunning = false;
         uiMiniGameHolder.SetActive(false);
+        vertSlider.gameObject.SetActive(false);
+        vertSweetSpotMarker.gameObject.SetActive(false);
     }
 }

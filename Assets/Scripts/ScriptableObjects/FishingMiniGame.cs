@@ -30,6 +30,9 @@ namespace ScriptableObjects
         private float _trashPosition;
         private float _trackingTime;
         private bool _isActive;
+        
+        private Action<float, float> OnMiniGameVertProgress = delegate { };
+
 
         public override IEnumerator StartMiniGame(Action<bool> callback)
         {
@@ -44,12 +47,14 @@ namespace ScriptableObjects
             
             float elapsed = 0f;
             float direction = UnityEngine.Random.value > 0.5f ? 1f : -1f;
-            
-            UIMiniGameManager.Instance.Initialize(_playerPosition, _trashPosition, Player.Instance.gameObject.transform);
+
+            UIMiniGameManager.Instance.Initialize(_playerPosition, _trashPosition, Player.Instance.gameObject.transform,
+                MiniGameType.Fishing, 0.0f, successThreshold); 
 
             
             float changeDirectionTimer = 0f;
             float directionChangeInterval = UnityEngine.Random.Range(directionIntervalMin, directionIntervalMax); // Randomize when direction might change
+            float score = 0;
             
             while (elapsed < duration)
             {
@@ -84,10 +89,11 @@ namespace ScriptableObjects
                 {
                     _trackingTime += Time.deltaTime;
                 }
-
+                
+                score = Mathf.Clamp01(_trackingTime / duration);
                 // Emit current positions
                 OnMiniGameProgress?.Invoke(_playerPosition, _trashPosition);
-
+                OnMiniGameVertProgress?.Invoke(score, successThreshold);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
@@ -96,8 +102,7 @@ namespace ScriptableObjects
             UIMiniGameManager.Instance.Hide();
             UIUnsubscribe();
             _isActive = false;
-
-            float score = Mathf.Clamp01(_trackingTime / duration);
+            
             Debug.Log($"[FishingMiniGame] Score: {score:F2}");
         
             callback(score > successThreshold);
@@ -114,6 +119,19 @@ namespace ScriptableObjects
 
             _playerPosition += input * moveSpeed * Time.deltaTime;
             _playerPosition = Mathf.Clamp01(_playerPosition);
+        }
+        
+        
+        protected override void UISubscribe()
+        {
+            OnMiniGameProgress += UIMiniGameManager.Instance.UpdateHorSlider;
+            OnMiniGameVertProgress += UIMiniGameManager.Instance.UpdateVerSlider;
+        }
+
+        protected override void UIUnsubscribe()
+        {
+            OnMiniGameProgress -= UIMiniGameManager.Instance.UpdateHorSlider;
+            OnMiniGameVertProgress -= UIMiniGameManager.Instance.UpdateVerSlider;
         }
     }
 }
