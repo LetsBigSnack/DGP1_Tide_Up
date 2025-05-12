@@ -7,8 +7,6 @@ public class UIEmotionIndicatorItem : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private float padding;
     [SerializeField] private float destroyTime;
-    [SerializeField] private float raycastRadius = 5f;
-    [SerializeField] private LayerMask detectionLayer;
     private Animator _anim;
 
     private void Start()
