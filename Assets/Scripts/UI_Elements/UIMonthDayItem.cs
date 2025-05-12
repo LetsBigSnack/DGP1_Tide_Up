@@ -14,11 +14,19 @@ public class UIMonthDayItem : MonoBehaviour
     [SerializeField] private int dayNumInSeason;
     [SerializeField] private string weekDay;
 
+    [SerializeField] private GameObject selectCircle;
+
     private List<NpcData> _birthdaysOnThisDay = new();
 
     public void OnClick()
     {
         UICalendarDescriptionHelper.Instance.Setup(weekDay, dayNumInSeason, _birthdaysOnThisDay);
+        UICalendarDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+    }
+
+    public void ToggleIcon()
+    {
+        selectCircle.SetActive(!selectCircle.activeInHierarchy);
     }
 
     public void Setup(int number)
@@ -91,5 +99,6 @@ public class UIMonthDayItem : MonoBehaviour
         }
 
         //TODO: add and create events
+
     }
 }

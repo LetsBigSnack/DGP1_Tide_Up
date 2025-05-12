@@ -52,6 +52,11 @@ public class DataUtil : MonoBehaviour
         return listOfMaterials.FirstOrDefault(t => t.type == type);
     }
 
+    public TrashData GetRandomTrashData()
+    {
+        return listOfTrash[UnityEngine.Random.Range(0, listOfTrash.Count)];
+    }
+    
     public QuestItemInstance GetTutorialItem()
     {
         QuestItemData questItem = listOfTutorialItems[UnityEngine.Random.Range(0, listOfItems.Count)];

@@ -407,6 +407,7 @@ public class Waves : MonoBehaviour
 
     void OnDrawGizmos()
     {
+        return;
         if (_vertices == null) return;
 
         // Draw all vertices (optional, can comment out)

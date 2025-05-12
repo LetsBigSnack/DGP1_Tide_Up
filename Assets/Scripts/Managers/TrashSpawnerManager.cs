@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 [Serializable]
@@ -10,6 +11,8 @@ public class TrashPerArea
 {
     [SerializeField] private SpawnAreaType spawnArea;
     [SerializeField] private GameObject[] items;
+    [SerializeField] private GameObject[] hills;
+    [SerializeField] private float hillPercentage;
     public SpawnAreaType SpawnArea
     {
         get => spawnArea;
@@ -20,6 +23,18 @@ public class TrashPerArea
     {
         get => items;
         set => items = value;
+    }
+    
+    public GameObject[] Hills
+    {
+        get => hills;
+        set => hills = value;
+    }
+    
+    public float HillPercentage
+    {
+        get => hillPercentage;
+        set => hillPercentage = value;
     }
     
 }
@@ -102,15 +117,21 @@ public class TrashSpawnerManager : MonoBehaviour
     public GameObject GetTrashForArea(SpawnAreaType type)
     {
         TrashPerArea area = trashItemPerArea.FirstOrDefault(c => c.SpawnArea == type);
-
+        
         if (area?.Items == null || area?.Items.Length == 0)
         {
             return null;
         }
         
-        GameObject[] items = area.Items;
-        
+        GameObject[] items;
+        if (area.Hills != null && area.Hills?.Length > 0 && area.HillPercentage < Random.Range(0, 1.0f))
+        {
+            items = area.Hills;
+        }
+        else
+        {
+            items = area.Items;
+        }
         return items[UnityEngine.Random.Range(0, items.Length)];
-        
     }
 }

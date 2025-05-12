@@ -12,7 +12,9 @@ namespace Data
         Exchange,
         Door,
         Boat,
-        Dock
+        Dock,
+        Digging,
+        Fishing
     }
 
     public abstract class Interactable : MonoBehaviour

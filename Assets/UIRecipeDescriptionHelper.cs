@@ -27,6 +27,8 @@ public class UIRecipeDescriptionHelper : MonoBehaviour
     [SerializeField] private GameObject indicatorFull;
     [SerializeField] private GameObject indicatorEmpty;
 
+    public UIRecipeEntryItem _currentSelectedItem;
+
     private void Awake()
     {
         if(Instance == null)
@@ -146,5 +148,24 @@ public class UIRecipeDescriptionHelper : MonoBehaviour
         }
 
         _curDisplayedMaterials.Clear();
+    }
+
+    public void SetGameObjectAsSelected(UIRecipeEntryItem item)
+    {
+        if (_currentSelectedItem == item)
+        {
+            return;
+        }
+
+        if (_currentSelectedItem == null)
+        {
+            _currentSelectedItem = item;
+            item.ToggleIcon();
+            return;
+        }
+
+        _currentSelectedItem.ToggleIcon();
+        _currentSelectedItem = item;
+        _currentSelectedItem.ToggleIcon();
     }
 }

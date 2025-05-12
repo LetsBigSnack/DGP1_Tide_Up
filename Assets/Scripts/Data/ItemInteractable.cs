@@ -11,13 +11,22 @@ public class ItemInteractable : Interactable
 
     public override void Interact()
     {
-
-        if (InventoryManager.Instance.AddItem(new TrashItemInstance(trashData, false)))
+        if (!InventoryManager.Instance.HasSpaceForItem())
         {
-            EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
-            Destroy(gameObject);
+            //TODO: maybe play sound
+            return;
         }
-
+        
+        MiniGameManager.Instance.StartMiniGame(MiniGameType.PickUp, success =>
+        {
+            TrashItemInstance trash = new TrashItemInstance(trashData, success);
+            
+            if (InventoryManager.Instance.AddItem(trash))
+            {
+                EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
+                Destroy(gameObject);
+            }
+        });
     }
 
     public override void ShowInteractability(bool show)

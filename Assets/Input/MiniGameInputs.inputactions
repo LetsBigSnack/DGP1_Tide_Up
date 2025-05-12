@@ -1,0 +1,54 @@
+{
+    "name": "MiniGameInputs",
+    "maps": [
+        {
+            "name": "MiniGame",
+            "id": "ba9e257e-4290-47a5-9412-cbcb58c773e5",
+            "actions": [
+                {
+                    "name": "MoveBar",
+                    "type": "Value",
+                    "id": "f95e9f0b-e548-49bb-9766-3ec5592287f7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "e940250c-2cb4-4a13-92f6-56557f6b6e9a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3779451c-c3b1-4b88-bb51-1fb626052945",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveBar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9159bcf-898f-48aa-8f5b-a1ddafdf0b96",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

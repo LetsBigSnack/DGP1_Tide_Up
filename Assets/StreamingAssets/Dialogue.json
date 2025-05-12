@@ -6,7 +6,10 @@
         "I have fishnets and black painted toenails",
         "3",
         "4",
-        "5"
+        "5",
+        "6",
+        "7",
+        "TEST"
       ]
     },
     "Deki": {
@@ -70,7 +73,7 @@
         {
           "DialogueContent": [
             "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT].",
           ]
         },
         {
@@ -229,36 +232,36 @@
       "Low": [
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         }
       ]
@@ -267,36 +270,36 @@
       "Low": [
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         }
       ]
@@ -305,36 +308,36 @@
       "Low": [
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress"
+            "In Progress [QUEST-ITEM] "
           ]
         }
       ]

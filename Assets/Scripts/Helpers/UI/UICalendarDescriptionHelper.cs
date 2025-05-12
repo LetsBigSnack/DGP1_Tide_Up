@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Seasons
 {
@@ -15,6 +16,11 @@ public enum Seasons
 
 public class UICalendarDescriptionHelper : MonoBehaviour
 {
+    [SerializeField] private Image seasonBG;
+    [SerializeField] private Sprite winterBG;
+    [SerializeField] private Sprite springBG;
+    [SerializeField] private Sprite summerBG;
+    [SerializeField] private Sprite autumnBG;
     [SerializeField] private TextMeshProUGUI seasonTitle;
     [SerializeField] private TextMeshProUGUI yearNumber;
     [SerializeField] private TextMeshProUGUI weekdayDaynumber;
@@ -24,6 +30,7 @@ public class UICalendarDescriptionHelper : MonoBehaviour
 
     private int _lastUpdatedDay = 0;
     private List<NpcData> _birthdays = new();
+    public UIMonthDayItem _currentSelectedItem;
 
     public static UICalendarDescriptionHelper Instance;
     private void Awake()
@@ -82,15 +89,19 @@ public class UICalendarDescriptionHelper : MonoBehaviour
         {
             case Seasons.Winter:
                 currSeason = Seasons.Winter;
+                seasonBG.sprite = winterBG;
                 break;
             case Seasons.Spring:
                 currSeason = Seasons.Spring;
+                seasonBG.sprite = springBG;
                 break;
             case Seasons.Summer:
                 currSeason = Seasons.Summer;
+                seasonBG.sprite = summerBG;
                 break;
             case Seasons.Autumn:
                 currSeason = Seasons.Autumn;
+                seasonBG.sprite = autumnBG;
                 break;
         }
         
@@ -134,6 +145,25 @@ public class UICalendarDescriptionHelper : MonoBehaviour
                 npc.Portrait
             );
         }
+    }
+
+    public void SetGameObjectAsSelected(UIMonthDayItem item)
+    {
+        if (_currentSelectedItem == item)
+        {
+            return;
+        }
+
+        if (_currentSelectedItem == null)
+        {
+            _currentSelectedItem = item;
+            item.ToggleIcon();
+            return;
+        }
+
+        _currentSelectedItem.ToggleIcon();
+        _currentSelectedItem = item;
+        _currentSelectedItem.ToggleIcon();
     }
 
 }
