@@ -12,6 +12,8 @@ public class UIQuestDescriptionHelper : MonoBehaviour
     [SerializeField] private TextMeshProUGUI questReason;
     [SerializeField] private TextMeshProUGUI questNeeds;
 
+    private UIQuestItem _currentSelectedItem;
+
     public static UIQuestDescriptionHelper Instance;
     private void Awake()
     {
@@ -23,6 +25,25 @@ public class UIQuestDescriptionHelper : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetGameObjectAsSelected(UIQuestItem item)
+    {
+        if (_currentSelectedItem == item)
+        {
+            return;
+        }
+
+        if (_currentSelectedItem == null)
+        {
+            _currentSelectedItem = item;
+            item.ToggleIcon();
+            return;
+        }
+
+        _currentSelectedItem.ToggleIcon();
+        _currentSelectedItem = item;
+        _currentSelectedItem.ToggleIcon();
     }
 
     public void UpdateQuestDetails(Quest quest)

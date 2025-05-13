@@ -49,17 +49,42 @@ public class UIQuestMenuController : UIJournalSubMenu
     private void UpdateQuestMenu()
     {
         ClearQuestMenu();
+        int counter = 0;
 
         foreach (Quest quest in _currentQuestEntries)
         {
+            if (quest == null)
+            {
+                continue;
+            }
+
             Debug.Log(quest.QuestTitle);
             GameObject newQuestItem = Instantiate(questItemPrefab, currentQuestListParent);
             newQuestItem.GetComponent<UIQuestItem>().Setup(quest);
+            
+            if (counter == 0)
+            {
+                counter = 1;
+                UIQuestItem questItem = newQuestItem.GetComponent<UIQuestItem>();
+                UIQuestDescriptionHelper.Instance.SetGameObjectAsSelected(questItem);
+            }
         }
         foreach (Quest quest in _completedQuestEntries)
         {
+            if (quest == null)
+            {
+                continue;
+            }
+
             GameObject newQuestItem = Instantiate(questItemPrefab, completedQuestListParent);
             newQuestItem.GetComponent<UIQuestItem>().Setup(quest);
+
+            if (counter == 0)
+            {
+                counter = 1;
+                UIQuestItem questItem = newQuestItem.GetComponent<UIQuestItem>();
+                UIQuestDescriptionHelper.Instance.SetGameObjectAsSelected(questItem);
+            }
         }
         SelectFirstQuest();
     }
