@@ -130,7 +130,7 @@ public class UIRecipeDescriptionHelper : MonoBehaviour
         foreach(TrashMaterialData t in _curRecipies[currentPosition].ingredients)
         {
             GameObject trashMaterial = Instantiate(materialIconPrefab, materialIconParent);
-            trashMaterial.GetComponent<Image>().sprite = t.sprite;
+            trashMaterial.transform.GetChild(0).GetComponent<Image>().sprite = t.sprite;
             _curDisplayedMaterials.Add(trashMaterial);
         }
     }
