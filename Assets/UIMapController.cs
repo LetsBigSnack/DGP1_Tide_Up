@@ -69,9 +69,13 @@ public class UIMapController : UIJournalSubMenu
 
         foreach (GameObject o in _placeNames)
         {
+            if(o == null)
+            {
+                continue;
+            }
             o.SetActive(!o.activeInHierarchy);
         }
-
+        _placeNames.Clear();
     }
 
     public void ActivatePlaceNames()
@@ -82,6 +86,10 @@ public class UIMapController : UIJournalSubMenu
         }
         foreach(GameObject o in _placeNames)
         {
+            if (o == null)
+            {
+                continue;
+            }
             o.SetActive(true);
         }
     }

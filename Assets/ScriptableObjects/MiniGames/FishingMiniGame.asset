@@ -27,5 +27,5 @@ MonoBehaviour:
   directionChangeChance: 0.6
   defaultSpeed: 0.4
   decay: 1
-  decayRate: 0.01
+  decayRate: 0.1
   trackRate: 0.3

@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Rooms/Dev_Room_1.unity
     guid: 06f4346e517cc77499be8a6b310ee96e
   - enabled: 1
-    path: Assets/Scenes/Development/FE_182_AnimationController.unity
-    guid: 82b24f232f81f7f46a19c74f0b4e5d33
+    path: Assets/Scenes/BE_186_CLiff.unity
+    guid: e367bfe2c2888e74787745ed47b589a9
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

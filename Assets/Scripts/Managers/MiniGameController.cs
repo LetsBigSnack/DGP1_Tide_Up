@@ -57,6 +57,11 @@ public class MiniGameController : MonoBehaviour
 
     private void OnDisable()
     {
+        if(_miniGameInput == null)
+        {
+            return;
+        }
+
         _miniGameInput.Disable();
         
         _miniGameInput.MiniGame.Interact.Disable();
