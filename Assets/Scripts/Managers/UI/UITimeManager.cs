@@ -72,6 +72,7 @@ public class UITimeManager : MonoBehaviour
 
     public void OpenTimeModal()
     {
+        CloseAllMenus();
         timeChangeContainer.SetActive(true);
         timeChangeButton.SetActive(false);
         TimeManager.Instance.ToggleTime();
@@ -87,6 +88,17 @@ public class UITimeManager : MonoBehaviour
         switchTimeText.text = TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours).ToString(@"hh\:mm");
 
         maxHoursToChange = 0;
+    }
+
+    private void CloseAllMenus()
+    {
+        GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
+        //TODO: Grenus Fix
+        //UIHUDManager.Instance.ToggleDateMap();
+        UIJournalManager.Instance.SwitchState(JournalType.Closed);
+        UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Closed);
+        UIShopManager.Instance.SwitchState(ShopType.Closed);
+        UITideUpBoxManager.Instance.CloseTideUpBox();
     }
 
     private void UpdateTimeText(float newTime)
