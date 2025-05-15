@@ -71,6 +71,12 @@ public class EnvironmentObject : MonoBehaviour
 
         EnvironmentVisual visual = visuals.Find(v => v.State == state);
 
+        if(visual == null)
+        {
+            Debug.LogError($"Could not find visual {state.ToString()} for game object {gameObject.name}");
+            return;
+        }
+
         visual.EnvironmentObj.SetActive(true);
 
         currentActiveGameObject = visual.EnvironmentObj;
