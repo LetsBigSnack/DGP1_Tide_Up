@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,9 @@ public class BoatController : MonoBehaviour
     private float _steerInput = 0f;
     private float _throttleInput = 0f;
     private Vector3 _currentVelocity;
+
+    [SerializeField] private List<ParticleSystem> particles = new List<ParticleSystem>();
+    [SerializeField] private ObjectRotator rotator;
 
     private void Awake()
     {
@@ -62,6 +66,7 @@ public class BoatController : MonoBehaviour
         }
 
         MoveBoat();
+        BoatVfx();
         
     }
 
@@ -96,6 +101,31 @@ public class BoatController : MonoBehaviour
 
             _rb.MovePosition(newPos);
             _rb.MoveRotation(_rb.rotation * rotation);
+        }
+    }
+
+    private void BoatVfx()
+    {
+        if (_currentVelocity != Vector3.zero)
+        {
+            if (rotator.isActive)
+            {
+                return;
+            }
+
+            foreach (ParticleSystem s in particles)
+            {
+                s.Play();
+            }
+            rotator.isActive = true;
+        }
+        else
+        {
+            foreach (ParticleSystem s in particles)
+            {
+                s.Stop();
+            }
+            rotator.isActive = false;
         }
     }
 
