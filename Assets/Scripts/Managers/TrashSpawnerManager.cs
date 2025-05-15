@@ -124,7 +124,7 @@ public class TrashSpawnerManager : MonoBehaviour
         }
         
         GameObject[] items;
-        if (area.Hills != null && area.Hills?.Length > 0 && area.HillPercentage < Random.Range(0, 1.0f))
+        if (area.Hills != null && area.Hills?.Length > 0 && area.HillPercentage > Random.Range(0, 1.0f))
         {
             items = area.Hills;
         }
