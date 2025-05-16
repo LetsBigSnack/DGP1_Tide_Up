@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,10 +7,19 @@ using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private List<SoundData> AllSfxSounds;
+    [SerializeField] private List<SoundData> allSfxSounds;
+    [SerializeField] private List<SoundData> allAtmosphereSounds;
 
     [SerializeField] private AudioMixer myMixer;
     [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource atmosphereSource;
+    [SerializeField] private float fadeDuration;
+
+    [Header("Volumes")]
+    [SerializeField] private float masterVolume = 0.3f;
+    [SerializeField] private float musicVolume = 0.001f;
+    [SerializeField] private float sfxVolume = 0.7f;
+    [SerializeField] private float dialogueVolume = 0.7f;
 
     public static SoundManager Instance;
 
@@ -45,24 +55,69 @@ public class SoundManager : MonoBehaviour
     private void Setup()
     {
         Debug.Log("Setup for sounds done");
-        SetMasterVolume(0.3f);
-        SetMusicVolume(0.001f);
-        SetSfxVolume(0.7f);
+        SetMasterVolume(masterVolume);
+        SetMusicVolume(musicVolume);
+        SetSfxVolume(sfxVolume);
+        SetDialogueVolume(dialogueVolume);
     }
 
     public void PlaySFX(string name)
     {
-        SoundData sound = AllSfxSounds.Find(s => s.name == name);
+        SoundData sound = allSfxSounds.Find(s => s.name == name);
 
         if (sound == null)
         {
-            Debug.Log("Sound not found: " + name);
+            Debug.Log("SFX Sound not found: " + name);
             return;
         }
-            
+
+        sfxSource.volume = sound.volume;
         sfxSource.PlayOneShot(sound.soundClip);
         
     }
+
+    public void ChangeAtmosphere(string name)
+    {
+        SoundData sound = allAtmosphereSounds.Find(s => s.name == name);
+
+        if(sound == null)
+        {
+            Debug.Log("Atmos Sound not found: " + name);
+            return;
+        }
+
+        StartCoroutine(CrossfadeAtmosphere(sound));
+    }
+    private IEnumerator CrossfadeAtmosphere(SoundData newSound)
+    {
+        if (atmosphereSource.isPlaying)
+        {
+            float startVolume = atmosphereSource.volume;
+
+            for (float time = 0; time < fadeDuration; time += Time.deltaTime)
+            {
+                atmosphereSource.volume = Mathf.Lerp(startVolume, 0, time / fadeDuration);
+                yield return null;
+            }
+
+            atmosphereSource.Stop();
+            atmosphereSource.volume = startVolume;
+        }
+
+        atmosphereSource.clip = newSound.soundClip;
+        atmosphereSource.volume = 0;
+        atmosphereSource.loop = true;
+        atmosphereSource.Play();
+
+        for (float time = 0; time < fadeDuration; time += Time.deltaTime)
+        {
+            atmosphereSource.volume = Mathf.Lerp(0, newSound.volume, time / fadeDuration);
+            yield return null;
+        }
+
+        atmosphereSource.volume = newSound.volume;
+    }
+
     public void SetMasterVolume(float volume)
     {
         myMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
