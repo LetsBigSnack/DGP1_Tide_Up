@@ -135,6 +135,7 @@ public class UITimeManager : MonoBehaviour
         TimeManager.Instance.ToggleTime();
         GameStateManager.Instance.ResumeGame();
         UIJournalManager.Instance.SwitchState(_lastJournalType);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         CloseTimeChange();
     }
 
@@ -151,9 +152,10 @@ public class UITimeManager : MonoBehaviour
 
     public void SubmitTimeChange()
     {
-        if(timeSlider.value < 0)
+        if(timeSlider.value <= 0)
         {
             CancelTimeChange();
+            return;
         }
         TimeManager.Instance.AddTime(timeSlider.value);
         GameStateManager.Instance.ResumeGame();
