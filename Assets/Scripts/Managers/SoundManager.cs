@@ -5,6 +5,15 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
+public enum AtmosphereState
+{
+    Water_day,
+    Water_night,
+    Island_day,
+    Island_night,
+    Mountains,
+}
+
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private List<SoundData> allSfxSounds;
@@ -20,6 +29,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float musicVolume = 0.001f;
     [SerializeField] private float sfxVolume = 0.7f;
     [SerializeField] private float dialogueVolume = 0.7f;
+
+    private Transform _playerTransform;
+    private AtmosphereState _atmosState = AtmosphereState.Island_day;
+
 
     public static SoundManager Instance;
 
@@ -38,6 +51,27 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         Setup();
+    }
+
+    private void FixedUpdate()
+    {
+        _playerTransform = PlayerController.Instance.transform;
+
+        if(_playerTransform.position.y <= 0.2f && _atmosState != AtmosphereState.Water_day)
+        {
+            ChangeAtmosphere("Water_atmos_day");
+            _atmosState = AtmosphereState.Water_day;
+        }
+        else if(_playerTransform.position.y >= 8f && _atmosState != AtmosphereState.Mountains)
+        {
+            Debug.Log("Im in the mountains");
+            _atmosState = AtmosphereState.Mountains;
+        }
+        else if(_atmosState != AtmosphereState.Island_day)
+        {
+            ChangeAtmosphere("Island_atmos_day");
+            _atmosState = AtmosphereState.Island_day;
+        }
     }
 
     // Taken from Monkepok, we prob need this later right?

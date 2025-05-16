@@ -39,6 +39,9 @@ namespace ScriptableObjects
 
         public override IEnumerator StartMiniGame(Action<bool> callback)
         {
+            yield return new WaitForSeconds(0.5f);
+            SoundManager.Instance.PlaySFX("Fishing_start_swoosh");
+
             trashMoveSpeed = defaultSpeed;
             _playerPosition = 0.5f;
             _trashPosition = 0.5f;
@@ -58,8 +61,20 @@ namespace ScriptableObjects
             float changeDirectionTimer = 0f;
             float directionChangeInterval = UnityEngine.Random.Range(directionIntervalMin, directionIntervalMax); // Randomize when direction might change
    
+            int countHelp = 0;
             while (elapsed < duration)
             {
+                if(elapsed >= 0.8f && countHelp == 0)
+                {
+                    SoundManager.Instance.PlaySFX("Fishing_start_plop");
+                    countHelp++;
+                }
+                if (elapsed >= 2.2f && countHelp == 1)
+                {
+                    SoundManager.Instance.PlaySFX("Fishing_idle");
+                    countHelp++;
+                }
+
                 changeDirectionTimer += Time.deltaTime;
                 if (changeDirectionTimer >= directionChangeInterval)
                 {
@@ -103,6 +118,7 @@ namespace ScriptableObjects
                 OnMiniGameProgress?.Invoke(_playerPosition, _trashPosition);
                 OnMiniGameVertProgress?.Invoke(_score, successThreshold);
                 elapsed += Time.deltaTime;
+
                 yield return null;
             }
 
@@ -110,10 +126,13 @@ namespace ScriptableObjects
             UIMiniGameManager.Instance.Hide();
             UIUnsubscribe();
             _isActive = false;
-            
+
             Debug.Log($"[FishingMiniGame] Score: {_score:F2}");
         
             callback(_score > successThreshold);
+
+            yield return new WaitForSeconds(1.2f);
+            SoundManager.Instance.PlaySFX("Fishing_start_swoosh");
         }
 
         protected override void OnInteract()

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName: Fishing_idle
   soundClip: {fileID: 8300000, guid: 82e38d801abea3b419ad5b0fb4d2233c, type: 3}
+  volume: 0.5

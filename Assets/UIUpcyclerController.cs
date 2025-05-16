@@ -84,6 +84,7 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
     {
         if (curQuestItemPreview != null)
         {
+            SoundManager.Instance.PlaySFX("Error");
             Debug.Log("There's an item in the Output slot!");
         }
 
@@ -130,12 +131,14 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
         if (!InventoryManager.Instance.HasSpaceForItem())
         {
             Debug.Log("brother inventory is full");
+            SoundManager.Instance.PlaySFX("Error");
             return;
         }
 
         if(!UpcycleManager.Instance.Upcycle())
         {
             outputError.SetActive(true);
+            SoundManager.Instance.PlaySFX("Error");
             return;
         }
         outputError.SetActive(false);
@@ -169,6 +172,11 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
     public void RemoveAllMaterials()
     {
         UpcycleManager.Instance.RemoveAllIngredients();
+        ClearAllMaterialSlots();
+    }
+    public void RemoveAllIngredientsBtn()
+    {
+        UpcycleManager.Instance.RemoveAllIngredientsBtn();
         ClearAllMaterialSlots();
     }
 

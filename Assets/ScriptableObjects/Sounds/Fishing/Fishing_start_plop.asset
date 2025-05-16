@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName: Fishing_start_plop
   soundClip: {fileID: 8300000, guid: f7bf151d1c96ae44b815e84e1c58ddad, type: 3}
+  volume: 0.6

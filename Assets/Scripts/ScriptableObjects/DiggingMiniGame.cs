@@ -17,6 +17,8 @@ namespace ScriptableObjects
 
         public override IEnumerator StartMiniGame(Action<bool> callback)
         {
+            SoundManager.Instance.PlaySFX("Dig_start");
+
             _pressCount = 0;
             _startTime = Time.time;
 
@@ -27,10 +29,16 @@ namespace ScriptableObjects
 
             UIMiniGameManager.Instance.Initialize(miniGameDuration, pressThreshold, Player.Instance.transform);
 
+            int countHelp = 0;
             while (Time.time < endTime && !(_pressCount >= pressThreshold))
             {
                 float progress = Mathf.Clamp01((float)_pressCount / pressThreshold);
                 OnMiniGameProgress?.Invoke(progress, 1.0f); // 1.0f == 100%
+                if(Time.time <= endTime - 2.4f && Time.time >= endTime - 2.5f && countHelp == 0)
+                {
+                    SoundManager.Instance.PlaySFX("Dig_strugle");
+                    countHelp++;
+                }
                 yield return null;
             }
 

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName: Click
   soundClip: {fileID: 8300000, guid: dc4e5c0bc6f168e4c9864222592134ed, type: 3}
-  volume: 1
+  volume: 0.35

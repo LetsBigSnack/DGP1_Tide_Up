@@ -152,6 +152,12 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
         ClearAllItemSlots();
         ClearMaterialPreview();
     }
+    public void RemoveAllItemsBtn()
+    {
+        RecyclerManager.Instance.RemoveAllItemsBtn();
+        ClearAllItemSlots();
+        ClearMaterialPreview();
+    }
 
     private void ClearAllItemSlots()
     {
