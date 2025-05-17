@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   trashHints:
-  - Paper Hint 1
-  - Paper Hint 2
-  - Paper Hint 3
+  - "I saw something like that on my morning walk near the lake\u2026 I thought it
+    was a love letter, so I left it there. "
+  - "Saw something in the forest. \xA7Thought it was a treasure map at first. "
   materialName: Paper
   sprite: {fileID: 21300000, guid: 89bcf44b05f26c044a73b003f4837720, type: 3}

@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   trashHints:
-  - Glass Hint 1
-  - Glass Hint 2
-  - Glass Hint 3
+  - I think I saw something shiny buried in the sand.
+  - 'sometimes I look for cool shells on the beach and stumble upon weird shards... '
+  - "some tourists must have had a party near the mountain - I\u2019ve seen leftovers
+    of that there before. "
+  - 'you ever dig near the mountain rocks and hear a clink instead of a crunch? '
+  - "kids used to play barefoot on the beach before, but now it's dangerous. They
+    might step on something sharp. \xA7 "
   materialName: Glass
   sprite: {fileID: 21300000, guid: f8890019003ca3846a5ab004dc39da52, type: 3}
