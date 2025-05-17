@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c996081b79d94e18a5fe47eb8fe3eb37, type: 3}
-  m_Name: RecipeData
+  m_Name: Kite_Recipe_2
   m_EditorClassIdentifier: 
-  questItem: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
+  questItem: {fileID: 11400000, guid: c8c118e630e33394bbeddf8436f2a546, type: 2}
   ingredients:
-  - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
+  - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
+  - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
   - {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
+  - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}

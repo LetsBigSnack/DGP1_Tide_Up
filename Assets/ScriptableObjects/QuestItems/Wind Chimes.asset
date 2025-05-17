@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 205bc0911fa3475bbe944b10a4e5b5c3, type: 3}
-  m_Name: Shovel
+  m_Name: Wind Chimes
   m_EditorClassIdentifier: 
-  title: Shovel
-  description: "A trusty tool for digging up secrets\u2026 and trash. Use at your
-    own risk."
+  title: Wind Chimes
+  description: " Want never to hear your own thoughts again? Perfect - it\u2019s
+    WIND CHIMES time. "
   sprite: {fileID: 21300000, guid: 0b9ba8a83cade694c9d5b3d67078dfa4, type: 3}
   materials:
   - {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
+  - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
+  - {fileID: 11400000, guid: 8f6c4ca6e6944d040b6e36dfdccd3ba1, type: 2}
   - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
   itemUses:
-  - I wanna go look for a treasure!
-  - I was thinking of planting a tree..
-  - I want to have one for emergencies.
-  - I have secrets to burrow..
+  - 'I love the way they play music in the wind! '
+  - 'I want to start decorating my place - it feels so empty. '
+  - 'the sound calms me down when I am stressed. '
+  - 'I heard they keep away bad spirits - or maybe even noisy seagulls. '
+  - 'they remind me of my childhood home. '

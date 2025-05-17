@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 205bc0911fa3475bbe944b10a4e5b5c3, type: 3}
-  m_Name: Shovel
+  m_Name: Lantern
   m_EditorClassIdentifier: 
-  title: Shovel
-  description: "A trusty tool for digging up secrets\u2026 and trash. Use at your
-    own risk."
+  title: Lantern
+  description: 'Comes in every color for the ULTIMATE midnight rainbow lightshow...
+    or, you know, just white. '
   sprite: {fileID: 21300000, guid: 0b9ba8a83cade694c9d5b3d67078dfa4, type: 3}
   materials:
-  - {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
+  - {fileID: 11400000, guid: 56cd676335ec84e4e812fa9f7d022518, type: 2}
   - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
   itemUses:
-  - I wanna go look for a treasure!
-  - I was thinking of planting a tree..
-  - I want to have one for emergencies.
-  - I have secrets to burrow..
+  - "I want to work during the night, but I can\u2019t see anything!"
+  - I stubbed my toe in the dark yesterday.. again.
+  - I want to make my home cozy and warm.
+  - The power goes out a lot during storms.
+  - "I love going on nighttime walks\u2026 but it gets spooky out there."
