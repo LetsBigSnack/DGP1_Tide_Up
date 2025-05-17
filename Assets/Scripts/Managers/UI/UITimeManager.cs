@@ -9,10 +9,13 @@ public class UITimeManager : MonoBehaviour
 {
     [SerializeField] private GameObject timeChangeContainer;
     [SerializeField] private GameObject timeChangeButton;
+    [SerializeField] private Slider timeSlider;
+    [SerializeField] TextMeshProUGUI switchTimeText;
+    [SerializeField] TextMeshProUGUI timeBeforeSkipText;
+    [SerializeField] TextMeshProUGUI timeAfterSkipText;
 
     [Header("Text Display")]
     [SerializeField] TextMeshProUGUI timeText;
-    [SerializeField] TextMeshProUGUI switchTimeText;
     [SerializeField] TextMeshProUGUI dateText;
     [SerializeField] TextMeshProUGUI weekDayText;
     [SerializeField] TextMeshProUGUI yearText;
@@ -28,13 +31,14 @@ public class UITimeManager : MonoBehaviour
     [SerializeField] private float fadeInSpeedMultiplier = 1.8f;
     [SerializeField] private float fadeOutSpeedMultiplier = 2.5f;
 
-    private float preChangeTime;
-    private int preChangeDay;
-    private int preChangeMonth;
-    private int preChangeYear;
-    private int preChangeWeekCount;
+    private float _preChangeTime;
+    private int _preChangeDay;
+    private int _preChangeMonth;
+    private int _preChangeYear;
+    private int _preChangeWeekCount;
+    private JournalType _lastJournalType;
 
-    private int maxHoursToChange;
+    private int _maxHoursToChange;
 
     public static UITimeManager Instance;
 
@@ -72,21 +76,28 @@ public class UITimeManager : MonoBehaviour
 
     public void OpenTimeModal()
     {
+        _lastJournalType = UIJournalManager.Instance.GetCurrentState();
+
+        GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
+        UIJournalManager.Instance.SwitchState(JournalType.Closed);
+
         timeChangeContainer.SetActive(true);
         timeChangeButton.SetActive(false);
         TimeManager.Instance.ToggleTime();
         GameStateManager.Instance.PauseGame();
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
 
-        preChangeTime = TimeManager.Instance.CurrentTimeInHours;
-        preChangeDay = TimeManager.Instance.CurrentDay;
-        preChangeMonth = TimeManager.Instance.CurrentSeasonNum;
-        preChangeYear = TimeManager.Instance.CurrentYear;
-        preChangeWeekCount = TimeManager.Instance.CurrentWeekDay;
+        _preChangeTime = TimeManager.Instance.CurrentTimeInHours;
+        _preChangeDay = TimeManager.Instance.CurrentDay;
+        _preChangeMonth = TimeManager.Instance.CurrentSeasonNum;
+        _preChangeYear = TimeManager.Instance.CurrentYear;
+        _preChangeWeekCount = TimeManager.Instance.CurrentWeekDay;
 
-        switchTimeText.text = TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours).ToString(@"hh\:mm");
+        timeSlider.value = 0;
+        timeBeforeSkipText.text = "Day " + _preChangeDay + ", " + TimeSpan.FromHours(_preChangeTime).ToString(@"hh\:mm");
+        timeAfterSkipText.text = "Day " + _preChangeDay + ", " + TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours + timeSlider.value).ToString(@"hh\:mm");
 
-        maxHoursToChange = 0;
+        _maxHoursToChange = 0;
     }
 
     private void UpdateTimeText(float newTime)
@@ -113,31 +124,18 @@ public class UITimeManager : MonoBehaviour
         yearText.text = TimeManager.Instance.CurrentYear.ToString();
     }
 
-    private void UpdateSwitchText()
-    {
-        switchTimeText.text = TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours).ToString(@"hh\:mm");
-    }
-    public void addTime()
-    {
-        maxHoursToChange += 1;
-        if(maxHoursToChange > 24)
-        {
-            return;
-        }
-        TimeManager.Instance.AddTime();
-        UpdateSwitchText();
-    }
-
     public void CancelTimeChange()
     {
         TimeManager.Instance.ResetDateAndTime(
-            preChangeTime,
-            preChangeDay,
-            preChangeMonth,
-            preChangeYear,
-            preChangeWeekCount);
+            _preChangeTime,
+            _preChangeDay,
+            _preChangeMonth,
+            _preChangeYear,
+            _preChangeWeekCount);
         TimeManager.Instance.ToggleTime();
         GameStateManager.Instance.ResumeGame();
+        UIJournalManager.Instance.SwitchState(_lastJournalType);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         CloseTimeChange();
     }
 
@@ -154,6 +152,12 @@ public class UITimeManager : MonoBehaviour
 
     public void SubmitTimeChange()
     {
+        if(timeSlider.value <= 0)
+        {
+            CancelTimeChange();
+            return;
+        }
+        TimeManager.Instance.AddTime(timeSlider.value);
         GameStateManager.Instance.ResumeGame();
         GameStateManager.Instance.SetGameState(GameStates.SceneTransition);
         timeChangeContainer.SetActive(false);
@@ -162,7 +166,7 @@ public class UITimeManager : MonoBehaviour
 
     private IEnumerator WaitTimeSkip()
     {
-        float duration = Mathf.Lerp(minWaitTime, maxWaitTime, maxHoursToChange / 24f);
+        float duration = Mathf.Lerp(minWaitTime, maxWaitTime, _maxHoursToChange / 24f);
 
         waitScreen.SetActive(true);
         waitScreenContent.SetActive(true);
@@ -220,5 +224,23 @@ public class UITimeManager : MonoBehaviour
             yield return null;
         }
         timeChangeButton.SetActive(true);
+    }
+
+    public void OnSliderChange()
+    {
+        switchTimeText.text = timeSlider.value.ToString();
+
+        int newDay = _preChangeDay + 1;
+        if (_preChangeTime >= 23f && timeSlider.value > 0)
+        {
+            timeAfterSkipText.text = "Day " + newDay + ", " + TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours + timeSlider.value).ToString(@"hh\:mm");
+            return;
+        }
+        if (timeSlider.value + _preChangeTime > 24f)
+        {
+            timeAfterSkipText.text = "Day " + newDay + ", " + TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours + timeSlider.value).ToString(@"hh\:mm");
+            return;
+        }
+        timeAfterSkipText.text = "Day " + _preChangeDay + ", " + TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours + timeSlider.value).ToString(@"hh\:mm");
     }
 }

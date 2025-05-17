@@ -4,5 +4,6 @@ public enum Scenes
     StartScreen,
     Tutorial_Room,
     Dev_Room_1,
-    BE_186_CLiff
+    BE_186_CLiff,
+    Template_5
 }
