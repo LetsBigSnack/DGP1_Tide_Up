@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205bc0911fa3475bbe944b10a4e5b5c3, type: 3}
+  m_Name: Decorative Shelf
+  m_EditorClassIdentifier: 
+  title: Decorative Shelf
+  description: "Only two hands but a ton of trinkets? Don\u2019t be S(H)ELFish \u2013
+    show \u2018em off in style! "
+  sprite: {fileID: 21300000, guid: 0b9ba8a83cade694c9d5b3d67078dfa4, type: 3}
+  materials:
+  - {fileID: 11400000, guid: 56cd676335ec84e4e812fa9f7d022518, type: 2}
+  - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
+  - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
+  itemUses:
+  - I have so much empty wall space in my home..
+  - I have nowhere to place my favourite books!
+  - iIt might inspire me to start collecting more fun things!
+  - my little trinkets are just lying around getting dusty.
+  - I need somewhere to display my cool rock collection.

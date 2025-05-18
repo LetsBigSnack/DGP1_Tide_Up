@@ -14,8 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   trashHints:
-  - Metal Hint 1
-  - Metal Hint 2
-  - Metal Hint 3
+  - 'I think I saw something lying in the mountains. Looked like there used to be
+    food inside. + Maybe the seagulls brought it there. '
+  - "Last week, I tried to build a sandcastle and almost cut myself \xA7 on something
+    silver in the sand\u2026"
+  - 'I saw something rusting near the lookout on the mountain. Who knows how long
+    it has been there? '
+  - "I almost stepped on one before. %Sharp edge- be careful when you\u2019re walking
+    barefoot on the beach. "
   materialName: Metal
   sprite: {fileID: 21300000, guid: 479683c5e49ec0a4890baacd52e0df30, type: 3}

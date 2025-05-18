@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205bc0911fa3475bbe944b10a4e5b5c3, type: 3}
+  m_Name: Kite
+  m_EditorClassIdentifier: 
+  title: Kite
+  description: Is it a bird? A plane? No, just your kite having a mid-air identity
+    crisis.
+  sprite: {fileID: 21300000, guid: 0b9ba8a83cade694c9d5b3d67078dfa4, type: 3}
+  materials:
+  - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
+  - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
+  - {fileID: 11400000, guid: 8f6c4ca6e6944d040b6e36dfdccd3ba1, type: 2}
+  - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}
+  itemUses:
+  - I have never ever owned a kite before!
+  - The weather is too good to waste it indoors.
+  - I am bored and I want to try something fun!
+  - The wind is perfect here! I want to see how high it can fly!
+  - I saw a kid playing with one in a magazine the other day and I got jealous...

@@ -14,8 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   trashHints:
-  - Plastic Hint 1
-  - Plastic Hint 2
-  - Plastic Hint 3
+  - "Some people are so careless when walking through the forest... \xA7they just
+    leave their stuff lying around. "
+  - "Do you think people leave things in the forest for composting? Don\u2019t they
+    know these things can take up to 450 years to decompose?% "
+  - 'Some people drive by in their boats sometimes... % I think I saw them throw
+    something overboard. What a shame. '
+  - "I hope the seagulls don\u2019t try to eat that- they sometimes mistake it for
+    crabs.\xA7 "
+  - 'Once you start spotting them, you can''t stop. They are like weeds -everywhere.. '
+  - "\xA7This does not belong in nature, but now I see it everywhere.... "
   materialName: Plastic
   sprite: {fileID: 21300000, guid: 267135db0da8a7a40a1eff1f2bde1970, type: 3}

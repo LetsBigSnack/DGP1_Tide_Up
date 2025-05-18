@@ -222,10 +222,13 @@ public class TimeManager : MonoBehaviour
         isTimePaused = !isTimePaused;
     }
 
-    public void AddTime()
+    public void AddTime(float timeToAdd)
     {
-        currentTimeInHours += 1f;
-        UpdateDate();
+        for (int i = 0; i < timeToAdd; i++)
+        {
+            currentTimeInHours += 1f;
+            UpdateDate();
+        }
     }
 
     public void ResetDateAndTime(float time, int day, int month, int year, int weekDayCount)

@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   trashHints:
-  - Wood Hint 1
-  - Wood Hint 2
-  - Wood Hint 3
+  - 'I think someone tried to build a fireplace on the beach-a bad idea. Everything
+    is so dry here, but I am sure there must be some branches left over. '
+  - 'I think this sometimes gets washed up on the beach. I always wonder... +where
+    did it come from?  '
+  - 'Storms usually bring some in.. I saw some big ones last week buried in the sand. '
+  - 'I like to collect them- some of them look so cool!$ I usually find them near
+    water. '
   materialName: Wood
   sprite: {fileID: 21300000, guid: ff010acf52f556b42aa0519704555d01, type: 3}

@@ -17,6 +17,9 @@
         },
         {
             "m_Id": "1dc03805988a4fb48cfcf9d5c31b040f"
+        },
+        {
+            "m_Id": "e8eb4affd04a4bcf855bb3323b13fd71"
         }
     ],
     "m_Keywords": [
@@ -123,6 +126,9 @@
         },
         {
             "m_Id": "79d47111074c498a9c271a3d4b4762ed"
+        },
+        {
+            "m_Id": "ce1efe23f8d64d72b32707376ec7f519"
         }
     ],
     "m_GroupDatas": [],
@@ -348,6 +354,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "080537210b414a13b48071293d1d574f"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "ce1efe23f8d64d72b32707376ec7f519"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "4f2e415d64ea49c3a00c85778e4679d0"
                 },
                 "m_SlotId": 0
             }
@@ -1313,6 +1333,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "43a739858d7645dd96137d45aa42cf0d",
+    "m_Id": 0,
+    "m_DisplayName": "Smoothness",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "43b4db1e03b44631925700cda15cdcfe",
     "m_Id": 1,
@@ -1761,6 +1796,9 @@
         },
         {
             "m_Id": "54248dc1bcec4a6ea22e91549d06ae24"
+        },
+        {
+            "m_Id": "e8eb4affd04a4bcf855bb3323b13fd71"
         }
     ]
 }
@@ -2907,6 +2945,42 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "ce1efe23f8d64d72b32707376ec7f519",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -171.0,
+            "y": 653.3200073242188,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "43a739858d7645dd96137d45aa42cf0d"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "e8eb4affd04a4bcf855bb3323b13fd71"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "d0a3f44e957945a78f091c16521ea496",
     "m_Group": {
@@ -3220,6 +3294,34 @@
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
+    }
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "e8eb4affd04a4bcf855bb3323b13fd71",
+    "m_Guid": {
+        "m_GuidSerialized": "aa33649d-df3d-400b-b032-a13aa1d15875"
+    },
+    "m_Name": "Smoothness",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Smoothness",
+    "m_DefaultReferenceName": "_Smoothness",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.5,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
     }
 }
 

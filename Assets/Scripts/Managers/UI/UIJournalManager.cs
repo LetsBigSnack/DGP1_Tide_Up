@@ -29,6 +29,9 @@ public class UIJournalManager : MonoBehaviour
     [SerializeField] private GameObject pages;
     [SerializeField] private GameObject singlePages;
 
+    [Header("Time Change")]
+    [SerializeField] private GameObject timeChangePen;
+
     [Header("Journal")]
     [SerializeField] private List<UIJournalSubMenu> journalSubMenues;
 
@@ -85,6 +88,7 @@ public class UIJournalManager : MonoBehaviour
         singlePages.SetActive(false);
         cover.SetActive(false);
         pages.SetActive(false);
+        timeChangePen.SetActive(false);
     }
 
    public void OpenMenuByType(JournalType type)
@@ -100,6 +104,7 @@ public class UIJournalManager : MonoBehaviour
         {
             cover.SetActive(true);
             pages.SetActive(true);
+            timeChangePen.SetActive(true);
             return;
         }
         singleCover.SetActive(true);

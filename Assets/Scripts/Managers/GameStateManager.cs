@@ -105,7 +105,7 @@ public class GameStateManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        _gameStates = GameStates.PlayingCharacter;
+        _gameStates = _lastPlayingState;
         _gamePaused = false;
         Time.timeScale = 1f;
         Debug.Log("Game Resumed");
