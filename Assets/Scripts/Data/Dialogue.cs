@@ -56,10 +56,9 @@ namespace Data
                 return string.Empty;
             }
 
-            if (_currentDialogueState > _dialogueContent.Count-1)
+            if (_currentDialogueState >= _dialogueContent.Count-1)
             {
                 _isDialogueFinished = true;
-                return string.Empty;
             }
 
             string result = _dialogueContent[_currentDialogueState];

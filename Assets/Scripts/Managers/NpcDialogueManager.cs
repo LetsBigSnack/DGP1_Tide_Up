@@ -83,15 +83,23 @@ public class NpcDialogueManager : MonoBehaviour
 
     private void HandelIntroState()
     {
+        
         if(TextToSpeechManager.Instance.IsTalking)
         {
             UIDialogueManager.Instance.FinishSpeaking();
             return;
         }
+        
+        if (_currentNpc.CurrentDialogue.IsDialogueFinished)
+        {
+            CloseDialogue();
+            CheckDialogueFinished();
+            return;
+        }
+        
         _currentNpc.CurrentDialogue.NextDialogueContent();
         UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentDialogue.GetCurrentDialogue(), _currentNpc.FavColourCode);
         TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.CurrentDialogue.GetCurrentDialogue(), _currentNpc.Anim);
-        CheckDialogueFinished();
     }
     
     private void HandelQuestState()
@@ -115,10 +123,7 @@ public class NpcDialogueManager : MonoBehaviour
                 {
                     ResetDialogue();
                 }
-                else
-                {
-                    CloseDialogue();
-                }
+                CloseDialogue();
                 CheckDialogueFinished();
                 return;
             }
