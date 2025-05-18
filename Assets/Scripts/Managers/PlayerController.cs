@@ -198,6 +198,10 @@ public class PlayerController : MonoBehaviour
 
     private void SoundOnClick(InputAction.CallbackContext value)
     {
+        if(GameStateManager.Instance.GetGameState() != GameStates.InMenu)
+        {
+            return;
+        }
         SoundManager.Instance.PlaySFX("Click");
     }
 

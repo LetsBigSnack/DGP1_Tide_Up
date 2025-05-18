@@ -108,7 +108,7 @@ public class UIJournalManager : MonoBehaviour
         UIBookMarkController.Instance.OpenMenu();
 
         journalSubMenues.Where(m => m.GetComponent<UIJournalSubMenu>().JournalType == type).FirstOrDefault().OpenMenu();
-        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && UIShopManager.Instance.GetCurrentState() == ShopType.Closed)
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && UIShopManager.Instance.GetCurrentState() == ShopType.Closed && !UITideUpBoxManager.Instance.IsOpen)
         {
             cover.SetActive(true);
             pages.SetActive(true);
