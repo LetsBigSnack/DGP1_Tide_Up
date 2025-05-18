@@ -15,4 +15,4 @@ MonoBehaviour:
   type: 1
   miniGameDuration: 3
   pressThreshold: 20
-  sweatVFXPrefab: {fileID: 0}
+  sweatVFXPrefab: {fileID: 7307849882218732540, guid: 4f06a9237ac05164f8ded2a0462d7148, type: 3}
