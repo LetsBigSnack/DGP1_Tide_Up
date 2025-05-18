@@ -73,7 +73,7 @@
         {
           "DialogueContent": [
             "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT].",
+            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
           ]
         },
         {
