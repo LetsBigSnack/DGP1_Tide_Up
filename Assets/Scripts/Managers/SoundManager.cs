@@ -33,6 +33,13 @@ public class SoundManager : MonoBehaviour
 
     private Transform _playerTransform;
     private AtmosphereState _atmosState = AtmosphereState.Island_day;
+    private Scenes _currScene = Scenes.StartScreen;
+
+    public Scenes CurrScene
+    {
+        get { return _currScene; }
+        set { _currScene = value; }
+    }
 
 
     public static SoundManager Instance;
@@ -42,6 +49,7 @@ public class SoundManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -56,6 +64,10 @@ public class SoundManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_currScene == Scenes.StartScreen)
+        {
+            return;
+        }
         _playerTransform = PlayerController.Instance.transform;
 
         if(_playerTransform.position.y <= 0.2f && _atmosState != AtmosphereState.Water_day)
