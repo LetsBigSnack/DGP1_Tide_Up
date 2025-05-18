@@ -47,6 +47,16 @@ namespace ScriptableObjects
             UIUnsubscribe();
 
             bool success = _pressCount >= pressThreshold;
+
+            if (success)
+            {
+                SoundManager.Instance.PlaySFX("Success");
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX("Pick_up");
+            }
+
             Debug.Log($"[DiggingMiniGame] Result: {(success ? "Success" : "Fail")} with {_pressCount} presses.");
             callback(success);
         }

@@ -144,6 +144,7 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
         outputError.SetActive(false);
         ClearAllMaterialSlots();
         EnableCollect();
+        SoundManager.Instance.PlaySFX("Upcycle");
     }
 
     private void EnableCollect()

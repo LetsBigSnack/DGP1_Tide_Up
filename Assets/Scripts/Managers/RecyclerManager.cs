@@ -76,6 +76,7 @@ public class RecyclerManager : MonoBehaviour
         }
         storedItems = null;
         OnStoredItemCleared?.Invoke(true);
+        SoundManager.Instance.PlaySFX("Recycle");
     }
 
     public void RemoveAllItems()

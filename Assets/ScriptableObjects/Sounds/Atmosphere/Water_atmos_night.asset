@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName: Water_atmos_night
   soundClip: {fileID: 8300000, guid: 6f9cabb2ab0d9f34bae9cf75652f5e9a, type: 3}
-  volume: 1
+  volume: 0.7

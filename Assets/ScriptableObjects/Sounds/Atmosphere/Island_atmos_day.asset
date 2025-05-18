@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName: Island_atmos_day
   soundClip: {fileID: 8300000, guid: 455a6e498d9fdc54788712789b21427e, type: 3}
-  volume: 1
+  volume: 0.7

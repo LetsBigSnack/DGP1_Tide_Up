@@ -12,6 +12,7 @@ public enum AtmosphereState
     Island_day,
     Island_night,
     Mountains,
+    Shop,
 }
 
 public class SoundManager : MonoBehaviour
@@ -67,11 +68,13 @@ public class SoundManager : MonoBehaviour
             Debug.Log("Im in the mountains");
             _atmosState = AtmosphereState.Mountains;
         }
-        else if(_atmosState != AtmosphereState.Island_day)
+        else if(_playerTransform.position.y <= 8f && _playerTransform.position.y >= 0.2f && _atmosState != AtmosphereState.Island_day)
         {
             ChangeAtmosphere("Island_atmos_day");
             _atmosState = AtmosphereState.Island_day;
         }
+
+        Debug.Log(_atmosState.ToString());
     }
 
     // Taken from Monkepok, we prob need this later right?
@@ -93,6 +96,7 @@ public class SoundManager : MonoBehaviour
         SetMusicVolume(musicVolume);
         SetSfxVolume(sfxVolume);
         SetDialogueVolume(dialogueVolume);
+        _atmosState = AtmosphereState.Shop;
     }
 
     public void PlaySFX(string name)

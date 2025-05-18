@@ -131,6 +131,15 @@ namespace ScriptableObjects
         
             callback(_score > successThreshold);
 
+            if (_score > successThreshold)
+            {
+                SoundManager.Instance.PlaySFX("Success");
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX("Pick_up");
+            }
+
             yield return new WaitForSeconds(1.2f);
             SoundManager.Instance.PlaySFX("Fishing_start_swoosh");
         }

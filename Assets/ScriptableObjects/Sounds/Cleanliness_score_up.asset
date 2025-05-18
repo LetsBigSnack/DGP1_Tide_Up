@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b94e738b875b8a4aafa3c8df8e9ec9e, type: 3}
   m_Name: Cleanliness_score_up
   m_EditorClassIdentifier: 
-  soundName: Cleanliness_score
+  soundName: Cleanliness_score_up
   soundClip: {fileID: 8300000, guid: 01c1b610e7fa5d748b1a1f7433453521, type: 3}
-  volume: 1
+  volume: 0.8

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   miniGameDuration: 3
-  pressThreshold: 30
+  pressThreshold: 20
   sweatVFXPrefab: {fileID: 0}
