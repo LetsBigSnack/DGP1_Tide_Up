@@ -68,7 +68,7 @@ namespace ScriptableObjects
             // Optional: spawn VFX at player location
             if (sweatVFXPrefab != null)
             {
-                GameObject vfx = GameObject.Instantiate(sweatVFXPrefab, Player.Instance.transform.position + Vector3.up * 1.5f, Quaternion.identity);
+                GameObject vfx = GameObject.Instantiate(sweatVFXPrefab, Player.Instance.transform.position + Vector3.up * 1f, Quaternion.identity,Player.Instance.transform);
                 GameObject.Destroy(vfx, 2f); // Cleanup
             }
 
