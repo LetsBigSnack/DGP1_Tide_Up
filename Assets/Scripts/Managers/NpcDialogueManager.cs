@@ -116,10 +116,15 @@ public class NpcDialogueManager : MonoBehaviour
         }
         else
         {
-            if (_currentNpc.CurrentQuest.QuestState != QuestState.Offer &&
+            if(_currentNpc.CurrentQuest == null)
+            {
+                _currentNpc.InitializeQuest();
+            }
+
+            if (_currentNpc.CurrentQuest?.QuestState != QuestState.Offer &&
                 _currentNpc.CurrentQuest.IsDialogueComplete())
             {
-                if (_currentNpc.CurrentQuest.QuestState == QuestState.InProgress)
+                if (_currentNpc.CurrentQuest?.QuestState == QuestState.InProgress)
                 {
                     ResetDialogue();
                 }
