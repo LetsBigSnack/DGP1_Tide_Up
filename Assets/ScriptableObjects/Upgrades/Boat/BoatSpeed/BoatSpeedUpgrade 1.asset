@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   upgradeLevel: 2
-  sprite: {fileID: 21300000, guid: 2463af7f98ff8cd428cafdb7c7805998, type: 3}
+  sprite: {fileID: 21300000, guid: 2738fcc2c89be4740b930262b8986ce5, type: 3}
   description: "\"Patch the hull with polished driftwood and add sea-bottle boosters\u2014zoom
     with style!\" +Boat Speed"
   costs:

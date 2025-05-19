@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   upgradeLevel: 1
-  sprite: {fileID: 21300000, guid: 2463af7f98ff8cd428cafdb7c7805998, type: 3}
+  sprite: {fileID: 21300000, guid: 70d2d6e9df28e8b49bc676a6c63fe9b1, type: 3}
   description: '"Swap soggy sails for wind-catching wonders made from recycled flags
     and kite cloth!" +Boat Speed'
   costs:

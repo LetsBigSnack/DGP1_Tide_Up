@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   upgradeLevel: 4
-  sprite: {fileID: 21300000, guid: 2463af7f98ff8cd428cafdb7c7805998, type: 3}
+  sprite: {fileID: 21300000, guid: bf7b4db91b3be6c44a4d152b6e330095, type: 3}
   description: '"Install a seaweed spoiler and a jellyfish-slick rudder. Who knew
     upcycling could be this speedy?" +Boat Speed'
   costs:
