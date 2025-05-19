@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   upgradeLevel: 5
-  sprite: {fileID: 21300000, guid: 2463af7f98ff8cd428cafdb7c7805998, type: 3}
+  sprite: {fileID: 21300000, guid: 45ca4bf7315310f489c8d55420c0bf4d, type: 3}
   description: "\"Attach wind-chime propellers made from spoons and shells\u2014surprisingly
     effective, delightfully noisy!\" +Boat Speed"
   costs:

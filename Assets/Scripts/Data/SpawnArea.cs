@@ -99,6 +99,33 @@ public class SpawnArea : MonoBehaviour
             }
         }
     }
+    
+    public void SpawnWaterTrashInArea()
+    {
+        TrashSpawnerManager.Instance.RemoveNulls();
+        
+        if (shouldSpawn && TrashSpawnerManager.Instance.SpawnedWaterTrash.Count < TrashSpawnerManager.Instance.MaxWaterTrashTotal)
+        {
+            Vector3 offset = new Vector3(
+                Random.Range(-areaSpawnSize, areaSpawnSize),
+                OceanManager.Instance.oceanHeight,
+                Random.Range(-areaSpawnSize, areaSpawnSize)
+            );
+            
+            Vector3 spawnPoint = gameObject.transform.position + offset;
+            spawnPoint.y = OceanManager.Instance.oceanHeight;
+            
+            bool isIntersecting = Physics.CheckSphere(spawnPoint + Vector3.up * 0.1f, TrashSpawnerManager.Instance.CheckRadius, TrashSpawnerManager.Instance.InteractableLayer);
+            if (isIntersecting)
+                return;
+
+            float randomRotation = Random.Range(0f, 360f);
+            GameObject trashItem = TrashSpawnerManager.Instance.GetTrashForArea(type);
+            GameObject trash = Instantiate(trashItem, spawnPoint + Vector3.up * 0.5f, Quaternion.identity, transform);
+            trash.transform.rotation = Quaternion.Euler(0f, randomRotation, 0f);
+            TrashSpawnerManager.Instance.SpawnedWaterTrash.Add(trash);
+        }
+    }
 
     private void OnDrawGizmos()
     {

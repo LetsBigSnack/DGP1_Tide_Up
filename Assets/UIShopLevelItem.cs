@@ -6,9 +6,13 @@ public class UIShopLevelItem : MonoBehaviour
 {
     [SerializeField] private UpgradeType type;
     [SerializeField] private Upgrade currentUpgrade;
-    [SerializeField] private Image image;
+    [SerializeField] private Image itemImage;
+    [SerializeField] private Image borderImage;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private Sprite notUnlockedSprite;
+    [SerializeField] private Sprite selectedBorder;
+    [SerializeField] private Sprite notSelectedBorder;
+    [SerializeField] private GameObject upgradeDone;
 
     public Upgrade GetCurrentUpgrade()
     {
@@ -19,8 +23,30 @@ public class UIShopLevelItem : MonoBehaviour
     {
         type = upgrade.type;
         currentUpgrade = upgrade;
-        image.sprite = upgrade.isUnlocked? upgrade.sprite : notUnlockedSprite;
         levelText.text = "LEVEL " + upgrade.upgradeLevel.ToString();
+
+        if (upgrade.isUnlocked)
+        {
+            itemImage.sprite = upgrade.sprite;
+            upgradeDone.SetActive(true);
+        }
+        else
+        {
+            itemImage.sprite = notUnlockedSprite;
+            upgradeDone.SetActive(false);
+        }
+
+        if (upgrade.previousUpgrade != null)
+        {
+            if (upgrade.previousUpgrade.isUnlocked)
+            {
+                itemImage.sprite = upgrade.sprite;
+            }
+        }
+        if(upgrade.upgradeLevel == 1)
+        {
+            itemImage.sprite = upgrade.sprite;
+        }
     }
 
     public void OnClick()
@@ -40,5 +66,15 @@ public class UIShopLevelItem : MonoBehaviour
                 UIBoatUpgradeController.Instance.SwitchUpgrade(currentUpgrade);
                 break;
         }
+    }
+
+    public void SetSelected()
+    {
+        if(borderImage.sprite == selectedBorder)
+        {
+            borderImage.sprite = notSelectedBorder;
+            return;
+        }
+        borderImage.sprite = selectedBorder;
     }
 }
