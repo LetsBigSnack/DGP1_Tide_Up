@@ -192,10 +192,18 @@ public class UIBoatUpgradeController : UIShopSubMenu
         if (!currentUpgrade.isUnlocked)
         {
             currentUpgrade.ApplyUpgrade();
+            if (!currentUpgrade.isUnlocked)
+            {
+                return;
+            }
+            Upgrade lastCurrUpgrade = currentUpgrade;
             RefreshCurrentUpgrade();
-            ClearMenu();
-            AddLevels();
-            AddRequirements();
+            if (lastCurrUpgrade.nextUpgrade == null)
+            {
+                return;
+            }
+            currentUpgrade = lastCurrUpgrade.nextUpgrade;
+            SwitchUpgrade(currentUpgrade);
         }
     }
 
