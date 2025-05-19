@@ -96,7 +96,7 @@ public class UIBoatUpgradeController : UIShopSubMenu
 
         ClearMenu();
         currentUpgrade = upgrade;
-        upgradeImage.sprite = upgrade.sprite;
+        //upgradeImage.sprite = upgrade.sprite;
         upgradeDescription.text = upgrade.description;
         if (!upgrade.CanUpgrade() || upgrade.isUnlocked)
         {
@@ -130,6 +130,11 @@ public class UIBoatUpgradeController : UIShopSubMenu
             newLevel.GetComponent<UIShopLevelItem>().Setup(upgrade);
             _currentLevels.Add(newLevel);
         }
+
+        GameObject itemToRefresh = _currentLevels.Find(t => t.GetComponent<UIShopLevelItem>().GetCurrentUpgrade() == currentUpgrade);
+        UIShopLevelItem uiShopLevelItem = itemToRefresh.GetComponent<UIShopLevelItem>();
+        uiShopLevelItem.Setup(currentUpgrade);
+        uiShopLevelItem.SetSelected();
     }
 
     private void AddRequirements()
@@ -188,6 +193,9 @@ public class UIBoatUpgradeController : UIShopSubMenu
         {
             currentUpgrade.ApplyUpgrade();
             RefreshCurrentUpgrade();
+            ClearMenu();
+            AddLevels();
+            AddRequirements();
         }
     }
 

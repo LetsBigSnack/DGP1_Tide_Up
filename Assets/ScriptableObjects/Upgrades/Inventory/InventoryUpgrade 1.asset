@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   upgradeLevel: 2
-  sprite: {fileID: 21300000, guid: eb8ba666be315d94a87e2e838233afd9, type: 3}
+  sprite: {fileID: 21300000, guid: 927e868e80901df48a9cb92a6692d02b, type: 3}
   description: "\"Add a seaweed-woven side pouch\u2014stylish and sustainable. Time
     to carry more coastal curios!\" +3 slots"
   costs:
@@ -32,5 +32,5 @@ MonoBehaviour:
     amount: 1
   previousUpgrade: {fileID: 11400000, guid: f442b5796bd9b5b4e91bb3f58a410552, type: 2}
   nextUpgrade: {fileID: 11400000, guid: 7db54880a4d446241aa1ab825aed4e35, type: 2}
-  isUnlocked: 1
+  isUnlocked: 0
   slotsToAdd: 3

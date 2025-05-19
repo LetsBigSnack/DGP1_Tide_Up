@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   upgradeLevel: 3
-  sprite: {fileID: 21300000, guid: 2463af7f98ff8cd428cafdb7c7805998, type: 3}
+  sprite: {fileID: 21300000, guid: 25f94540f2456be4ea552ae8282eae0a, type: 3}
   description: "\"Wrap your oars in rubber scraps and streamline with soda can fins\u2014faster
     and splashier!\" +Boat Speed"
   costs:
