@@ -78,6 +78,36 @@ public class UpcycleManager : MonoBehaviour
         
         return true;
     }
+    public bool RemoveAllIngredientsBtn()
+    {
+        MaterialDetail detail = new MaterialDetail(_ingredients);
+
+        int count = _ingredients.Count;
+        if (count == 0)
+        {
+            SoundManager.Instance.PlaySFX("Error");
+            return false;
+        }
+
+        foreach (KeyValuePair<TrashMaterialType, int> ingredient in detail.MaterialDetails)
+        {
+            if (ingredient.Value == 0)
+            {
+                continue;
+            }
+            if (!InventoryManager.Instance.HasSpaceForMaterial(ingredient.Key, ingredient.Value))
+            {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            RemoveIngredient(_ingredients[0]);
+        }
+
+        return true;
+    }
 
 
     private void ConsumeIngredients()

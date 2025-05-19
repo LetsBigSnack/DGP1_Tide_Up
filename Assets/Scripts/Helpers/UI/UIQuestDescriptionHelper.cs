@@ -71,8 +71,13 @@ public class UIQuestDescriptionHelper : MonoBehaviour
         {
             if (offerDialogue.DialogueContent != null && offerDialogue.DialogueContent.Count > 0)
             {
-                questReason.text = offerDialogue.DialogueContent[0];
-                questNeeds.text = offerDialogue.DialogueContent[1];
+                string textHelper = "";
+                foreach(string dialogue in offerDialogue.DialogueContent)
+                {
+                    textHelper += dialogue;
+                }
+                questReason.text = textHelper;
+                //questNeeds.text = offerDialogue.DialogueContent[1];
             }
         }
 

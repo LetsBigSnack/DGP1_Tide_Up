@@ -34,6 +34,7 @@ public class UIJournalManager : MonoBehaviour
 
     [Header("Journal")]
     [SerializeField] private List<UIJournalSubMenu> journalSubMenues;
+    private bool _wasJournalOpen = false;
 
     public JournalType State
     {
@@ -79,16 +80,23 @@ public class UIJournalManager : MonoBehaviour
     }
 
     public void CloseAllMenues()
-   {
-       foreach(UIJournalSubMenu menu in journalSubMenues)
-       {
+    {
+        if (_wasJournalOpen && currentOpenType == JournalType.Closed)
+        {
+            SoundManager.Instance.PlaySFX("Menu_close");
+            _wasJournalOpen = false;
+        }
+
+        foreach (UIJournalSubMenu menu in journalSubMenues)
+        {
             menu.CloseMenu();
-       }
+        }
         singleCover.SetActive(false);
         singlePages.SetActive(false);
         cover.SetActive(false);
         pages.SetActive(false);
         timeChangePen.SetActive(false);
+
     }
 
    public void OpenMenuByType(JournalType type)
@@ -100,14 +108,20 @@ public class UIJournalManager : MonoBehaviour
         UIBookMarkController.Instance.OpenMenu();
 
         journalSubMenues.Where(m => m.GetComponent<UIJournalSubMenu>().JournalType == type).FirstOrDefault().OpenMenu();
-        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && UIShopManager.Instance.GetCurrentState() == ShopType.Closed)
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed && UIShopManager.Instance.GetCurrentState() == ShopType.Closed && !UITideUpBoxManager.Instance.IsOpen)
         {
             cover.SetActive(true);
             pages.SetActive(true);
             timeChangePen.SetActive(true);
+
+            _wasJournalOpen = true;
+            SoundManager.Instance.PlaySFX("Menu_open");
             return;
         }
         singleCover.SetActive(true);
         singlePages.SetActive(true);
+
+        _wasJournalOpen = true;
+        SoundManager.Instance.PlaySFX("Menu_open");
     }
 }

@@ -5,4 +5,5 @@ public class SoundData : ScriptableObject
 {
     public string soundName;
     public AudioClip soundClip;
+    public float volume = 1;
 }

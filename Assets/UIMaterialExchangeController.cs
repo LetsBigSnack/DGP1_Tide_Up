@@ -191,11 +191,13 @@ public class UIMaterialExchangeController : UIShopSubMenu
         if(!MaterialExchangeManager.Instance.ExchangeMaterial(inputType, outputType, exchangeAmount))
         {
             //error message
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Something went wrong", "You cant do that now");
             return;
         }
         //notification manager
         Debug.Log("Material Exchanged");
         ResetAfterExchange();
+        SoundManager.Instance.PlaySFX("Buy");
     }
 
     private void ResetAfterExchange()

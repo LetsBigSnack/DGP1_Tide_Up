@@ -16,7 +16,7 @@ public class FishingSpot : Interactable
     {
         if (!InventoryManager.Instance.HasSpaceForItem() || !canFish)
         {
-            //TODO: maybe play sound
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Not enough space free in your inventory to collect all items");
             return;
         }
         

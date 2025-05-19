@@ -44,11 +44,20 @@ public class UIFriendBookController : UIJournalSubMenu
     {
         ClearEntries();
         List<NpcData> npcs = NpcManager.Instance.GetNpcs().OrderBy(n => n.IslandID).ThenByDescending(n => n.NpcState).ThenBy(n => n.NpcName).ToList();
+
+        int counter = 0;
         foreach(NpcData n in npcs)
         {
              GameObject newBookEntry = Instantiate(friendBookPrefab, friendBookParent);
              newBookEntry.GetComponent<UIFriendBookItem>().Setup(n);
              _currentFriendBookEntries.Add(newBookEntry);
+            if(counter == 0)
+            {
+                UIFriendBookItem firstItem = newBookEntry.GetComponent<UIFriendBookItem>();
+                UIFriendBookDescriptionHelper.Instance.Setup(n);
+                UIFriendBookDescriptionHelper.Instance.SetGameObjectAsSelected(firstItem);
+                counter++;
+            }
         }
     }
 

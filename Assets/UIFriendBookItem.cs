@@ -17,6 +17,8 @@ public class UIFriendBookItem : MonoBehaviour
     [SerializeField] private string emptyNameText;
     [SerializeField] private string emptyResidenceText;
 
+    [SerializeField] private GameObject selectCircle;
+
     public void Setup(NpcData npc)
     {
         if(npc == null)
@@ -46,6 +48,12 @@ public class UIFriendBookItem : MonoBehaviour
         if(currentNpc.NpcState != NpcStates.Intro)
         {
             UIFriendBookDescriptionHelper.Instance.Setup(currentNpc);
+            UIFriendBookDescriptionHelper.Instance.SetGameObjectAsSelected(this);
         }
+    }
+
+    public void ToggleIcon()
+    {
+        selectCircle.SetActive(!selectCircle.activeInHierarchy);
     }
 }

@@ -31,6 +31,7 @@ namespace Data
         [SerializeField] private string favAnimal;
         [SerializeField] private string favThing;
         [SerializeField] private Sprite portrait;
+        [SerializeField] private Sprite portraitFriendbook;
 
         [Header("Npc Awareness")]
         [SerializeField] private NpcAwareness npcAwareness = NpcAwareness.Low;
@@ -140,6 +141,11 @@ namespace Data
         {
             get => portrait;
             set => portrait = value;
+        }
+        public Sprite PortraitFriendbook
+        {
+            get => portraitFriendbook;
+            set => portraitFriendbook = value;
         }
 
         public NpcAwareness NpcAwareness

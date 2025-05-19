@@ -47,5 +47,9 @@ public class UIRecyclerInputSlot : MonoBehaviour
             UIRecyclerController.Instance.RemoveItem(this);
             ResetSlot();
         }
+        else
+        {
+            SoundManager.Instance.PlaySFX("Error");
+        }
     }
 }

@@ -14,6 +14,7 @@ public class DoorInteractable : Interactable
         if (GameStateManager.Instance.GetGameState() == GameStates.PlayingCharacter)
         {
             LocationManager.Instance.TravelToScene(scene);
+            SoundManager.Instance.PlaySFX("Door");
         }
     }
 

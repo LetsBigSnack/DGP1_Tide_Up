@@ -16,6 +16,7 @@ public class BoatSpeedUpgrade : Upgrade
         PayUpgradeCost();
         //TODO ADD FUNCTIONALITY!
         isUnlocked = true;
+        SoundManager.Instance.PlaySFX("Buy");
         Debug.Log($"Boat speed upgraded by " + boatSpeed + " !");
     }
 }

@@ -14,8 +14,20 @@ public class UIMiniGameManager : MonoBehaviour
     [SerializeField] private Slider vertSlider; 
     [SerializeField] private RectTransform vertSweetSpotMarker;
     [SerializeField] private float indicatorHeight = 2.0f;
-    
-    
+
+    [SerializeField] private Sprite hand;
+    [SerializeField] private Sprite claw;
+    [SerializeField] private Sprite shovel;
+    [SerializeField] private Sprite trash;
+    [SerializeField] private Sprite star;
+
+    [SerializeField] private Image handle;
+    [SerializeField] private Image horIndicatorImage;
+
+    [SerializeField] private GameObject fishingButtons;
+    [SerializeField] private GameObject digPickButton;
+
+
     private bool _isRunning;
     private float _horLastGoalPct;
     private float _verLastGoalPct;
@@ -46,10 +58,27 @@ public class UIMiniGameManager : MonoBehaviour
         
         if (gameType == MiniGameType.Fishing)
         {
+            handle.sprite = claw;
+            horIndicatorImage.sprite = trash;
+            fishingButtons.SetActive(true);
             vertSlider.value = 0;
             vertSlider.maxValue = 1.0f;
             _verLastGoalPct = -1f; // reset state to force placement on first update
             UpdateVerSlider(0f, initialGoalPct);
+        }
+
+        if(gameType == MiniGameType.PickUp)
+        {
+            handle.sprite = hand;
+            horIndicatorImage.sprite = star;
+            digPickButton.SetActive(true);
+        }
+
+        if(gameType == MiniGameType.Digging)
+        {
+            handle.sprite = shovel;
+            horIndicatorImage.sprite = star;
+            digPickButton.SetActive(true);
         }
         
     }
@@ -123,5 +152,7 @@ public class UIMiniGameManager : MonoBehaviour
         uiMiniGameHolder.SetActive(false);
         vertSlider.gameObject.SetActive(false);
         vertSweetSpotMarker.gameObject.SetActive(false);
+        fishingButtons.SetActive(false);
+        digPickButton.SetActive(false);
     }
 }

@@ -21,11 +21,14 @@ public class UIFriendBookDescriptionHelper : MonoBehaviour
     [SerializeField] private TextMeshProUGUI animal;
     [SerializeField] private TextMeshProUGUI thing;
     [SerializeField] private Slider awarenessSlider;
+    [SerializeField] private GameObject sliderLeafImg;
 
     [Header("Awareness String Lvl")]
     [SerializeField] private string awarenessState_1;
     [SerializeField] private string awarenessState_2;
     [SerializeField] private string awarenessState_3;
+
+    private UIFriendBookItem _currentSelectedItem;
 
     private void Awake()
     {
@@ -41,7 +44,7 @@ public class UIFriendBookDescriptionHelper : MonoBehaviour
 
     public void Setup(NpcData npc)
     {
-        this.portrait.sprite = npc.Portrait;
+        this.portrait.sprite = npc.PortraitFriendbook;
         this.npcName.text = npc.NpcName;
         this.home.text = "Home: " + npc.HomeDetails;
         this.vibe.text = "Vibe: " + npc.Vibe;
@@ -77,5 +80,30 @@ public class UIFriendBookDescriptionHelper : MonoBehaviour
     {
         awarenessSlider.maxValue = npc.MaxCompletedQuests;
         awarenessSlider.value = npc.CompletedQuests;
+        sliderLeafImg.SetActive(true);
+
+        if (npc.CompletedQuests == 0 || npc.CompletedQuests == npc.MaxCompletedQuests)
+        {
+            sliderLeafImg.SetActive(false);
+        }
+    }
+
+    public void SetGameObjectAsSelected(UIFriendBookItem item)
+    {
+        if (_currentSelectedItem == item)
+        {
+            return;
+        }
+
+        if (_currentSelectedItem == null)
+        {
+            _currentSelectedItem = item;
+            item.ToggleIcon();
+            return;
+        }
+
+        _currentSelectedItem.ToggleIcon();
+        _currentSelectedItem = item;
+        _currentSelectedItem.ToggleIcon();
     }
 }

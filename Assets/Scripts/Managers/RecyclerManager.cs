@@ -49,6 +49,7 @@ public class RecyclerManager : MonoBehaviour
     {
         if (!storedItems.Contains(item))
         {
+            SoundManager.Instance.PlaySFX("Error");
             return false;
         }
         
@@ -62,6 +63,7 @@ public class RecyclerManager : MonoBehaviour
     {
         if((storedItems == null || storedItems.Count <= 0))
         {
+            SoundManager.Instance.PlaySFX("Error");
             return;
         }
 
@@ -74,12 +76,30 @@ public class RecyclerManager : MonoBehaviour
         }
         storedItems = null;
         OnStoredItemCleared?.Invoke(true);
+        SoundManager.Instance.PlaySFX("Recycle");
     }
 
     public void RemoveAllItems()
     {
         if (storedItems == null || storedItems.Count <= 0)
         {
+            return;
+        }
+
+        for (int i = storedItems.Count - 1; i >= 0; i--)
+        {
+            ItemInstance item = storedItems[i];
+            storedItems.RemoveAt(i);
+            InventoryManager.Instance.AddItem(item);
+        }
+        OnStoredItemCleared?.Invoke(true);
+    }
+
+    public void RemoveAllItemsBtn()
+    {
+        if (storedItems == null || storedItems.Count <= 0)
+        {
+            SoundManager.Instance.PlaySFX("Error");
             return;
         }
 
