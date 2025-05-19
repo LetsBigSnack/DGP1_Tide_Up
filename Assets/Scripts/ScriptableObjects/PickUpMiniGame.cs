@@ -73,6 +73,15 @@ namespace ScriptableObjects
             float goalTime = _startTime + miniGameGoalTime;
             float diff = Mathf.Abs(pressTime - goalTime);
             _isSuccess = diff <= miniGameMargin;
+
+            if (_isSuccess)
+            {
+                SoundManager.Instance.PlaySFX("Success");
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX("Pick_up");
+            }
             
             Debug.Log($"[MiniGame] Pressed at {pressTime} — Target: {goalTime}, Diff: {diff}, Success: {_isSuccess}");
         }

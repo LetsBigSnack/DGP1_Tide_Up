@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
     private bool playerCanMove = true;
     private AnimationController _anim;
     
-
     
     
     
@@ -73,7 +72,6 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
         
         _anim = GetComponent<AnimationController>();
 
@@ -137,6 +135,10 @@ public class PlayerController : MonoBehaviour
         _playerInputs.Player.Interact.Enable();
         _playerInputs.Player.Interact.performed += Interact;
 
+        //Click left button
+        _playerInputs.Player.Click.Enable();
+        _playerInputs.Player.Click.performed += SoundOnClick;
+
     }
 
 
@@ -157,7 +159,11 @@ public class PlayerController : MonoBehaviour
         //Interact
         _playerInputs.Player.Interact.Disable();
         _playerInputs.Player.Interact.performed -= Interact;
-        
+
+        //Click left button
+        _playerInputs.Player.Click.Disable();
+        _playerInputs.Player.Click.performed -= SoundOnClick;
+
     }
 
     private void ToggleSprint(InputAction.CallbackContext value)
@@ -173,7 +179,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if( InteractionManager.Instance.ReturnInteractableType() == Data.InteractableType.Pickup && InventoryManager.Instance.HasSpaceForItem())
+            if( InteractionManager.Instance.ReturnInteractableType() == Data.InteractableType.Pickup && InventoryManager.Instance.HasSpaceForItem() && GameStateManager.Instance.GetGameState() == GameStates.PlayingCharacter)
             {
                 playerCanMove = false;
                 _anim.EnableAnimation(Animations.Pick);
@@ -190,6 +196,14 @@ public class PlayerController : MonoBehaviour
         return _anim;
     }
 
+    private void SoundOnClick(InputAction.CallbackContext value)
+    {
+        if(GameStateManager.Instance.GetGameState() != GameStates.InMenu)
+        {
+            return;
+        }
+        SoundManager.Instance.PlaySFX("Click");
+    }
 
 
     public void DelayedInteract()

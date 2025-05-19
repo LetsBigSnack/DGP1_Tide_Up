@@ -16,6 +16,7 @@ public class WaterAccessUpgrade : Upgrade
         PayUpgradeCost();
         //TODO ADD FUNCTIONALITY!
         isUnlocked = true;
+        SoundManager.Instance.PlaySFX("Buy");
         Debug.Log($"You can now travel waters of level " + waterLevel + " !");
     }
 }

@@ -39,5 +39,9 @@ public class UIUpcyclerInputSlot : MonoBehaviour
             UIUpcyclerController.Instance.RemoveMaterial(this);
             ResetSlot();
         }
+        else
+        {
+            SoundManager.Instance.PlaySFX("Error");
+        }
     }
 }

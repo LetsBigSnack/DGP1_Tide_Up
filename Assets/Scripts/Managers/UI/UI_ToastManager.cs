@@ -96,6 +96,10 @@ public class UI_ToastManager : MonoBehaviour
                 newToast.GetComponent<ToastNotificationItem>().SetToast(title, description);
                 break;
         }
+        if(type != ToastType.Awareness && type != ToastType.Item)
+        {
+            SoundManager.Instance.PlaySFX("Notification");
+        }
         AddToList(type, newToast);
     }
 

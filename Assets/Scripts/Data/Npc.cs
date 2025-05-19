@@ -251,7 +251,7 @@ public class Npc : MonoBehaviour
         InitializeQuest();
     }
 
-    private void InitializeQuest()
+    public void InitializeQuest()
     {
         data.CurrentQuest = QuestManager.Instance.CreateQuest(data.NpcAwareness, data.NpcPersonality, data.NpcName, data.HomeDetails);
         data.CurrentQuest.QuestNpc = this.data.NpcName;

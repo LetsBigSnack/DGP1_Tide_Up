@@ -53,7 +53,7 @@ public class UIRecipeController : UIJournalSubMenu
 
     public override void OpenMenu()
     {
-        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
+        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed || UITideUpBoxManager.Instance.IsOpen)
         {
             leftPage.SetActive(true);
             rightPage.SetActive(false);
@@ -93,7 +93,7 @@ public class UIRecipeController : UIJournalSubMenu
         UpdateRecipies();
         ClearEntries();
 
-        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
+        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed || UITideUpBoxManager.Instance.IsOpen)
         {
             foreach (QuestItemData q in _knownRecipies.Keys)
             {
@@ -122,8 +122,11 @@ public class UIRecipeController : UIJournalSubMenu
             }
         }
         List<RecipeData> curKnownRecipies = RecipeManager.Instance.KnownRecipies;
-        UIRecipeDescriptionHelper.Instance.Setup(firstItemData, curKnownRecipies);
-        UIRecipeDescriptionHelper.Instance.SetGameObjectAsSelected(firstItem);
+        if(firstItemData != null)
+        {
+            UIRecipeDescriptionHelper.Instance.Setup(firstItemData, curKnownRecipies);
+            UIRecipeDescriptionHelper.Instance.SetGameObjectAsSelected(firstItem);
+        }
     }
 
     public void SwitchSubItem(UIUpcyclerRecipeEntryItem sub)

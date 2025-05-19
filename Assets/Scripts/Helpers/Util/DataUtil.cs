@@ -59,7 +59,8 @@ public class DataUtil : MonoBehaviour
     
     public QuestItemInstance GetTutorialItem()
     {
-        QuestItemData questItem = listOfTutorialItems[UnityEngine.Random.Range(0, listOfItems.Count)];
+        int index = UnityEngine.Random.Range(0, listOfTutorialItems.Count);
+        QuestItemData questItem = listOfTutorialItems[UnityEngine.Random.Range(0, listOfTutorialItems.Count)];
         RecipeData recipe = RecipeManager.Instance.GetRandomRecipe(questItem);
 
         return new QuestItemInstance(questItem, recipe.ingredients);

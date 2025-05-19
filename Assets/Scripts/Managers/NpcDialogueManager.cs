@@ -53,6 +53,21 @@ public class NpcDialogueManager : MonoBehaviour
         _currentNpc = npc;
     }
 
+    public bool CanContinueDialogue(Npc npc)
+    {
+        if (npc == null)
+        {
+            return false;
+        }
+
+        if (_currentNpc != null && _currentNpc != npc)
+        {
+            return false;
+        }
+        
+        return true;
+    }
+
     public void EndDialogue()
     {
         _currentNpc = null;
@@ -83,15 +98,23 @@ public class NpcDialogueManager : MonoBehaviour
 
     private void HandelIntroState()
     {
+        
         if(TextToSpeechManager.Instance.IsTalking)
         {
             UIDialogueManager.Instance.FinishSpeaking();
             return;
         }
+        
+        if (_currentNpc.CurrentDialogue.IsDialogueFinished)
+        {
+            CloseDialogue();
+            CheckDialogueFinished();
+            return;
+        }
+        
         _currentNpc.CurrentDialogue.NextDialogueContent();
         UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentDialogue.GetCurrentDialogue(), _currentNpc.FavColourCode);
         TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.CurrentDialogue.GetCurrentDialogue(), _currentNpc.Anim);
-        CheckDialogueFinished();
     }
     
     private void HandelQuestState()
@@ -108,17 +131,19 @@ public class NpcDialogueManager : MonoBehaviour
         }
         else
         {
-            if (_currentNpc.CurrentQuest.QuestState != QuestState.Offer &&
+            if(_currentNpc.CurrentQuest == null)
+            {
+                _currentNpc.InitializeQuest();
+            }
+
+            if (_currentNpc.CurrentQuest?.QuestState != QuestState.Offer &&
                 _currentNpc.CurrentQuest.IsDialogueComplete())
             {
-                if (_currentNpc.CurrentQuest.QuestState == QuestState.InProgress)
+                if (_currentNpc.CurrentQuest?.QuestState == QuestState.InProgress)
                 {
                     ResetDialogue();
                 }
-                else
-                {
-                    CloseDialogue();
-                }
+                CloseDialogue();
                 CheckDialogueFinished();
                 return;
             }

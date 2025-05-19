@@ -29,6 +29,9 @@ namespace ScriptableObjects
         [SerializeField] private float decayRate = 0.01f;
         [SerializeField] private float trackRate = 0.3f;
         
+        [SerializeField] private bool isHoldingLeft = true;
+        [SerializeField] private bool isHoldingRight = true;
+        
         private float _playerPosition;
         private float _trashPosition;
         private bool _isActive;
@@ -39,13 +42,19 @@ namespace ScriptableObjects
 
         public override IEnumerator StartMiniGame(Action<bool> callback)
         {
+            yield return new WaitForSeconds(0.5f);
+            SoundManager.Instance.PlaySFX("Fishing_start_swoosh");
+
             trashMoveSpeed = defaultSpeed;
             _playerPosition = 0.5f;
             _trashPosition = 0.5f;
             _score = 0f;
             _isActive = true;
-
-            MiniGameController.OnMoveBar += OnMoveBar;
+            isHoldingLeft = false;
+            isHoldingLeft = false;
+            
+            //MiniGameController.OnMoveBar += OnMoveBar;
+            MiniGameController.Instance.RegisterMiniGameInteract(OnInteract, OnMoveLeft, OnMoveRight);
             UISubscribe();
             
             float elapsed = 0f;
@@ -58,8 +67,20 @@ namespace ScriptableObjects
             float changeDirectionTimer = 0f;
             float directionChangeInterval = UnityEngine.Random.Range(directionIntervalMin, directionIntervalMax); // Randomize when direction might change
    
+            int countHelp = 0;
             while (elapsed < duration)
             {
+                if(elapsed >= 0.8f && countHelp == 0)
+                {
+                    SoundManager.Instance.PlaySFX("Fishing_start_plop");
+                    countHelp++;
+                }
+                if (elapsed >= 2.2f && countHelp == 1)
+                {
+                    SoundManager.Instance.PlaySFX("Fishing_idle");
+                    countHelp++;
+                }
+
                 changeDirectionTimer += Time.deltaTime;
                 if (changeDirectionTimer >= directionChangeInterval)
                 {
@@ -86,6 +107,21 @@ namespace ScriptableObjects
                     _trashPosition = Mathf.Clamp(_trashPosition, 0f, 1f);
                 }
 
+                if (isHoldingRight != isHoldingLeft)
+                {
+                    if (isHoldingRight)
+                    {
+                        _playerPosition += moveSpeed * Time.deltaTime;
+                        _playerPosition = Mathf.Clamp01(_playerPosition);
+                    }
+                    else
+                    {
+                        _playerPosition -= moveSpeed * Time.deltaTime;
+                        _playerPosition = Mathf.Clamp01(_playerPosition);
+                    }
+                }
+                
+
                 // Track if within tolerance
                 if (Mathf.Abs(_playerPosition - _trashPosition) <= trackingTolerance)
                 {
@@ -103,32 +139,48 @@ namespace ScriptableObjects
                 OnMiniGameProgress?.Invoke(_playerPosition, _trashPosition);
                 OnMiniGameVertProgress?.Invoke(_score, successThreshold);
                 elapsed += Time.deltaTime;
+
                 yield return null;
             }
 
-            MiniGameController.OnMoveBar -= OnMoveBar;
+            //MiniGameController.OnMoveBar -= OnMoveBar;
+            MiniGameController.Instance.UnregisterMiniGameInteract(OnInteract, OnMoveLeft, OnMoveRight);
             UIMiniGameManager.Instance.Hide();
             UIUnsubscribe();
             _isActive = false;
-            
+
             Debug.Log($"[FishingMiniGame] Score: {_score:F2}");
         
             callback(_score > successThreshold);
+
+            if (_score > successThreshold)
+            {
+                SoundManager.Instance.PlaySFX("Success");
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX("Pick_up");
+            }
+
+            yield return new WaitForSeconds(1.2f);
+            SoundManager.Instance.PlaySFX("Fishing_start_swoosh");
         }
 
         protected override void OnInteract()
         {
-            throw new NotImplementedException();
-        }
-
-        private void OnMoveBar(float input)
-        {
-            if (!_isActive) return;
-
-            _playerPosition += input * moveSpeed * Time.deltaTime;
-            _playerPosition = Mathf.Clamp01(_playerPosition);
+            return;
         }
         
+        private void OnMoveLeft(bool holding)
+        {
+            isHoldingLeft = holding;
+            
+        }
+        
+        private void OnMoveRight(bool holding)
+        {
+            isHoldingRight = holding;
+        }
         
         protected override void UISubscribe()
         {

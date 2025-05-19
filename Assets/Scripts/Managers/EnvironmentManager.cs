@@ -88,12 +88,17 @@ public class EnvironmentManager : MonoBehaviour
         {
             OnEnvironmentStateChanged?.Invoke(currentIsland.State, currentIsland.IslandID);
 
-            //TODO: Add sound
-            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Awareness, "New State:", currentIsland.State.ToString());
+            SoundManager.Instance.PlaySFX("Cleanliness_score_up");
+
+            Invoke(nameof(ShowCleanlinessToast), 1.5f);
         }
     }
-    
-    
+    private void ShowCleanlinessToast()
+    {
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Awareness, "New State:", currentIsland.State.ToString());
+    }
+
+
     public EnvironmentState GetStateOfIsland(int islandId)
     {
         

@@ -46,6 +46,8 @@ public class UIStartSceneManager : MonoBehaviour
                         if (mesh != null)
                             mesh.enabled = true;
                     }
+
+                    SoundManager.Instance.CurrScene = sceneToLoad;
                 }
                 
 
@@ -54,6 +56,7 @@ public class UIStartSceneManager : MonoBehaviour
                 UIPauseMenuManager.Instance?.ResumeGame();
             }
         }));
+        Debug.Log("Defuck");
     }
 
     public void OpenOptions()

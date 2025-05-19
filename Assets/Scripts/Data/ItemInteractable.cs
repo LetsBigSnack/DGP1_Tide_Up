@@ -13,20 +13,34 @@ public class ItemInteractable : Interactable
     {
         if (!InventoryManager.Instance.HasSpaceForItem())
         {
-            //TODO: maybe play sound
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Not enough space free in your inventory to collect all items");
             return;
         }
-        
-        MiniGameManager.Instance.StartMiniGame(MiniGameType.PickUp, success =>
+
+        if (GameStateManager.Instance.GetGameState() != GameStates.PlayingBoat)
         {
-            TrashItemInstance trash = new TrashItemInstance(trashData, success);
+            MiniGameManager.Instance.StartMiniGame(MiniGameType.PickUp, success =>
+            {
+                TrashItemInstance trash = new TrashItemInstance(trashData, success);
+            
+                if (InventoryManager.Instance.AddItem(trash))
+                {
+                    EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
+                    Destroy(gameObject);
+                }
+            });
+        }
+        else
+        {
+            //TODO: change for Polishing with Boat-MiniGame
+            TrashItemInstance trash = new TrashItemInstance(trashData, false);
             
             if (InventoryManager.Instance.AddItem(trash))
             {
                 EnvironmentManager.Instance?.AddCleanlinessScore(EnvironmentActionType.PickUp);
                 Destroy(gameObject);
             }
-        });
+        }
     }
 
     public override void ShowInteractability(bool show)

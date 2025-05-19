@@ -45,6 +45,12 @@ public class NpcIndicator : MonoBehaviour
             return;
         }
 
+        if(npc.NpcState == NpcStates.Quest && npc.CurrentQuest == null)
+        {
+            exclamationIndicator.SetActive(true);
+            return;
+        }
+
         if (npc.CurrentQuest?.QuestState == QuestState.Offer &&
             npc.CompletedQuests < npc.MaxCompletedQuests &&
             GameStateManager.Instance.GetGameState() != GameStates.Dialogue)

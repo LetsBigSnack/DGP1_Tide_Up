@@ -16,6 +16,7 @@ public class OilCleanUpgrade : Upgrade
         PayUpgradeCost();
         //TODO ADD FUNCTIONALITY!
         isUnlocked = true;
+        SoundManager.Instance.PlaySFX("Buy");
         Debug.Log($"You extended your cleaning range by " + cleaningRange + "m !");
     }
 }

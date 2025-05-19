@@ -96,7 +96,7 @@ public class UIBookMarkController : MonoBehaviour
 
     public void OpenMenu()
     {
-        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
+        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed || UITideUpBoxManager.Instance.IsOpen)
         {
             reupcylceParent.SetActive(true);
             return;

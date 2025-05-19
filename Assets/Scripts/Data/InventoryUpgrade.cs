@@ -15,6 +15,7 @@ public class InventoryUpgrade : Upgrade
         PayUpgradeCost();
         InventoryManager.Instance.IncreaseMaxItems(slotsToAdd);
         isUnlocked = true;
+        SoundManager.Instance.PlaySFX("Buy");
         Debug.Log($"Inventory upgraded by " + slotsToAdd + " slots!");
     }
 }

@@ -31,6 +31,7 @@ public class SceneChangeManager : MonoBehaviour
 
     public IEnumerator LoadSceneWithState(Scenes scene, Action<bool> onComplete = null)
     {
+        Debug.Log(scene);
         if (isSceneChanging)
         {
             Debug.Log("Scene change is already in progress.");

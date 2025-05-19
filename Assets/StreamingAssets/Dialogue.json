@@ -2,34 +2,40 @@
   "Intros": {
     "Betty": {
       "DialogueContent": [
-        "Hello I am Betty$ the gooner's dream",
-        "I have fishnets and black painted toenails",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "TEST"
+        "Oh, I heard someone new showed up on the island. I am Betty - nice to meet you.",
+        "So… what brings you to a place like this?",
+        "Wait, YOU want to clean the island? Alright - if that's your thing.",
+        "But honestly? Feels like fighting a losing battle.",
+        "The pollution? Sure, it sucks. But let's be real - picking up trash isn't exactly my style.",
+        "I used to care. Guess I got tired of hoping things would change."
       ]
     },
-    "Deki": {
+    "Ollie": {
       "DialogueContent": [
-        "Pa brate",
-        "Papushi# kurac"
+        "Huh? Oh - hi! Marley mentioned someone washed up on the beach. I'm Ollie. It's great to meet you in person!!",
+        "Really? You want to stay and help clean this place up? That's... a big task.",
+        "But that's really thoughtful of you - I didn't see that coming.",
+        "Oh—no offense! It's not that you look like you wouldn't care, it's just... It's been like this for ages.",
+        "I honestly didn't think anyone would actually do something about it.",
+        "Still, I'd love to see this island turn around. ",
+        "I've got my hands full right now, but if you prove you're serious... who knows? Maybe I'll pitch in too."
       ]
     },
-    "Igor": {
+    "Noah": {
       "DialogueContent": [
-        "Hallo% am I Igor",
-        "Also known as the god of gamers",
-        "I will defeat you in LoL"
+        "Yo! Haven't seen you around before. Stoked to meet ya, friend!",
+        "#Whoa, you're here to clean up the trash? That's so rad! Cleaner water means smoother waves - totally stoked!",
+        "Oh! Totally spaced—name's Noah. I moved here to chill, soak in the sun, you feel me?$ Riding waves is, like, my whole thing, hahaha.",
+        "Not gonna lie, the trash is killing the vibe… but I'd still rather have sand in my shorts than clean it all up.",
+        "§Feels like, way too much effort, y'know?"
       ]
     },
-    "Engineer": {
+    "Marley": {
       "DialogueContent": [
-        "Oh,... you're finally awake!",
-        "I found you on the beach... Your boat got damaged during the storm... don't worry about it we can fix it.",
-        "Maybe you want to slowly try to walk around - as soon as you feel ready come talk to me!",
+        "Oh! You're finally awake. Are you alright? I found you washed up on the beach yesterday.", 
+        "That storm must've done quite a number on your boat.",
+        "Anyway, I can help you fix it — but first, let me check your condition. ",
+        "Try walking around a bit. Once you feel ready, come talk to me.",
         "System: Press W A S D to move around and E to interact."
       ]
     }
@@ -39,31 +45,40 @@
       "Low": [
         {
           "DialogueContent": [
-            "Alright seems like you recovered a bit - thats good! I fixed what was fixable for your boat but it's not as good as it was... we would need way more resources for that.",
-            "But 'luckily' we got a hell of resources lying around this island, ... it used to be so nice... maybe we can help each other!",
-            "There's a machine I build over there and I need to test it... can you please collect the trash over there?"
+            "Ah, great! Looks like all your limbs are in perfect working order! ...Your boat wasn't quite so lucky.",
+            "I managed to get it seaworthy again while you were out, but let's just say… she won't be winning any races.",
+            "With the right upgrades, though, she could be faster than a flying fish!",
+            "Because lucky you- you're standing in front of the most outstanding Engineer on the entire island! ...Also, the only one.",
+            "Let's start from the beginning. My name's Marley, and you're on the ___ Islands. The most beautiful place in the ___ Seas…",
+            "Or, well, it used to be. Now, it's just a shadow of its former self.",
+            "Why? Pollution, my friend. The grass used to be lush, the palm trees thriving...",
+            "and you could walk barefoot without worrying about stepping on glass or sharp plastic. But things changed.", 
+            "Most villagers left, because they could not take it anymore. I stayed. I still believe it can be saved.",
+            "I even build a machine that can re- and upcycle materials in seconds! But I'm too old to clean up the whole island on my own.",
+            "What's that? You want to help me? Really?! Ahh! I've been waiting for someone like you! A responsible youngster with a spark of hope!",
+            "As a thank-you, I'll upgrade your ship for free - just bring me the materials I need!",
+            "The machine? Oh, yes - yes! Let me give you a quick rundown. It's a Recycler and an Upcycler in one!", 
+            "Just toss in any trash you find around the island, and it'll break it down into base components.", 
+            "You can then use those to craft new items- useful ones! Isn't it amazing?",
+            "First, could you pick up the items lying on the ground? You'll need them to try the machine out."
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "Now go to the Re-Upcycler over there and use the recylcer to add the items into it!",
-            "System: You can add the items by simply clicking on them with your mouse.",
-            "After you recycled them all put the materials you got into the upcycler and upcycle them!",
-            "System: Switching between them is easy! Just press the right tab on the top of the recycler UI! To add the materials just click on the material icons on the left side!",
-            "Bring me the finished item!"
+            "Now, walk over to the Cycler's display. There, you'll see options to either recycle or upcycle materials.",
+            "Start by placing trash into the Recycler to break it down into raw materials.",
+            "Then, use the Upcycler tab to turn those materials into useful new items by combining different materials.",
+            "Time to recycle and upcycle! Kekeke!"
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "Help me tidy up the island and i'll help you upgrade your boat!",
-            "Before I forget you also lost this - *hands over journal* - I didn't want to look but I saw... a friends page...",
-            "This might be a good start - Try to find the islanders and learn about them. If you ever want to upgrade your boat or inventory you can find me in this shop.",
-            "And since this huge recycler is way to big, I will put it outside for you!",
-            "Let's make this island a better place!"
+            "Alright, I think you're all set! Go explore the island, meet some friends, and don't hesitate to come back if you want to upgrade your boat.",
+            "And- thank you again, truly. You’re making a difference."
           ]
         }
       ]
@@ -72,42 +87,50 @@
       "Low": [
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT].",
+            "Hey, you! Can you help me out? I really need you to bring me a [QUEST-ITEM]. + Why? Oh, [ITEM-REASON].",
+            "How to make it? I don't know, slap together some [MATERIALS],",
+            "I guess. … Oh that's not all of the stuff you need but I cannot remember the last one…[MATERIAL-HINT] Perhaps this helps?"
           ]
         },
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "+You again… Well, while you are here already, wanna get me a [QUEST-ITEM]? Because [ITEM-REASON].",
+            "To create it, you may need [MATERIALS], I read that in a magazine.",
+            "Oh, and [MATERIAL-HINT], I think you should add something like that to the mix."
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Hi again. I need you to find a [QUEST-ITEM], please. It's very important to me because [ITEM-REASON], do you understand",
+            "I think you need some [MATERIALS]. Also, for the last ingredient:  [MATERIAL-HINT] You should also look for something like that.",
+            "Hey! I am trying to be helpful here!"
           ]
         },
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Hi there! How are you? You know, I really need a [QUEST-ITEM]. Do you think you can help me with that?",
+            "Yes? Great! You may have to find some [MATERIALS].",
+            "Last but not least, [MATERIAL-HINT]- use that as you'd like.$ Thank you for that!"
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Oh, hi! I was looking for you! Can you help me get a [QUEST-ITEM]? Because [ITEM-REASON].",
+            "I read in an upcycling blog online that you need [MATERIALS] for that.",
+            "They deleted the post for the last ingredient. But, [MATERIAL-HINT], I would maybe add something like that as well."
           ]
         },
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Are you not getting tired, running around all day and night? You like that?",
+            "Okay, if you say so… wanna help me create a [QUEST-ITEM]? Really?",
+            "$ Thanks! I need it because [ITEM-REASON]. You have to find [MATERIALS] to make it.", 
+            "Oh, I am sorry, but I really cannot remember the rest...",
+            "[MATERIAL-HINT], you could try something like that? Also, don't forget to stay hydrated during this heat!"
           ]
         }
       ]
@@ -116,42 +139,52 @@
       "Low": [
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Is it true that Marley allowed you to use his machine? That's really nice of him…", 
+            "Hey, if you have nothing to do right now, can you maybe bring me a [QUEST-ITEM]?",
+            "I need it because [ITEM-REASON]. I think you would need [MATERIALS] for that. [MATERIAL-HINT]."
           ]
         },
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Oh, you again! Hey, while you are already here, can you maybe help me out? I really need [QUEST-ITEM], because [ITEM-REASON].",
+            "I heard you were running around the island anyway, so if you could help me, I would appreciate it.$ To create that, you need [MATERIALS].",
+            "Mhh.. something seems to be missing ..[MATERIAL-HINT], maybe that can help you find the last ingredient."
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Hey again! Thanks for the last few times! It's so cool what you can do with recycling.",
+            "Can you once again help me get something? I need a [QUEST-ITEM], because [ITEM-REASON].",
+            "[MATERIALS]… Oh, I think that's not all you need for that…But I cannot remember the last one.. [MATERIAL-HINT].", 
+            "Maybe this would help you?"
           ]
         },
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Hi friend! Hey, do you have time for something? I need somehow to get my hands on a [QUEST-ITEM].",
+            "You think you can help me? I need it because [ITEM-REASON].",
+            "arley told me you would need [MATERIALS] for that.",
+            "For the last one, he only left me with a hint: [MATERIAL-HINT], is what he said, maybe that can help you."
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Good day! $How are you? Hey, I am currently working on another project and have no time to do it myself...,",
+            "but I really need a [QUEST-ITEM], because [ITEM_REASON]",
+            "Can you, once again, help me out, my friend? You are the best!",
+            "You need [MATERIALS] for that. And for the last missing material: [MATERIAL-HINT], does this help?"
           ]
         },
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Hi! Good to see you again! $Hey, first of all, I really wanted to thank you for all the stuff you do for me and the others on the island.",
+            "You really opened my eyes, that it can take one single person to bring change. That is really inspiring...",
+            "Anyways, I have another request for you! I really want to have a [QUEST-ITEM] because [ITEM-REASON].",
+            "[MATERIALS] is what you need for that. For the last ingredient: [MATERIAL-HINT], this should help you."
           ]
         }
       ]
@@ -160,42 +193,60 @@
       "Low": [
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Sigh… Oh, yooo, rookie! What? Nah, it's nothing. I just really need a [QUEST-ITEM], 'cause [ITEM-REASON].",
+            "Delivery takes forever though, so I was just sulking.",
+            "Waaait—what? You wanna help out? You think you can just slap together some [MATERIALS] and fix it up? Haha, you're wild, dude.",
+            "Hey, I'm not stopping ya. Oh—[MATERIAL-HINT], maybe something like that could work?"
           ]
         },
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Man, it's way too hot today, I'd fight a seagull for a smoothie right now…", 
+            "Oh, hey, dude! Heard you've been running around the island grabbing stuff -  That's awesome.",
+            "Think, you could help me out? I need a [QUEST-ITEM], and it's kinda important, 'cause [ITEM-REASON].",
+            "I think you'll need some [MATERIALS] to make that, but…",
+            "I can’t quite remember what the last thingy was…[MATERIAL-HINT], maybe you know what I meant.",
+            "You probably know better than me. Thanks, kook!"
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Hello friendo! Hey, can I ask you for another thing? Yeahhh?$",
+            "Ah man, you are the best, always like the tide, always coming in when I need help. I need a [QUEST-ITEM], because [ITEM-REASON].",
+            "To create [QUEST-ITEM] with the old man's machine, you need some [MATERIALS].",
+            "Last but not least, the hint for the last thing you need: [MATERIAL-HINT].",
+            "Perhaps this could be helpful. Superb, but don't forget to chill and enjoy the sun, pebble."
           ]
         },
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Buddy, there you are! Stoked to see ya. $You know, I have always wanted to have a [QUEST-ITEM], because [ITEM-REASON].",
+            "Can you help me out? Really?",
+            "Pebble. You. Are. Great. I cannot remember all the stuff you need for that, but I think it's [MATERIALS].",
+            "And the last one… dang, I cannot remember but [MATERIAL-HINT]. Maybe you can use that?"
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Hey, pebble. You know… just wanted to say, I really appreciate you running around all day for my stupid requests.",
+            "You are a good friend. Please, stay like that…",
+            "Anyway, mind helping me out one more time? Sorry to put that on your plate once more, but I wanted to request a [QUEST-ITEM]…",
+            "Because [ITEM-REASON].",
+            "It's so rad what you can do with the trash lying around. I think I will ask the old man if he could teach me some of that...",
+            "Anyways, I read that you need some [MATERIALS] to make that.", 
+            "For the last ingredient: [MATERIAL-HINT]. I think you may be able to use that.",
+            "Thanks once again, pebble$ – seriously, you are making a difference."
           ]
         },
         {
           "DialogueContent": [
-            "I need you to find a [QUEST-ITEM] — it's important because [ITEM-REASON].",
-            "To create it, gather these materials: [MATERIALS]. A hint to help you: [MATERIAL-HINT]."
+            "Yo! How is it going? Enjoying the sun? As. You. Should. Pebble, can you make me a [QUEST-ITEM]? [ITEM-REASON]",
+            "I read a book about how to make that, and it said all you need are [MATERIALS] and some last thing I cannot remember…", 
+            "But [MATERIAL-HINT], maybe that can help you."
           ]
         }
       ]
@@ -206,23 +257,36 @@
       "Low": [
         {
           "DialogueContent": [
-            "Ye, just over there - pick em up and bring them to me."
+            "Just walk up to the items and press E to pick them up!"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Go on! Don't be a stranger."
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Don't forget – E – to interact!"
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "Yes yes - don't wait! Let's see if it works!",
+            "Just walk up to the machine and let the magic happen!", 
             "System: You can add the items by simply clicking on them with your mouse.",
-            "System: Switching between them is easy! Just press the right tab on the top of the recycler UI! To add the materials just click on the material icons on the left side!"
+            "System: Switching between them is easy! Just press the right tab on the top of the display!",
+            "To add the materials, just click on the material icons on the left side!"
           ]
         }
       ],
         "High": [
         {
           "DialogueContent": [
-            "System: It's time to explore! Start your journey in Tide Up and help the islanders learn about the cool things recycling and upcylcing can do!",
+            "Go on! Have fun! Kekeke",
+            "System: It's time to explore!",
+            "Start your journey in Tide Up and help the islanders learn about the cool things recycling and upcycling can do!",
             "System: The further you progress, the more the island will change - but don't forget to have fun!"
           ]
         }
@@ -232,36 +296,71 @@
       "Low": [
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "I still can't believe you decided to stay here, of all places.",
+            "Me? Yeah, I moved here a year ago to escape the city jungle. Grew up there."
           ]
         },
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "I don't mind the mess that much. I mean, sure, it could be WAY better, but just waking up with the sound of waves? That's enough for me."
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Have you talked to the others? I'm sure they've got something for you to do."
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Why do you keep talking to me? Don't you have something to do?"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "…"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "+Look, pal, I appreciate you helping me out -really - but that doesn't mean I want to be part of your... little clean-up duty squad.",
+            "…Okay, maybe I'll at least start clearing the stuff around my house."
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "You know, I found out that I enjoy cleaning up and redecorating my house.$ It's pretty relaxing, actually."
           ]
         },
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "I love the people on this island. There aren't many of us, but everyone feels like family. We really care about each other.",
+            "Did you know Ollie used to run a restaurant in the city?",
+            "Last week, he cooked up something amazing and gave Noah and me the leftovers.$ I still can't stop thinking about it!"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Something about me? Mh… my favorite color is purple.",
+            "More? Okay - I'm working on a sculpture right now. It's going well, but something's still missing."
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "Hey! How are you? You always seem so full of energy—it's honestly kind of inspiring."
           ]
         },
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "Yaaawn… I didn't go to bed until 3 a.m. last night. I started this fantasy book and just couldn't put it down... It's so good!"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Oh hi! Yeah, things are going well. The sculpture's coming along nicely—it's starting to actually look like something now, haha!"
           ]
         }
       ]
@@ -270,36 +369,77 @@
       "Low": [
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "Have you met the others already?"
           ]
         },
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "+What's up?”, ”Oh, I don't need anything right now. Thanks for asking, though!"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "$Marley is such a valuable person for our small community! And his wife, Lizzy, is the sweetest lady.", 
+            "I heard they traveled the world together when they were young and helped people and animals in need.",
+            "Now I sometimes bring Marley something to eat and help him clean his house. ",
+            "Since he hurt his back, he has trouble picking up stuff.§ He does not like depending on others.."
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Puh, it is so hot… Hm? The water? Nope, I wouldn't dip a toe in there, let alone swim.",
+            "The fish don't even come near the shore anymore because it's so dirty..."
+          ]
+        },
+        {
+          "DialogueContent": [
+            "I have a pen pal overseas. I have never met them, but we have been writing to each other for around 4 months now! I have mentioned you in my last letter.",
+            "It's so fun imagining who they are…”, “What if they are a pirate or a king! That would be so cool…"
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "How is the cleaning going?”, “Me? It's going good!"
           ]
         },
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "$The other day, Betty helped Noah and me clean up our houses.",
+            "She may seem a bit hard to approach at first, but she is incredibly nice when you get to know her!"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Noah's got this crazy way of thinking, always coming up with random ideas.",
+            "I did not get it at first, but now? I think he is onto something...",
+            "Did you know Noah studied Marine Biology before and finished as the best in his year. He is crazy intelligent."
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Yeah, we're making progress, but I can't help but wonder… will it last?"
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "Hey, I have started picking up trash items as well around here. I put them in the wooden box on the town square for you!",
+            "You've motivated me to do my part!"
           ]
         },
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "Hi! How is your day going? Wanna come by later for taste-testing a new recipe I was trying out with local fruit?"
+          ]
+        }
+        ,
+        {
+          "DialogueContent": [
+            "Oh, I heard back from my pal overseas! I should say Hi! To you from them.",
+            "They are studying astrophysics. #They are no pirate or king but isn't that still insanely cool?"
           ]
         }
       ]
@@ -308,36 +448,84 @@
       "Low": [
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "Yoo! Have you been surfing yet?"
           ]
         },
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "Does your ship have a name?"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Anyways, have you met the others yet? Totally cool folks."
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Ouch§! I stepped on plastic again... I should start looking where I am going…"
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Hey, did you know that plastic pollution on Atlantic islands dates to 1983?? And now it seems like it's %everywhere."
+          ]
+        },
+        {
+          "DialogueContent": [
+            "Hey, I had a closer look at your boat. It looks so sick! Promise to take me with you once in a while."
+          ]
+        },
+        {
+          "DialogueContent": [
+            "… … …",
+            "+What? Sorry, I totally zoned out for a sec."
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "How are you still running around collecting trash, dude? Isn't that exhausting?",
+            "You ever notice how everything's like changing with your efforts? That's pretty cool, actually… "
           ]
         },
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "$Catchin' good vibes today"
+          ]
+        }
+        ,
+        {
+          "DialogueContent": [
+            "Dude, I read somewhere that a single cruise ship can create up to 50 TONS of waste per week. Isn't that insane?",
+            "§Islands like ours are not prepared to handle that amount if it washes up on the beach..."
+          ]
+        }
+        ,
+        {
+          "DialogueContent": [
+            "Hey, question – where do you even sleep?"
+          ]
+        }
+        ,
+        {
+          "DialogueContent": [
+            "Yoo, you gotta try Ollie's seafood stew! That one is just magical!"
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "Hey pebble, how is it going?"
           ]
         },
         {
           "DialogueContent": [
-            "In Progress [QUEST-ITEM] "
+            "Sometimes it is just enough to ride the wave. Chill out and take a deep breath once in a while.",
+            "Pebble, take a break once in a while, okay?",
+            "You must be getting tired, running around all day… and night- hey, do you even sleep?"
           ]
         }
       ]
@@ -348,20 +536,21 @@
       "Low": [
         {
           "DialogueContent": [
-            "Perfect! Well you're quite skilled in picking up trash i see! Talk to me when you're ready for the nexts step!"
+            "Nice! Let's see… Metal and wood? Oh, I definitely know what we can make with that- Kekeke. Talk to me whenever you are ready for the next step!"
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "Perfect, you got it! You can keep the shovel and take this fishing rod as well",
-            "System: Along your journey you will find other mini games to try! No worries no need to equip any tools, they will be ready when you're at the right spot!",
-            "Also I found this when you stranded - hands you your journal - and I didn't want to look but I saw a page for friends...",
-            "Well, here's the deal - go out and introduce yourself to the islanders and you might understand my struggle and the current state of the island...",
-            "Help me teach them how to be more environmental aware and bring me Upcycled trash and materials and I will help you with your boat, sounds like a deal?",
-            "Perfect, also this re-upcylcer is way to big for my small shop I will put it out and you can use it when necessary! Talk to me if you need help.",
-            "System: Your Journey is about to start - Introduce yourself to the islanders and help them care for the environment and you might see the island change, it's up to you to help them understand!"
+            "A natural! And what a lovely shovel you've made! Keep it- you'll need it to dig trash out of the sand.",
+            "Also, here you have my old magnet fishing rod. You can easily fish out trash from the water ",
+            "System: Along your journey, you will find other mini games to try!",
+            "No worries, no need to equip any tools, they will be ready when you're at the right spot!",
+            "I'll move the machine outside so you'll have easy access whenever you need it!",
+            "Ah! Before I forget, I found this on the beach as well. *hands over journal* It must be yours.",
+            "The journal was soaked when I found it, but I did my best to dry it out and fix it up. It's as good as new now!",
+            "I even took the liberty of adding a map of the island to help you get around."
           ]
         }
       ],
@@ -382,36 +571,42 @@
       "Low": [
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Ah, the [QUEST-ITEM] took you long enough… Thank you."
           ]
         },
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "!!!# You… made that [QUEST-ITEM] out of trash? That's… cool."
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Oh wow, the [QUEST-ITEM]! Thanks! I am impressed you managed to create that from the trash lying around...",
+            "Don't get used to me being impressed. …+ how did you even make that…"
           ]
         },
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "$Hmm hmm hm- hmm~",
+            "Oh sorry, I did not see you there. I bought a new vinyl and the tune has been stuck in my head for days now- maybe I can lend it to you someday.",
+            "... What's that? #Oh- OH the [QUEST-ITEM], I completely forgot about that! This is amazing! Thank you so much once again!"
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Hi again, you! How's your day going?",
+            "Mine? Pretty great!$ I found some really cool rocks on my morning walk!",
+            "Oh, is that the [QUEST-ITEM]! You have to show me your ways, sensei. This is incredible stuff."
           ]
         },
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Hi you!$ Oh, the [QUEST-ITEM] -Wow, that was quick! And it looks so pretty! You are really an upcycling genius, you know that?",
+            "Have I told you I've started using driftwood in my sculptures? You know- by upcycling!"
           ]
         }
       ]
@@ -420,36 +615,39 @@
       "Low": [
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Huh, I thought you already forgot. Thanks for the [QUEST-ITEM]."
           ]
         },
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Oh, the [QUEST-ITEM].. Nice! Thanks for your efforts."
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "TAH- the [QUEST-ITEM]! Very cool, actually! And you made that out of trash, right? It already looks a bit cleaner around here, I think…"
           ]
         },
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Hey there! +What?... Oh, I already forgot the request haha. Thanks so much for making that for me!"
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Oh, hi, my friend! How is it going? The [QUEST-ITEM]? Oh yes- #wait, you are finished ALREADY? That was quick! Thank you so much! I will put it to good use!"
           ]
         },
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Oh, thank you! I was waiting for the [QUEST-ITEM]! ",
+            "Marley's machine is so cool, but it's nothing when nobody puts the work into it. Well done!",
+            "By the way, have you seen the palm trees lately? I started to water them recently.",
+            "$I feel like they've finally started to look alive again."
           ]
         }
       ]
@@ -458,71 +656,192 @@
       "Low": [
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Oh, rookie's back - with the [QUEST-ITEM] even! Dang, thanks!"
           ]
         },
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Hey buddy! Huh? What's that? Oohhh, the [QUEST-ITEM] — you were quick this time!"
           ]
         }
       ],
       "Medium": [
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "Yo, is that the [QUEST-ITEM]? #That. Is. So. Cool. I'm stoked, dude. Like, how does trash even become this awesome?"
           ]
         },
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "La-da-daaa~ laa—#OH dang, you scared me, dude! You uh… didn't hear anything, yeah?", 
+            "Ahem, what's up? Oh right, the [QUEST-ITEM]. Maaan, that is rad stuff. I really wanna learn how to do that as well.."
           ]
         }
       ],
       "High": [
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "$The friend! The legend! Pebble!! What's up? Wait— is that the [QUEST-ITEM]?!",
+            "Bro, are you a wizard or something? HOW did you even make this happen? Thank you!!"
           ]
         },
         {
           "DialogueContent": [
-            "Thanks i really needed [QUEST-ITEM]"
+            "ebble! There you are! I was just looking for my lil buddy! What's up? Huh? … … … #OH— the [QUEST-ITEM]!",
+            "Right, sorry dude, I stayed up way too late reading this book on upcycling and totally spaced on my own request.",
+            "$Whoaah, it looks even cooler than I imagined… I've still got so much to learn from you. Thanks, pebble."
           ]
         }
       ]
     }
   },
   "Finished": {
-    "Engineer": [{
+    "Marley": [{
       "DialogueContent": [
-        "What are you waiting for the door is over there? Go make some new friends!"
+        "Go on! Explore everything! What are you waiting for?"
       ]
-    },
+      },
       {
         "DialogueContent": [
-          "Darling,... can you remember how beautiful this island once was?... I wish i was a little bit younger... Erm... Are you still looking for the door?!"
+          "Say hi to the villagers for me! They're lovely folks, but sadly, they don't seem to care much about the pollution. Maybe you can change their minds?"
+        ]
+      },
+      {
+        "DialogueContent": [
+          "Me? No, I don't live here alone. My wife is just away at the moment, helping wildlife on another island. She's the loveliest woman…"
+        ]
+      },
+      {
+        "DialogueContent": [
+          "I'm so grateful you decided to help the island. I can't wait to see what we'll accomplish together!"
         ]
       }],
     "Betty": [{
       "DialogueContent": [
-        "Betty GOONED"
+        "I have to admit, I was wrong about you.",
+        "You run around every day cleaning up the place... It is inspiring, actually.",
+        "I never thought just... picking up trash could make such a difference.",
+        "Mhh? $Yeah, you're right. It all starts with one piece at a time."
       ]
     },
       {
         "DialogueContent": [
-          "You are a good boy!",
-          "now sit"
+          "I'm really glad I decided to move here.", "The decision wasn't easy, you know? Leaving my old life behind...",
+          "But it was worth it. I just... didn't enjoy creating art anymore. I was burned out.", 
+          "Burned out from the pressure, the deadlines, the expectations... It just stopped being fun.",
+          "Now I'm here, and I've never felt better. Also... it's thanks to you. So, thank you.", 
+          "It feels strange to say all this out loud... but it's true. …Don't get used to this."
         ]
-      }],
-    "Deki": [{
+      },
+      {
+        "DialogueContent": [
+          "You know, ever since you showed up, even the flowers on my succulent started blooming again.",
+          "I thought I'd already killed it..."
+        ]
+      },
+      {
+        "DialogueContent": [
+          "Hey, you! So, I started picking up stuff on my morning walks. Even bought gloves and everything.",
+          "Not that I'm trying to copy you or anything. Nope. Not at all."
+        ]
+      },
+      {
+        "DialogueContent": [
+          "You know Lizzy? Marley's wife? She's such an inspiration!",
+          "Traveled all over the world, and now she's out there caring for animals on another island. Pretty cool."
+        ]
+      }
+    ],
+    "Ollie": [{
       "DialogueContent": [
         "Deki Done"
       ]
-    }],
-    "Igor": [{
+    },
+    {
       "DialogueContent": [
-        "Igor done"
+        "It is incredible what you have accomplished in such a short amount of time.",
+        "$You really inspired me. Everybody, including me, can learn a thing or two from you.",
+        "Thank you from the bottom of my heart that I can finally breathe again!"
+      ]
+    },
+    {
+      "DialogueContent": [
+        "I was sure some of the plants here were long gone already. Guess they just needed a bit more care."
+      ]
+    },
+    {
+      "DialogueContent": [
+        "If I am being honest, when you arrived on the island,  I did not think this island could be saved...",
+        "Man, I did not think I could change. But here we are. Thanks to your efforts."
+      ]
+    },
+    {
+      "DialogueContent": [
+        "What's in my belt bag? Oh, salt and pepper for emergencies. You never know when you come across a dish that needs a bit more spice."
+      ]
+    },
+    {
+      "DialogueContent": [
+        "Hi! How's your day going so far? Mine? It's going great! I was thinking of starting a little herb garden. What do you think—cute, right?"
+      ]
+    },
+    {
+      "DialogueContent": [
+        "Hey, I was just thinking of you! Have you ever made watermelon sorbet? It's so easy—and ridiculously yummy!"
+      ]
+    },
+    {
+      "DialogueContent": [
+        "I started putting plants in my room, and wow—it's like the air instantly got better. Nature's air purifier!"
+      ]
+    }],
+    "Noah": [{
+      "DialogueContent": [
+        "Pebble!$ I decided to do it in my own way and collect whatever I see floating around my board when waiting for the next wave to catch! Hehehe"
+      ]
+    },
+    {
+      "DialogueContent": [
+        "Pebbleee! There you are! Wanna go surfing together?"
+      ]
+    },
+    {
+      "DialogueContent": [
+        "Pebble…hey, I think I owe you an apology, I thought you were like the other city folks, who just come here for a quick vacation and do not care about the locals here.",
+        "But you actually want to be of help. Thanks for doing what you are doing.",
+        "Maan, now I feel kinda bad about how I treated this place. You were right… even small effort goes a long way."
+      ]
+    },
+    {
+      "DialogueContent": [
+        "$Catchin' good vibes today? Or even good waves?"
+      ]
+    },
+    {
+      "DialogueContent": [
+        "Heyoo, lil Buddy! Dang, I missed seeing your face. Has somebody told you that you have a cat-like aura sometimes?"
+      ]
+    },
+    {
+      "DialogueContent": [
+        "Pebble, wanna grab a smoothie together later?”, “I am craving a strawberry-pineapple one."
+      ]
+    },
+    {
+      "DialogueContent": [
+        "Hey man, I found some trash floating around in the sea right next to my board- some people really do not care.."
+      ]
+    },
+    {
+      "DialogueContent": [
+        "Buddyy, pebble- can you gimme a sec of your time?”, “Cool.",
+        "So - Betty told me I can attract mermaids only if I do 30 jumping jacks with a crab on my head", 
+        "while standing on my board in total silence right when the sun rises in the morning… She was messing with me, right?... Right?"
+      ]
+    },
+    {
+      "DialogueContent": [
+        "Me? Have moved here to be closer to the sea. I lived in a place far away from the beach and I felt like the water just called to me, y'know."
       ]
     }]
   }
