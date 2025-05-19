@@ -157,15 +157,18 @@ public class UIPlayerUpgradesController : UIShopSubMenu
     {
         if (!currentUpgrade.isUnlocked)
         {
-            Upgrade lastCurrUpgrade = currentUpgrade;
             currentUpgrade.ApplyUpgrade();
+            if (!currentUpgrade.isUnlocked)
+            {
+                return;
+            }
+            Upgrade lastCurrUpgrade = currentUpgrade;
             RefreshCurrentUpgrade();
             if(lastCurrUpgrade.nextUpgrade == null)
             {
                 return;
             }
-            currentUpgrade = lastCurrUpgrade.nextUpgrade;
-            SwitchUpgrade(currentUpgrade);
+            SwitchUpgrade(lastCurrUpgrade.nextUpgrade);
         }
     }
 

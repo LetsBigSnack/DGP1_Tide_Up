@@ -21,7 +21,7 @@ MonoBehaviour:
   - isQuestItem: 1
     material: {fileID: 0}
     itemData: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
-    amount: 5
+    amount: 2
   - isQuestItem: 0
     material: {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
     itemData: {fileID: 0}
