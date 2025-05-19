@@ -114,7 +114,7 @@ public class InteractionManager : MonoBehaviour
     
     public void Interact()
     {
-        if (currentInteractable == null || GameStateManager.Instance.GetGameState() == GameStates.Paused || UIShopManager.Instance.GetCurrentState() != ShopType.Closed || UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed)
+        if (currentInteractable == null || GameStateManager.Instance.GetGameState() == GameStates.Paused || GameStateManager.Instance.GetGameState() == GameStates.InMenu)
         {
             return;
         }
