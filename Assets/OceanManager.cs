@@ -90,7 +90,7 @@ public class OceanManager : MonoBehaviour
                     {
                         Vector3 pos = CoordToPosition(coord);
                         GameObject tile = Instantiate(oceanTilePrefab, pos, Quaternion.identity, transform);
-
+                        tile.layer = this.gameObject.layer;
                         Waves waves = tile.GetComponent<Waves>();
                         if (waves != null)
                         {
@@ -109,6 +109,7 @@ public class OceanManager : MonoBehaviour
                     {
                         Vector3 pos = CoordToPosition(coord);
                         GameObject tile = Instantiate(staticOceanTilePrefab, pos, Quaternion.identity, transform);
+                        tile.layer = this.gameObject.layer;
                         staticTiles.Add(coord, tile);
                     }
                 }

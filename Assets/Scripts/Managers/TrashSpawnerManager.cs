@@ -49,16 +49,23 @@ public class TrashSpawnerManager : MonoBehaviour
     private List<GameObject> _spawnedTrash = new List<GameObject>();
 
     private Coroutine _spawnRoutine;
+    private Coroutine _waterSpawnRoutine;
 
     [SerializeField] private float trashSpawnInterval = 2f;
     [SerializeField] private bool isSpawningTrash = true;
-
+    [SerializeField] private bool isSpawningWaterTrash = true;
+    
     public static TrashSpawnerManager Instance;
 
 
     [SerializeField] private List<TrashPerArea> trashItemPerArea;
     
     
+    [SerializeField] private int waterMaxTrashTotal = 100;
+    private List<GameObject> _waterSpawnedTrash = new List<GameObject>();
+    [SerializeField] private float waterTrashSpawnInterval = 2f;
+    [SerializeField] private SpawnArea[] waterAreas;
+
     public List<GameObject> SpawnedTrash
     {
         get { return _spawnedTrash; }
@@ -69,9 +76,22 @@ public class TrashSpawnerManager : MonoBehaviour
         get { return maxTrashTotal; }
         set { maxTrashTotal = value; }
     }
+    
+    public int MaxWaterTrashTotal
+    {
+        get { return waterMaxTrashTotal; }
+        set { waterMaxTrashTotal = value; }
+    }
+
+    public List<GameObject> SpawnedWaterTrash
+    {
+        get { return _waterSpawnedTrash; }
+        set { _waterSpawnedTrash = value; }
+    }
 
     public LayerMask InteractableLayer;
     public LayerMask GroundLayer;
+    public LayerMask WaterLayer;
     public float CheckRadius = 1f;
 
     private void Awake()
@@ -90,6 +110,7 @@ public class TrashSpawnerManager : MonoBehaviour
     private void Start()
     {
         StartSpawningTrash();
+        StartSpawningWaterTrash();
     }
 
     public void SpawnTrash()
@@ -97,6 +118,14 @@ public class TrashSpawnerManager : MonoBehaviour
         foreach (SpawnArea area in areas)
         {
             area.SpawnTrashInArea();
+        }
+    }
+    
+    public void WaterSpawnTrash()
+    {
+        foreach (SpawnArea area in waterAreas)
+        {
+            area.SpawnWaterTrashInArea();
         }
     }
 
@@ -108,15 +137,30 @@ public class TrashSpawnerManager : MonoBehaviour
             yield return new WaitForSeconds(trashSpawnInterval);
         }
     }
+    
+    IEnumerator SpawnWaterTrashOverTime()
+    {
+        while (isSpawningWaterTrash)
+        {
+            WaterSpawnTrash();
+            yield return new WaitForSeconds(trashSpawnInterval);
+        }
+    }
 
     public void StartSpawningTrash()
     {
         _spawnRoutine = StartCoroutine(SpawnTrashOverTime());
     }
+    
+    public void StartSpawningWaterTrash()
+    {
+        _waterSpawnRoutine = StartCoroutine(SpawnWaterTrashOverTime());
+    }
 
     public void RemoveNulls()
     {
         _spawnedTrash.RemoveAll(item => item == null);
+        _waterSpawnedTrash.RemoveAll(item => item == null);
     }
 
     public GameObject GetTrashForArea(SpawnAreaType type)

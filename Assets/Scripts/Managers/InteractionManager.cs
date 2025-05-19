@@ -42,8 +42,16 @@ public class InteractionManager : MonoBehaviour
 
         if (currentInteractable != null && GameStateManager.Instance.GetGameState() != GameStates.Dialogue)
         {
-            currentInteractable?.ShowInteractability(true);
-            OnInteractionChanged?.Invoke(true, currentInteractable.Type, currentInteractable.gameObject);
+            if (GameStateManager.Instance.GetGameState() == GameStates.PlayingBoat && ( currentInteractable.Type == InteractableType.Fishing  ||  currentInteractable.Type == InteractableType.Digging))
+            {
+                currentInteractable?.ShowInteractability(false);
+                OnInteractionChanged?.Invoke(false, null, null);
+            }
+            else
+            {
+                currentInteractable?.ShowInteractability(true);
+                OnInteractionChanged?.Invoke(true, currentInteractable.Type, currentInteractable.gameObject);
+            }
         }
         else
         {
@@ -118,6 +126,17 @@ public class InteractionManager : MonoBehaviour
         {
             return;
         }
+        
+        if (GameStateManager.Instance.GetGameState() == GameStates.PlayingBoat && ( currentInteractable.Type == InteractableType.Fishing ||  currentInteractable.Type == InteractableType.Digging))
+        {
+            return;
+        }
+        
+        if (!MiniGameManager.Instance.CanPlayMinigame() && ( currentInteractable.Type == InteractableType.Fishing ||  currentInteractable.Type == InteractableType.Digging))
+        {
+            return;
+        }
+        
         Debug.Log("Interact");
         currentInteractable.Interact();
     }

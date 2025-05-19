@@ -93,7 +93,7 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
         }
         else
         {
-            materials = item.ItemData.Materials;
+            materials = item.GetMaterials();
         }
 
         if (materials == null || item == null)
