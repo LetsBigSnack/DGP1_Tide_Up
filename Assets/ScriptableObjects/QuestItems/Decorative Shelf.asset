@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Decorative Shelf
   description: "Only two hands but a ton of trinkets? Don\u2019t be S(H)ELFish \u2013
     show \u2018em off in style! "
-  sprite: {fileID: 21300000, guid: 0b9ba8a83cade694c9d5b3d67078dfa4, type: 3}
+  sprite: {fileID: 21300000, guid: 8454e4fb59551ac4fa999f5f07a04df6, type: 3}
   materials:
   - {fileID: 11400000, guid: 56cd676335ec84e4e812fa9f7d022518, type: 2}
   - {fileID: 11400000, guid: 3a32758e9fdc4ed44b78e4d8e5b9a95a, type: 2}

@@ -11,7 +11,8 @@ public enum IslandObjectType
     ReUpcycler,
     Shop,
     TideUpBox,
-    Harbor
+    Harbor,
+    Boat
 }
 
 [Serializable]

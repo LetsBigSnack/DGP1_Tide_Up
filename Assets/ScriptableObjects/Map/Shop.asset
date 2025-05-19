@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Shop
   m_EditorClassIdentifier: 
   type: 3
-  title: Shop
-  sprite: {fileID: 21300000, guid: e46c94cfdb79078479a026590ec04876, type: 3}
+  title: Boat
+  sprite: {fileID: 21300000, guid: ec4c7f4220cd7714f9926d2c6f6b60d6, type: 3}

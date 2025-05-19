@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Kite
   description: Is it a bird? A plane? No, just your kite having a mid-air identity
     crisis.
-  sprite: {fileID: 21300000, guid: 0b9ba8a83cade694c9d5b3d67078dfa4, type: 3}
+  sprite: {fileID: 21300000, guid: 664377eadf0ef3541aab1b647c6f4c4b, type: 3}
   materials:
   - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
   - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
