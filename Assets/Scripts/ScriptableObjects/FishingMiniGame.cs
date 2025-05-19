@@ -29,6 +29,9 @@ namespace ScriptableObjects
         [SerializeField] private float decayRate = 0.01f;
         [SerializeField] private float trackRate = 0.3f;
         
+        [SerializeField] private bool isHoldingLeft = true;
+        [SerializeField] private bool isHoldingRight = true;
+        
         private float _playerPosition;
         private float _trashPosition;
         private bool _isActive;
@@ -44,8 +47,11 @@ namespace ScriptableObjects
             _trashPosition = 0.5f;
             _score = 0f;
             _isActive = true;
-
-            MiniGameController.OnMoveBar += OnMoveBar;
+            isHoldingLeft = false;
+            isHoldingLeft = false;
+            
+            //MiniGameController.OnMoveBar += OnMoveBar;
+            MiniGameController.Instance.RegisterMiniGameInteract(OnInteract, OnMoveLeft, OnMoveRight);
             UISubscribe();
             
             float elapsed = 0f;
@@ -86,6 +92,21 @@ namespace ScriptableObjects
                     _trashPosition = Mathf.Clamp(_trashPosition, 0f, 1f);
                 }
 
+                if (isHoldingRight != isHoldingLeft)
+                {
+                    if (isHoldingRight)
+                    {
+                        _playerPosition += moveSpeed * Time.deltaTime;
+                        _playerPosition = Mathf.Clamp01(_playerPosition);
+                    }
+                    else
+                    {
+                        _playerPosition -= moveSpeed * Time.deltaTime;
+                        _playerPosition = Mathf.Clamp01(_playerPosition);
+                    }
+                }
+                
+
                 // Track if within tolerance
                 if (Mathf.Abs(_playerPosition - _trashPosition) <= trackingTolerance)
                 {
@@ -106,7 +127,8 @@ namespace ScriptableObjects
                 yield return null;
             }
 
-            MiniGameController.OnMoveBar -= OnMoveBar;
+            //MiniGameController.OnMoveBar -= OnMoveBar;
+            MiniGameController.Instance.UnregisterMiniGameInteract(OnInteract, OnMoveLeft, OnMoveRight);
             UIMiniGameManager.Instance.Hide();
             UIUnsubscribe();
             _isActive = false;
@@ -118,17 +140,19 @@ namespace ScriptableObjects
 
         protected override void OnInteract()
         {
-            throw new NotImplementedException();
-        }
-
-        private void OnMoveBar(float input)
-        {
-            if (!_isActive) return;
-
-            _playerPosition += input * moveSpeed * Time.deltaTime;
-            _playerPosition = Mathf.Clamp01(_playerPosition);
+            return;
         }
         
+        private void OnMoveLeft(bool holding)
+        {
+            isHoldingLeft = holding;
+            
+        }
+        
+        private void OnMoveRight(bool holding)
+        {
+            isHoldingRight = holding;
+        }
         
         protected override void UISubscribe()
         {

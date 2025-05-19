@@ -53,6 +53,21 @@ public class NpcDialogueManager : MonoBehaviour
         _currentNpc = npc;
     }
 
+    public bool CanContinueDialogue(Npc npc)
+    {
+        if (npc == null)
+        {
+            return false;
+        }
+
+        if (_currentNpc != null && _currentNpc != npc)
+        {
+            return false;
+        }
+        
+        return true;
+    }
+
     public void EndDialogue()
     {
         _currentNpc = null;

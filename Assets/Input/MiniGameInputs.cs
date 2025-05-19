@@ -44,6 +44,24 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa5e368d-5b28-4fe2-8f03-2750717a0f8c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""db6c20e6-4c3d-4078-ac9d-e6e5754af572"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +86,28 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab368620-6422-4f72-9fe8-3634dfcf214d"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b15b1823-4b31-420f-8444-9e06261e7875"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +118,8 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
         m_MiniGame = asset.FindActionMap("MiniGame", throwIfNotFound: true);
         m_MiniGame_MoveBar = m_MiniGame.FindAction("MoveBar", throwIfNotFound: true);
         m_MiniGame_Interact = m_MiniGame.FindAction("Interact", throwIfNotFound: true);
+        m_MiniGame_MoveLeft = m_MiniGame.FindAction("MoveLeft", throwIfNotFound: true);
+        m_MiniGame_MoveRight = m_MiniGame.FindAction("MoveRight", throwIfNotFound: true);
     }
 
     ~@MiniGameInputs()
@@ -146,12 +188,16 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
     private List<IMiniGameActions> m_MiniGameActionsCallbackInterfaces = new List<IMiniGameActions>();
     private readonly InputAction m_MiniGame_MoveBar;
     private readonly InputAction m_MiniGame_Interact;
+    private readonly InputAction m_MiniGame_MoveLeft;
+    private readonly InputAction m_MiniGame_MoveRight;
     public struct MiniGameActions
     {
         private @MiniGameInputs m_Wrapper;
         public MiniGameActions(@MiniGameInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveBar => m_Wrapper.m_MiniGame_MoveBar;
         public InputAction @Interact => m_Wrapper.m_MiniGame_Interact;
+        public InputAction @MoveLeft => m_Wrapper.m_MiniGame_MoveLeft;
+        public InputAction @MoveRight => m_Wrapper.m_MiniGame_MoveRight;
         public InputActionMap Get() { return m_Wrapper.m_MiniGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -167,6 +213,12 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @MoveLeft.started += instance.OnMoveLeft;
+            @MoveLeft.performed += instance.OnMoveLeft;
+            @MoveLeft.canceled += instance.OnMoveLeft;
+            @MoveRight.started += instance.OnMoveRight;
+            @MoveRight.performed += instance.OnMoveRight;
+            @MoveRight.canceled += instance.OnMoveRight;
         }
 
         private void UnregisterCallbacks(IMiniGameActions instance)
@@ -177,6 +229,12 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @MoveLeft.started -= instance.OnMoveLeft;
+            @MoveLeft.performed -= instance.OnMoveLeft;
+            @MoveLeft.canceled -= instance.OnMoveLeft;
+            @MoveRight.started -= instance.OnMoveRight;
+            @MoveRight.performed -= instance.OnMoveRight;
+            @MoveRight.canceled -= instance.OnMoveRight;
         }
 
         public void RemoveCallbacks(IMiniGameActions instance)
@@ -198,5 +256,7 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
     {
         void OnMoveBar(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnMoveLeft(InputAction.CallbackContext context);
+        void OnMoveRight(InputAction.CallbackContext context);
     }
 }

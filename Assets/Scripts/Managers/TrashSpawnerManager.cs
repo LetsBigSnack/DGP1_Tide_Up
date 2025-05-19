@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
@@ -68,6 +69,10 @@ public class TrashSpawnerManager : MonoBehaviour
         get { return maxTrashTotal; }
         set { maxTrashTotal = value; }
     }
+
+    public LayerMask InteractableLayer;
+    public LayerMask GroundLayer;
+    public float CheckRadius = 1f;
 
     private void Awake()
     {

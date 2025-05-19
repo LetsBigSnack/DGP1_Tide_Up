@@ -17,6 +17,9 @@ public class MiniGameController : MonoBehaviour
     private MiniGameInputs _miniGameInput;
 
     private Action _onInteract;
+    private Action<bool> _onMoveLeft;
+    private Action<bool> _onMoveRight;
+    
     
     public static event Action<float> OnMoveBar;
 
@@ -45,6 +48,14 @@ public class MiniGameController : MonoBehaviour
         
         _miniGameInput.MiniGame.MoveBar.Enable();
         _miniGameInput.MiniGame.MoveBar.performed += MouseMoveBar;
+        
+        _miniGameInput.MiniGame.MoveLeft.Enable();
+        _miniGameInput.MiniGame.MoveLeft.performed += PerformMoveLeft;
+        _miniGameInput.MiniGame.MoveLeft.canceled += CancelMoveLeft;
+        
+        _miniGameInput.MiniGame.MoveRight.Enable();
+        _miniGameInput.MiniGame.MoveRight.performed += PerformMoveRight;
+        _miniGameInput.MiniGame.MoveRight.canceled += CancelMoveRight;
 
     }
 
@@ -69,6 +80,14 @@ public class MiniGameController : MonoBehaviour
         
         _miniGameInput.MiniGame.MoveBar.Disable();
         _miniGameInput.MiniGame.MoveBar.performed -= MouseMoveBar;
+        
+        _miniGameInput.MiniGame.MoveLeft.Disable();
+        _miniGameInput.MiniGame.MoveLeft.performed -= PerformMoveLeft;
+        _miniGameInput.MiniGame.MoveLeft.canceled -= CancelMoveLeft;
+        
+        _miniGameInput.MiniGame.MoveRight.Disable();
+        _miniGameInput.MiniGame.MoveRight.performed -= PerformMoveRight;
+        _miniGameInput.MiniGame.MoveRight.canceled -= CancelMoveRight;
     }
     
     private void Interact(InputAction.CallbackContext value)
@@ -79,16 +98,70 @@ public class MiniGameController : MonoBehaviour
             _onInteract.Invoke();
         }
     }
-  
     
-    public void RegisterMiniGameInteract(Action callback)
+    private void PerformMoveLeft(InputAction.CallbackContext value)
     {
-        _onInteract += callback;
+        
+        if (_onMoveLeft != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
+        {
+            _onMoveLeft.Invoke(true);
+        }
+    }
+    
+    private void CancelMoveLeft(InputAction.CallbackContext value)
+    {
+        
+        if (_onMoveLeft != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
+        {
+            _onMoveLeft.Invoke(false);
+        }
     }
 
-    public void UnregisterMiniGameInteract(Action callback)
+    private void PerformMoveRight(InputAction.CallbackContext value)
+    {
+        
+        if (_onMoveRight != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
+        {
+            _onMoveRight.Invoke(true);
+        }
+    }
+    
+    private void CancelMoveRight(InputAction.CallbackContext value)
+    {
+        
+        if (_onMoveRight != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
+        {
+            _onMoveRight.Invoke(false);
+        }
+    }
+    
+    
+    
+    
+    public void RegisterMiniGameInteract(Action callback, Action<bool> onMoveLeft = null, Action<bool> onMoveRight = null)
+    {
+        _onInteract += callback;
+        if (onMoveLeft != null)
+        {
+            _onMoveLeft += onMoveLeft;
+        }
+        if (onMoveRight != null)
+        {
+            _onMoveRight += onMoveRight;
+        }
+    }
+
+    public void UnregisterMiniGameInteract(Action callback,  Action<bool> onMoveLeft = null, Action<bool> onMoveRight = null)
     {
         _onInteract -= callback;
+        if (onMoveLeft != null)
+        {
+            _onMoveLeft -= onMoveLeft;
+        }
+        if (onMoveRight != null)
+        {
+            _onMoveRight -= onMoveRight;
+        }
     }
 
 

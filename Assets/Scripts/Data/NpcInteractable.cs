@@ -20,6 +20,12 @@ public class NpcInteractable : Interactable
     
     public override void Interact()
     {
+
+        if (!NpcDialogueManager.Instance.CanContinueDialogue(_npc))
+        {
+            return;
+        }
+        
         NpcDialogueManager.Instance.StartDialogue(_npc);
         NpcDialogueManager.Instance.InteractDialogue();
     }
