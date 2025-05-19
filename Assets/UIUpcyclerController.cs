@@ -128,6 +128,13 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
 
     public void Upcycle()
     {
+
+        if (UpcycleManager.Instance.Ingredients.Count <= 0)
+        {
+            Debug.Log("brother, no ingredients found!");
+            return;
+        }
+        
         if (!InventoryManager.Instance.HasSpaceForItem())
         {
             Debug.Log("brother inventory is full");

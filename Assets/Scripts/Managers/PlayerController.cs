@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if( InteractionManager.Instance.ReturnInteractableType() == Data.InteractableType.Pickup && InventoryManager.Instance.HasSpaceForItem())
+            if( InteractionManager.Instance.ReturnInteractableType() == Data.InteractableType.Pickup && InventoryManager.Instance.HasSpaceForItem() && GameStateManager.Instance.GetGameState() == GameStates.PlayingCharacter)
             {
                 playerCanMove = false;
                 _anim.EnableAnimation(Animations.Pick);

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   duration: 5
-  moveSpeed: 0.4
+  moveSpeed: 2
   trackingTolerance: 0.1
   successThreshold: 0.7
   trashMoveSpeed: 0.7
@@ -29,3 +29,5 @@ MonoBehaviour:
   decay: 1
   decayRate: 0.1
   trackRate: 0.3
+  isHoldingLeft: 0
+  isHoldingRight: 1

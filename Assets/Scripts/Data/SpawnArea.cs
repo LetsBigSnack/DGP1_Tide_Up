@@ -9,14 +9,14 @@ public enum SpawnAreaType
     Beach,
     City,
     Forest,
-    Mountain
+    Mountain,
+    Water
 }
 public class SpawnArea : MonoBehaviour
 {
     [SerializeField] private SpawnAreaType type;
     [SerializeField] private bool shouldSpawn;
     [SerializeField] private float areaSpawnSize = 4f;
-
     [SerializeField] private float delayAfterExit = 5f;
     private Coroutine _reactivationRoutine;
 
@@ -69,22 +69,34 @@ public class SpawnArea : MonoBehaviour
     public void SpawnTrashInArea()
     {
         TrashSpawnerManager.Instance.RemoveNulls();
-
+        
         if (shouldSpawn && TrashSpawnerManager.Instance.SpawnedTrash.Count < TrashSpawnerManager.Instance.MaxTrashTotal)
         {
-            //TODO: rework height 
-            Vector3 randomPosition = gameObject.transform.position + new Vector3(Random.Range(-areaSpawnSize, areaSpawnSize), gameObject.transform.position.y+0.55f, Random.Range(-areaSpawnSize, areaSpawnSize));
-            
-            float randomRotation = Random.Range(0f, 360f);
-            
-            
-            if (CameraUtil.IsVisibleToCamera(randomPosition) && CameraUtil.HasLineOfSight(randomPosition))
-                return;
+            Vector3 randomOffset = new Vector3(
+                Random.Range(-areaSpawnSize, areaSpawnSize),
+                10f,
+                Random.Range(-areaSpawnSize, areaSpawnSize)
+            );
 
-            GameObject trashItem = TrashSpawnerManager.Instance.GetTrashForArea(type);
-            GameObject trash = Instantiate(trashItem, randomPosition, Quaternion.identity, transform);
-            trash.transform.rotation = Quaternion.Euler(0f, randomRotation, 0f);
-            TrashSpawnerManager.Instance.SpawnedTrash.Add(trash);
+            Vector3 rayStart = gameObject.transform.position + randomOffset;
+
+            if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 20f, TrashSpawnerManager.Instance.GroundLayer))
+            {
+                Vector3 spawnPoint = hit.point;
+                
+                if (CameraUtil.IsVisibleToCamera(spawnPoint) && CameraUtil.HasLineOfSight(spawnPoint))
+                    return;
+                
+                bool isIntersecting = Physics.CheckSphere(spawnPoint + Vector3.up * 0.1f, TrashSpawnerManager.Instance.CheckRadius, TrashSpawnerManager.Instance.InteractableLayer);
+                if (isIntersecting)
+                    return;
+
+                float randomRotation = Random.Range(0f, 360f);
+                GameObject trashItem = TrashSpawnerManager.Instance.GetTrashForArea(type);
+                GameObject trash = Instantiate(trashItem, spawnPoint + Vector3.up * 0.5f, Quaternion.identity, transform);
+                trash.transform.rotation = Quaternion.Euler(0f, randomRotation, 0f);
+                TrashSpawnerManager.Instance.SpawnedTrash.Add(trash);
+            }
         }
     }
 

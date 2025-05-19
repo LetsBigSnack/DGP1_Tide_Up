@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -76,7 +77,17 @@ public class MenuController : MonoBehaviour
 
     private bool CanMenuBeOpen()
     {
-        return GameStateManager.Instance.GetGameState() != GameStates.Dialogue && GameStateManager.Instance.GetGameState() != GameStates.SceneTransition && TutorialManager.Instance == null;
+        List<GameStates> notAllowed = new List<GameStates>();
+        notAllowed.Add(GameStates.Dialogue);
+        notAllowed.Add(GameStates.SceneTransition);
+        notAllowed.Add(GameStates.Paused);
+        
+        return !notAllowed.Contains(GameStateManager.Instance.GetGameState()) && TutorialManager.Instance == null && UIShopManager.Instance.GetCurrentState() == ShopType.Closed && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed;
+    }
+
+    private bool IsSameMenuOpen(JournalType journalType)
+    {
+        return UIJournalManager.Instance.GetCurrentState() == journalType;
     }
 
     private void ShowInventory(InputAction.CallbackContext value)
@@ -85,6 +96,13 @@ public class MenuController : MonoBehaviour
         {
             return;
         }
+
+        if (IsSameMenuOpen(JournalType.Inventory))
+        {
+            CloseMenu();
+            return;
+        }
+        
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.Inventory);
     }
@@ -95,6 +113,13 @@ public class MenuController : MonoBehaviour
         {
             return;
         }
+        
+        if (IsSameMenuOpen(JournalType.Map))
+        {
+            CloseMenu();
+            return;
+        }
+        
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.Map);
     }
@@ -105,6 +130,13 @@ public class MenuController : MonoBehaviour
         {
             return;
         }
+        
+        if (IsSameMenuOpen(JournalType.Recipies))
+        {
+            CloseMenu();
+            return;
+        }
+        
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.Recipies);
     }
@@ -115,6 +147,13 @@ public class MenuController : MonoBehaviour
         {
             return;
         }
+        
+        if (IsSameMenuOpen(JournalType.FriendBook))
+        {
+            CloseMenu();
+            return;
+        }
+        
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.FriendBook);
     }
@@ -125,6 +164,13 @@ public class MenuController : MonoBehaviour
         {
             return;
         }
+        
+        if (IsSameMenuOpen(JournalType.Quests))
+        {
+            CloseMenu();
+            return;
+        }
+        
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.Quests);
     }
@@ -135,6 +181,13 @@ public class MenuController : MonoBehaviour
         {
             return;
         }
+        
+        if (IsSameMenuOpen(JournalType.Calender))
+        {
+            CloseMenu();
+            return;
+        }
+        
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.Calender);
     }
