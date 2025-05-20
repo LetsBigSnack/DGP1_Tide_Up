@@ -45,9 +45,9 @@ public abstract class Upgrade : ScriptableObject
         {
             return false;
         }
-
-        bool questItem = true;
-        bool material = true;
+        
+        
+        bool canBuy = true;
         foreach (UpgradeCost cost in costs)
         {
             if (!cost.isQuestItem)
@@ -58,11 +58,7 @@ public abstract class Upgrade : ScriptableObject
                     int missing = cost.amount - playerAmount;
                     Debug.Log("Not enough materials to upgrade your inventory");
                     Debug.Log("You are missing: " + missing + " " + cost.material);
-                    material = false;
-                }
-                else
-                {
-                    material = true;
+                    canBuy = false;
                 }
             }
             else
@@ -70,15 +66,12 @@ public abstract class Upgrade : ScriptableObject
                 ItemInstance item = new ItemInstance(cost.itemData);
                 if (!InventoryManager.Instance.IsItemInInventory(item, cost.amount))
                 {
-                    questItem = false;
-                }
-                else
-                {
-                    questItem = true;
+                    canBuy = false;
                 }
             }
         }
-        return questItem && material;
+
+        return canBuy;
     }
 
     public bool CostIsAvailable(UpgradeCost cost)
