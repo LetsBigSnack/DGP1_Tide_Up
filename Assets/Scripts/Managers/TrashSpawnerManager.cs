@@ -65,7 +65,9 @@ public class TrashSpawnerManager : MonoBehaviour
     private List<GameObject> _waterSpawnedTrash = new List<GameObject>();
     [SerializeField] private float waterTrashSpawnInterval = 2f;
     [SerializeField] private SpawnArea[] waterAreas;
-
+    [SerializeField] private List<AllowedAreas> allowedAreas;
+    
+    
     public List<GameObject> SpawnedTrash
     {
         get { return _spawnedTrash; }
@@ -115,9 +117,15 @@ public class TrashSpawnerManager : MonoBehaviour
 
     public void SpawnTrash()
     {
+        AllowedAreas tempAllowedAreas =
+            allowedAreas.Find(c => c.islandState == EnvironmentManager.Instance.GetStateOfIsland(10));
+        
         foreach (SpawnArea area in areas)
         {
-            area.SpawnTrashInArea();
+            if (tempAllowedAreas.areas.Contains(area.Type))
+            {
+                area.SpawnTrashInArea();
+            }
         }
     }
     
@@ -183,4 +191,11 @@ public class TrashSpawnerManager : MonoBehaviour
         }
         return items[UnityEngine.Random.Range(0, items.Length)];
     }
+}
+
+[Serializable]
+internal class AllowedAreas
+{
+    public EnvironmentState islandState;
+    public List<SpawnAreaType> areas = new List<SpawnAreaType>();
 }
