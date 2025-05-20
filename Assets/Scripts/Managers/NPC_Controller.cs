@@ -20,7 +20,13 @@ public class NPC_Controller : MonoBehaviour
     private Coroutine _idleRoutine;
     [SerializeField] private bool canMove = true;
     [SerializeField] private float rotationSpeed = 3.0f;
-
+    
+    [SerializeField] private LayerMask avoideShit;
+    [SerializeField] private float checkRadius;
+    [SerializeField] private LayerMask groundLayer;
+    
+    
+    
     private AnimationController _anim;
     public bool CanMove
     {
@@ -90,13 +96,42 @@ public class NPC_Controller : MonoBehaviour
         _idleRoutine = StartCoroutine(IdleRoutine());
     }
 
-    private Vector3 GetPointInAreas()
+    private Vector3 GetPointInAreas(int attempts = 0)
     {
+        
+        const int maxAttempts = 30;
+        const float raycastHeight = 10f;
+
+        if (attempts >= maxAttempts)
+        {
+            Debug.LogWarning("Failed to find a valid point in movement areas after multiple attempts.");
+            return transform.position;
+        }
+        
         Collider randomArea = movementAreas[Random.Range(0, movementAreas.Length)];
         float randomXValue = Random.Range(randomArea.bounds.min.x, randomArea.bounds.max.x);
         float randomZValue = Random.Range(randomArea.bounds.min.z, randomArea.bounds.max.z);
+        
+        Vector3 randomPoint = new Vector3(randomXValue, transform.position.y + raycastHeight, randomZValue);
+        
+        if (Physics.Raycast(randomPoint, Vector3.down, out RaycastHit hit, 20f, groundLayer))
+        {
+            Vector3 point = hit.point;
+            
+            Collider[] hits = Physics.OverlapSphere(point, checkRadius, avoideShit);
 
-        return new Vector3(randomXValue, gameObject.transform.position.y, randomZValue);
+            if (hits.Length > 0)
+            {
+                return GetPointInAreas(attempts + 1);
+            }
+
+            return hit.point;
+
+        }
+        else
+        {
+            return GetPointInAreas(attempts + 1);
+        }
     }
     private void OnDrawGizmos()
     {
