@@ -104,6 +104,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool RemoveItem(ItemInstance item)
     {
+        Debug.Log("Removing: " + item);
         if (_items.Count == 0)
         {
             Debug.Log("No trash to remove.");
