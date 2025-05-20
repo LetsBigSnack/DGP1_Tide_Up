@@ -98,12 +98,16 @@ public class TimeManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        OnTimeChanged = null;
-        OnDayChanged= null;
-        OnMonthChanged= null;
-        OnYearChanged= null;
-        OnWeekDayChanged= null;
+        if (Instance == this)
+        {
+            Instance = null;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            OnTimeChanged = null;
+            OnDayChanged= null;
+            OnMonthChanged= null;
+            OnYearChanged= null;
+            OnWeekDayChanged= null;
+        }
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
