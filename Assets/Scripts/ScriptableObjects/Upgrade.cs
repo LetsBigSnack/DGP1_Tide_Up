@@ -48,6 +48,7 @@ public abstract class Upgrade : ScriptableObject
         
         
         bool canBuy = true;
+        
         foreach (UpgradeCost cost in costs)
         {
             if (!cost.isQuestItem)
