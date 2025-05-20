@@ -68,6 +68,12 @@ public class SoundManager : MonoBehaviour
         {
             return;
         }
+
+        if (PlayerController.Instance == null)
+        {
+            return;
+        }
+        
         _playerTransform = PlayerController.Instance.transform;
 
         if(_playerTransform.position.y <= 0.2f && _atmosState != AtmosphereState.Water_day)
