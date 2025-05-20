@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   title: Harbor
-  sprite: {fileID: 21300000, guid: ff3bfe89e8c3afd4983326034bd802cc, type: 3}
+  sprite: {fileID: 21300000, guid: c3a8087101d0b4c48b6138b71d9daf1c, type: 3}

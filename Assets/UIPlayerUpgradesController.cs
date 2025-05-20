@@ -64,7 +64,7 @@ public class UIPlayerUpgradesController : UIShopSubMenu
 
         ClearMenu();
         currentUpgrade = upgrade;
-        upgradeImage.sprite = upgrade.sprite;
+        //upgradeImage.sprite = upgrade.sprite;
         upgradeDescription.text = upgrade.description;
         if (!upgrade.CanUpgrade() || upgrade.isUnlocked)
         {
@@ -118,6 +118,10 @@ public class UIPlayerUpgradesController : UIShopSubMenu
             newRequirement.GetComponent<UIShopRequirementItem>().Setup(cost,currentUpgrade.CostIsAvailable(cost));
             _currentRequirements.Add(newRequirement);
         }
+        GameObject itemToRefresh = _currentLevels.Find(t => t.GetComponent<UIShopLevelItem>().GetCurrentUpgrade() == currentUpgrade);
+        UIShopLevelItem uiShopLevelItem = itemToRefresh.GetComponent<UIShopLevelItem>();
+        uiShopLevelItem.Setup(currentUpgrade);
+        uiShopLevelItem.SetSelected();
     }
 
     private void ClearMenu()
@@ -154,7 +158,17 @@ public class UIPlayerUpgradesController : UIShopSubMenu
         if (!currentUpgrade.isUnlocked)
         {
             currentUpgrade.ApplyUpgrade();
+            if (!currentUpgrade.isUnlocked)
+            {
+                return;
+            }
+            Upgrade lastCurrUpgrade = currentUpgrade;
             RefreshCurrentUpgrade();
+            if(lastCurrUpgrade.nextUpgrade == null)
+            {
+                return;
+            }
+            SwitchUpgrade(lastCurrUpgrade.nextUpgrade);
         }
     }
 

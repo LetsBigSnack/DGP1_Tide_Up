@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Data;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -81,6 +82,7 @@ public class MenuController : MonoBehaviour
         notAllowed.Add(GameStates.Dialogue);
         notAllowed.Add(GameStates.SceneTransition);
         notAllowed.Add(GameStates.Paused);
+        notAllowed.Add(GameStates.MiniGame);
         
         return !notAllowed.Contains(GameStateManager.Instance.GetGameState()) && TutorialManager.Instance == null && UIShopManager.Instance.GetCurrentState() == ShopType.Closed && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed;
     }

@@ -14,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   upgradeLevel: 1
-  sprite: {fileID: 21300000, guid: eb8ba666be315d94a87e2e838233afd9, type: 3}
+  sprite: {fileID: 21300000, guid: 927e868e80901df48a9cb92a6692d02b, type: 3}
   description: "\"Crafty islanders have stitched together extra space using bottle
     caps and burlap\u2014more room for your seaside spoils!\" +3 slots"
   costs:
   - isQuestItem: 0
     material: {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
     itemData: {fileID: 0}
-    amount: 3
+    amount: 1
   - isQuestItem: 1
     material: {fileID: 0}
     itemData: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
-    amount: 3
+    amount: 1
   - isQuestItem: 0
-    material: {fileID: 11400000, guid: 8f6c4ca6e6944d040b6e36dfdccd3ba1, type: 2}
+    material: {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
     itemData: {fileID: 0}
     amount: 1
   previousUpgrade: {fileID: 0}
   nextUpgrade: {fileID: 11400000, guid: 2dc07cf0c9642f242a0c28b12aef6809, type: 2}
-  isUnlocked: 1
+  isUnlocked: 0
   slotsToAdd: 3

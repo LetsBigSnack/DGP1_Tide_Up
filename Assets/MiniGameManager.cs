@@ -19,9 +19,11 @@ public class MiniGameManager : MonoBehaviour
     
     [SerializeField] 
     private List<MiniGame> miniGames;
+
+    [SerializeField] private float miniGameCooldown = 0.1f;
+    [SerializeField] private bool canPlayMinigame = true;
     
-    
-    
+    private float elaspedTime;
     
 
     private void Awake()
@@ -36,8 +38,34 @@ public class MiniGameManager : MonoBehaviour
         }
     }
 
+
+    private void FixedUpdate()
+    {
+        if (!canPlayMinigame)
+        {
+            elaspedTime += Time.deltaTime;
+            if (elaspedTime >= miniGameCooldown)
+            {
+                canPlayMinigame = true;
+                elaspedTime = 0;
+            }
+        }
+    }
+
+    public bool CanPlayMinigame()
+    {
+        return canPlayMinigame;
+    }
+    
+    
     public void StartMiniGame(MiniGameType type, Action<bool> callback)
     {
+        if (!canPlayMinigame)
+        {
+            return;
+        }
+        
+        canPlayMinigame = false;
         GameStateManager.Instance.SetGameState(GameStates.MiniGame);
         MiniGame miniGame = miniGames.Find(c => c.type == type);
         AnimationController _animation = PlayerController.Instance.GetAnimationController();

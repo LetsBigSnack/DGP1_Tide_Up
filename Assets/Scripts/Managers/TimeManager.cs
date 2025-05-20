@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour
@@ -37,6 +38,8 @@ public class TimeManager : MonoBehaviour
 
     [SerializeField] private Light directionalLight;
     [SerializeField] private LightingPreset preset;
+
+
 
 
     [Header("Testing Values")]
@@ -96,6 +99,11 @@ public class TimeManager : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        OnTimeChanged = null;
+        OnDayChanged= null;
+        OnMonthChanged= null;
+        OnYearChanged= null;
+        OnWeekDayChanged= null;
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)

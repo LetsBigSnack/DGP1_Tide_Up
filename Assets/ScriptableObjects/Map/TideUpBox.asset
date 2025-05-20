@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   title: Tide Up Box
-  sprite: {fileID: 21300000, guid: ad065607c5178b647aef0dcb42badefa, type: 3}
+  sprite: {fileID: 21300000, guid: 693c12670fee35f43a010de630063524, type: 3}

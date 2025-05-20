@@ -33,28 +33,14 @@ public class UIStartSceneManager : MonoBehaviour
     {
         StartCoroutine(SceneChangeManager.Instance.LoadSceneWithState(sceneToLoad,loaded =>
         {
-            if (loaded)
+             if (loaded)
             {
-                
-                GameObject player = Player.Instance?.gameObject;
-
-                if (player != null)
-                {
-                    MeshRenderer[] meshes = player.GetComponentsInChildren<MeshRenderer>();
-                    foreach (MeshRenderer mesh in meshes)
-                    {
-                        if (mesh != null)
-                            mesh.enabled = true;
-                    }
-
-                    SoundManager.Instance.CurrScene = sceneToLoad;
-                }
-                
-
-                GameStateManager.Instance?.SetGameState(GameStates.PlayingCharacter);
-                GameStateManager.Instance?.ResumeGame();
-                UIPauseMenuManager.Instance?.ResumeGame();
+                SoundManager.Instance.CurrScene = sceneToLoad;
+                //GameStateManager.Instance?.SetGameState(GameStates.PlayingCharacter);
+                //GameStateManager.Instance?.ResumeGame();
+                //UIPauseMenuManager.Instance?.ResumeGame();
             }
+             
         }));
         Debug.Log("Defuck");
     }

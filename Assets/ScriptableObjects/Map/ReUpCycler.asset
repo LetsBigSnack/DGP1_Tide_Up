@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   title: Re-Upcycler
-  sprite: {fileID: 21300000, guid: b9e14f06b4c5c364f9146d575d80a947, type: 3}
+  sprite: {fileID: 21300000, guid: 43c63e96d43fc4a40a8eeeb842d5f930, type: 3}

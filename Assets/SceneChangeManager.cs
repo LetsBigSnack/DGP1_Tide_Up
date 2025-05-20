@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -54,7 +56,8 @@ public class SceneChangeManager : MonoBehaviour
 
         Debug.Log($"Loading scene: {sceneName}");
         SceneManager.sceneLoaded += HandleSceneLoaded;
-
+        
+        
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         asyncLoad.allowSceneActivation = true;
 
@@ -70,6 +73,18 @@ public class SceneChangeManager : MonoBehaviour
             {
                 onComplete?.Invoke(true);
                 isSceneChanging = false;
+                
+                if (scene == Scenes.StartScreen)
+                {
+                    Time.timeScale = 1f;
+                    List<StartMenuClean> cleans = FindObjectsByType<StartMenuClean>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
+
+                    foreach (StartMenuClean clean in cleans)
+                    {
+                        Destroy(clean.gameObject);
+                    }
+                }
+                
             }
             
             timer += Time.unscaledDeltaTime;
@@ -99,7 +114,12 @@ public class SceneChangeManager : MonoBehaviour
         {
             Debug.Log("SceneChangeManager detected scene loaded.");
             sceneFullyLoaded = true;
-            UIFadeScreenHelper.Instance.EndTransition();
+
+            if (UIFadeScreenHelper.Instance != null)
+            {
+                UIFadeScreenHelper.Instance.EndTransition();
+            }
+            
 
             //TOOD: talk with lucas about fix 
             isSceneChanging = false;

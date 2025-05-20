@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName: Step_1
   soundClip: {fileID: 8300000, guid: 8eb52e3c62afc1547a370df3661fe4df, type: 3}
-  volume: 0.3
+  volume: 0.2

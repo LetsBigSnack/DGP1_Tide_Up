@@ -109,24 +109,28 @@ public class GameStateManager : MonoBehaviour
         _gamePaused = false;
         Time.timeScale = 1f;
         Debug.Log("Game Resumed");
-        OnStateChanged.Invoke(_gameStates);
+        OnStateChanged?.Invoke(_gameStates);
     }
 
     public void SetGameState(GameStates state)
     {
         Debug.Log("Game state set to: " + state);
         _gameStates = state;
-        OnStateChanged.Invoke(state);
+        OnStateChanged?.Invoke(state);
 
         if (_gameStates == GameStates.PlayingCharacter)
         {
-            _targetTransform = Player.Instance.transform;
-            _lastPlayingState = GameStates.PlayingCharacter;
+            if (Player.Instance != null)
+            {
+                _targetTransform = Player.Instance?.transform;
+                _lastPlayingState = GameStates.PlayingCharacter;
+            }
+            
         }
 
         if (_gameStates == GameStates.PlayingBoat)
         {
-            _targetTransform = Boat.Instance.transform;
+            _targetTransform = Boat.Instance?.transform;
             _lastPlayingState = GameStates.PlayingBoat;
         }   
     }

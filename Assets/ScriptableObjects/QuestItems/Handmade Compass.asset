@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Handmade Compass
   description: "Getting lost again? Not anymore! Here\u2019s a handmade compass crafted
     just for you. How does it work? It just KNOWS where you wanna go. "
-  sprite: {fileID: 21300000, guid: 0b9ba8a83cade694c9d5b3d67078dfa4, type: 3}
+  sprite: {fileID: 21300000, guid: 6b135c01ff93f2141b32f1aeca9dc3d8, type: 3}
   materials:
   - {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
   - {fileID: 11400000, guid: 56cd676335ec84e4e812fa9f7d022518, type: 2}

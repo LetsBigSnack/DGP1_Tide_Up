@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   upgradeLevel: 4
-  sprite: {fileID: 21300000, guid: eb8ba666be315d94a87e2e838233afd9, type: 3}
+  sprite: {fileID: 21300000, guid: 927e868e80901df48a9cb92a6692d02b, type: 3}
   description: '"Upgrade with a coconut-fiber crate and a touch of seashell flair.
     Roomy, rustic, and ready!" +3 slots'
   costs:

@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Vanity Mirror
   description: "When a handheld mirror just won\u2019t do \u2013 behold: the Vanity
     Mirror."
-  sprite: {fileID: 21300000, guid: 0b9ba8a83cade694c9d5b3d67078dfa4, type: 3}
+  sprite: {fileID: 21300000, guid: dc34782d866ee1b4586160bfff362866, type: 3}
   materials:
   - {fileID: 11400000, guid: 56cd676335ec84e4e812fa9f7d022518, type: 2}
   - {fileID: 11400000, guid: 56cd676335ec84e4e812fa9f7d022518, type: 2}

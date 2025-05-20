@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   title: Npc Houses
-  sprite: {fileID: 21300000, guid: d079493132f12d94b808aa182a5bd338, type: 3}
+  sprite: {fileID: 21300000, guid: 16c5a83ed3880f545b39310fb08055c1, type: 3}

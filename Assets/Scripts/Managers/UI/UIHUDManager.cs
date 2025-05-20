@@ -168,6 +168,11 @@ public class UIHUDManager : MonoBehaviour
 
     private void UpdateDayNight(float currTime)
     {
+        if (daySprite == null || nightSprite == null)
+        {
+            return;
+        }
+        
         if(currTime >= 6f && currTime <= 18f)
         {
             dayNightImg.sprite = daySprite;

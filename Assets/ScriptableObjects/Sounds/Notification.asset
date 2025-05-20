@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName: Notification
   soundClip: {fileID: 8300000, guid: acdd672e47bea9f42bf5f9d0039ba036, type: 3}
-  volume: 1
+  volume: 0.7
