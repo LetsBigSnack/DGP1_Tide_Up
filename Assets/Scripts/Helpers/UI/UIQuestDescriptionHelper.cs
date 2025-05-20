@@ -1,6 +1,7 @@
 using Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class UIQuestDescriptionHelper : MonoBehaviour
@@ -74,7 +75,13 @@ public class UIQuestDescriptionHelper : MonoBehaviour
                 string textHelper = "";
                 foreach(string dialogue in offerDialogue.DialogueContent)
                 {
-                    textHelper += dialogue;
+                    foreach(char c in dialogue)
+                    {
+                        if (!TextToSpeechManager.Instance.CharIsEmotion(c))
+                        {
+                            textHelper += c;
+                        }
+                    }
                 }
                 questReason.text = textHelper;
                 //questNeeds.text = offerDialogue.DialogueContent[1];
