@@ -177,8 +177,8 @@ public class Quest
         {
             return false;
         }
-        InventoryManager.Instance.RemoveItem(_questItem);
         QuestManager.Instance.CompleteQuest(this);
+        InventoryManager.Instance.RemoveItem(_questItem);
         return true;
     }
 

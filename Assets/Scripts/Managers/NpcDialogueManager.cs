@@ -149,9 +149,11 @@ public class NpcDialogueManager : MonoBehaviour
             }
                     
             _currentNpc.CurrentQuest.NextDialogueContent();
-                    
-            UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, _currentNpc.CurrentQuest.GetCurrentDialogue(), _currentNpc.FavColourCode);
-            TextToSpeechManager.Instance?.TranslateTextToAudio(_currentNpc.CurrentQuest.GetCurrentDialogue(), _currentNpc.Anim);
+
+            string currDialogue = _currentNpc.CurrentQuest.GetCurrentDialogue();
+
+            UIDialogueManager.Instance?.SetDialogueBox(_currentNpc.NpcName, currDialogue, _currentNpc.FavColourCode);
+            TextToSpeechManager.Instance?.TranslateTextToAudio(currDialogue, _currentNpc.Anim);
 
             if (_currentNpc.CurrentQuest.IsDialogueComplete() && _currentNpc.CurrentQuest.QuestState == QuestState.Offer)
             {
