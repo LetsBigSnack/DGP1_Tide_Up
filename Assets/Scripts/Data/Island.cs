@@ -116,8 +116,8 @@ public class Island : MonoBehaviour
         _sphereCollider.radius = islandRadius;
         islandCenter = _sphereCollider.center;
         milestones.Sort((x, y) => x.State.CompareTo(y.State));
-        CheckState();
         AssignAllEnvironment();
+        CheckState();
     }
 
     private void AssignAllEnvironment()

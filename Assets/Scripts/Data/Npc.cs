@@ -187,7 +187,7 @@ public class Npc : MonoBehaviour
     }
 
 
-    void Start()
+    void Awake()
     {
         data = NpcManager.Instance.GetNpcDataByName(npcName);
         data.CurrentDialogue = DialogueManager.Instance.GetIntro(data.NpcName);

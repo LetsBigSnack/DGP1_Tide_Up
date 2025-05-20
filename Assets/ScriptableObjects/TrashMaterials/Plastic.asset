@@ -23,6 +23,6 @@ MonoBehaviour:
   - "I hope the seagulls don\u2019t try to eat that- they sometimes mistake it for
     crabs.* "
   - 'Once you start spotting them, you can''t stop. They are like weeds -everywhere.. '
-  - "\xA7This does not belong in nature, but now I see it everywhere.... "
+  - 'This does not belong in nature, but now I see it everywhere.... '
   materialName: Plastic
   sprite: {fileID: 21300000, guid: 267135db0da8a7a40a1eff1f2bde1970, type: 3}
