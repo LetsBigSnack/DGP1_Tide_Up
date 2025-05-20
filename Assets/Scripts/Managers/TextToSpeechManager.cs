@@ -47,7 +47,7 @@ public class TextToSpeechManager : MonoBehaviour
         { Emotion.Happy, '$'},
         { Emotion.Thinking, '+'},
         { Emotion.Surprised, '#'},
-        { Emotion.Sad, '§'},
+        { Emotion.Sad, '*'},
     };
 
     public static event Action<char> OnTranslateLetterValueChanged;

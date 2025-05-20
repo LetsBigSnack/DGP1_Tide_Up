@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float cliffMaxCheckDistance = 2.0f;
     [SerializeField] private LayerMask cliffLayer;
     [SerializeField] private float cliffObstacleCheckDistance = 0.2f;
+    [SerializeField] private LayerMask obstaclesLayer;
     [Range(0,1.0f)]
     [SerializeField] private float cliffCheckDot = 0.7f;
     [SerializeField] private float slopeCheckAngle = 45.0f;
@@ -331,16 +332,24 @@ public class PlayerController : MonoBehaviour
             Vector3 dirToChecker = (checker.position - transform.position).normalized;
             if (Vector3.Dot(moveDir, dirToChecker) > cliffCheckDot)
             {
-                //RaycastHit hitT;
-                //Physics.Raycast(checker.position, Vector3.down, out hitT, cliffMaxCheckDistance);
+                RaycastHit hitT;
+               
                 
                 if (Physics.Raycast(checker.position, Vector3.down, out RaycastHit hit, cliffMaxCheckDistance, cliffLayer))
                 {
                     float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-                    
-                    //float distance = hit.distance - hitT.distance;
-                    
-                    //Debug.Log("Distance" + distance);
+
+                    if (Physics.Raycast(checker.position, Vector3.down, out hitT, cliffMaxCheckDistance, obstaclesLayer))
+                    {
+                        float distance = hit.distance - hitT.distance;
+                        Debug.Log("Distance" + distance + "hitCollider" + hitT.collider.gameObject.name);
+
+                        if (distance > cliffObstacleCheckDistance)
+                        {
+                            return true;
+                        }
+                        
+                    }
                     
                     if (slopeAngle > slopeCheckAngle || hit.distance > cliffMaxHeight)// || distance > cliffObstacleCheckDistance)
                     {

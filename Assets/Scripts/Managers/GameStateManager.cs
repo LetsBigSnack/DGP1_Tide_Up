@@ -24,6 +24,16 @@ public class GameStateManager : MonoBehaviour
     private Transform _targetTransform;
     [SerializeField] private GameStates _lastPlayingState = GameStates.PlayingCharacter;
     
+    //TODO: change for later buil
+    [SerializeField] private int cleanlinessScore = 0;
+
+    public int CleanlinessScore
+    {
+        get => cleanlinessScore;
+        set => cleanlinessScore = value;
+    }
+
+
     public GameStates LastPlayingState
     {
         get => _lastPlayingState;

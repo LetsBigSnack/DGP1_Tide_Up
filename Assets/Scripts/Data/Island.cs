@@ -50,7 +50,7 @@ public class Island : MonoBehaviour
     [SerializeField] private Vector3 islandCenter;
 
     [Header("Cleanliness")]
-    [SerializeField] private int islandCleanlinessScore = 0;
+    //[SerializeField] private int islandCleanlinessScore = 0;
     [SerializeField] private List<IslandMilestone> milestones = new List<IslandMilestone>();
     [SerializeField] private EnvironmentState state = EnvironmentState.Dirty;
 
@@ -90,8 +90,8 @@ public class Island : MonoBehaviour
 
     public int IslandCleanlinessScore
     {
-        get => islandCleanlinessScore;
-        set => islandCleanlinessScore = value;
+        get => GameStateManager.Instance.CleanlinessScore;
+        set => GameStateManager.Instance.CleanlinessScore = value;
     }
 
     public Vector3 IslandCenter
@@ -116,6 +116,7 @@ public class Island : MonoBehaviour
         _sphereCollider.radius = islandRadius;
         islandCenter = _sphereCollider.center;
         milestones.Sort((x, y) => x.State.CompareTo(y.State));
+        CheckState();
         AssignAllEnvironment();
     }
 
@@ -151,7 +152,7 @@ public class Island : MonoBehaviour
 
     public bool AddCleanlinessScore(int score)
     {
-        islandCleanlinessScore += score;
+        GameStateManager.Instance.CleanlinessScore += score;
         
         return CheckState();
     }
@@ -163,15 +164,16 @@ public class Island : MonoBehaviour
 
         foreach (IslandMilestone milestone in milestones)
         {
-            if (islandCleanlinessScore < milestone.NeededScore || completedQuests < milestone.NeededQuest)
+            if (GameStateManager.Instance.CleanlinessScore < milestone.NeededScore || completedQuests < milestone.NeededQuest)
             {
                 break;
             }
 
-            if (milestone.State == state)
+            if (milestone.State == state || milestone.State < state)
             {
                 continue;
             }
+            
             state = milestone.State;
             changedState = true;
         }
@@ -208,4 +210,7 @@ public class Island : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, islandRadius);
     }
     
+    
+
+
 }

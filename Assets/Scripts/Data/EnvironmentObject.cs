@@ -66,20 +66,31 @@ public class EnvironmentObject : MonoBehaviour
 
         if(currentActiveGameObject != null && this.state != state)
         {
-            currentActiveGameObject.SetActive(false);
+            currentActiveGameObject.gameObject.SetActive(false);
         }
 
         EnvironmentVisual visual = visuals.Find(v => v.State == state);
 
-        if(visual == null)
+
+        foreach (EnvironmentVisual visualT in visuals)
         {
-            Debug.LogError($"Could not find visual {state.ToString()} for game object {gameObject.name}");
-            return;
+            if (visualT == null)
+            {
+                Debug.LogError($"Could not find visual {state.ToString()} for game object {gameObject.name}");
+                return;
+            }
+
+            if (visualT.State == state)
+            {
+                visualT.EnvironmentObj.gameObject.SetActive(true);
+
+                currentActiveGameObject = visualT.EnvironmentObj;
+            }
+            else
+            {
+                visualT.EnvironmentObj.gameObject.SetActive(false);
+            }
         }
-
-        visual.EnvironmentObj.SetActive(true);
-
-        currentActiveGameObject = visual.EnvironmentObj;
     }
 
     public void AssignIsland(int islandID)

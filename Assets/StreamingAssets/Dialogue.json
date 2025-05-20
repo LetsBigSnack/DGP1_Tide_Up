@@ -27,7 +27,7 @@
         "#Whoa, you're here to clean up the trash? That's so rad! Cleaner water means smoother waves - totally stoked!",
         "Oh! Totally spaced—name's Noah. I moved here to chill, soak in the sun, you feel me?$ Riding waves is, like, my whole thing, hahaha.",
         "Not gonna lie, the trash is killing the vibe… but I'd still rather have sand in my shorts than clean it all up.",
-        "§Feels like, way too much effort, y'know?"
+        "*Feels like, way too much effort, y'know?"
       ]
     },
     "Marley": {
@@ -174,7 +174,7 @@
         {
           "DialogueContent": [
             "Good day! $How are you? Hey, I am currently working on another project and have no time to do it myself...,",
-            "but I really need a [QUEST-ITEM], because [ITEM_REASON]",
+            "but I really need a [QUEST-ITEM], because [ITEM-REASON]",
             "Can you, once again, help me out, my friend? You are the best!",
             "You need [MATERIALS] for that. And for the last missing material: [MATERIAL-HINT], does this help?"
           ]
@@ -382,7 +382,7 @@
             "$Marley is such a valuable person for our small community! And his wife, Lizzy, is the sweetest lady.", 
             "I heard they traveled the world together when they were young and helped people and animals in need.",
             "Now I sometimes bring Marley something to eat and help him clean his house. ",
-            "Since he hurt his back, he has trouble picking up stuff.§ He does not like depending on others.."
+            "Since he hurt his back, he has trouble picking up stuff.* He does not like depending on others.."
           ]
         },
         {
@@ -463,7 +463,7 @@
         },
         {
           "DialogueContent": [
-            "Ouch§! I stepped on plastic again... I should start looking where I am going…"
+            "Ouch*! I stepped on plastic again... I should start looking where I am going…"
           ]
         },
         {
@@ -499,7 +499,7 @@
         {
           "DialogueContent": [
             "Dude, I read somewhere that a single cruise ship can create up to 50 TONS of waste per week. Isn't that insane?",
-            "§Islands like ours are not prepared to handle that amount if it washes up on the beach..."
+            "*Islands like ours are not prepared to handle that amount if it washes up on the beach..."
           ]
         }
         ,
