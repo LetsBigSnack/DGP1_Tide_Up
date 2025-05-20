@@ -51,7 +51,7 @@ namespace ScriptableObjects
             _score = 0f;
             _isActive = true;
             isHoldingLeft = false;
-            isHoldingLeft = false;
+            isHoldingRight = false;
             
             //MiniGameController.OnMoveBar += OnMoveBar;
             MiniGameController.Instance.RegisterMiniGameInteract(OnInteract, OnMoveLeft, OnMoveRight);
