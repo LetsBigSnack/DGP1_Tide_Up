@@ -50,15 +50,5 @@ public class ItemInteractable : Interactable
     {
         highlight = show;
     }
-
-    private void OnDrawGizmos()
-    {
-        if (highlight)
-        {
-            BoxCollider collider = GetComponentInChildren<BoxCollider>();
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(transform.position, collider.size);
-        }
-        
-    }
+    
 }

@@ -144,12 +144,6 @@ public class InventoryManager : MonoBehaviour
         TrashMaterialEntry entry = _materialWallet.Find(e => e.TrashMaterialData.type == materialType);
         if (entry != null)
         {
-            if (entry.Amount + amount > maxTrashMaterials)
-            {
-                Debug.LogWarning($"Can't add more {materialType}, limit reached.");
-                return false;
-            }
-
             entry.Amount += amount;
         }
         else

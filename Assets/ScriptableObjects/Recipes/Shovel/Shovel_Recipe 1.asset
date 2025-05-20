@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c996081b79d94e18a5fe47eb8fe3eb37, type: 3}
-  m_Name: Bucket_Recipe_2
+  m_Name: Shovel_Recipe 1
   m_EditorClassIdentifier: 
-  questItem: {fileID: 11400000, guid: 7bd515836a531d3438633ac0815a4f4f, type: 2}
+  questItem: {fileID: 11400000, guid: 3bd48980570bbc345a0eb9eb7ae2bd46, type: 2}
   ingredients:
-  - {fileID: 11400000, guid: 0f56777db1532934e9cf26c71fc90c53, type: 2}
   - {fileID: 11400000, guid: b3691b9bc42637f4f95826822788bdc3, type: 2}
   - {fileID: 11400000, guid: 8f6c4ca6e6944d040b6e36dfdccd3ba1, type: 2}
