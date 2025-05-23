@@ -85,12 +85,8 @@ public class UIInventoryHelper : MonoBehaviour
 
         int maxSpaces = InventoryManager.Instance.MaxItems;
         
-        
-        
-        
         ClearInventory();
         items = FilterInventoy(items);
-
 
         for (int i = 0; i < items.Count; i++)
         {
@@ -99,6 +95,11 @@ public class UIInventoryHelper : MonoBehaviour
                 GameObject newItem = Instantiate(itemPrefab, itemParent);
                 newItem.GetComponent<UIInventoryItem>().Setup(items[i]);
                 _currentItems.Add(newItem);
+            }
+            else
+            {
+                GameObject newItem = Instantiate(emptyItemPrefab, itemParent);
+                _emptyItems.Add(newItem);
             }
         }
 
