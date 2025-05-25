@@ -46,6 +46,13 @@ public class DataUtil : MonoBehaviour
         return new QuestItemInstance(questItem, recipe.ingredients);
     }
     
+    public QuestItemInstance GetQuestItemByName(string name)
+    {
+        QuestItemData questItem = listOfItems.Where(i => i.title == name).FirstOrDefault();
+        RecipeData recipe = RecipeManager.Instance.GetRandomRecipe(questItem);
+
+        return new QuestItemInstance(questItem, recipe.ingredients);
+    }
 
     public TrashMaterialData GetMaterialByType(TrashMaterialType type)
     {

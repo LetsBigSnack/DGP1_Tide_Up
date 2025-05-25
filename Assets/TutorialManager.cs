@@ -18,34 +18,34 @@ public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance;
 
-    public TutorialState state;
+    [SerializeField] private TutorialState state;
 
-    public Npc engineer;
+    [SerializeField] private Npc engineer;
 
-    public List<ItemInteractable> items = new List<ItemInteractable>();
+    [SerializeField] private List<ItemInteractable> items = new List<ItemInteractable>();
 
-    public Recycler recycler;
+    [SerializeField] private Recycler recycler;
 
-    public bool W = false;
-    public bool A = false;
-    public bool S = false;
-    public bool D = false;
+    [SerializeField] private bool W = false;
+    [SerializeField] private bool A = false;
+    [SerializeField] private bool S = false;
+    [SerializeField] private bool D = false;
 
-    public bool itemsAreEnabled = false;
+    [SerializeField] private bool itemsAreEnabled = false;
 
-    public GameObject uiTutorialParent;
+    [SerializeField] private GameObject uiTutorialParent;
 
-    public GameObject buttonA;
-    public GameObject buttonW;
-    public GameObject buttonS;
-    public GameObject buttonD;
-    public GameObject buttonE;
+    [SerializeField] private GameObject buttonA;
+    [SerializeField] private GameObject buttonW;
+    [SerializeField] private GameObject buttonS;
+    [SerializeField] private GameObject buttonD;
+    [SerializeField] private GameObject buttonE;
 
-    public GameObject tutorialDoor;
+    [SerializeField] private GameObject tutorialDoor;
 
-    public bool tutorialIntroEnded;
+    [SerializeField] private bool tutorialIntroEnded;
 
-    public Scenes scene;
+    [SerializeField] private Scenes scene;
 
     private void OnEnable()
     {
@@ -192,20 +192,18 @@ public class TutorialManager : MonoBehaviour
         if(!items.Exists(t => t.ItemData.title == "Tutorial_Item") && state == TutorialState.Crafting && engineer.CurrentQuest.QuestState == QuestState.InProgress)
         {
             recycler.enabled = true;
+            QuestItemInstance questItem = DataUtil.Instance.GetQuestItemByName("Shovel");
+            engineer.NpcData.CurrentQuest.QuestItem = questItem;
         }
 
         if(items.Exists(t => t.ItemData.title == "Shovel") && state == TutorialState.Crafting)
         {
-            if(!items.Exists(t=>t.ItemData.title == "Tutorial_Item"))
-            {
-                QuestItemInstance questItem = DataUtil.Instance.GetTutorialItem();
-                InventoryManager.Instance.AddItem(questItem);
-                state = TutorialState.End;
-            }
+            state = TutorialState.End;
         }
 
-        if(!items.Exists(t => t.ItemData.title == "Tutorial_Item") && state == TutorialState.End)
+        if(!items.Exists(t => t.ItemData.title == "Shovel") && state == TutorialState.End)
         {
+            state = TutorialState.End;
             tutorialDoor.SetActive(true);
         }
     }
