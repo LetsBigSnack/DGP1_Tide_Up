@@ -1,6 +1,7 @@
 using Assets.Scripts.Data;
 using ScriptableObjects;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UIRecipeController : UIJournalSubMenu
@@ -121,9 +122,9 @@ public class UIRecipeController : UIJournalSubMenu
                 firstItem = newRecipeEntry.GetComponent<UIRecipeEntryItem>();
             }
         }
-        List<RecipeData> curKnownRecipies = RecipeManager.Instance.KnownRecipies;
         if(firstItemData != null)
         {
+            List<RecipeData> curKnownRecipies = RecipeManager.Instance.KnownRecipies.Where(r => r.questItem == firstItemData).ToList();
             UIRecipeDescriptionHelper.Instance.Setup(firstItemData, curKnownRecipies);
             UIRecipeDescriptionHelper.Instance.SetGameObjectAsSelected(firstItem);
         }
