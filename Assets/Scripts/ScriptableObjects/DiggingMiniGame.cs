@@ -27,7 +27,7 @@ namespace ScriptableObjects
 
             float endTime = _startTime + miniGameDuration;
 
-            UIMiniGameManager.Instance.Initialize(miniGameDuration, pressThreshold, Player.Instance.transform);
+            UIMiniGameManager.Instance.Initialize(miniGameDuration, pressThreshold, Player.Instance.transform, MiniGameType.Digging);
 
             int countHelp = 0;
             while (Time.time < endTime && !(_pressCount >= pressThreshold))
