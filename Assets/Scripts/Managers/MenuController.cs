@@ -198,6 +198,7 @@ public class MenuController : MonoBehaviour
         GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
         //TODO: Grenus Fix
         //UIHUDManager.Instance.ToggleDateMap();
+        UIBuildManager.Instance.CloseMenu();
         UIJournalManager.Instance.SwitchState(JournalType.Closed);
         UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Closed);
         UIShopManager.Instance.SwitchState(ShopType.Closed);
