@@ -11,7 +11,8 @@ public enum GameStates
     InMenu,
     SceneTransition,
     Dialogue,
-    MiniGame
+    MiniGame,
+    Building
 }
 
 

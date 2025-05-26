@@ -47,7 +47,7 @@ public class UIBuildManager : MonoBehaviour
     public void OpenMenu()
     {
         subMenu.SetActive(true);
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        GameStateManager.Instance.SetGameState(GameStates.Building);
         isOpen = true;
     }
 

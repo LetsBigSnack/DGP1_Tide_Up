@@ -1,10 +1,11 @@
+using System;
 using Data;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildSpotInteractable : Interactable
 {
-    [SerializeField] private int ID;
+    [SerializeField] private string ID;
     [SerializeField] private EnvironmentState state;
     [SerializeField] private bool highlight;
     [SerializeField] private List<TrashMaterialEntry> trashNeeded;
@@ -50,7 +51,7 @@ public class BuildSpotInteractable : Interactable
         return data;
     }
 
-    public int GetID()
+    public string GetID()
     {
         return ID;
     }
@@ -69,13 +70,14 @@ public class BuildSpotInteractable : Interactable
 
         foreach (TrashMaterialEntry t in trashNeeded)
         {
+            if (!canBuild)
+            {
+                break;
+            }
+            Debug.LogWarning("DEKI");
             int neededAmount = t.Amount;
             int currentAmount = InventoryManager.Instance.GetMaterialAmount(t.TrashMaterialData.type);
-            if (neededAmount <= currentAmount && canBuild)
-            {
-                canBuild = true;
-            }
-            else
+            if (currentAmount < neededAmount)
             {
                 canBuild = false;
             }
@@ -97,5 +99,31 @@ public class BuildSpotInteractable : Interactable
     public override void ShowInteractability(bool show)
     {
         highlight = show;
+    }
+
+    #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (ID == null || ID.Length <= 0)
+        {
+            //double check
+            List<BuildSpotInteractable> gameObjects = new List<BuildSpotInteractable>();
+            ID = GenerateID();
+        }
+    }
+    #endif
+
+
+    private string GenerateID()
+    {
+        List<BuildSpotInteractable> gameObjects = new List<BuildSpotInteractable>();
+        string tempID = Guid.NewGuid().ToString();
+
+        if (gameObjects.Exists(c => c.ID == tempID))
+        {
+            return GenerateID();
+        }
+        return tempID;
+        
     }
 }

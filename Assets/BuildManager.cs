@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class BuildSpotData
 {
-    public int buildSpotID;
+    public string buildSpotID;
     public bool isUnlocked;
 
-    public BuildSpotData(int id, bool isUnlocked)
+    public BuildSpotData(string id, bool isUnlocked)
     {
         this.buildSpotID = id;
         this.isUnlocked = isUnlocked;
@@ -54,7 +54,7 @@ public class BuildManager : MonoBehaviour
         return new List<BuildSpotData>();
     }
 
-    public void SaveBuildSpots()
+    public void SaveBuildSpots() 
     {
         //logic for saving
     }
