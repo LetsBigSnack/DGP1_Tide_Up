@@ -106,8 +106,8 @@ public class MenuController : MonoBehaviour
             return;
         }
         
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.Inventory);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
     }
 
     private void ShowMap(InputAction.CallbackContext value)
@@ -123,8 +123,8 @@ public class MenuController : MonoBehaviour
             return;
         }
         
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.Map);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
     }
 
     private void ShowRecipes(InputAction.CallbackContext value)
@@ -140,8 +140,8 @@ public class MenuController : MonoBehaviour
             return;
         }
         
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.Recipies);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
     }
 
     private void ShowFriends(InputAction.CallbackContext value)
@@ -157,8 +157,8 @@ public class MenuController : MonoBehaviour
             return;
         }
         
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.FriendBook);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
     }
 
     private void ShowQuests(InputAction.CallbackContext value)
@@ -173,9 +173,9 @@ public class MenuController : MonoBehaviour
             CloseMenu();
             return;
         }
-        
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+
         UIJournalManager.Instance.SwitchState(JournalType.Quests);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
     }
 
     private void ShowCalender(InputAction.CallbackContext value)
@@ -191,15 +191,15 @@ public class MenuController : MonoBehaviour
             return;
         }
         
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         UIJournalManager.Instance.SwitchState(JournalType.Calender);
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
     }
     private void CloseMenu()
     {
         GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
         //TODO: Grenus Fix
         //UIHUDManager.Instance.ToggleDateMap();
-        UIBuildManager.Instance.CloseMenu();
+        //UIBuildManager.Instance.CloseMenu();
         UIJournalManager.Instance.SwitchState(JournalType.Closed);
         UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Closed);
         UIShopManager.Instance.SwitchState(ShopType.Closed);

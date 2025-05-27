@@ -77,6 +77,7 @@ public class UIJournalManager : MonoBehaviour
         CloseAllMenues();
         OpenMenuByType(state);
         OnJournalStateChanged?.Invoke(state);
+        UIHUDManager.Instance.UpdateToolBar(GameStateManager.Instance.GetGameState());
     }
 
     public void CloseAllMenues()

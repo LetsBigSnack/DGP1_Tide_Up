@@ -37,6 +37,15 @@ public class ToolBarStateEntry
     private GameStates stateType;
 
     [SerializeField]
+    private JournalType journalState;
+
+    [SerializeField]
+    private ShopType shopState;
+
+    [SerializeField]
+    private ReUpcyclerType recyclerState;
+
+    [SerializeField]
     private KeyType keyType; 
 
     [SerializeField]
@@ -44,6 +53,10 @@ public class ToolBarStateEntry
 
     public GameStates StateType { get { return stateType; } set { stateType = value; } }
     public KeyType KeyType { get { return keyType; } set { keyType = value; } }
+    public JournalType JournalType { get { return journalState; } set { journalState = value; } }
+    public ShopType ShopType { get { return shopState; } set { shopState = value; } }
+    public ReUpcyclerType ReUpcyclerType { get { return recyclerState; } set { recyclerState = value; } }
+
     public List<ToolbarVisualEntry> Buttons { get { return buttons; } set { buttons = value; } }
 }
 
@@ -54,7 +67,9 @@ public class UIHUDManager : MonoBehaviour
     [Header("currentKeyState")]
     [SerializeField]
     private GameStates currentKeyState;
-
+    private JournalType currentJournalType;
+    private ShopType currentShopType;
+    private ReUpcyclerType currentReUpcyclerType;
     private KeyType currentKeyType;
 
     [Header("Toolbar")]
@@ -62,6 +77,7 @@ public class UIHUDManager : MonoBehaviour
     [SerializeField] private Transform toolBarContainer;
     [SerializeField] private bool toggleToolbar = true;
     [SerializeField] private List<ToolBarStateEntry> toolBarStateEntries;
+    [SerializeField] private ToolBarStateEntry tutorialEntry;
 
     [Header("DateMap")]
     [SerializeField] private Transform dateMapContainer;
@@ -102,10 +118,6 @@ public class UIHUDManager : MonoBehaviour
         UIPauseMenuManager.OnTooltipToggleChange += ToggleToolbar;
         TimeManager.OnTimeChanged += UpdateDayNight;
         TimeManager.OnMonthChanged += UpdateSeason;
-
-        //testing purpose for now
-        currentKeyState = GameStates.PlayingBoat;
-        UpdateToolBar(GameStates.PlayingCharacter);
     }
 
     private void OnDisable()
@@ -115,11 +127,17 @@ public class UIHUDManager : MonoBehaviour
 
     public void UpdateToolBar(GameStates state)
     {
+        //TODO: ADD TIDE UP BOX // BUILDING // TUTORIAL
+
         //currently hardcoded will need to be changed based on the controlles attached to the computer or currently active. with some kind of helper class
         //needs own ticket
         KeyType keyType = KeyType.Keyboard;
 
-        if(currentKeyState == state && currentKeyType == keyType)
+        if (currentKeyState == state &&
+            currentJournalType == UIJournalManager.Instance.GetCurrentState() &&
+            currentShopType == UIShopManager.Instance.GetCurrentState() &&
+            currentShopType == UIShopManager.Instance.GetCurrentState() &&
+            currentKeyType == keyType)
         {
             return;
         }
@@ -133,7 +151,12 @@ public class UIHUDManager : MonoBehaviour
             currentButtons.Clear();
         }
 
-        ToolBarStateEntry newEntry = toolBarStateEntries.Find(t => t.StateType == state && t.KeyType == keyType);
+        ToolBarStateEntry newEntry = toolBarStateEntries.Find(t =>
+        t.StateType == state &&
+        t.JournalType == UIJournalManager.Instance.GetCurrentState() &&
+        t.ShopType == UIShopManager.Instance.GetCurrentState() &&
+        t.ReUpcyclerType == UIReUpcycleManager.Instance.GetCurrentState() &&
+        t.KeyType == keyType);
 
         if (newEntry != null)
         {
@@ -146,6 +169,9 @@ public class UIHUDManager : MonoBehaviour
         }
         
         currentKeyState = state;
+        currentJournalType = UIJournalManager.Instance.GetCurrentState();
+        currentShopType = UIShopManager.Instance.GetCurrentState();
+        currentShopType = UIShopManager.Instance.GetCurrentState();
     }
 
     public void ToggleDateMap()
