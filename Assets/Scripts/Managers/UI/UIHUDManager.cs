@@ -37,47 +37,42 @@ public class ToolBarStateEntry
     private GameStates stateType;
 
     [SerializeField]
-    private JournalType journalState;
-
-    [SerializeField]
-    private ShopType shopState;
-
-    [SerializeField]
-    private ReUpcyclerType recyclerState;
-
-    [SerializeField]
     private KeyType keyType; 
 
     [SerializeField]
-    private List<ToolbarVisualEntry> buttons;
+    private List<ButtonInputType> buttonTypes;
 
     public GameStates StateType { get { return stateType; } set { stateType = value; } }
     public KeyType KeyType { get { return keyType; } set { keyType = value; } }
-    public JournalType JournalType { get { return journalState; } set { journalState = value; } }
-    public ShopType ShopType { get { return shopState; } set { shopState = value; } }
-    public ReUpcyclerType ReUpcyclerType { get { return recyclerState; } set { recyclerState = value; } }
-
-    public List<ToolbarVisualEntry> Buttons { get { return buttons; } set { buttons = value; } }
+    public List<ButtonInputType> ButtonInputTypes { get { return buttonTypes; } set { buttonTypes = value; } }
 }
 
 public class UIHUDManager : MonoBehaviour
 {
     public static UIHUDManager Instance;
 
-    [Header("currentKeyState")]
+    [Header("currentStates")]
     [SerializeField]
-    private GameStates currentKeyState;
-    private JournalType currentJournalType;
-    private ShopType currentShopType;
-    private ReUpcyclerType currentReUpcyclerType;
+    private GameStates currentState;
+    [SerializeField]
     private KeyType currentKeyType;
 
-    [Header("Toolbar")]
+    [Header("GameState_Toolbars")]
+    [SerializeField] private List<ToolBarStateEntry> entries;
+
+    [Header("Tutorial_Toolbar")]
+    [SerializeField] private List<ToolBarStateEntry> tutorialEntry;
+    [Header("TideUpBox_Toolbar")]
+    [SerializeField] private ToolBarStateEntry tideUpBoxEntry;
+    [Header("ReUpCycler_Toolbar")]
+    [SerializeField] private ToolBarStateEntry reUpCyclerBoxEntry;
+    [Header("Journal_Toolbar")]
+    [SerializeField] private ToolBarStateEntry journalEntry;
+
+    [Header("Prefabs")]
     [SerializeField] private GameObject toolBarItemPrefab;
     [SerializeField] private Transform toolBarContainer;
     [SerializeField] private bool toggleToolbar = true;
-    [SerializeField] private List<ToolBarStateEntry> toolBarStateEntries;
-    [SerializeField] private ToolBarStateEntry tutorialEntry;
 
     [Header("DateMap")]
     [SerializeField] private Transform dateMapContainer;
@@ -95,9 +90,11 @@ public class UIHUDManager : MonoBehaviour
     [SerializeField] private Sprite autumnSprite;
     private Seasons _currSeason;
 
-
     [Header("CurrentButtons")]
     [SerializeField] private List<GameObject> currentButtons;
+
+    [Header("ButtonSO's")]
+    [SerializeField] private List<ToolBarSetting> buttonsEntry;
 
     private void Awake()
     {
@@ -127,51 +124,81 @@ public class UIHUDManager : MonoBehaviour
 
     public void UpdateToolBar(GameStates state)
     {
-        //TODO: ADD TIDE UP BOX // BUILDING // TUTORIAL
-
-        //currently hardcoded will need to be changed based on the controlles attached to the computer or currently active. with some kind of helper class
-        //needs own ticket
         KeyType keyType = KeyType.Keyboard;
 
-        if (currentKeyState == state &&
-            currentJournalType == UIJournalManager.Instance.GetCurrentState() &&
-            currentShopType == UIShopManager.Instance.GetCurrentState() &&
-            currentShopType == UIShopManager.Instance.GetCurrentState() &&
-            currentKeyType == keyType)
+        if (currentState == state && currentKeyType == keyType)
         {
             return;
         }
+        ClearButtons();
+        currentKeyType = keyType;
+        currentState = state;
 
-        if(currentButtons.Count > 0)
+        if (TutorialManager.Instance != null)
         {
-            foreach(GameObject button in currentButtons)
+            CreateToolBarButtonsFromList(state, keyType, tutorialEntry);
+            return;
+        }
+
+        if (UITideUpBoxManager.Instance.IsOpen && state != GameStates.PlayingCharacter)
+        {
+            CreateToolBarButtonsFromEntry(keyType, tideUpBoxEntry);
+            return;
+        }
+
+        if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed && state != GameStates.PlayingCharacter)
+        {
+            CreateToolBarButtonsFromEntry(keyType, reUpCyclerBoxEntry);
+            return;
+        }
+
+        if(UIJournalManager.Instance.GetCurrentState() != JournalType.Closed && state != GameStates.PlayingCharacter)
+        {
+            CreateToolBarButtonsFromEntry(keyType, journalEntry);
+            return;
+        }
+
+        CreateToolBarButtonsFromList(state, keyType, entries);
+    }
+
+    private void ClearButtons()
+    {
+        if (currentButtons.Count > 0)
+        {
+            foreach (GameObject button in currentButtons)
             {
                 Destroy(button);
             }
             currentButtons.Clear();
         }
+    }
 
-        ToolBarStateEntry newEntry = toolBarStateEntries.Find(t =>
-        t.StateType == state &&
-        t.JournalType == UIJournalManager.Instance.GetCurrentState() &&
-        t.ShopType == UIShopManager.Instance.GetCurrentState() &&
-        t.ReUpcyclerType == UIReUpcycleManager.Instance.GetCurrentState() &&
-        t.KeyType == keyType);
-
-        if (newEntry != null)
+    private void CreateToolBarButtonsFromList(GameStates state, KeyType keyType, List<ToolBarStateEntry> list)
+    {
+        List<ButtonInputType> buttons = list.Find(t => t.StateType == state && t.KeyType == keyType)?.ButtonInputTypes;
+        if (buttons != null)
         {
-            foreach(ToolbarVisualEntry button in newEntry.Buttons)
+            ToolBarSetting curSetting = buttonsEntry.Find(b => b.Type == keyType);
+            foreach (ButtonInputType type in buttons)
             {
+                ButtonEntry newButtonEntry = curSetting.ButtonEntries.Find(buttonEntry => buttonEntry.Type == type);
                 GameObject newButton = Instantiate(toolBarItemPrefab, toolBarContainer);
-                newButton.GetComponent<UIToolbarItem>().SetupButton(button.Sprite, button.Label, button.Key);
+                newButton.GetComponent<UIToolbarItem>().SetupButton(newButtonEntry.Sprite ?? null, newButtonEntry.Type.ToString(), newButtonEntry.Key, keyType);
                 currentButtons.Add(newButton);
             }
         }
-        
-        currentKeyState = state;
-        currentJournalType = UIJournalManager.Instance.GetCurrentState();
-        currentShopType = UIShopManager.Instance.GetCurrentState();
-        currentShopType = UIShopManager.Instance.GetCurrentState();
+    }
+
+    private void CreateToolBarButtonsFromEntry(KeyType keyType, ToolBarStateEntry entry)
+    {
+        ToolBarSetting curSetting = buttonsEntry.Find(b => b.Type == keyType);
+        foreach (ButtonInputType type in entry.ButtonInputTypes)
+        {
+            ButtonEntry newButtonEntry = curSetting.ButtonEntries.Find(buttonEntry => buttonEntry.Type == type);
+            GameObject newButton = Instantiate(toolBarItemPrefab, toolBarContainer);
+            newButton.GetComponent<UIToolbarItem>().SetupButton(newButtonEntry.Sprite ?? null, newButtonEntry.Type.ToString(), newButtonEntry.Key, keyType);
+            currentButtons.Add(newButton);
+        }
     }
 
     public void ToggleDateMap()

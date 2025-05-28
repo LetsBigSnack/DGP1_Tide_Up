@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f48f3bf5a3fcd4da83bd31f682803c, type: 3}
+  m_Name: Keyboard
+  m_EditorClassIdentifier: 
+  type: 0
+  journal:
+    type: 9
+    label: Journal
+    key: I
+    sprite: {fileID: 0}
+  toggleMove:
+    type: 1
+    label: Walk/Run
+    key: LS
+    sprite: {fileID: 0}
+  inventory:
+    type: 3
+    label: Inventory
+    key: I
+    sprite: {fileID: 0}
+  recipes:
+    type: 4
+    label: Recipes
+    key: R
+    sprite: {fileID: 0}
+  quests:
+    type: 5
+    label: Quests
+    key: Q
+    sprite: {fileID: 0}
+  friendbook:
+    type: 6
+    label: Friendbook
+    key: F
+    sprite: {fileID: 0}
+  calender:
+    type: 7
+    label: Calender
+    key: C
+    sprite: {fileID: 0}
+  map:
+    type: 8
+    label: Map
+    key: M
+    sprite: {fileID: 0}
+  interact:
+    type: 0
+    label: Interact
+    key: E
+    sprite: {fileID: 0}
+  close:
+    type: 2
+    label: Close
+    key: ESC
+    sprite: {fileID: 0}

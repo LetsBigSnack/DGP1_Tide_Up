@@ -39,6 +39,7 @@ public class UIBookMarkController : MonoBehaviour
     [SerializeField] private GameObject rightParent;
     [SerializeField] private GameObject leftParent;
     [SerializeField] private GameObject reupcylceParent;
+    [SerializeField] private GameObject tutorialParent;
 
     private List<GameObject> _curBookmarks = new List<GameObject>();
     [SerializeField] private List<BookMarkLink> _linkedBookmarks = new List<BookMarkLink>();
@@ -96,6 +97,12 @@ public class UIBookMarkController : MonoBehaviour
 
     public void OpenMenu()
     {
+        if(TutorialManager.Instance != null || UITideUpBoxManager.Instance.IsOpen)
+        {
+            tutorialParent.SetActive(true);
+            return;
+        }
+
         if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed || UITideUpBoxManager.Instance.IsOpen)
         {
             reupcylceParent.SetActive(true);
@@ -107,6 +114,7 @@ public class UIBookMarkController : MonoBehaviour
 
     public void CloseMenu()
     {
+        tutorialParent.SetActive(false);
         reupcylceParent.SetActive(false);
         rightParent.SetActive(false);
         leftParent.SetActive(false);

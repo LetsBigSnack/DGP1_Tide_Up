@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private bool playerCanMove = true;
     private AnimationController _anim;
+
+    public static event Action<string> OnToggleSprintChanged;
     
     
     
@@ -140,10 +142,12 @@ public class PlayerController : MonoBehaviour
         //Click left button
         _playerInputs.Player.Click.Enable();
         _playerInputs.Player.Click.performed += SoundOnClick;
-
     }
 
-
+    private void Start()
+    {
+        SetSprintText();
+    }
 
     private void OnDisable()
     {
@@ -171,6 +175,19 @@ public class PlayerController : MonoBehaviour
     private void ToggleSprint(InputAction.CallbackContext value)
     {
         isSprinting = !isSprinting;
+        SetSprintText();
+    }
+
+    private void SetSprintText()
+    {
+        if (isSprinting)
+        {
+            OnToggleSprintChanged?.Invoke("Walk");
+        }
+        else
+        {
+            OnToggleSprintChanged?.Invoke("Run");
+        }
     }
     
     private void Interact(InputAction.CallbackContext value)
