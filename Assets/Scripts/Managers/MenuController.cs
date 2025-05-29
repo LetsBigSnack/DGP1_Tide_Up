@@ -97,7 +97,14 @@ public class MenuController : MonoBehaviour
     {
         if (!CanMenuBeOpen())
         {
-            return;
+            if (UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed && GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter)
+            {
+                Debug.Log("In recycler can open Inventory");
+            }
+            else
+            {
+                return;
+            }
         }
 
         if (IsSameMenuOpen(JournalType.Inventory))
@@ -131,7 +138,14 @@ public class MenuController : MonoBehaviour
     {
         if (!CanMenuBeOpen())
         {
-            return;
+            if (UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed && GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter)
+            {
+                Debug.Log("In recycler can open Recipes");
+            }
+            else
+            {
+                return;
+            }
         }
         
         if (IsSameMenuOpen(JournalType.Recipies))
