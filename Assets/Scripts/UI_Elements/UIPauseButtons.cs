@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class UIPauseButtons : MonoBehaviour
 {
-
     public void OnHoverButton()
     {
         UIPauseMenuManager.Instance.BorderIcon.SetActive(true);

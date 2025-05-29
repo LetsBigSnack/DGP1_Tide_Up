@@ -20,6 +20,8 @@ public class UIJournalBookMarkItem : MonoBehaviour
     [SerializeField] private UIJournalBookMarkItem prev;
     [SerializeField] private UIJournalBookMarkItem next;
 
+    private Button _button;
+
     private Animator anim;
 
     public JournalType Type
@@ -42,6 +44,7 @@ public class UIJournalBookMarkItem : MonoBehaviour
 
     private void Start()
     {
+        _button = GetComponentInChildren<Button>();
         anim = GetComponent<Animator>();
         Setup();
     }
@@ -49,6 +52,16 @@ public class UIJournalBookMarkItem : MonoBehaviour
     public void OnClick()
     {
         UIJournalManager.Instance.SwitchState(type);
+    }
+
+    public void OnSelected()
+    {
+        anim.SetBool("Selected", true);
+    }
+
+    public void OnDeselect()
+    {
+        anim.SetBool("Selected", false);
     }
 
     private void Setup()
@@ -99,12 +112,19 @@ public class UIJournalBookMarkItem : MonoBehaviour
 
     public void RaiseItem()
     {
+        Navigation nav = _button.navigation;
         if (ShouldBeRaised())
         {
             anim.SetBool("raised", true);
+            _button.interactable = false;
+            nav.mode = Navigation.Mode.None;
+            _button.navigation = nav;
             return;
         }
         anim.SetBool("raised", false);
+        _button.interactable = true;
+        nav.mode = Navigation.Mode.Automatic;
+        _button.navigation = nav;
     }
 
     private bool ShouldBeRaised()

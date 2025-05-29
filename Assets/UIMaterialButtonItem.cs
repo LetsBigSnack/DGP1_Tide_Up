@@ -1,12 +1,30 @@
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class UIMaterialButtonItem : MonoBehaviour
 {
     [SerializeField] private TrashMaterialType type;
+
+    private void OnEnable()
+    {
+        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
+        {
+            gameObject.GetComponentInChildren<Button>().interactable = false;
+        }
+        else
+        {
+            gameObject.GetComponentInChildren<Button>().interactable = true;
+        }
+    }
     public void OnClick()
     {
-        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Upcycler)
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Recycler)
+        {
+            UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Upcycler);
+        }
+
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Upcycler)
         {
             TrashMaterialEntry currentData = InventoryManager.Instance.GetWallet().Where(t => t.TrashMaterialData.type == type).FirstOrDefault();
             if(currentData.Amount > 0)
@@ -14,13 +32,7 @@ public class UIMaterialButtonItem : MonoBehaviour
                 UIUpcyclerController.Instance.AddMaterial(currentData.TrashMaterialData);
             }
         }
-        else
-        {
-            if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Recycler)
-            {
-                return;
-            }
-            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Try doing that in the Upcycler in the other tab");
-        }
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 }

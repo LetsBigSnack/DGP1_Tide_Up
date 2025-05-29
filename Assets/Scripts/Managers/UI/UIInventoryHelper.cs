@@ -109,6 +109,10 @@ public class UIInventoryHelper : MonoBehaviour
             _emptyItems.Add(newItem);
         }
         
+        if(_currentItems.Count > 0)
+        {
+            UIEventSystemHelper.Instance.SetFirstSelectedItem(_currentItems[0]);
+        }
        
     }
     private List<ItemInstance> FilterInventoy(List<ItemInstance> items)

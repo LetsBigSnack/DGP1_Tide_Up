@@ -90,11 +90,13 @@ public class UIPauseMenuManager : MonoBehaviour
         {
             _pauseMenuState = PauseMenuStates.Options;
             optionMenu.SetActive(true);
+            pauseMenu.SetActive(false);
             return;
         }
 
         _pauseMenuState = PauseMenuStates.Paused;
         optionMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
     public void ToggleTooltip()

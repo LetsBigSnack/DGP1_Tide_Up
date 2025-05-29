@@ -38,16 +38,37 @@ public class UIInventoryItem : MonoBehaviour
             //TODO: Add error sound
             UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Try doing that in the Recycler in the other tab");
         }
+    }
+
+    public void OnSelect()
+    {
+        if (UITideUpBoxManager.Instance.IsOpen)
+        {
+            borderIcon.SetActive(!borderIcon.activeInHierarchy);
+        }
+
+        JournalType curJournalState = UIJournalManager.Instance.GetCurrentState();
+        ShopType curShopState = UIShopManager.Instance.GetCurrentState();
+        ReUpcyclerType curReUpcyclerState = UIReUpcycleManager.Instance.GetCurrentState();
 
         if (curJournalState == JournalType.Inventory &&
-            curReUpcyclerState == ReUpcyclerType.Closed && 
-            !UITideUpBoxManager.Instance.IsOpen && 
+            curReUpcyclerState == ReUpcyclerType.Closed &&
+            !UITideUpBoxManager.Instance.IsOpen &&
             curShopState == ShopType.Closed)
         {
             UIItemDetailsHelper.Instance.SetupDescription(item.ItemData.title, item.ItemData.description, item.ItemData.sprite, item.GetMaterials());
             UIItemDetailsHelper.Instance.SetGameObjectAsSelected(this);
         }
     }
+
+    public void OnDeselect()
+    {
+        if (UITideUpBoxManager.Instance.IsOpen)
+        {
+            borderIcon.SetActive(!borderIcon.activeInHierarchy);
+        }
+    }
+
 
     public void ToggleIcon()
     {

@@ -7,6 +7,7 @@ public class UIRecyclerInputSlot : MonoBehaviour
     [SerializeField] private ItemInstance currentItem;
     [SerializeField] private ItemData data;
     [SerializeField] private Image image;
+    private Button _button;
 
     public ItemInstance CurrentItem
     {
@@ -23,6 +24,11 @@ public class UIRecyclerInputSlot : MonoBehaviour
     public void Start()
     {
         image.enabled = false;
+        _button = gameObject.GetComponentInChildren<Button>();
+        _button.interactable = false;
+        Navigation nav = _button.navigation;
+        nav.mode = Navigation.Mode.None;
+        _button.navigation = nav;
     }
 
     public void Setup(ItemInstance item)
@@ -31,6 +37,10 @@ public class UIRecyclerInputSlot : MonoBehaviour
         this.data = item.ItemData;
         this.image.sprite = item.ItemData.sprite;
         this.image.enabled = true;
+        _button.interactable = true;
+        Navigation nav = _button.navigation;
+        nav.mode = Navigation.Mode.Automatic;
+        _button.navigation = nav;
     }
 
     public void ResetSlot()
@@ -38,6 +48,14 @@ public class UIRecyclerInputSlot : MonoBehaviour
         this.data = null;
         this.image.enabled = false;
         this.image.sprite = null;
+        if (!_button)
+        {
+            _button = gameObject.GetComponentInChildren<Button>();
+        }
+        _button.interactable = false;
+        Navigation nav = _button.navigation;
+        nav.mode = Navigation.Mode.None;
+        _button.navigation = nav;
     }
 
     public void RemoveItem()
