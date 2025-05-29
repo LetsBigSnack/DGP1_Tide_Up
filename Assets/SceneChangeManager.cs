@@ -9,9 +9,9 @@ public class SceneChangeManager : MonoBehaviour
 {
     public static SceneChangeManager Instance;
 
-    private bool isSceneChanging = false;
-    private bool sceneFullyLoaded = false;
-    private string targetSceneName = "";
+    private bool _isSceneChanging = false;
+    private bool _sceneFullyLoaded = false;
+    private string _targetSceneName = "";
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class SceneChangeManager : MonoBehaviour
     public IEnumerator LoadSceneWithState(Scenes scene, Action<bool> onComplete = null)
     {
         Debug.Log(scene);
-        if (isSceneChanging)
+        if (_isSceneChanging)
         {
             Debug.Log("Scene change is already in progress.");
             onComplete?.Invoke(false);
@@ -50,9 +50,9 @@ public class SceneChangeManager : MonoBehaviour
             yield break;
         }
 
-        isSceneChanging = true;
-        sceneFullyLoaded = false;
-        targetSceneName = sceneName;
+        _isSceneChanging = true;
+        _sceneFullyLoaded = false;
+        _targetSceneName = sceneName;
 
         Debug.Log($"Loading scene: {sceneName}");
         SceneManager.sceneLoaded += HandleSceneLoaded;
@@ -64,7 +64,7 @@ public class SceneChangeManager : MonoBehaviour
         float timeout = 20f;
         float timer = 0f;
 
-        while (!sceneFullyLoaded && timer < timeout)
+        while (!_sceneFullyLoaded && timer < timeout)
         {
             Debug.Log($"Waiting for scene to fully load... Progress: {asyncLoad.progress}");
             
@@ -72,7 +72,7 @@ public class SceneChangeManager : MonoBehaviour
             if (asyncLoad.progress >= 0.9f)
             {
                 onComplete?.Invoke(true);
-                isSceneChanging = false;
+                _isSceneChanging = false;
                 
                 if (scene == Scenes.StartScreen)
                 {
@@ -93,7 +93,7 @@ public class SceneChangeManager : MonoBehaviour
 
         SceneManager.sceneLoaded -= HandleSceneLoaded;
 
-        if (!sceneFullyLoaded)
+        if (!_sceneFullyLoaded)
         {
             Debug.LogWarning($"Scene load timeout exceeded for {sceneName}");
             onComplete?.Invoke(false);
@@ -104,16 +104,16 @@ public class SceneChangeManager : MonoBehaviour
             onComplete?.Invoke(true);
         }
 
-        isSceneChanging = false;
+        _isSceneChanging = false;
         Debug.Log("Coroutine reached the end");
     }
 
     private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == targetSceneName)
+        if (scene.name == _targetSceneName)
         {
             Debug.Log("SceneChangeManager detected scene loaded.");
-            sceneFullyLoaded = true;
+            _sceneFullyLoaded = true;
 
             if (UIFadeScreenHelper.Instance != null)
             {
@@ -122,7 +122,7 @@ public class SceneChangeManager : MonoBehaviour
             
 
             //TOOD: talk with lucas about fix 
-            isSceneChanging = false;
+            _isSceneChanging = false;
         }
     }
 
