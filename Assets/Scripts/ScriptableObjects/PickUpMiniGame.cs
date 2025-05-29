@@ -59,7 +59,10 @@ namespace ScriptableObjects
             UIUnsubscribe();
             
             if (!_isPressed)
+            {
                 Debug.Log("[MiniGame] Failed: No input received.");
+                SoundManager.Instance.PlaySFX("Pick_up");
+            }
             
             callback(_isSuccess);
         }
