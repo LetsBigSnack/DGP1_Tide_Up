@@ -7,6 +7,7 @@ public class UIRecyclerInputSlot : MonoBehaviour
     [SerializeField] private ItemInstance currentItem;
     [SerializeField] private ItemData data;
     [SerializeField] private Image image;
+    [SerializeField] private UIRecyclerInputSlot adjecent;
     private Button _button;
 
     public ItemInstance CurrentItem
@@ -58,10 +59,23 @@ public class UIRecyclerInputSlot : MonoBehaviour
         _button.navigation = nav;
     }
 
+    private void SwitchToAdjecentButton()
+    {
+        if (adjecent.gameObject.GetComponentInChildren<Button>().interactable)
+        {
+            return;
+        }
+        else
+        {
+            UIEventSystemHelper.Instance.SetFirstSelectedItem(adjecent.gameObject);
+        }
+    }
+
     public void RemoveItem()
     {
         if(data != null)
         {
+            SwitchToAdjecentButton();
             UIRecyclerController.Instance.RemoveItem(this);
             ResetSlot();
         }
