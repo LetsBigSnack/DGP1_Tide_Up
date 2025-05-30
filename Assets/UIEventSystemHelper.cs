@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -33,8 +34,14 @@ public class UIEventSystemHelper : MonoBehaviour
 
     public void SetFirstSelectedItem(GameObject gameObject)
     {
+        StartCoroutine(FirstFrameDelay(gameObject));
+    }
+
+    public IEnumerator FirstFrameDelay(GameObject gameObject)
+    {
+        yield return null;
+
         eventsystem.firstSelectedGameObject = gameObject;
-        eventsystem.SetSelectedGameObject(gameObject);
 
         Button buttonInChildren = gameObject.GetComponentInChildren<Button>();
         if (buttonInChildren)
@@ -52,8 +59,6 @@ public class UIEventSystemHelper : MonoBehaviour
         if (slider)
         {
             slider.Select();
-            return;
         }
-
     }
 }

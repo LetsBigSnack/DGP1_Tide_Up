@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -22,7 +23,7 @@ public class UIPauseMenuManager : MonoBehaviour
 
     [SerializeField] private Toggle tooltipToggle;
 
-    [SerializeField] private GameObject borderIcon;
+    [SerializeField] private List<GameObject> borderIcon = new List<GameObject>();
 
     public static event Action<Toggle> OnTooltipToggleChange;
 
@@ -36,12 +37,6 @@ public class UIPauseMenuManager : MonoBehaviour
         set { _pauseMenuState = value; }
     }
 
-    public GameObject BorderIcon
-    {
-        get { return borderIcon; }
-        set { borderIcon = value; }
-    }
-
     public static UIPauseMenuManager Instance;
 
     private void Awake()
@@ -53,6 +48,14 @@ public class UIPauseMenuManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void DeActivateBorders()
+    {
+        foreach(GameObject o in borderIcon)
+        {
+            o.SetActive(false);
         }
     }
 
@@ -79,6 +82,7 @@ public class UIPauseMenuManager : MonoBehaviour
     //TODO: Grenus Fix
     public void ResumeGame()
     {
+        DeActivateBorders();
         pauseMenu.SetActive(false);
         GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
         _isPaused = false;
@@ -86,7 +90,8 @@ public class UIPauseMenuManager : MonoBehaviour
 
     public void ToggleOptionMenu()
     {
-        if(_pauseMenuState == PauseMenuStates.Paused)
+        DeActivateBorders();
+        if (_pauseMenuState == PauseMenuStates.Paused)
         {
             _pauseMenuState = PauseMenuStates.Options;
             optionMenu.SetActive(true);

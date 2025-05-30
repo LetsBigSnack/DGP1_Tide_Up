@@ -45,6 +45,7 @@ public class UIInventoryItem : MonoBehaviour
         if (UITideUpBoxManager.Instance.IsOpen)
         {
             borderIcon.SetActive(!borderIcon.activeInHierarchy);
+            return;
         }
 
         JournalType curJournalState = UIJournalManager.Instance.GetCurrentState();
