@@ -60,7 +60,7 @@ public class DevControlls : MonoBehaviour
     private void CollectOneItem(InputAction.CallbackContext context)
     {
         TideUpBox currBox = TideUpBoxManager.Instance.GetTideUpBox(0);
-        currBox.CollectOneItem(DevTestHelper.TestGetTrashFromBox(0));
+        //currBox.CollectOneItem(DevTestHelper.TestGetTrashFromBox(0));
     }
     private void CollectAllItems(InputAction.CallbackContext context)
     {

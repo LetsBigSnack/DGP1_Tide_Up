@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviour
         _playerInputs.Player.Interact.performed += Interact;
 
         //Click left button
+        //TODO: remove from here
         _playerInputs.Player.Click.Enable();
         _playerInputs.Player.Click.performed += SoundOnClick;
     }
@@ -174,6 +175,7 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleSprint(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         isSprinting = !isSprinting;
         SetSprintText();
     }
@@ -192,6 +194,7 @@ public class PlayerController : MonoBehaviour
     
     private void Interact(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         if (GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
         {
             return;
@@ -217,6 +220,7 @@ public class PlayerController : MonoBehaviour
 
     private void SoundOnClick(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         if(GameStateManager.Instance.GetGameState() != GameStates.InMenu)
         {
             return;
@@ -242,12 +246,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnMovePlayerPreformed(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         Vector2 axis = value.ReadValue<Vector2>();
         _playerMoveVector = new Vector3(axis.x, 0, axis.y);
     }
 
     private void OnMovePlayerCancelled(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         _playerMoveVector = Vector3.zero;
     }
     

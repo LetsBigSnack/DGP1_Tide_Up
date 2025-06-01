@@ -7,9 +7,9 @@ public class UIEventSystemHelper : MonoBehaviour
 {
     public static UIEventSystemHelper Instance;
 
-    [SerializeField] private EventSystem eventsystem;
+    [SerializeField] private KMS_Test eventsystem;
 
-    public EventSystem EventSystemObj
+    public KMS_Test EventSystemObj
     {
         get => eventsystem;
         set => eventsystem = value;
@@ -29,7 +29,7 @@ public class UIEventSystemHelper : MonoBehaviour
 
     void Start()
     {
-        eventsystem = GetComponentInChildren<EventSystem>();
+        eventsystem = GetComponentInChildren<KMS_Test>();
     }
 
     public void SetFirstSelectedItem(GameObject gameObject)
