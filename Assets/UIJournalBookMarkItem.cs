@@ -42,6 +42,16 @@ public class UIJournalBookMarkItem : MonoBehaviour
         set => isRight = value;
     }
 
+    public UIJournalBookMarkItem Previous
+    {
+        get => prev;
+    }
+
+    public UIJournalBookMarkItem Next
+    {
+        get => next;
+    }
+
     private void Start()
     {
         _button = GetComponentInChildren<Button>();
@@ -119,6 +129,7 @@ public class UIJournalBookMarkItem : MonoBehaviour
             _button.interactable = false;
             nav.mode = Navigation.Mode.None;
             _button.navigation = nav;
+            UIBookMarkController.Instance.SetCurrentBookMark(this);
             return;
         }
         anim.SetBool("raised", false);

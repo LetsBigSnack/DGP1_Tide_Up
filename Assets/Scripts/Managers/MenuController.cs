@@ -42,6 +42,12 @@ public class MenuController : MonoBehaviour
         _menuInputs.UI.Map.Enable();
         _menuInputs.UI.Map.performed += ShowMap;
 
+        _menuInputs.UI.Next.Enable();
+        _menuInputs.UI.Next.performed += NextBookMark;
+
+        _menuInputs.UI.Previous.Enable();
+        _menuInputs.UI.Previous.performed += PreviousBookMark;
+
     }
     
     private void OnDisable()
@@ -73,6 +79,12 @@ public class MenuController : MonoBehaviour
 
         _menuInputs.UI.Recipe.Disable();
         _menuInputs.UI.Recipe.performed -= ShowRecipes;
+
+        _menuInputs.UI.Next.Disable();
+        _menuInputs.UI.Next.performed -= NextBookMark;
+
+        _menuInputs.UI.Previous.Disable();
+        _menuInputs.UI.Previous.performed -= PreviousBookMark;
 
     }
 
@@ -262,5 +274,15 @@ public class MenuController : MonoBehaviour
             NpcDialogueManager.Instance.ResetDialogue();
             UIDialogueManager.Instance.FinishSpeaking();
         }
+    }
+
+    private void NextBookMark(InputAction.CallbackContext value)
+    {
+        UIBookMarkController.Instance.NextBookMark();
+    }
+
+    private void PreviousBookMark(InputAction.CallbackContext value)
+    {
+        UIBookMarkController.Instance.PreviousBookMark();
     }
 }

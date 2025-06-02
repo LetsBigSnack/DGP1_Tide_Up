@@ -98,6 +98,24 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Next"",
+                    ""type"": ""Button"",
+                    ""id"": ""69aae4a3-db04-44fb-b009-9ae0f5539a10"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previous"",
+                    ""type"": ""Button"",
+                    ""id"": ""e75dcb58-448b-44d8-b19b-2f5bed03eb95"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -105,6 +123,17 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""c18173e9-1b61-4b83-ae63-aa745fb7ac90"",
                     ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aad17e8d-3cb9-4475-b65a-9686e5c6e4a5"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -192,11 +221,33 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3c216495-e911-475a-a45f-cec28e405f1d"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CloseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be147308-0479-40c1-bcfe-85f3c7af2d3c"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3dc1cf1b-ec0d-480a-a749-472dca880123"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Previous"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -215,6 +266,8 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         m_UI_Quests = m_UI.FindAction("Quests", throwIfNotFound: true);
         m_UI_Calender = m_UI.FindAction("Calender", throwIfNotFound: true);
         m_UI_CloseMenu = m_UI.FindAction("CloseMenu", throwIfNotFound: true);
+        m_UI_Next = m_UI.FindAction("Next", throwIfNotFound: true);
+        m_UI_Previous = m_UI.FindAction("Previous", throwIfNotFound: true);
     }
 
     ~@MenuInputs()
@@ -289,6 +342,8 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Quests;
     private readonly InputAction m_UI_Calender;
     private readonly InputAction m_UI_CloseMenu;
+    private readonly InputAction m_UI_Next;
+    private readonly InputAction m_UI_Previous;
     public struct UIActions
     {
         private @MenuInputs m_Wrapper;
@@ -301,6 +356,8 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         public InputAction @Quests => m_Wrapper.m_UI_Quests;
         public InputAction @Calender => m_Wrapper.m_UI_Calender;
         public InputAction @CloseMenu => m_Wrapper.m_UI_CloseMenu;
+        public InputAction @Next => m_Wrapper.m_UI_Next;
+        public InputAction @Previous => m_Wrapper.m_UI_Previous;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -334,6 +391,12 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @CloseMenu.started += instance.OnCloseMenu;
             @CloseMenu.performed += instance.OnCloseMenu;
             @CloseMenu.canceled += instance.OnCloseMenu;
+            @Next.started += instance.OnNext;
+            @Next.performed += instance.OnNext;
+            @Next.canceled += instance.OnNext;
+            @Previous.started += instance.OnPrevious;
+            @Previous.performed += instance.OnPrevious;
+            @Previous.canceled += instance.OnPrevious;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -362,6 +425,12 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @CloseMenu.started -= instance.OnCloseMenu;
             @CloseMenu.performed -= instance.OnCloseMenu;
             @CloseMenu.canceled -= instance.OnCloseMenu;
+            @Next.started -= instance.OnNext;
+            @Next.performed -= instance.OnNext;
+            @Next.canceled -= instance.OnNext;
+            @Previous.started -= instance.OnPrevious;
+            @Previous.performed -= instance.OnPrevious;
+            @Previous.canceled -= instance.OnPrevious;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -389,5 +458,7 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         void OnQuests(InputAction.CallbackContext context);
         void OnCalender(InputAction.CallbackContext context);
         void OnCloseMenu(InputAction.CallbackContext context);
+        void OnNext(InputAction.CallbackContext context);
+        void OnPrevious(InputAction.CallbackContext context);
     }
 }
