@@ -5,18 +5,42 @@ using System;
 
 public class UIInventoryItem : MonoBehaviour
 {
+    [SerializeField] private bool isEmpty;
     [SerializeField] private Image image;
     [SerializeField] private ItemInstance item;
     [SerializeField] private GameObject borderIcon;
-
-    public void Setup(ItemInstance data)
+    
+    public void Setup(ItemInstance data = null, bool isEmpty = true)
     {
+        Button button = GetComponent<Button>();
+        Navigation nav = button.navigation;
+        
+        this.isEmpty = isEmpty;
+        if (isEmpty)
+        {
+            item = null;
+            image.color = new Color(1, 1, 1, 0);
+            button.interactable = false;
+            
+            nav.mode = Navigation.Mode.None;
+            button.navigation = nav;
+            return;
+        }
         item = data;
+        image.color = new Color(1, 1, 1, 1);
+        button.interactable = true;
+        nav.mode = Navigation.Mode.Automatic;
+        button.navigation = nav;
         image.sprite = data.ItemData.sprite;
     }
 
     public void OnClick()
     {
+        if (isEmpty)
+        {
+            return;
+        }
+        
         if (UITideUpBoxManager.Instance.IsOpen)
         {
             return;
@@ -42,6 +66,11 @@ public class UIInventoryItem : MonoBehaviour
 
     public void OnSelect()
     {
+        if (isEmpty)
+        {
+            return;
+        }
+        
         if (UITideUpBoxManager.Instance.IsOpen)
         {
             borderIcon.SetActive(!borderIcon.activeInHierarchy);
@@ -64,6 +93,11 @@ public class UIInventoryItem : MonoBehaviour
 
     public void OnDeselect()
     {
+        if (isEmpty)
+        {
+            return;
+        }
+        
         if (UITideUpBoxManager.Instance.IsOpen)
         {
             borderIcon.SetActive(!borderIcon.activeInHierarchy);

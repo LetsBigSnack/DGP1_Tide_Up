@@ -107,6 +107,7 @@ public class MenuController : MonoBehaviour
 
     private void ShowInventory(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         if (!CanMenuBeOpen())
         {
             if (UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed && GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter)
@@ -131,6 +132,7 @@ public class MenuController : MonoBehaviour
 
     private void ShowMap(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         if (!CanMenuBeOpen())
         {
             return;
@@ -148,6 +150,7 @@ public class MenuController : MonoBehaviour
 
     private void ShowRecipes(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         if (!CanMenuBeOpen())
         {
             if (UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Closed && GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter)
@@ -172,6 +175,7 @@ public class MenuController : MonoBehaviour
 
     private void ShowFriends(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         if (!CanMenuBeOpen())
         {
             return;
@@ -189,6 +193,7 @@ public class MenuController : MonoBehaviour
 
     private void ShowQuests(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         if (!CanMenuBeOpen())
         {
             return;
@@ -206,6 +211,7 @@ public class MenuController : MonoBehaviour
 
     private void ShowCalender(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         if (!CanMenuBeOpen())
         {
             return;
@@ -238,6 +244,7 @@ public class MenuController : MonoBehaviour
     
     private void ToggleMenuItem(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         if (GameStateManager.Instance.GetGameState() != GameStates.InMenu)
         {
             return;
@@ -252,6 +259,7 @@ public class MenuController : MonoBehaviour
 
     private void HandleEscape(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
         var currentState = GameStateManager.Instance.GetGameState();
 
         if (currentState == GameStates.PlayingCharacter || currentState == GameStates.Paused || currentState == GameStates.PlayingBoat)
