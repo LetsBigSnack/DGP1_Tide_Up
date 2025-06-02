@@ -63,7 +63,6 @@ public class UIJournalManager : MonoBehaviour
 
     public void SwitchState(JournalType state)
     {
-        KMS_Test.Instance.ClearSHIT();
         if(currentOpenType == state)
         {
             return;

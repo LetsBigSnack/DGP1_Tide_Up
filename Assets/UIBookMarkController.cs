@@ -121,7 +121,18 @@ public class UIBookMarkController : MonoBehaviour
     {
         if (currentBookmark.IsRight)
         {
+            if (!currentBookmark.Next)
+            {
+                SoundManager.Instance.PlaySFX("Error");
+                return;
+            }
             currentBookmark.Next.OnClick();
+            return;
+        }
+
+        if (!currentBookmark.Previous)
+        {
+            SoundManager.Instance.PlaySFX("Error");
             return;
         }
         currentBookmark.Previous.OnClick();
@@ -131,7 +142,17 @@ public class UIBookMarkController : MonoBehaviour
     {
         if (currentBookmark.IsRight)
         {
+            if (!currentBookmark.Previous)
+            {
+                SoundManager.Instance.PlaySFX("Error");
+                return;
+            }
             currentBookmark.Previous.OnClick();
+            return;
+        }
+        if (!currentBookmark.Next)
+        {
+            SoundManager.Instance.PlaySFX("Error");
             return;
         }
         currentBookmark.Next.OnClick();

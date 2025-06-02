@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
-using UnityEditor;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 
@@ -20,8 +17,7 @@ public class SAN_WO_HUAN
     {
         gameObject = obj;
         timeStamp = DateTime.Now.ToOADate();
-    }
-    
+    } 
 }
 
 
@@ -46,9 +42,11 @@ public class KMS_Test : EventSystem
         
         lastValidSelection = new List<SAN_WO_HUAN>();
     }
+
+    //TODO: Find a way to fucking fix this fucking piece of shit.
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public override void SetSelectedGameObject(GameObject selected, BaseEventData pointer)
+    public void SetSelectedGameObject(GameObject selected, BaseEventData pointer)
     {
         base.SetSelectedGameObject(selected, pointer);
 
@@ -59,7 +57,7 @@ public class KMS_Test : EventSystem
     }
     
     
-    public override void SetSelectedGameObject(GameObject selected)
+    public  void SetSelectedGameObject(GameObject selected)
     {
         base.SetSelectedGameObject(selected);
 

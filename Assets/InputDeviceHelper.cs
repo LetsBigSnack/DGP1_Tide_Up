@@ -32,6 +32,38 @@ public class InputDeviceHelper : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public bool IsController()
+    {
+        return _lastDevice != DeviceType.Mouse && _lastDevice != DeviceType.Keyboard;
+    }
+
+    public DeviceType GetLastDeviceType()
+    {
+        return _lastDevice;
+    }
+
+    private float analogNoiseThreshold = 0.5f;
+    public void NotifyDevice(InputControl control)
+    {
+        if (control == null || control.device == null)
+            return;
+
+        // Skip small analog input noise
+        if (control.device is Gamepad)
+        {
+            float value = control.ReadValueAsObject() switch
+            {
+                float f => Mathf.Abs(f),
+                Vector2 v => v.magnitude,
+                _ => 0f
+            };
+
+            if (value < analogNoiseThreshold)
+                return;
+        }
+
+        NotifyDevice(control.device); // Delegate to the original
+    }
 
     public void NotifyDevice(InputDevice device)
     {

@@ -1,17 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIEventHandlerSetFirstItem : MonoBehaviour
 {
     private void OnEnable()
     {
-        UIEventSystemHelper.Instance.SetFirstSelectedItem(gameObject);
-    }
-
-    private void Update()
-    {
-        if (UIEventSystemHelper.Instance.EventSystemObj.currentSelectedGameObject == null && UIEventSystemHelper.Instance.EventSystemObj.lastValidSelection.Count <= 0)
+        if(InputDeviceHelper.Instance.IsController() && gameObject.GetComponent<Selectable>().navigation.mode != Navigation.Mode.None)
         {
             UIEventSystemHelper.Instance.SetFirstSelectedItem(gameObject);
-        }
+        } 
     }
 }

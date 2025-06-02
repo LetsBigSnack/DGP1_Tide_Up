@@ -80,6 +80,11 @@ public class UIInventoryHelper : MonoBehaviour
             if (!items[i].ItemData.title.Contains("Tutorial"))
             {
                 _currentItems[i].Setup(items[i], false);
+
+                if(i == 0)
+                {
+                    UIEventSystemHelper.Instance.SetFirstSelectedItem(_currentItems[i].gameObject);
+                }
             }
         }
 
@@ -87,6 +92,8 @@ public class UIInventoryHelper : MonoBehaviour
         {
             _currentItems[i].Setup();
         }
+
+
         
     }
     

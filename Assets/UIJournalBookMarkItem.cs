@@ -59,6 +59,34 @@ public class UIJournalBookMarkItem : MonoBehaviour
         Setup();
     }
 
+    private void OnEnable()
+    {
+        _button = GetComponentInChildren<Button>();
+        SetButtonNavigation(InputDeviceHelper.Instance.GetLastDeviceType());
+        InputDeviceHelper.OnDeviceChange += SetButtonNavigation;
+    }
+
+    private void OnDisable()
+    {
+        InputDeviceHelper.OnDeviceChange -= SetButtonNavigation;
+    }
+
+    private void SetButtonNavigation(DeviceType type)
+    {
+        Navigation nav = _button.navigation;
+
+        if (type != DeviceType.Keyboard && type != DeviceType.Mouse)
+        {
+            _button.interactable = false;
+            nav.mode = Navigation.Mode.None;
+            _button.navigation = nav;
+            return;
+        }
+        _button.interactable = true;
+        nav.mode = Navigation.Mode.Automatic;
+        _button.navigation = nav;
+    }
+
     public void OnClick()
     {
         UIJournalManager.Instance.SwitchState(type);
@@ -122,20 +150,14 @@ public class UIJournalBookMarkItem : MonoBehaviour
 
     public void RaiseItem()
     {
-        Navigation nav = _button.navigation;
         if (ShouldBeRaised())
         {
             anim.SetBool("raised", true);
-            _button.interactable = false;
-            nav.mode = Navigation.Mode.None;
-            _button.navigation = nav;
+            
             UIBookMarkController.Instance.SetCurrentBookMark(this);
             return;
         }
         anim.SetBool("raised", false);
-        _button.interactable = true;
-        nav.mode = Navigation.Mode.Automatic;
-        _button.navigation = nav;
     }
 
     private bool ShouldBeRaised()
