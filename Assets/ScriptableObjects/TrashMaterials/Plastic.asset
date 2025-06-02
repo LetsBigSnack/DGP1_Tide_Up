@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   trashHints:
-  - 'Some people are so careless when walking through the forest... *they just leave
-    their stuff lying around. '
-  - "Do you think people leave things in the forest for composting? Don\u2019t they
-    know these things can take up to 450 years to decompose?% "
-  - 'Some people drive by in their boats sometimes... % I think I saw them throw
-    something overboard. What a shame. '
-  - "I hope the seagulls don\u2019t try to eat that- they sometimes mistake it for
-    crabs.* "
-  - 'Once you start spotting them, you can''t stop. They are like weeds -everywhere.. '
-  - 'This does not belong in nature, but now I see it everywhere.... '
+  - 'some people are so careless when walking through the village...They just leave
+    this material lying around. But maybe you can use it as well?  '
+  - 'some people drive by in their boats sometimes... I think I saw them throw this
+    material overboard. What a shame. But I think this material could be a good addition
+    to the mix! '
+  - "I saw some seagulls trying to snack on something before \u2013 Thankfully they
+    spit it out \u2013 I think they mistook it for crabs. Well, it would not hurt
+    to tidy up the place, and maybe you can use the material as well?  "
+  - 'You know the kind of stuff people often use for packaging? I think I saw some
+    lying around on the beach yesterday. It might be worth grabbing as well. '
   materialName: Plastic
   sprite: {fileID: 21300000, guid: 267135db0da8a7a40a1eff1f2bde1970, type: 3}

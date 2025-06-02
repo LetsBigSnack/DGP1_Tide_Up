@@ -14,12 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   trashHints:
-  - 'I think someone tried to build a fireplace on the beach-a bad idea. Everything
-    is so dry here, but I am sure there must be some branches left over. '
-  - 'I think this sometimes gets washed up on the beach. I always wonder... +where
-    did it come from?  '
-  - 'Storms usually bring some in.. I saw some big ones last week buried in the sand. '
-  - 'I like to collect them- some of them look so cool!$ I usually find them near
-    water. '
+  - "I think someone tried to build a fireplace on the beach \u2013 a bad idea. Everything
+    is so dry here, but I am sure there must be some branches left over. I think
+    you could add some of them to make the item! "
+  - 'I saw that sometimes stuff gets washed up on the beach after a tide. Maybe toss
+    some of that into the mix too? Couldn''t hurt. '
+  - "storms usually bring marine wrack in... I saw some big one\u2019s last week
+    buried in the sand. If you find some, you could add them to the mix? "
+  - 'I like to collect these sometimes- some of them look so cool! I heard you can
+    even use them for sculptures or decorative furniture. Usually, you can find them
+    near the beach. I think you may need to add something like these as well. '
   materialName: Wood
   sprite: {fileID: 21300000, guid: ff010acf52f556b42aa0519704555d01, type: 3}
