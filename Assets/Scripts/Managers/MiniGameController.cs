@@ -92,7 +92,7 @@ public class MiniGameController : MonoBehaviour
     
     private void Interact(InputAction.CallbackContext value)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         if (_onInteract != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
         {
             _onInteract.Invoke();
@@ -101,7 +101,7 @@ public class MiniGameController : MonoBehaviour
     
     private void PerformMoveLeft(InputAction.CallbackContext value)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         if (_onMoveLeft != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
         {
             _onMoveLeft.Invoke(true);
@@ -110,7 +110,7 @@ public class MiniGameController : MonoBehaviour
     
     private void CancelMoveLeft(InputAction.CallbackContext value)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         if (_onMoveLeft != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
         {
             _onMoveLeft.Invoke(false);
@@ -119,7 +119,7 @@ public class MiniGameController : MonoBehaviour
 
     private void PerformMoveRight(InputAction.CallbackContext value)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         if (_onMoveRight != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
         {
             _onMoveRight.Invoke(true);
@@ -128,7 +128,7 @@ public class MiniGameController : MonoBehaviour
     
     private void CancelMoveRight(InputAction.CallbackContext value)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(value.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         if (_onMoveRight != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
         {
             _onMoveRight.Invoke(false);

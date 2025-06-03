@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.InputSystem.Controls;
 
 public enum DeviceType
 {
@@ -17,6 +17,7 @@ public class InputDeviceHelper : MonoBehaviour
     public static InputDeviceHelper Instance { get; private set; }
     [SerializeField] DeviceType _lastDevice = DeviceType.Keyboard;
     [SerializeField] private DateTime _lastUseTime = DateTime.MinValue;
+    [SerializeField] private float analogNoiseThreshold = 0.5f;
 
     public static Action<DeviceType> OnDeviceChange;
     
@@ -42,40 +43,42 @@ public class InputDeviceHelper : MonoBehaviour
         return _lastDevice;
     }
 
-    private float analogNoiseThreshold = 0.5f;
-    public void NotifyDevice(InputControl control)
+    public void NotifyDevice(InputDevice device, InputControl control)
     {
-        if (control == null || control.device == null)
-            return;
+        Debug.Log(device + " " + control);
 
-        // Skip small analog input noise
-        if (control.device is Gamepad)
+        if (device is Gamepad)
         {
-            float value = control.ReadValueAsObject() switch
+            // 2. Filter axis inputs (e.g., triggers)
+            if (control is AxisControl axis)
             {
-                float f => Mathf.Abs(f),
-                Vector2 v => v.magnitude,
-                _ => 0f
-            };
+                float value = Mathf.Abs(axis.ReadValue());
+                Debug.Log($"[Input] AxisControl '{control.name}' = {value}");
 
-            if (value < analogNoiseThreshold)
-                return;
+                if (value < analogNoiseThreshold)
+                    return;
+            }
+
+            if (control is Vector2Control vector2)
+            {
+                float mag = vector2.ReadValue().magnitude;
+                Debug.Log($"[Input] Vector2Control '{control.name}' = {mag}");
+
+                if (mag < analogNoiseThreshold)
+                    return;
+            }
         }
 
-        NotifyDevice(control.device); // Delegate to the original
-    }
-
-    public void NotifyDevice(InputDevice device)
-    {
         DeviceType type = GetDeviceType(device);
         _lastUseTime = DateTime.UtcNow;
         if (type != _lastDevice)
         {
+            Debug.Log(device);
             _lastDevice = type;
             OnDeviceChange?.Invoke(type);
         }
     }
-    
+
     private DeviceType GetDeviceType(InputDevice device)
     {
         if (device == null)

@@ -35,26 +35,26 @@ public class UIInputHelper : MonoBehaviour
 
     private void OnUINavigated(InputAction.CallbackContext ctx)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device, ctx.control);
     }
 
     private void OnUISubmitted(InputAction.CallbackContext ctx)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device, ctx.control);
     }
 
     private void OnUICanceled(InputAction.CallbackContext ctx)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device, ctx.control);
     }
 
     private void OnUIPointed(InputAction.CallbackContext ctx)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device, ctx.control);
     }
 
     private void OnUIClicked(InputAction.CallbackContext ctx)
     {
-        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device);
+        InputDeviceHelper.Instance?.NotifyDevice(ctx.control.device, ctx.control);
     }
 }

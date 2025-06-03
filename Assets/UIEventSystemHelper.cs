@@ -107,7 +107,7 @@ public class UIEventSystemHelper : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(eventsystem.currentSelectedGameObject != null && currentSelectedObj != eventsystem.currentSelectedGameObject)
+        if(eventsystem.currentSelectedGameObject != null && currentSelectedObj != eventsystem.currentSelectedGameObject && InputDeviceHelper.Instance.IsController())
         {
             currentSelectedObj = eventsystem.currentSelectedGameObject;
             eventsystem.SetSelectedGameObject(currentSelectedObj);
@@ -116,7 +116,7 @@ public class UIEventSystemHelper : MonoBehaviour
         }
         else
         {
-            if(eventsystem.currentSelectedGameObject == null)
+            if(eventsystem.currentSelectedGameObject == null && InputDeviceHelper.Instance.IsController())
             {
                 UpdateValidSelection();
                 eventsystem.SetSelectedGameObject(lastValidSelection);
