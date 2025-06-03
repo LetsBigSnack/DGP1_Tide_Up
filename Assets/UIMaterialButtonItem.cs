@@ -24,10 +24,15 @@ public class UIMaterialButtonItem : MonoBehaviour
             Navigation nav = _button.navigation;
             nav.mode = Navigation.Mode.Automatic;
             _button.navigation = nav;
-        }
 
+            if (InputDeviceHelper.Instance.IsController() && InventoryManager.Instance.Items.Count <= 0 && this.type == TrashMaterialType.Glass && UIEventSystemHelper.Instance.EventSystemObj != gameObject)
+            {
+                UIEventSystemHelper.Instance.SetFirstSelectedItem(gameObject);
+            }
+        }
         circle.SetActive(false);
     }
+
     public void OnClick()
     {
         if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Recycler)

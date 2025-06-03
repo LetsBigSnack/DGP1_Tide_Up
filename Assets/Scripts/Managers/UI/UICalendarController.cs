@@ -99,6 +99,7 @@ public class UICalendarController : UIJournalSubMenu
             newDayItem.GetComponent<UIMonthDayItem>().Setup(displayedDay);
             if (displayedDay == currentDay)
             {
+                UIEventSystemHelper.Instance.SetFirstSelectedItem(newDayItem);
                 UIMonthDayItem currUIMonthDayItem = newDayItem.GetComponent<UIMonthDayItem>();
                 UICalendarDescriptionHelper.Instance?.SetGameObjectAsSelected(currUIMonthDayItem);
             }

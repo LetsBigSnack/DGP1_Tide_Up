@@ -29,6 +29,16 @@ public class UIMonthDayItem : MonoBehaviour
         selectCircle.SetActive(!selectCircle.activeInHierarchy);
     }
 
+    public void OnSelected()
+    {
+        if (!InputDeviceHelper.Instance.IsController())
+        {
+            return;
+        }
+        UICalendarDescriptionHelper.Instance.Setup(weekDay, dayNumInSeason, _birthdaysOnThisDay);
+        UICalendarDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+    }
+
     public void Setup(int number)
     {
         charBirthday.gameObject.SetActive(false);
@@ -97,8 +107,5 @@ public class UIMonthDayItem : MonoBehaviour
                 }
             }
         }
-
-        //TODO: add and create events
-
     }
 }

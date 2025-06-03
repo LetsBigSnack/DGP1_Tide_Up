@@ -20,8 +20,6 @@ public class UIItemDetailsHelper : MonoBehaviour
     [SerializeField] private GameObject materialPrefab;
     [SerializeField] private GameObject emptyPrefab;
 
-    private UIInventoryItem _currentSelectedItem;
-
     private List<GameObject> _trashMaterial = new List<GameObject>();
 
     private void Awake()
@@ -44,7 +42,6 @@ public class UIItemDetailsHelper : MonoBehaviour
     private void OnDisable()
     {
         RemoveMaterialIcons();
-        _currentSelectedItem = null;
         ResetDescription();
     }
 
@@ -63,25 +60,6 @@ public class UIItemDetailsHelper : MonoBehaviour
         this.titel.text = "";
         this.description.text = "Nothing is selected.";
         this.image.sprite = baseSprite;
-    }
-
-    public void SetGameObjectAsSelected(UIInventoryItem item)
-    {
-        if(_currentSelectedItem == item)
-        {
-            return;
-        }
-
-        if(_currentSelectedItem == null)
-        {
-            _currentSelectedItem = item;
-            item.ToggleIcon();
-            return;
-        }
-
-        _currentSelectedItem.ToggleIcon();
-        _currentSelectedItem = item;
-        _currentSelectedItem.ToggleIcon();
     }
 
     private void CreateMaterialIcons(List<TrashMaterialData> trash)

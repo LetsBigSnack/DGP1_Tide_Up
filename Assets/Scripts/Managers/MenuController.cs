@@ -53,7 +53,6 @@ public class MenuController : MonoBehaviour
     private void OnDisable()
     {
         _menuInputs.UI.Disable();
-
    
         //Inventory
         _menuInputs.UI.Inventory.Disable();
@@ -286,11 +285,11 @@ public class MenuController : MonoBehaviour
 
     private void NextBookMark(InputAction.CallbackContext value)
     {
-        UIBookMarkController.Instance.NextBookMark();
+        UIBookMarkController.Instance.NextBookmark();
     }
 
     private void PreviousBookMark(InputAction.CallbackContext value)
     {
-        UIBookMarkController.Instance.PreviousBookMark();
+        UIBookMarkController.Instance.PreviousBookmark();  
     }
 }

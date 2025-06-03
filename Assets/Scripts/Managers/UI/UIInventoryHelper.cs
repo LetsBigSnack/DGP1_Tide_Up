@@ -30,10 +30,25 @@ public class UIInventoryHelper : MonoBehaviour
 
     private List<UIInventoryItem> _currentItems = new List<UIInventoryItem>();
     private List<GameObject> _emptyItems = new List<GameObject>();
-    
+
+    private UIInventoryItem _currentSelectedItem;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnEnable()
     {
         CreateInventoryObjects();
+        _currentSelectedItem = null;
         UpdateInventory(InventoryManager.Instance.Items);
         InventoryManager.OnInventoryChanged += UpdateInventory;
     }
@@ -92,10 +107,33 @@ public class UIInventoryHelper : MonoBehaviour
         {
             _currentItems[i].Setup();
         }
-
-
-        
     }
-    
-    
+    public void SetGameObjectAsSelected(UIInventoryItem item)
+    {
+        if(item == null)
+        {
+            return;
+        }
+
+        if (item.IsEmpty())
+        {
+            return;
+        }
+
+        if (_currentSelectedItem == item)
+        {
+            return;
+        }
+
+        if (_currentSelectedItem == null)
+        {
+            _currentSelectedItem = item;
+            item.ToggleIcon();
+            return;
+        }
+
+        _currentSelectedItem.ToggleIcon();
+        _currentSelectedItem = item;
+        _currentSelectedItem.ToggleIcon();
+    }
 }

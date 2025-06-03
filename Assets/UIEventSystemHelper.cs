@@ -32,7 +32,7 @@ public class UIEventSystemHelper : MonoBehaviour
 
     public void ClearLastValidButtons(GameStates state)
     {
-        if(state == GameStates.PlayingCharacter)
+        if (state == GameStates.PlayingCharacter)
         {
             _lastValidSelections.Clear();
         }
@@ -40,7 +40,7 @@ public class UIEventSystemHelper : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -71,22 +71,23 @@ public class UIEventSystemHelper : MonoBehaviour
 
         eventsystem.firstSelectedGameObject = gameObject;
 
-        Button buttonInChildren = gameObject.GetComponentInChildren<Button>();
+        if (gameObject == null)
+        {
+            yield break;
+        }
+
+        Button buttonInChildren = gameObject?.GetComponentInChildren<Button>();
         if (buttonInChildren)
         {
             buttonInChildren.Select();
+            yield break;
         }
 
-        Button buttonInParent = gameObject.GetComponent<Button>();
-        if (buttonInParent)
-        {
-            buttonInParent.Select();
-        }
-
-        Slider slider = gameObject.GetComponent<Slider>();
+        Slider slider = gameObject?.GetComponent<Slider>();
         if (slider)
         {
             slider.Select();
+            yield break;
         }
     }
 
@@ -95,30 +96,62 @@ public class UIEventSystemHelper : MonoBehaviour
         return lastValidSelection != null;
     }
 
-    public void SetLastValidSelection()
-    {
-        lastValidSelection = _lastValidSelections.Where(s => s != null && s != currentSelectedObj).FirstOrDefault();
-    }
-
     public void UpdateValidSelection()
     {
-        _lastValidSelections = _lastValidSelections.Where(s => s != null).ToList();
+        _lastValidSelections = _lastValidSelections
+            .Where(s => s != null && s.GetComponent<Selectable>()?.interactable == true)
+            .Distinct()
+            .ToList();
     }
 
-    private void FixedUpdate()
+    public void SetLastValidSelection()
     {
-        if(eventsystem.currentSelectedGameObject != null && currentSelectedObj != eventsystem.currentSelectedGameObject && InputDeviceHelper.Instance.IsController())
+        lastValidSelection = _lastValidSelections
+            .Where(s => s != null && s != currentSelectedObj)
+            .FirstOrDefault();
+    }
+
+    public void ForceLastValidSelection(GameObject gameObject)
+    {
+        lastValidSelection = gameObject;
+    }
+
+    private void LateUpdate()
+    {
+        if (!InputDeviceHelper.Instance.IsController())
+            return;
+
+        GameObject selected = eventsystem.currentSelectedGameObject;
+
+        // Case 1: Controller selected object is not interactable
+        if (selected != null && !selected.GetComponent<Selectable>().interactable)
         {
-            currentSelectedObj = eventsystem.currentSelectedGameObject;
-            eventsystem.SetSelectedGameObject(currentSelectedObj);
-            _lastValidSelections.Add(currentSelectedObj);
-            SetLastValidSelection(); 
-        }
-        else
-        {
-            if(eventsystem.currentSelectedGameObject == null && InputDeviceHelper.Instance.IsController())
+            UpdateValidSelection();
+            if (LastValidSelectionExists())
             {
-                UpdateValidSelection();
+                eventsystem.SetSelectedGameObject(lastValidSelection);
+            }
+        }
+
+        // Case 2: Selection changed
+        else if (selected != null && selected != currentSelectedObj)
+        {
+            currentSelectedObj = selected;
+
+            if (!_lastValidSelections.Contains(currentSelectedObj) && currentSelectedObj.GetComponent<Selectable>()?.interactable == true)
+            {
+                _lastValidSelections.Add(currentSelectedObj);
+            }
+
+            SetLastValidSelection();
+        }
+
+        // Case 3: Nothing selected, but should be
+        else if (selected == null)
+        {
+            UpdateValidSelection();
+            if (LastValidSelectionExists())
+            {
                 eventsystem.SetSelectedGameObject(lastValidSelection);
             }
         }

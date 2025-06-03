@@ -117,7 +117,7 @@ public class UIBookMarkController : MonoBehaviour
         currentBookmark = bm;
     }
 
-    public void NextBookMark()
+    public void PreviousBookmark()
     {
         if (currentBookmark.IsRight)
         {
@@ -138,7 +138,7 @@ public class UIBookMarkController : MonoBehaviour
         currentBookmark.Previous.OnClick();
     }
 
-    public void PreviousBookMark()
+    public void NextBookmark()
     {
         if (currentBookmark.IsRight)
         {
