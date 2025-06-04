@@ -101,6 +101,10 @@ public class UIRecipeController : UIJournalSubMenu
                 GameObject newUpcyclerEntry = Instantiate(upcyclerPrefab, recipeParent);
                 newUpcyclerEntry.GetComponentInChildren<UIUpcyclerRecipeEntryItem>().Setup(q, _knownRecipies[q]);
                 curEntries.Add(newUpcyclerEntry);
+                if (curEntries.Count == 1)
+                {
+                    UIEventSystemHelper.Instance.SetFirstSelectedItem(newUpcyclerEntry);
+                }
             }
             return;
         }
@@ -114,6 +118,10 @@ public class UIRecipeController : UIJournalSubMenu
             GameObject newRecipeEntry = Instantiate(recipePrefab, recipeParent);
             newRecipeEntry.GetComponent<UIRecipeEntryItem>().Setup(q, _knownRecipies[q]);
             curEntries.Add(newRecipeEntry);
+            if (curEntries.Count == 1)
+            {
+                UIEventSystemHelper.Instance.SetFirstSelectedItem(newRecipeEntry);
+            }
 
             if (counter == 0)
             {

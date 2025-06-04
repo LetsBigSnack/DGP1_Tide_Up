@@ -44,6 +44,25 @@ public class UIRecipeEntryItem : MonoBehaviour
         }
     }
 
+    public void OnSelect()
+    {
+        UIRecipeDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+    }
+
+    public void OnSubmit()
+    {
+        if (_questItem == null || _knownRecipies == null)
+        {
+            return;
+        }
+
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
+        {
+            UIRecipeDescriptionHelper.Instance.Setup(_questItem, _knownRecipies);
+            UIRecipeDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+        }
+    }
+
     public void ToggleIcon()
     {
         selectCircle.SetActive(!selectCircle.activeInHierarchy);
