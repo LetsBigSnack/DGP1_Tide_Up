@@ -12,6 +12,13 @@ public class UIFadeScreenHelper : MonoBehaviour
     [SerializeField] private Image waitScreenBackground;
     [SerializeField] private GameObject waitScreenParent;
 
+    private bool _isFading = false;
+
+    public bool IsFading
+    {
+        get { return _isFading; }
+        set { _isFading = value; }
+    }
 
     public static UIFadeScreenHelper Instance;
 
@@ -39,6 +46,7 @@ public class UIFadeScreenHelper : MonoBehaviour
 
     private IEnumerator SceneTransitionEnd()
     {
+        _isFading = true;
         Color colorBg = SetBGColor(1f);
         slider.gameObject.SetActive(false);
         waitScreenLogo.gameObject.SetActive(false); 
@@ -56,11 +64,12 @@ public class UIFadeScreenHelper : MonoBehaviour
         }
 
         waitScreenParent.SetActive(false);
+        _isFading = false;
     }
 
     public IEnumerator SceneTransitionStart()
     {
-        GameStateManager.Instance.SetGameState(GameStates.SceneTransition);
+        _isFading = true;
         Color colorBg = SetBGColor(0f); 
 
         slider.gameObject.SetActive(false);
@@ -70,10 +79,10 @@ public class UIFadeScreenHelper : MonoBehaviour
 
         float elapsed = 0f;
 
-        while (elapsed < fadeOutDuration)
+        while (elapsed < fadeInDuration)
         {
             elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, 1f, elapsed / fadeOutDuration);
+            float alpha = Mathf.Lerp(0f, 1f, elapsed / fadeInDuration);
             colorBg.a = alpha;
             waitScreenBackground.color = colorBg;
             yield return null;

@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   trashHints:
-  - I think I saw something shiny buried in the sand.
-  - 'sometimes I look for cool shells on the beach and stumble upon weird shards... '
+  - 'I think I saw something shiny buried in the sand. This could be the last thing
+    you need! '
+  - 'sometimes I look for cool shells on the beach and stumble upon weird shards...
+    I think they would make a great last addition! '
   - "some tourists must have had a party near the mountain - I\u2019ve seen leftovers
-    of that there before. "
-  - 'you ever dig near the mountain rocks and hear a clink instead of a crunch? '
-  - kids used to play barefoot on the beach before, but now it's dangerous. They
-    might step on something sharp. *
+    of that material there before. It\u2019s such a shame that they trash this place...
+    I think you could add that material as well! "
+  - "you ever dig near the mountain rocks and hear a clink instead of a crunch? Silly
+    stuff\u2026 but could be a good addition to the recipe\u2026 "
+  - 'kids used to play barefoot on the beach before, but now it''s dangerous. They
+    might step on something sharp. Hey, you could collect some of these and add them
+    to the recipe! '
   materialName: Glass
   sprite: {fileID: 21300000, guid: f8890019003ca3846a5ab004dc39da52, type: 3}

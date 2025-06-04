@@ -80,8 +80,7 @@ public class LocationManager : MonoBehaviour
         }
         GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
 
-        yield return new WaitForSeconds(0.1f);
-        //TODO: Add sound
+        yield return new WaitForSeconds(0.3f);
         UI_ToastManager.Instance.SpawnToastMessage(ToastType.Environment, "Welcome to:", EnvironmentManager.Instance?.CurrentIsland.IslandName);
     }
 

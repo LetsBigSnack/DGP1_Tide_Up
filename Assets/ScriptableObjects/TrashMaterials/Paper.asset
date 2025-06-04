@@ -14,8 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   trashHints:
-  - "I saw something like that on my morning walk near the lake\u2026 I thought it
-    was a love letter, so I left it there. "
-  - 'Saw something in the forest. *Thought it was a treasure map at first. '
+  - "I saw something like that on my morning walk in the forest\u2026 I thought it
+    was a love letter, so I left it there. But if you find it again, you could add
+    it to the mix? "
+  - "I saw something in the forest. Thought it was a treasure map at first. It was
+    not\u2026 But you could use it to make the item! "
+  - "yesterday, I found a wanted poster in the city. Tried to pick it up to read
+    it, but it flew away\u2026 Maybe it\u2019s still around that place, and you can
+    also use it as a material? "
   materialName: Paper
   sprite: {fileID: 21300000, guid: 89bcf44b05f26c044a73b003f4837720, type: 3}

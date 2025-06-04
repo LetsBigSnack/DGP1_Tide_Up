@@ -11,7 +11,7 @@ public class DoorInteractable : Interactable
 
     public override void Interact()
     {
-        if (GameStateManager.Instance.GetGameState() == GameStates.PlayingCharacter)
+        if (GameStateManager.Instance.GetGameState() == GameStates.PlayingCharacter && !UIFadeScreenHelper.Instance.IsFading)
         {
             LocationManager.Instance.TravelToScene(scene);
             SoundManager.Instance.PlaySFX("Door");
