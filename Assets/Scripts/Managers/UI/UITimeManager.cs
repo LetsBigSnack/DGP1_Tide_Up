@@ -85,7 +85,7 @@ public class UITimeManager : MonoBehaviour
         timeChangeButton.SetActive(false);
         TimeManager.Instance.ToggleTime();
         GameStateManager.Instance.PauseGame();
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        GameStateManager.Instance.SetGameState(GameStates.TimeChange);
 
         _preChangeTime = TimeManager.Instance.CurrentTimeInHours;
         _preChangeDay = TimeManager.Instance.CurrentDay;
