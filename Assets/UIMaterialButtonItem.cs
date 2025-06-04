@@ -53,4 +53,25 @@ public class UIMaterialButtonItem : MonoBehaviour
 
         SoundManager.Instance.PlaySFX("Click");
     }
+
+    public void OnSubmit()
+    {
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Recycler)
+        {
+            UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Upcycler);
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Switched to upcycler!");
+            return;
+        }
+
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Upcycler)
+        {
+            TrashMaterialEntry currentData = InventoryManager.Instance.GetWallet().Where(t => t.TrashMaterialData.type == type).FirstOrDefault();
+            if (currentData.Amount > 0)
+            {
+                UIUpcyclerController.Instance.AddMaterial(currentData.TrashMaterialData);
+            }
+        }
+
+        SoundManager.Instance.PlaySFX("Click");
+    }
 }

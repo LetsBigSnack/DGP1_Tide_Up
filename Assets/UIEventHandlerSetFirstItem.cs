@@ -7,6 +7,7 @@ public class UIEventHandlerSetFirstItem : MonoBehaviour
     {
         if(InputDeviceHelper.Instance.IsController() && gameObject.GetComponent<Selectable>().navigation.mode != Navigation.Mode.None)
         {
+            UIEventSystemHelper.Instance.EventSystemObj.SetSelectedGameObject(null);
             UIEventSystemHelper.Instance.SetFirstSelectedItem(gameObject);
             UIEventSystemHelper.Instance.ForceLastValidSelection(gameObject);
         } 

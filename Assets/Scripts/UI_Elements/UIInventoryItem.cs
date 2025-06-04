@@ -65,6 +65,7 @@ public class UIInventoryItem : MonoBehaviour
             && curShopState == ShopType.Closed)
         {
             UIRecyclerController.Instance.AddItem(item);
+            UIInventoryHelper.Instance.SetGameObjectAsSelected(this);
         }
 
         if (curJournalState == JournalType.Inventory && curReUpcyclerState == ReUpcyclerType.Upcycler && curShopState == ShopType.Closed)

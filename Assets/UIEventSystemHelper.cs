@@ -13,6 +13,7 @@ public class UIEventSystemHelper : MonoBehaviour
     [SerializeField] private GameObject currentSelectedObj;
     [SerializeField] private GameObject lastValidSelection;
     [SerializeField] private int maxStorage;
+    [SerializeField] private float delayFirstInput = 0.25f;
     private List<GameObject> _lastValidSelections = new List<GameObject>();
     public EventSystem EventSystemObj
     {
@@ -67,7 +68,7 @@ public class UIEventSystemHelper : MonoBehaviour
 
     public IEnumerator FirstFrameDelay(GameObject gameObject)
     {
-        yield return null;
+        yield return new WaitForSeconds(delayFirstInput);
 
         eventsystem.firstSelectedGameObject = gameObject;
 

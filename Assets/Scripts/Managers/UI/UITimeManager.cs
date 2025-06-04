@@ -150,6 +150,14 @@ public class UITimeManager : MonoBehaviour
         return timeChangeContainer.activeInHierarchy;
     }
 
+    public void SetAsFirstSelectedItem()
+    {
+        if(InventoryManager.Instance.Items.Count <= 0)
+        {
+            UIEventSystemHelper.Instance.SetFirstSelectedItem(timeChangeButton);
+        }
+    }
+
     public void SubmitTimeChange()
     {
         if(timeSlider.value <= 0)
