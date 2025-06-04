@@ -78,6 +78,29 @@ public class UIPlayerUpgradesController : UIShopSubMenu
         AddRequirements();
     }
 
+    public void SwitchBetweenUpgrades(Upgrade upgrade)
+    {
+        foreach (GameObject o in _currentRequirements)
+        {
+            Destroy(o);
+        }
+        _currentRequirements.Clear();
+
+        AddRequirements();
+
+        currentUpgrade = upgrade;
+        //upgradeImage.sprite = upgrade.sprite;
+        upgradeDescription.text = upgrade.description;
+        if (!upgrade.CanUpgrade() || upgrade.isUnlocked)
+        {
+            buttonImage.color = new Color(buttonImage.color.r, buttonImage.color.g, buttonImage.color.b, 0.5f);
+        }
+        else
+        {
+            buttonImage.color = new Color(buttonImage.color.r, buttonImage.color.g, buttonImage.color.b, 1f);
+        }
+    }
+
     private void AddLevels()
     {
         if (_currentLevels.Count > 0)
@@ -97,6 +120,11 @@ public class UIPlayerUpgradesController : UIShopSubMenu
             GameObject newLevel = Instantiate(levelPrefab, levelParent);
             newLevel.GetComponent<UIShopLevelItem>().Setup(upgrade);
             _currentLevels.Add(newLevel);
+
+            if(_currentLevels.Count == 1)
+            {
+                UIEventSystemHelper.Instance.SetFirstSelectedItem(newLevel);
+            }
         }
     }
 

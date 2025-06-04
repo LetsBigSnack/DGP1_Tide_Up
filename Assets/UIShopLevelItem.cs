@@ -54,16 +54,16 @@ public class UIShopLevelItem : MonoBehaviour
         switch (type)
         {
             case UpgradeType.BoatSpeed:
-                UIBoatUpgradeController.Instance.SwitchUpgrade(currentUpgrade);
+                UIBoatUpgradeController.Instance.SwitchBetweenUpgrades(currentUpgrade);
                 break;
             case UpgradeType.Inventory:
-                UIPlayerUpgradesController.Instance.SwitchUpgrade(currentUpgrade);
+                UIPlayerUpgradesController.Instance.SwitchBetweenUpgrades(currentUpgrade);
                 break;
             case UpgradeType.OilClean:
-                UIBoatUpgradeController.Instance.SwitchUpgrade(currentUpgrade);
+                UIBoatUpgradeController.Instance.SwitchBetweenUpgrades(currentUpgrade);
                 break;
             case UpgradeType.WaterAccess:
-                UIBoatUpgradeController.Instance.SwitchUpgrade(currentUpgrade);
+                UIBoatUpgradeController.Instance.SwitchBetweenUpgrades(currentUpgrade);
                 break;
         }
     }

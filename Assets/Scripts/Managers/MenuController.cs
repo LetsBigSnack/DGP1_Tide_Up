@@ -285,11 +285,27 @@ public class MenuController : MonoBehaviour
 
     private void NextBookMark(InputAction.CallbackContext value)
     {
-        UIBookMarkController.Instance.NextBookmark();
+        if(UIJournalManager.Instance.GetCurrentState() != JournalType.Closed)
+        {
+            UIBookMarkController.Instance.NextBookmark();
+        }
+
+        if (UIShopManager.Instance.GetCurrentState() != ShopType.Closed)
+        {
+            UIShopManager.Instance.NextTab();
+        }
     }
 
     private void PreviousBookMark(InputAction.CallbackContext value)
     {
-        UIBookMarkController.Instance.PreviousBookmark();  
+        if (UIJournalManager.Instance.GetCurrentState() != JournalType.Closed)
+        {
+            UIBookMarkController.Instance.PreviousBookmark();
+        }
+
+        if(UIShopManager.Instance.GetCurrentState() != ShopType.Closed)
+        {
+            UIShopManager.Instance.PreviousTab();
+        }
     }
 }
