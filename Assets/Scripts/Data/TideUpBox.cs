@@ -9,6 +9,7 @@ public class TideUpBox : Interactable
     [SerializeField] private int maxTotalTrash = 12;
 
     [SerializeField] private int awarenessBoxMultiplier = 3;
+    [SerializeField] private int boxID;
 
     private bool _isInteractable = false;
 
@@ -26,6 +27,10 @@ public class TideUpBox : Interactable
     {
         get => awarenessBoxMultiplier;
         set => awarenessBoxMultiplier = value;
+    }
+    public int BoxID
+    {
+        get => boxID; 
     }
 
 

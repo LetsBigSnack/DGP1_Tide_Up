@@ -17,6 +17,8 @@ public class TideUpBoxManager : MonoBehaviour
     public bool _hasAddedItemsToday = false;
     public bool _waitingForDependencies = false;
 
+    private Dictionary<int, List<TrashItemInstance>> _boxInventories = new();
+
     public static TideUpBoxManager Instance;
 
     private void Awake()
@@ -41,6 +43,8 @@ public class TideUpBoxManager : MonoBehaviour
 
     private void OnDisable()
     {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
         TimeManager.OnTimeChanged -= HandleTimeChanged;
         TimeManager.OnDayChanged -= ResetItemsAddedToday;
     }
@@ -129,19 +133,54 @@ public class TideUpBoxManager : MonoBehaviour
         AddDailyItems();
     }
 
-    
-    
-    
 
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-    
-    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        allTideUpBoxes = new List<TideUpBox>();
         allTideUpBoxes = FindObjectsByType<TideUpBox>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList();
+
+        foreach (TideUpBox box in allTideUpBoxes)
+        {
+            if (box == null)
+            {
+                continue;
+            }
+
+            int boxID = box.BoxID;
+
+            if (_boxInventories.ContainsKey(boxID))
+            {
+                box.BoxInventory = new List<TrashItemInstance>(_boxInventories[boxID]);
+            }
+            else
+            {
+                List<TrashItemInstance> newList = new List<TrashItemInstance>();
+                box.BoxInventory = newList;
+                _boxInventories[boxID] = newList;
+            }
+
+            Debug.Log($"[Box Load] Box ID {boxID} loaded with {box.BoxInventory.Count} items.");
+        }
     }
-    
+
+    public void SaveBoxInventories()
+    {
+        List<TideUpBox> boxes = FindObjectsByType<TideUpBox>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList();
+
+        foreach (TideUpBox box in boxes)
+        {
+            if (box == null) continue;
+
+            int boxID = box.BoxID;
+            _boxInventories[boxID] = new List<TrashItemInstance>(box.BoxInventory);
+
+            Debug.Log($"[MANUAL SAVE] Box {boxID} saved with {_boxInventories[boxID].Count} items.");
+        }
+    }
+
+
 }
