@@ -27,7 +27,6 @@ public class UIMiniGameManager : MonoBehaviour
     [SerializeField] private GameObject fishingButtons;
     [SerializeField] private GameObject digPickButton;
 
-
     private bool _isRunning;
     private float _horLastGoalPct;
     private float _verLastGoalPct;

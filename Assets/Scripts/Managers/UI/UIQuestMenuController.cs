@@ -67,6 +67,7 @@ public class UIQuestMenuController : UIJournalSubMenu
                 counter = 1;
                 UIQuestItem questItem = newQuestItem.GetComponent<UIQuestItem>();
                 UIQuestDescriptionHelper.Instance.SetGameObjectAsSelected(questItem);
+                UIEventSystemHelper.Instance.SetFirstSelectedItem(newQuestItem);
             }
         }
         foreach (Quest quest in _completedQuestEntries)
@@ -84,6 +85,7 @@ public class UIQuestMenuController : UIJournalSubMenu
                 counter = 1;
                 UIQuestItem questItem = newQuestItem.GetComponent<UIQuestItem>();
                 UIQuestDescriptionHelper.Instance.SetGameObjectAsSelected(questItem);
+                UIEventSystemHelper.Instance.SetFirstSelectedItem(newQuestItem);
             }
         }
         SelectFirstQuest();

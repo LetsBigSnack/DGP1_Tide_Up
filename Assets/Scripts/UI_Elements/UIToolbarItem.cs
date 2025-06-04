@@ -4,7 +4,7 @@ using TMPro;
 
 public class UIToolbarItem : MonoBehaviour
 {
-    [SerializeField] private string type;
+    [SerializeField] private DeviceType type;
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI keyText;
     [SerializeField] private TextMeshProUGUI labelText;
@@ -32,23 +32,37 @@ public class UIToolbarItem : MonoBehaviour
         return labelText.text.Contains(text);
     }
 
-    public void SetupButton(Sprite image = null, string label = null, string key = null, KeyType keyType = KeyType.Keyboard)
+    public void UpdateCurrentItem(DeviceType device)
+    {
+        type = device;
+        SetupButton(image.sprite, labelText.text, keyText.text, device);
+    }
+
+    public void SetupButton(Sprite image = null, string label = null, string key = null, DeviceType keyType = DeviceType.Keyboard)
     {
         switch (keyType)
         {
-            case KeyType.Keyboard:
-                this.image.enabled = false;
+            case DeviceType.Keyboard:
+                this.image.sprite = image;
                 this.keyText.text = key;
                 this.labelText.text = label;
                 break;
-            case KeyType.Xbox:
-                this.image.enabled = true;
+            case DeviceType.Mouse:
+                this.image.sprite = image;
+                this.keyText.text = key;
+                this.labelText.text = label;
+                break;
+            case DeviceType.Gamepad:
                 this.image.sprite = image;
                 this.keyText.text = "";
                 this.labelText.text = label;
                 break;
-            case KeyType.Playstation:
-                this.image.enabled = true;
+            case DeviceType.Xbox:
+                this.image.sprite = image;
+                this.keyText.text = "";
+                this.labelText.text = label;
+                break;
+            case DeviceType.PlayStation:
                 this.image.sprite = image;
                 this.keyText.text = "";
                 this.labelText.text = label;

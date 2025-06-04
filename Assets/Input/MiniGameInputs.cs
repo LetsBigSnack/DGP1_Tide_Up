@@ -112,7 +112,7 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7e51dd5a-f8dd-4b7b-b7a5-cf1bf0048259"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -134,7 +134,7 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""53c968d8-7e30-4f88-b88f-1c44fe6a7236"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

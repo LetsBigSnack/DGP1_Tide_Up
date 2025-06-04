@@ -37,13 +37,13 @@ public class ToolBarStateEntry
     private GameStates stateType;
 
     [SerializeField]
-    private KeyType keyType; 
+    private DeviceType keyType; 
 
     [SerializeField]
     private List<ButtonInputType> buttonTypes;
 
     public GameStates StateType { get { return stateType; } set { stateType = value; } }
-    public KeyType KeyType { get { return keyType; } set { keyType = value; } }
+    public DeviceType KeyType { get { return keyType; } set { keyType = value; } }
     public List<ButtonInputType> ButtonInputTypes { get { return buttonTypes; } set { buttonTypes = value; } }
 }
 
@@ -55,7 +55,7 @@ public class UIHUDManager : MonoBehaviour
     [SerializeField]
     private GameStates currentState;
     [SerializeField]
-    private KeyType currentKeyType;
+    private DeviceType currentKeyType;
 
     [Header("GameState_Toolbars")]
     [SerializeField] private List<ToolBarStateEntry> entries;
@@ -112,6 +112,7 @@ public class UIHUDManager : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += UpdateToolBar;
+        InputDeviceHelper.OnDeviceChange += UpdateToolBarByDevice;
         UIPauseMenuManager.OnTooltipToggleChange += ToggleToolbar;
         TimeManager.OnTimeChanged += UpdateDayNight;
         TimeManager.OnMonthChanged += UpdateSeason;
@@ -120,18 +121,34 @@ public class UIHUDManager : MonoBehaviour
     private void OnDisable()
     {
         GameStateManager.OnStateChanged -= UpdateToolBar;
+        InputDeviceHelper.OnDeviceChange -= UpdateToolBarByDevice;
+    }
+
+    public void UpdateToolBarByDevice(DeviceType type)
+    {
+        UpdateToolBar(GameStateManager.Instance.GetGameState());
     }
 
     public void UpdateToolBar(GameStates state)
     {
-        KeyType keyType = KeyType.Keyboard;
+        DeviceType keyType = InputDeviceHelper.Instance.GetLastDeviceType();
+
+
 
         if (currentState == state && currentKeyType == keyType)
         {
             return;
         }
         ClearButtons();
-        currentKeyType = keyType;
+        if(InputDeviceHelper.Instance.GetLastDeviceType() == DeviceType.Mouse)
+        {
+            currentKeyType = DeviceType.Keyboard;
+        }
+        else
+        {
+            currentKeyType = InputDeviceHelper.Instance.GetLastDeviceType();
+        }
+        
         currentState = state;
 
         if (TutorialManager.Instance != null)
@@ -173,31 +190,47 @@ public class UIHUDManager : MonoBehaviour
         }
     }
 
-    private void CreateToolBarButtonsFromList(GameStates state, KeyType keyType, List<ToolBarStateEntry> list)
+    private void CreateToolBarButtonsFromList(GameStates state, DeviceType keyType, List<ToolBarStateEntry> list)
     {
-        List<ButtonInputType> buttons = list.Find(t => t.StateType == state && t.KeyType == keyType)?.ButtonInputTypes;
+        if(keyType == DeviceType.Mouse)
+        {
+            return;
+        }
+
+        List<ButtonInputType> buttons = list.Find(t => t.StateType == state)?.ButtonInputTypes;
         if (buttons != null)
         {
             ToolBarSetting curSetting = buttonsEntry.Find(b => b.Type == keyType);
             foreach (ButtonInputType type in buttons)
             {
-                ButtonEntry newButtonEntry = curSetting.ButtonEntries.Find(buttonEntry => buttonEntry.Type == type);
-                GameObject newButton = Instantiate(toolBarItemPrefab, toolBarContainer);
-                newButton.GetComponent<UIToolbarItem>().SetupButton(newButtonEntry.Sprite ?? null, newButtonEntry.Type.ToString(), newButtonEntry.Key, keyType);
-                currentButtons.Add(newButton);
+                ButtonEntry newButtonEntry = curSetting?.ButtonEntries?.Find(buttonEntry => buttonEntry.Type == type);
+                if (!newButtonEntry.NotNeeded)
+                {
+                    GameObject newButton = Instantiate(toolBarItemPrefab, toolBarContainer);
+                    newButton.GetComponent<UIToolbarItem>().SetupButton(newButtonEntry.Sprite ?? null, newButtonEntry.Type.ToString(), newButtonEntry.Key, keyType);
+                    currentButtons.Add(newButton);
+                }
             }
         }
     }
 
-    private void CreateToolBarButtonsFromEntry(KeyType keyType, ToolBarStateEntry entry)
+    private void CreateToolBarButtonsFromEntry(DeviceType keyType, ToolBarStateEntry entry)
     {
+        if (keyType == DeviceType.Mouse)
+        {
+            return;
+        }
+
         ToolBarSetting curSetting = buttonsEntry.Find(b => b.Type == keyType);
         foreach (ButtonInputType type in entry.ButtonInputTypes)
         {
             ButtonEntry newButtonEntry = curSetting.ButtonEntries.Find(buttonEntry => buttonEntry.Type == type);
-            GameObject newButton = Instantiate(toolBarItemPrefab, toolBarContainer);
-            newButton.GetComponent<UIToolbarItem>().SetupButton(newButtonEntry.Sprite ?? null, newButtonEntry.Type.ToString(), newButtonEntry.Key, keyType);
-            currentButtons.Add(newButton);
+            if (!newButtonEntry.NotNeeded)
+            {
+                GameObject newButton = Instantiate(toolBarItemPrefab, toolBarContainer);
+                newButton.GetComponent<UIToolbarItem>().SetupButton(newButtonEntry.Sprite ?? null, newButtonEntry.Type.ToString(), newButtonEntry.Key, keyType);
+                currentButtons.Add(newButton);
+            }
         }
     }
 

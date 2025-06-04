@@ -10,78 +10,78 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89f48f3bf5a3fcd4da83bd31f682803c, type: 3}
-  m_Name: Keyboard
+  m_Name: XBOX
   m_EditorClassIdentifier: 
-  type: 0
+  type: 3
   journal:
     type: 9
     label: Journal
     key: I
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
+    sprite: {fileID: 21300000, guid: e5f0239347f73eb40ae09139d8ba1951, type: 3}
     notNeeded: 0
   toggleMove:
     type: 1
     label: Walk/Run
     key: LS
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
+    sprite: {fileID: 21300000, guid: 7a17b1ae7a5659141b8e6d3207904034, type: 3}
     notNeeded: 0
   inventory:
     type: 3
     label: Inventory
     key: I
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
-    notNeeded: 0
+    sprite: {fileID: 0}
+    notNeeded: 1
   recipes:
     type: 4
     label: Recipes
     key: R
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
-    notNeeded: 0
+    sprite: {fileID: 0}
+    notNeeded: 1
   quests:
     type: 5
     label: Quests
     key: Q
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
-    notNeeded: 0
+    sprite: {fileID: 0}
+    notNeeded: 1
   friendbook:
     type: 6
     label: Friendbook
     key: F
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
-    notNeeded: 0
+    sprite: {fileID: 0}
+    notNeeded: 1
   calender:
     type: 7
     label: Calender
     key: C
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
-    notNeeded: 0
+    sprite: {fileID: 0}
+    notNeeded: 1
   map:
     type: 8
     label: Map
     key: M
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
-    notNeeded: 0
+    sprite: {fileID: 0}
+    notNeeded: 1
   nextTab:
-    type: 0
-    label: 
+    type: 11
+    label: Next Tab
     key: 
-    sprite: {fileID: 0}
-    notNeeded: 1
+    sprite: {fileID: 21300000, guid: f6fefbfa9b4483444950fdb1e847c4f8, type: 3}
+    notNeeded: 0
   prevTab:
-    type: 0
-    label: 
+    type: 10
+    label: Previous Tab
     key: 
-    sprite: {fileID: 0}
-    notNeeded: 1
+    sprite: {fileID: 21300000, guid: dfa950495b1b6fd42b2ec2eac6e7de37, type: 3}
+    notNeeded: 0
   interact:
     type: 0
     label: Interact
     key: E
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
+    sprite: {fileID: 21300000, guid: add6be02aa996954e906e19845927185, type: 3}
     notNeeded: 0
   close:
     type: 2
     label: Close
     key: ESC
-    sprite: {fileID: 21300000, guid: 80e87fe0cead0c84289867e89a88a4aa, type: 3}
+    sprite: {fileID: 21300000, guid: e4807ed5efd01ae458ea40b55107107f, type: 3}
     notNeeded: 0
