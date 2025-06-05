@@ -60,12 +60,20 @@ public class UIInventoryItem : MonoBehaviour
         ShopType curShopState = UIShopManager.Instance.GetCurrentState();
         ReUpcyclerType curReUpcyclerState = UIReUpcycleManager.Instance.GetCurrentState();
 
+        if (curReUpcyclerState == ReUpcyclerType.Upcycler)
+        {
+            UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Recycler);
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Switched to recycler!");
+            return;
+        }
+
+
         if (curJournalState == JournalType.Inventory
             && curReUpcyclerState == ReUpcyclerType.Recycler
             && curShopState == ShopType.Closed)
         {
             UIRecyclerController.Instance.AddItem(item);
-            UIInventoryHelper.Instance.SetGameObjectAsSelected(this);
+            ToggleIcon(false);
         }
 
         if (curJournalState == JournalType.Inventory && curReUpcyclerState == ReUpcyclerType.Upcycler && curShopState == ShopType.Closed)
