@@ -38,6 +38,7 @@ public class LocationManager : MonoBehaviour
     
     public void TravelToScene(Scenes targetScene)
     {
+        TideUpBoxManager.Instance.SaveBoxInventories();
         StartCoroutine(TravelCoroutine(targetScene));
     }
 

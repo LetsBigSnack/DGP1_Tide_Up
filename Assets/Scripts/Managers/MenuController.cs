@@ -95,6 +95,7 @@ public class MenuController : MonoBehaviour
         notAllowed.Add(GameStates.Paused);
         notAllowed.Add(GameStates.MiniGame);
         notAllowed.Add(GameStates.Building);
+        notAllowed.Add(GameStates.TimeChange);
         
         return !notAllowed.Contains(GameStateManager.Instance.GetGameState()) && TutorialManager.Instance == null && UIShopManager.Instance.GetCurrentState() == ShopType.Closed && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed;
     }
@@ -272,7 +273,7 @@ public class MenuController : MonoBehaviour
                 UIPauseMenuManager.Instance.ToggleOptionMenu();
             }
         }
-        else if (currentState == GameStates.InMenu || currentState == GameStates.Building)
+        else if (currentState == GameStates.InMenu || currentState == GameStates.Building || currentState == GameStates.TimeChange)
         {
             CloseMenu(); // optionally pass null instead
         }

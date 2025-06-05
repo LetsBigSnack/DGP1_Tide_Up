@@ -12,7 +12,8 @@ public enum GameStates
     SceneTransition,
     Dialogue,
     MiniGame,
-    Building
+    Building,
+    TimeChange
 }
 
 
