@@ -31,7 +31,7 @@ public class UIEventSystemHelper : MonoBehaviour
         GameStateManager.OnStateChanged -= ClearLastValidButtons;
     }
 
-    public void ClearLastValidButtons(GameStates state)
+    public void ClearLastValidButtons(GameStates state, DeviceType type)
     {
         if (state == GameStates.PlayingCharacter)
         {

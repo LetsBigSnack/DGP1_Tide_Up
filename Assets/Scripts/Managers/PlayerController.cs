@@ -192,6 +192,11 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    public bool IsSprinting()
+    {
+        return isSprinting;
+    }
+
     private void Interact(InputAction.CallbackContext value)
     {
         InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);

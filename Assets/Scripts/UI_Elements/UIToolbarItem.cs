@@ -34,12 +34,23 @@ public class UIToolbarItem : MonoBehaviour
 
     public void UpdateCurrentItem(DeviceType device)
     {
-        type = device;
         SetupButton(image.sprite, labelText.text, keyText.text, device);
     }
 
     public void SetupButton(Sprite image = null, string label = null, string key = null, DeviceType keyType = DeviceType.Keyboard)
     {
+        if (label == "Move")
+        {
+            label = PlayerController.Instance.IsSprinting()? "Walk" : "Run";
+        }
+
+        if (keyType == DeviceType.Mouse)
+        {
+            keyType = DeviceType.Keyboard;
+        }
+
+        type = keyType;
+
         switch (keyType)
         {
             case DeviceType.Keyboard:
