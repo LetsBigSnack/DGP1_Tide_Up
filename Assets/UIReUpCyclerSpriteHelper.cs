@@ -4,30 +4,28 @@ using UnityEngine.UI;
 
 public class UIReUpCyclerSpriteHelper : MonoBehaviour
 {
-    [SerializeField] private Image background;
-    [SerializeField] private Sprite selected;
-    [SerializeField] private Sprite unSelected;
-    [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private Color normal;
-    [SerializeField] private Color highlight;
+    [SerializeField] private GameObject selected;
+    private Button btn;
+
+    private void OnEnable()
+    {
+        btn = gameObject.GetComponent<Button>();
+    }
 
     public void OnSelected()
     {
-        background.sprite = selected;
-        if (text)
-        {
-            text.color = highlight;
-        }
+        if (btn == null || selected == null || !btn.interactable || selected.gameObject.activeInHierarchy)
+            return;
 
+        selected.SetActive(true);
     }
 
     public void OffSelected()
     {
-        background.sprite = unSelected;
-        if (text)
-        {
-            text.color = normal;
-        }
+        if (btn == null || selected == null || !selected.gameObject.activeInHierarchy)
+            return;
+        
+        selected.SetActive(false);
     }
 
 }

@@ -153,25 +153,21 @@ public class UIInventoryItem : MonoBehaviour
         {
             return;
         }
-
-        if (isEmpty)
-        {
-            if (borderIcon.activeInHierarchy)
-            {
-                borderIcon.SetActive(false);
-            }
-            return;
-        }
         
         if (UITideUpBoxManager.Instance.IsOpen)
         {
             borderIcon.SetActive(!borderIcon.activeInHierarchy);
         }
+
+        if (borderIcon.activeInHierarchy)
+        {
+            borderIcon.SetActive(false);
+        }
     }
 
-
-    public void ToggleIcon()
+    public void ToggleIcon(bool active)
     {
-        borderIcon.SetActive(!borderIcon.activeInHierarchy);
+        borderIcon.SetActive(active);
     }
+
 }

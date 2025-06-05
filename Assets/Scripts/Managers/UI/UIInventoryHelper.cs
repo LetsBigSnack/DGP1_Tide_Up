@@ -120,20 +120,15 @@ public class UIInventoryHelper : MonoBehaviour
             return;
         }
 
-        if (_currentSelectedItem == item)
-        {
-            return;
-        }
-
         if (_currentSelectedItem == null)
         {
             _currentSelectedItem = item;
-            item.ToggleIcon();
+            item.ToggleIcon(true);
             return;
         }
 
-        _currentSelectedItem.ToggleIcon();
+        _currentSelectedItem.ToggleIcon(false);
         _currentSelectedItem = item;
-        _currentSelectedItem.ToggleIcon();
+        _currentSelectedItem.ToggleIcon(true);
     }
 }

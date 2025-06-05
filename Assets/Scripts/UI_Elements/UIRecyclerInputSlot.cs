@@ -9,6 +9,7 @@ public class UIRecyclerInputSlot : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private UIRecyclerInputSlot adjecent;
     private Button _button;
+    private UIReUpCyclerSpriteHelper _btnHelper;
 
     public ItemInstance CurrentItem
     {
@@ -25,6 +26,7 @@ public class UIRecyclerInputSlot : MonoBehaviour
     public void Start()
     {
         image.enabled = false;
+        _btnHelper = gameObject.GetComponent<UIReUpCyclerSpriteHelper>();
         _button = gameObject.GetComponentInChildren<Button>();
         _button.interactable = false;
         Navigation nav = _button.navigation;
@@ -57,6 +59,7 @@ public class UIRecyclerInputSlot : MonoBehaviour
         Navigation nav = _button.navigation;
         nav.mode = Navigation.Mode.None;
         _button.navigation = nav;
+        _btnHelper?.OffSelected();
     }
 
     private void SwitchToAdjecentButton()
