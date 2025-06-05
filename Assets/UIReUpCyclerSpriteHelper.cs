@@ -10,6 +10,7 @@ public class UIReUpCyclerSpriteHelper : MonoBehaviour
     private void OnEnable()
     {
         btn = gameObject.GetComponent<Button>();
+        selected.SetActive(false);
     }
 
     public void OnSelected()
