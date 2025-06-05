@@ -122,6 +122,17 @@
                 },
                 {
                     "name": "",
+                    "id": "4487d143-7629-4563-b632-964924b8eb09",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f9159bcf-898f-48aa-8f5b-a1ddafdf0b96",
                     "path": "<Keyboard>/e",
                     "interactions": "",

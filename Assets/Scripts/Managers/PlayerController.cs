@@ -62,10 +62,11 @@ public class PlayerController : MonoBehaviour
     private AnimationController _anim;
 
     public static event Action<string> OnToggleSprintChanged;
-    
-    
-    
-    
+
+    public static event Action<InputAction.CallbackContext> OnActionPerformed;
+    public static event Action<InputAction.CallbackContext> OnMovePerformed;
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -199,6 +200,7 @@ public class PlayerController : MonoBehaviour
 
     private void Interact(InputAction.CallbackContext value)
     {
+        OnActionPerformed?.Invoke(value);
         InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         if (GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
         {
@@ -251,6 +253,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnMovePlayerPreformed(InputAction.CallbackContext value)
     {
+        OnMovePerformed?.Invoke(value);
         InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         Vector2 axis = value.ReadValue<Vector2>();
         _playerMoveVector = new Vector3(axis.x, 0, axis.y);
