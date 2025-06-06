@@ -52,6 +52,10 @@ public class InputDeviceHelper : MonoBehaviour
 
             if (control is Vector2Control vector2 && vector2.ReadValue().magnitude < analogNoiseThreshold)
                 return;
+
+            if (control is ButtonControl button)
+                if (!button.isPressed)
+                    return;
         }
 
         DeviceType type = GetDeviceType(device);

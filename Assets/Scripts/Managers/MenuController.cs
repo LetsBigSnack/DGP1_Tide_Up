@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Data;
 using Unity.VisualScripting;
@@ -286,7 +287,8 @@ public class MenuController : MonoBehaviour
 
     private void NextBookMark(InputAction.CallbackContext value)
     {
-        if(UIJournalManager.Instance.GetCurrentState() != JournalType.Closed)
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
+        if (UIJournalManager.Instance.GetCurrentState() != JournalType.Closed)
         {
             UIBookMarkController.Instance.NextBookmark();
         }
@@ -299,6 +301,7 @@ public class MenuController : MonoBehaviour
 
     private void PreviousBookMark(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         if (UIJournalManager.Instance.GetCurrentState() != JournalType.Closed)
         {
             UIBookMarkController.Instance.PreviousBookmark();

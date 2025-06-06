@@ -142,6 +142,10 @@ public class UIHUDManager : MonoBehaviour
         ClearButtons();
 
         currentState = state;
+        if (keyType == DeviceType.Mouse)
+        {
+            keyType = DeviceType.Keyboard;
+        }
         currentKeyType = keyType;
 
         if (TutorialManager.Instance != null)

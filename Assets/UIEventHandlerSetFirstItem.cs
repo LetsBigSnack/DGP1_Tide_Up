@@ -7,9 +7,9 @@ public class UIEventHandlerSetFirstItem : MonoBehaviour
     {
         if(InputDeviceHelper.Instance.IsController() && gameObject.GetComponent<Selectable>().navigation.mode != Navigation.Mode.None)
         {
-            UIEventSystemHelper.Instance.EventSystemObj.SetSelectedGameObject(null);
-            UIEventSystemHelper.Instance.SetFirstSelectedItem(gameObject);
-            UIEventSystemHelper.Instance.ForceLastValidSelection(gameObject);
+            UIEventSystemHelper.Instance?.EventSystemObj?.SetSelectedGameObject(null);
+            UIEventSystemHelper.Instance?.SetFirstSelectedItem(gameObject);
+            UIEventSystemHelper.Instance?.ForceLastValidSelection(gameObject);
         } 
     }
 
@@ -17,7 +17,7 @@ public class UIEventHandlerSetFirstItem : MonoBehaviour
     {
        if(!UIEventSystemHelper.Instance.LastValidSelectionExists() && InputDeviceHelper.Instance.IsController())
         {
-            UIEventSystemHelper.Instance.ForceLastValidSelection(gameObject);
+            UIEventSystemHelper.Instance?.ForceLastValidSelection(gameObject);
         }
     }
 }

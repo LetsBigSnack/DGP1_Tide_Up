@@ -24,15 +24,23 @@ public class UIEventSystemHelper : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += ClearLastValidButtons;
+        UIJournalManager.OnJournalStateChanged += ClearSelectedItemOnJournalChange;
     }
 
     private void OnDisable()
     {
         GameStateManager.OnStateChanged -= ClearLastValidButtons;
+        UIJournalManager.OnJournalStateChanged -= ClearSelectedItemOnJournalChange;
+    }
+
+    private void ClearSelectedItemOnJournalChange(JournalType type)
+    {
+        currentSelectedObj = null;
+        eventsystem?.SetSelectedGameObject(null);
     }
 
     public void ClearLastValidButtons(GameStates state, DeviceType type)
-    {
+    { 
         if (state == GameStates.PlayingCharacter)
         {
             _lastValidSelections.Clear();
@@ -44,6 +52,7 @@ public class UIEventSystemHelper : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -71,6 +80,7 @@ public class UIEventSystemHelper : MonoBehaviour
         yield return new WaitForSeconds(delayFirstInput);
 
         eventsystem.firstSelectedGameObject = gameObject;
+         eventsystem.SetSelectedGameObject(gameObject);
 
         if (gameObject == null)
         {
@@ -100,7 +110,7 @@ public class UIEventSystemHelper : MonoBehaviour
     public void UpdateValidSelection()
     {
         _lastValidSelections = _lastValidSelections
-            .Where(s => s != null && s.GetComponent<Selectable>()?.interactable == true)
+            .Where(s => s != null && s.GetComponent<Selectable>()?.interactable == true && s.GetComponent<Selectable>()?.navigation.mode != Navigation.Mode.None && s.activeInHierarchy)
             .Distinct()
             .ToList();
     }
@@ -108,7 +118,7 @@ public class UIEventSystemHelper : MonoBehaviour
     public void SetLastValidSelection()
     {
         lastValidSelection = _lastValidSelections
-            .Where(s => s != null && s != currentSelectedObj)
+            .Where(s => s != null && s != currentSelectedObj && s.GetComponent<Selectable>()?.navigation.mode != Navigation.Mode.None && s.activeInHierarchy)
             .FirstOrDefault();
     }
 

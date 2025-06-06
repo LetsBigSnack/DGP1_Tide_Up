@@ -9,6 +9,7 @@ public class UIInputHelper : MonoBehaviour
     private void Awake()
     {
         _uiModule = FindObjectOfType<InputSystemUIInputModule>();
+
         if (_uiModule == null)
         {
             Debug.LogError("UIInputNotifier requires an InputSystemUIInputModule on the same GameObject.");
@@ -17,20 +18,20 @@ public class UIInputHelper : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_uiModule.move      != null) _uiModule.move.action.performed   += OnUINavigated;
-        if (_uiModule.submit    != null) _uiModule.submit.action.performed += OnUISubmitted;
-        if (_uiModule.cancel    != null) _uiModule.cancel.action.performed += OnUICanceled;
-        if (_uiModule.point     != null) _uiModule.point.action.performed  += OnUIPointed;
-        if (_uiModule.leftClick     != null) _uiModule.leftClick.action.performed  += OnUIClicked;
+        if (_uiModule.move != null) _uiModule.move.action.performed += OnUINavigated;
+        if (_uiModule.submit != null) _uiModule.submit.action.performed += OnUISubmitted;
+        if (_uiModule.cancel != null) _uiModule.cancel.action.performed += OnUICanceled;
+        if (_uiModule.point != null) _uiModule.point.action.performed += OnUIPointed;
+        if (_uiModule.leftClick != null) _uiModule.leftClick.action.performed += OnUIClicked;
     }
 
     private void OnDisable()
     {
-        if (_uiModule.move      != null) _uiModule.move.action.performed   -= OnUINavigated;
-        if (_uiModule.submit    != null) _uiModule.submit.action.performed -= OnUISubmitted;
-        if (_uiModule.cancel    != null) _uiModule.cancel.action.performed -= OnUICanceled;
-        if (_uiModule.point     != null) _uiModule.point.action.performed  -= OnUIPointed;
-        if (_uiModule.leftClick     != null) _uiModule.leftClick.action.performed  -= OnUIClicked;
+        if (_uiModule.move != null) _uiModule.move.action.performed -= OnUINavigated;
+        if (_uiModule.submit != null) _uiModule.submit.action.performed -= OnUISubmitted;
+        if (_uiModule.cancel != null) _uiModule.cancel.action.performed -= OnUICanceled;
+        if (_uiModule.point != null) _uiModule.point.action.performed -= OnUIPointed;
+        if (_uiModule.leftClick != null) _uiModule.leftClick.action.performed -= OnUIClicked;
     }
 
     private void OnUINavigated(InputAction.CallbackContext ctx)

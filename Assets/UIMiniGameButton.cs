@@ -54,6 +54,15 @@ public class UIMiniGameButton : MonoBehaviour
                 }
                 interactImg.sprite = xBoxInteract;
                 break;
+            case DeviceType.PlayStation:
+                if (this.type == MiniGameType.Fishing)
+                {
+                    leftImg.sprite = playstationLeft;
+                    rightImg.sprite = playstationRight;
+                    return;
+                }
+                interactImg.sprite = playstationInteract;
+                break;
         }
     }
 }
