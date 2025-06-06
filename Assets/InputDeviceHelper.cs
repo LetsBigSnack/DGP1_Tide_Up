@@ -45,37 +45,24 @@ public class InputDeviceHelper : MonoBehaviour
 
     public void NotifyDevice(InputDevice device, InputControl control)
     {
-        Debug.Log(device + " " + control);
-
         if (device is Gamepad)
         {
-            // 2. Filter axis inputs (e.g., triggers)
-            if (control is AxisControl axis)
-            {
-                float value = Mathf.Abs(axis.ReadValue());
-                Debug.Log($"[Input] AxisControl '{control.name}' = {value}");
+            if (control is AxisControl axis && Mathf.Abs(axis.ReadValue()) < analogNoiseThreshold)
+                return;
 
-                if (value < analogNoiseThreshold)
-                    return;
-            }
-
-            if (control is Vector2Control vector2)
-            {
-                float mag = vector2.ReadValue().magnitude;
-                Debug.Log($"[Input] Vector2Control '{control.name}' = {mag}");
-
-                if (mag < analogNoiseThreshold)
-                    return;
-            }
+            if (control is Vector2Control vector2 && vector2.ReadValue().magnitude < analogNoiseThreshold)
+                return;
         }
 
         DeviceType type = GetDeviceType(device);
-        _lastUseTime = DateTime.UtcNow;
         if (type != _lastDevice)
         {
-            Debug.Log(device);
+            _lastUseTime = DateTime.UtcNow;
             _lastDevice = type;
             OnDeviceChange?.Invoke(type);
+#if UNITY_EDITOR
+            //Debug.Log($"Switched to {type} via {control.name}");
+#endif
         }
     }
 
