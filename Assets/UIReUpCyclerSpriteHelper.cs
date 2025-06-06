@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class UIReUpCyclerSpriteHelper : MonoBehaviour
 {
     [SerializeField] private GameObject selected;
-    private Button btn;
+    private Selectable btn;
 
     private void OnEnable()
     {
-        btn = gameObject.GetComponent<Button>();
+        btn = gameObject.GetComponent<Selectable>();
         selected.SetActive(false);
     }
 
