@@ -1,27 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CutoutManager : MonoBehaviour
 {
-    [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private LayerMask occluderLayer;
+    [SerializeField] private Material[] affectedMaterials;
 
-    [Header("Shader Property Names")]
-    [SerializeField] private string playerPositionProperty = "PlayerPosition";
-    [SerializeField] private string cameraPositionProperty = "CameraPosition";
-
-    private static int PlayerPosID;
-    private static int CameraPosID;
-
-    private readonly HashSet<Renderer> currentlyAffected = new();
-
-    void Awake()
-    {
-        PlayerPosID = Shader.PropertyToID(playerPositionProperty);
-        CameraPosID = Shader.PropertyToID(cameraPositionProperty);
-    }
+    private static readonly int PlayerPosID = Shader.PropertyToID("_PlayerPosition");
+    private static readonly int CameraPosID = Shader.PropertyToID("_CameraPosition");
 
     void LateUpdate()
     {
@@ -29,56 +15,18 @@ public class CutoutManager : MonoBehaviour
 
         Vector3 playerPos = player.position;
         Vector3 camPos = mainCamera.transform.position;
-        Vector3 direction = playerPos - camPos;
-        float distance = direction.magnitude;
 
-        // Cast all objects between camera and player
-        RaycastHit[] hits = Physics.RaycastAll(camPos, direction, distance, occluderLayer);
-        HashSet<Renderer> newlyHit = new();
-
-        foreach (RaycastHit hit in hits)
+        foreach (Material mat in affectedMaterials)
         {
-            Renderer renderer = hit.collider.GetComponent<Renderer>();
-            if (renderer == null) continue;
-
-            Material[] materials = renderer.materials;
-
-            foreach (Material mat in materials)
-            {
-                if (mat.HasProperty(PlayerPosID))
-                {
-                    mat.SetVector(PlayerPosID, playerPos);
-                    mat.SetVector(CameraPosID, camPos);
-                }
-            }
-
-            newlyHit.Add(renderer);
+            if (mat == null) continue;
+            mat.SetVector(PlayerPosID, playerPos);
+            mat.SetVector(CameraPosID, camPos);
         }
-
-        // Reset old ones that are no longer hit
-        foreach (Renderer r in currentlyAffected)
-        {
-            if (!newlyHit.Contains(r))
-            {
-                Material[] materials = r.materials;
-
-                foreach (Material mat in materials)
-                {
-                    if (mat.HasProperty(PlayerPosID))
-                    {
-                        mat.SetVector(PlayerPosID, new Vector3(9999, 9999, 9999));
-                        mat.SetVector(CameraPosID, new Vector3(9999, 9999, 9999));
-                    }
-                }
-            }
-        }
-
-        currentlyAffected.Clear();
-        foreach (Renderer r in newlyHit)
-        {
-            currentlyAffected.Add(r);
-        }
-
         Debug.DrawLine(camPos, playerPos, Color.cyan);
+    }
+
+    void OnValidate()
+    {
+        Debug.Log($"Materials assigned: {affectedMaterials.Length}");
     }
 }
