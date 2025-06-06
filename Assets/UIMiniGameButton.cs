@@ -13,6 +13,10 @@ public class UIMiniGameButton : MonoBehaviour
     [SerializeField] private Sprite xBoxLeft;
     [SerializeField] private Sprite xBoxRight;
 
+    [SerializeField] private Sprite playstationInteract;
+    [SerializeField] private Sprite playstationLeft;
+    [SerializeField] private Sprite playstationRight;
+
     [SerializeField] private Image interactImg;
     [SerializeField] private Image leftImg;
     [SerializeField] private Image rightImg;
