@@ -16,19 +16,12 @@ public class UIInventoryItem : MonoBehaviour
     }
 
     public void Setup(ItemInstance data = null, bool isEmpty = true)
-    {
-        Button button = GetComponent<Button>();
-        Navigation nav = button.navigation;
-        
+    {  
         this.isEmpty = isEmpty;
         if (isEmpty)
         {
             item = null;
             image.color = new Color(1, 1, 1, 0);
-            button.interactable = false;
-            
-            nav.mode = Navigation.Mode.None;
-            button.navigation = nav;
 
             if (borderIcon.activeInHierarchy)
             {
@@ -36,12 +29,9 @@ public class UIInventoryItem : MonoBehaviour
             }
             return;
         }
+        image.sprite = data.ItemData.sprite;
         item = data;
         image.color = new Color(1, 1, 1, 1);
-        button.interactable = true;
-        nav.mode = Navigation.Mode.Automatic;
-        button.navigation = nav;
-        image.sprite = data.ItemData.sprite;
     }
 
     public void OnClick()
@@ -94,8 +84,14 @@ public class UIInventoryItem : MonoBehaviour
 
     public void OnSelect()
     {
-        if (isEmpty || !InputDeviceHelper.Instance.IsController())
+        if (!InputDeviceHelper.Instance.IsController())
         {
+            return;
+        }
+
+        if (isEmpty)
+        {
+            ToggleIcon(true);
             return;
         }
         
@@ -124,6 +120,8 @@ public class UIInventoryItem : MonoBehaviour
         {
             UIInventoryHelper.Instance.SetGameObjectAsSelected(this);
         }
+
+
     }
 
     public void OnHover()
@@ -161,15 +159,16 @@ public class UIInventoryItem : MonoBehaviour
         {
             return;
         }
-        
-        if (UITideUpBoxManager.Instance.IsOpen)
+
+        if (isEmpty)
         {
-            borderIcon.SetActive(!borderIcon.activeInHierarchy);
+            ToggleIcon(false);
+            return;
         }
 
-        if (borderIcon.activeInHierarchy)
+        if (UITideUpBoxManager.Instance.IsOpen)
         {
-            borderIcon.SetActive(false);
+            ToggleIcon(false);
         }
     }
 

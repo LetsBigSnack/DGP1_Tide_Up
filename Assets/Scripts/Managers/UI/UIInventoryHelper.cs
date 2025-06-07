@@ -106,6 +106,11 @@ public class UIInventoryHelper : MonoBehaviour
         for (int i = items.Count; i < _currentItems.Count; i++)
         {
             _currentItems[i].Setup();
+
+            if (i == 0 && InputDeviceHelper.Instance.IsController() && !UITideUpBoxManager.Instance.IsOpen)
+            {
+                UIEventSystemHelper.Instance.SetFirstSelectedItem(_currentItems[i].gameObject);
+            }
         }
     }
     public void SetGameObjectAsSelected(UIInventoryItem item)

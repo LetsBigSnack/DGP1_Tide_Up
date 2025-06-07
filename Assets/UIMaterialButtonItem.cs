@@ -11,25 +11,6 @@ public class UIMaterialButtonItem : MonoBehaviour
     private void OnEnable()
     {
         _button = gameObject.GetComponentInChildren<Button>();
-
-        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
-        {
-            Navigation nav = _button.navigation;
-            nav.mode = Navigation.Mode.None;
-            _button.navigation = nav;
-        }
-        else
-        {
-            gameObject.GetComponentInChildren<Button>().interactable = true;
-            Navigation nav = _button.navigation;
-            nav.mode = Navigation.Mode.Automatic;
-            _button.navigation = nav;
-
-            if (InputDeviceHelper.Instance.IsController() && InventoryManager.Instance.Items.Count <= 0 && this.type == TrashMaterialType.Glass && UIEventSystemHelper.Instance.EventSystemObj != gameObject)
-            {
-                UIEventSystemHelper.Instance.SetFirstSelectedItem(gameObject);
-            }
-        }
         circle.SetActive(false);
     }
 

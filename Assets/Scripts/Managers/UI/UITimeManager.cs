@@ -106,9 +106,8 @@ public class UITimeManager : MonoBehaviour
     {
         DeviceType deviceType = InputDeviceHelper.Instance.GetLastDeviceType() == DeviceType.Mouse ? DeviceType.Keyboard : InputDeviceHelper.Instance.GetLastDeviceType();
 
-        if (timeChangeButton.activeInHierarchy && deviceType != DeviceType.Keyboard && 
-            UIEventSystemHelper.Instance.EventSystemObj.currentSelectedGameObject == null && 
-            ((type == JournalType.Inventory && InventoryManager.Instance.Items.Count <= 0) || type == JournalType.Map)
+        if (timeChangeButton.activeInHierarchy && deviceType != DeviceType.Keyboard 
+            && type == JournalType.Map
             && !UITideUpBoxManager.Instance.IsOpen
             && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
         {
