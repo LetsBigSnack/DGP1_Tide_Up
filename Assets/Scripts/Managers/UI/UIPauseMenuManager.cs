@@ -64,6 +64,7 @@ public class UIPauseMenuManager : MonoBehaviour
         GameStateManager.Instance.TogglePause();
         if (!_isPaused)
         {
+            DeActivateBorders();
             pauseMenu.SetActive(true);
             GameStateManager.Instance.SetGameState(GameStates.Paused);
             _pauseMenuState = PauseMenuStates.Paused;
@@ -72,6 +73,7 @@ public class UIPauseMenuManager : MonoBehaviour
         }
         else 
         {
+            DeActivateBorders();
             pauseMenu.SetActive(false);
             GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
             _pauseMenuState = PauseMenuStates.Off;
