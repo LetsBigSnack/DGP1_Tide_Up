@@ -60,17 +60,11 @@ public class UIBuildManager : MonoBehaviour
 
     private void AddRequirements(List<TrashMaterialEntry> requirements)
     {
-        if (_currentRequirements.Count > 0)
-        {
-            _currentRequirements.Clear();
-        }
+        ClearMenu();
 
-        if (_currentRequirements == null)
-        {
-            _currentRequirements = new();
-        }
+        if (requirements == null) return;
 
-        foreach (TrashMaterialEntry entry in _currentMaterialsNeeded)
+        foreach (TrashMaterialEntry entry in requirements)
         {
             GameObject newRequirement = Instantiate(reqItemPrefab, reqItemParent);
             newRequirement.GetComponent<UIBuildRequirementItem>().Setup(entry, MaterialIsAvailable(entry));
@@ -86,10 +80,10 @@ public class UIBuildManager : MonoBehaviour
         }
 
         this.buildDescription.text = description;
-        this._currentMaterialsNeeded = requirements;
+        this._currentMaterialsNeeded = requirements ?? new List<TrashMaterialEntry>();
         this._currentSpot = spot;
 
-        AddRequirements(requirements);
+        AddRequirements(_currentMaterialsNeeded);
         CheckButtonActive();
         OpenMenu();
     }
@@ -108,33 +102,38 @@ public class UIBuildManager : MonoBehaviour
         {
             int neededAmount = t.Amount;
             int currentAmount = InventoryManager.Instance.GetMaterialAmount(t.TrashMaterialData.type);
-            if (neededAmount <= currentAmount && canBuild)
-            {
-                canBuild = true;
-                alpha.a = 1f;
-                buttonImage.color = alpha;
-            }
-            else
+
+            if (neededAmount > currentAmount)
             {
                 canBuild = false;
-                alpha.a = 0.75f;
-                buttonImage.color = alpha;
+                break;
             }
-        } 
+        }
+
+        alpha.a = canBuild ? 1f : 0.75f;
+        buttonImage.color = alpha;
     }
 
     public void Build()
     {
         if (!_currentSpot.Build())
         {
-            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "You do not have the necessary amount of materials to rebuild this spot!", null);
+            UI_ToastManager.Instance.SpawnToastMessage(
+                ToastType.Important,
+                "You do not have the necessary amount of materials to rebuild this spot!",
+                null
+            );
         }
-        else {
+        else
+        {
             CloseMenu();
             GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
-            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Well done! Spot has been rebuild!", null);
+            UI_ToastManager.Instance.SpawnToastMessage(
+                ToastType.Important,
+                "Well done! Spot has been rebuilt!",
+                null
+            );
         }
-        
     }
 
     private void ClearMenu()
