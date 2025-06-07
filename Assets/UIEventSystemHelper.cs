@@ -14,11 +14,44 @@ public class UIEventSystemHelper : MonoBehaviour
     [SerializeField] private GameObject lastValidSelection;
     [SerializeField] private int maxStorage;
     [SerializeField] private float delayFirstInput = 0.25f;
-    private List<GameObject> _lastValidSelections = new List<GameObject>();
+
+    [System.Serializable]
+    public struct ValidSelection
+    {
+        public GameObject obj;
+        public float time;
+
+        public ValidSelection(GameObject obj, float time)
+        {
+            this.obj = obj;
+            this.time = time;
+        }
+    }
+
+    private List<ValidSelection> _lastValidSelections = new List<ValidSelection>();
+
     public EventSystem EventSystemObj
     {
         get => eventsystem;
         set => eventsystem = value;
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        eventsystem = GetComponentInChildren<EventSystem>();
     }
 
     private void OnEnable()
@@ -40,29 +73,11 @@ public class UIEventSystemHelper : MonoBehaviour
     }
 
     public void ClearLastValidButtons(GameStates state, DeviceType type)
-    { 
+    {
         if (state == GameStates.PlayingCharacter)
         {
             _lastValidSelections.Clear();
         }
-    }
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    void Start()
-    {
-        eventsystem = GetComponentInChildren<EventSystem>();
     }
 
     public void SetFirstSelectedItem(GameObject gameObject)
@@ -75,26 +90,24 @@ public class UIEventSystemHelper : MonoBehaviour
         StartCoroutine(FirstFrameDelay(lastValidSelection));
     }
 
-    public IEnumerator FirstFrameDelay(GameObject gameObject)
+    private IEnumerator FirstFrameDelay(GameObject gameObject)
     {
         yield return new WaitForSeconds(delayFirstInput);
 
-        eventsystem.firstSelectedGameObject = gameObject;
-         eventsystem.SetSelectedGameObject(gameObject);
-
-        if (gameObject == null)
-        {
+        if (gameObject == null || !gameObject.activeInHierarchy)
             yield break;
-        }
 
-        Button buttonInChildren = gameObject?.GetComponentInChildren<Button>();
+        eventsystem.firstSelectedGameObject = gameObject;
+        eventsystem.SetSelectedGameObject(gameObject);
+
+        Button buttonInChildren = gameObject.GetComponentInChildren<Button>();
         if (buttonInChildren)
         {
             buttonInChildren.Select();
             yield break;
         }
 
-        Slider slider = gameObject?.GetComponent<Slider>();
+        Slider slider = gameObject.GetComponent<Slider>();
         if (slider)
         {
             slider.Select();
@@ -104,27 +117,43 @@ public class UIEventSystemHelper : MonoBehaviour
 
     public bool LastValidSelectionExists()
     {
-        return lastValidSelection != null;
+        return lastValidSelection != null && lastValidSelection.activeInHierarchy;
     }
 
     public void UpdateValidSelection()
     {
         _lastValidSelections = _lastValidSelections
-            .Where(s => s != null && s.GetComponent<Selectable>()?.interactable == true && s.GetComponent<Selectable>()?.navigation.mode != Navigation.Mode.None && s.activeInHierarchy)
-            .Distinct()
+            .Where(s =>
+                s.obj != null &&
+                s.obj.GetComponent<Selectable>()?.interactable == true &&
+                s.obj.GetComponent<Selectable>()?.navigation.mode != Navigation.Mode.None &&
+                s.obj.activeInHierarchy)
+            .GroupBy(s => s.obj) // prevent duplicates
+            .Select(g => g.First())
             .ToList();
     }
 
     public void SetLastValidSelection()
     {
-        lastValidSelection = _lastValidSelections
-            .Where(s => s != null && s != currentSelectedObj && s.GetComponent<Selectable>()?.navigation.mode != Navigation.Mode.None && s.activeInHierarchy)
+        var latest = _lastValidSelections
+            .Where(s =>
+                s.obj != null &&
+                s.obj != currentSelectedObj &&
+                s.obj.GetComponent<Selectable>()?.navigation.mode != Navigation.Mode.None &&
+                s.obj.activeInHierarchy)
+            .OrderByDescending(s => s.time)
             .FirstOrDefault();
+
+        lastValidSelection = latest.obj;
     }
 
     public void ForceLastValidSelection(GameObject gameObject)
     {
-        lastValidSelection = gameObject;
+        if (gameObject != null)
+        {
+            lastValidSelection = gameObject;
+            _lastValidSelections.Add(new ValidSelection(gameObject, Time.unscaledTime));
+        }
     }
 
     private void LateUpdate()
@@ -134,30 +163,34 @@ public class UIEventSystemHelper : MonoBehaviour
 
         GameObject selected = eventsystem.currentSelectedGameObject;
 
-        // Case 1: Controller selected object is not interactable
-        if (selected != null && !selected.GetComponent<Selectable>().interactable)
+        // Case 1: Selection is invalid or dead
+        if (selected != null && (!selected.activeInHierarchy || !selected.GetComponent<Selectable>()?.interactable == true))
         {
             UpdateValidSelection();
             if (LastValidSelectionExists())
             {
                 eventsystem.SetSelectedGameObject(lastValidSelection);
             }
+            else
+            {
+                eventsystem.SetSelectedGameObject(null);
+            }
         }
-
         // Case 2: Selection changed
         else if (selected != null && selected != currentSelectedObj)
         {
             currentSelectedObj = selected;
 
-            if (!_lastValidSelections.Contains(currentSelectedObj) && currentSelectedObj.GetComponent<Selectable>()?.interactable == true)
+            if (!_lastValidSelections.Any(s => s.obj == currentSelectedObj) &&
+                currentSelectedObj.GetComponent<Selectable>()?.interactable == true &&
+                currentSelectedObj.activeInHierarchy)
             {
-                _lastValidSelections.Add(currentSelectedObj);
+                _lastValidSelections.Add(new ValidSelection(currentSelectedObj, Time.unscaledTime));
             }
 
             SetLastValidSelection();
         }
-
-        // Case 3: Nothing selected, but should be
+        // Case 3: No selection, try to restore
         else if (selected == null)
         {
             UpdateValidSelection();
