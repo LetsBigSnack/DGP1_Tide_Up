@@ -98,7 +98,10 @@ public class InteractionManager : MonoBehaviour
         }
         
         float dist = Vector3.Distance(transform.position, currentInteractable.transform.position);
-        if (dist > interactionRadius + _wiggleRoom)
+
+        float currentRadiusCheck = GameStateManager.Instance.GetGameState() == GameStates.Dialogue ? interactionRadius + _wiggleRoom : interactionRadius;
+
+        if (dist > currentRadiusCheck)
         {
             currentInteractable?.ShowInteractability(false);
             OnInteractionChanged?.Invoke(false, null, null);
