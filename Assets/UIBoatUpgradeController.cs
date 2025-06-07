@@ -118,9 +118,8 @@ public class UIBoatUpgradeController : UIShopSubMenu
         }
         _currentRequirements.Clear();
 
-        AddRequirements();
-
         currentUpgrade = upgrade;
+        AddRequirements();
         //upgradeImage.sprite = upgrade.sprite;
         upgradeDescription.text = upgrade.description;
         if (!upgrade.CanUpgrade() || upgrade.isUnlocked)

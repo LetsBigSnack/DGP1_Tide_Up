@@ -85,10 +85,9 @@ public class UIPlayerUpgradesController : UIShopSubMenu
             Destroy(o);
         }
         _currentRequirements.Clear();
+        currentUpgrade = upgrade;
 
         AddRequirements();
-
-        currentUpgrade = upgrade;
         //upgradeImage.sprite = upgrade.sprite;
         upgradeDescription.text = upgrade.description;
         if (!upgrade.CanUpgrade() || upgrade.isUnlocked)
