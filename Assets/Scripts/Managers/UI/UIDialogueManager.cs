@@ -59,6 +59,18 @@ public class UIDialogueManager : MonoBehaviour
         _currDialogueText = text;
     }
 
+    public void SetSystemDialogueBox(string name, string text, Color favColor)
+    {
+        if (text == "")
+        {
+            return;
+        }
+        ShowDialogueBox(true);
+        nameText.text = name;
+        nameBG.color = favColor;
+        dialogueText.text = text;
+    }
+
     private void SpawnInLetters(char character)
     {
         if(TextToSpeechManager.Instance.IsTalking == true && !TextToSpeechManager.Instance.CharIsEmotion(character))

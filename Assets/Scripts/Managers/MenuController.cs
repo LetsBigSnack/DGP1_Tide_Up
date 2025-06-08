@@ -280,8 +280,14 @@ public class MenuController : MonoBehaviour
         }
         else if (currentState == GameStates.Dialogue && TutorialManager.Instance == null)
         {
+            if (SystemInteractionManager.Instance.GetCurrentInteractable().IsOpen())
+            {
+                SystemInteractionManager.Instance.CloseSystemInformation();
+                return;
+            }
             NpcDialogueManager.Instance.ResetDialogue();
             UIDialogueManager.Instance.FinishSpeaking();
+           
         }
     }
 
