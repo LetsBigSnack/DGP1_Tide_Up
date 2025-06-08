@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using UnityEngine;
 
@@ -67,13 +68,62 @@ public class RecyclerManager : MonoBehaviour
             return;
         }
 
+        List<TrashMaterialData> paper = new();
+        List<TrashMaterialData> wood = new();
+        List<TrashMaterialData> metal = new();
+        List<TrashMaterialData> glass = new();
+        List<TrashMaterialData> plastic = new();
+
         foreach (ItemInstance item in storedItems)
         {
-            foreach(TrashMaterialData mat in item.GetMaterials())
+            foreach (TrashMaterialData mat in item.GetMaterials())
             {
-                InventoryManager.Instance.AddMaterial(mat.type, 1);
+                switch (mat.type)
+                {
+                    case TrashMaterialType.Glass:
+                        glass.Add(mat);
+                        break;
+                    case TrashMaterialType.Metal:
+                        metal.Add(mat);
+                        break;
+                    case TrashMaterialType.Paper:
+                        paper.Add(mat);
+                        break;
+                    case TrashMaterialType.Plastic:
+                        plastic.Add(mat);
+                        break;
+                    case TrashMaterialType.Wood:
+                        wood.Add(mat);
+                        break;
+                }                
             }
         }
+
+        if(glass.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Glass, glass.Count);
+        }
+
+        if (metal.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Metal, metal.Count);
+        }
+
+        if (paper.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Paper, paper.Count);
+        }
+
+        if (plastic.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Plastic, plastic.Count);
+        }
+
+        if (wood.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Wood, wood.Count);
+        }
+
         storedItems = null;
         OnStoredItemCleared?.Invoke(true);
         SoundManager.Instance.PlaySFX("Recycle");

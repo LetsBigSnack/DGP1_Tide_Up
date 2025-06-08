@@ -21,6 +21,7 @@ public class UIInventoryItem : MonoBehaviour
         this.isEmpty = isEmpty;
         if (isEmpty)
         {
+            star.SetActive(false);
             item = null;
             image.color = new Color(1, 1, 1, 0);
 
@@ -37,10 +38,6 @@ public class UIInventoryItem : MonoBehaviour
         if(data.ItemQuality == ItemQuality.High)
         {
             star.SetActive(true);
-        }
-        else
-        {
-            star.SetActive(false);
         }
     }
 

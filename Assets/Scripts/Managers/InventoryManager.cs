@@ -156,7 +156,7 @@ public class InventoryManager : MonoBehaviour
         Debug.Log($"+ {amount}x {materialType}");
 
         //TODO: Add sound
-        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Item, entry.TrashMaterialData.name, sprite: entry.TrashMaterialData.sprite);
+        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Item, amount + "x " + entry.TrashMaterialData.name, sprite: entry.TrashMaterialData.sprite);
         return true;
     }
 
