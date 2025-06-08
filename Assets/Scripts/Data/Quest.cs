@@ -165,7 +165,7 @@ public class Quest
         
         string returnText = "";
         
-        returnText = _dialogues[_questState]?.GetCurrentDialogue();
+        returnText = _questState == QuestState.InProgress? DialogueManager.Instance.GetRandomProgressDialogue(NpcManager.Instance.GetNpcByName(_questNpc).NpcPersonality, NpcManager.Instance.GetNpcByName(_questNpc).NpcAwareness).GetCurrentDialogue():_dialogues[_questState]?.GetCurrentDialogue();
         
         return returnText;
     }
@@ -182,7 +182,6 @@ public class Quest
         return true;
     }
 
-    
     public void ResetDialogue()
     {
         _dialogues[_questState]?.ResetDialogue();

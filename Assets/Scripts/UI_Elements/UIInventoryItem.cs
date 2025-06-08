@@ -87,6 +87,8 @@ public class UIInventoryItem : MonoBehaviour
             UIItemDetailsHelper.Instance.SetupDescription(item.ItemData.title, item.ItemData.description, item.ItemData.sprite, item.GetMaterials());
             UIInventoryHelper.Instance.SetGameObjectAsSelected(this);
         }
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnSelect()
@@ -128,7 +130,7 @@ public class UIInventoryItem : MonoBehaviour
             UIInventoryHelper.Instance.SetGameObjectAsSelected(this);
         }
 
-
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnHover()

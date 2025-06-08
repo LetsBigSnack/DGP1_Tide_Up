@@ -39,6 +39,8 @@ public class UIQuestItem : MonoBehaviour
     {
         UIQuestDescriptionHelper.Instance.UpdateQuestDetails(_quest);
         UIQuestDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void ToggleIcon()

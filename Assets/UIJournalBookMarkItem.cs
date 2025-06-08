@@ -90,11 +90,13 @@ public class UIJournalBookMarkItem : MonoBehaviour
     public void OnClick()
     {
         UIJournalManager.Instance.SwitchState(type);
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnSelected()
     {
         anim.SetBool("Selected", true);
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnDeselect()

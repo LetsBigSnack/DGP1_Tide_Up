@@ -66,6 +66,8 @@ public class UIShopLevelItem : MonoBehaviour
                 UIBoatUpgradeController.Instance.SwitchBetweenUpgrades(currentUpgrade);
                 break;
         }
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void SetSelected()

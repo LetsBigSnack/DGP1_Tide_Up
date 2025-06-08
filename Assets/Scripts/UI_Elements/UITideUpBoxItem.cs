@@ -19,5 +19,7 @@ public class UITideUpBoxItem : MonoBehaviour
     {
         _sourceBox.CollectOneItem(_trashItem);
         UITideUpBoxManager.Instance.UpdateTideUpBox();
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 }

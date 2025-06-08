@@ -46,6 +46,7 @@ public class UIUpcyclerRecipeEntryItem : MonoBehaviour
             return;
         }
         UIRecipeController.Instance.SwitchSubItem(this);
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void ToggleSubs()
@@ -79,6 +80,7 @@ public class UIUpcyclerRecipeEntryItem : MonoBehaviour
     public void OnSelect()
     {
         selectCircle.SetActive(true);
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnDeselect()

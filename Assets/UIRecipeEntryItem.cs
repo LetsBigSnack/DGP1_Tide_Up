@@ -42,11 +42,15 @@ public class UIRecipeEntryItem : MonoBehaviour
             UIRecipeDescriptionHelper.Instance.Setup(_questItem, _knownRecipies);
             UIRecipeDescriptionHelper.Instance.SetGameObjectAsSelected(this);
         }
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnSelect()
     {
         UIRecipeDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnSubmit()
