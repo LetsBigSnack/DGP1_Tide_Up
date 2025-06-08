@@ -1,32 +1,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteAlways]
 [RequireComponent(typeof(MeshFilter))]
 public class ExpandMeshBounds : MonoBehaviour
 {
-    [SerializeField] private float expandAmount = 15f;
+    [SerializeField] private float expandAmount = 20f;
+    [SerializeField] private Mesh mesh;
+    [SerializeField] private MeshFilter mf;
 
     // Static cache so we only expand each unique mesh once
     private static Dictionary<Mesh, Mesh> meshCache = new();
 
     void Start()
     {
-        var mf = GetComponent<MeshFilter>();
-        if (mf == null || mf.sharedMesh == null) return;
+        mf = GetComponent<MeshFilter>();
+        if(mf == null) return;
 
-        var original = mf.sharedMesh;
-
-        if (!meshCache.TryGetValue(original, out Mesh modifiedMesh))
+        if (mesh == null) 
         {
-            modifiedMesh = Instantiate(original);
-            modifiedMesh.name = original.name + "_Expanded_" + expandAmount;
+            mesh = mf.sharedMesh;
+        }
+        else
+        {
+            mf.sharedMesh = mesh;
+        }
+
+        if (!meshCache.TryGetValue(mesh, out Mesh modifiedMesh))
+        {
+            modifiedMesh = Instantiate(mesh);
+            modifiedMesh.name = mesh.name + "_Expanded_" + expandAmount;
             var bounds = modifiedMesh.bounds;
             bounds.Expand(expandAmount);
             modifiedMesh.bounds = bounds;
-            meshCache[original] = modifiedMesh;
+            meshCache[mesh] = modifiedMesh;
         }
 
         mf.sharedMesh = modifiedMesh;
+    }
+
+    private void OnDestroy()
+    {
+        mf.sharedMesh = mesh;
     }
 }
