@@ -51,7 +51,7 @@ public class GameStateManager : MonoBehaviour
     
     public static GameStateManager Instance;
 
-    public static Action<GameStates> OnStateChanged;
+    public static Action<GameStates, DeviceType> OnStateChanged;
 
     
     private void Awake()
@@ -70,7 +70,7 @@ public class GameStateManager : MonoBehaviour
 
     private void Start()
     {
-        OnStateChanged.Invoke(_gameStates);
+        OnStateChanged.Invoke(_gameStates, InputDeviceHelper.Instance.GetLastDeviceType());
         if (_gameStates == GameStates.PlayingCharacter)
         {
             Debug.Log("Game State is Playing");
@@ -112,7 +112,7 @@ public class GameStateManager : MonoBehaviour
         _gamePaused = true;
         Time.timeScale = 0f;
         Debug.Log("Game Paused");
-        OnStateChanged.Invoke(_gameStates);
+        OnStateChanged.Invoke(_gameStates, InputDeviceHelper.Instance.GetLastDeviceType());
     }
 
     public void ResumeGame()
@@ -121,14 +121,14 @@ public class GameStateManager : MonoBehaviour
         _gamePaused = false;
         Time.timeScale = 1f;
         Debug.Log("Game Resumed");
-        OnStateChanged?.Invoke(_gameStates);
+        OnStateChanged?.Invoke(_gameStates, InputDeviceHelper.Instance.GetLastDeviceType());
     }
 
     public void SetGameState(GameStates state)
     {
         Debug.Log("Game state set to: " + state);
         _gameStates = state;
-        OnStateChanged?.Invoke(state);
+        OnStateChanged?.Invoke(state, InputDeviceHelper.Instance.GetLastDeviceType());
 
         if (_gameStates == GameStates.PlayingCharacter)
         {

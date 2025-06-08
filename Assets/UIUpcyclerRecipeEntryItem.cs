@@ -21,6 +21,8 @@ public class UIUpcyclerRecipeEntryItem : MonoBehaviour
     [SerializeField] private GameObject subRecipePrefab;
     [SerializeField] private Transform subRecipeParent;
 
+    [SerializeField] private GameObject selectCircle;
+
     public void Setup(QuestItemData questItem, List<RecipeData> knownRecipies)
     {
         if (questItem == null || knownRecipies == null)
@@ -34,6 +36,7 @@ public class UIUpcyclerRecipeEntryItem : MonoBehaviour
         this.image.sprite = questItem.sprite;
         this.nameText.text = questItem.title;
         this.amountText.text = "Found recipies: " + knownRecipies.Count.ToString();
+        selectCircle.SetActive(false);
     }
 
     public void OnClick()
@@ -71,6 +74,16 @@ public class UIUpcyclerRecipeEntryItem : MonoBehaviour
             sub.GetComponent<UIUpcyclerSubRecipeEntryItem>().Setup(r.ingredients);
             _curSubItems.Add(sub);
         }
+    }
+
+    public void OnSelect()
+    {
+        selectCircle.SetActive(true);
+    }
+
+    public void OnDeselect()
+    {
+        selectCircle.SetActive(false);
     }
 
     private void ClearSubs()

@@ -62,6 +62,7 @@ public class UITimeManager : MonoBehaviour
         TimeManager.OnYearChanged += UpdateDateText;
         TimeManager.OnYearChanged += UpdateYearText;
         TimeManager.OnWeekDayChanged += UpdateWeekDayText;
+        UIJournalManager.OnJournalStateChanged += UpdatePenActive;
     }
 
     private void OnDisable()
@@ -72,6 +73,7 @@ public class UITimeManager : MonoBehaviour
         TimeManager.OnYearChanged -= UpdateDateText;
         TimeManager.OnYearChanged -= UpdateYearText;
         TimeManager.OnWeekDayChanged -= UpdateWeekDayText;
+        UIJournalManager.OnJournalStateChanged -= UpdatePenActive;
     }
 
     public void OpenTimeModal()
@@ -98,6 +100,19 @@ public class UITimeManager : MonoBehaviour
         timeAfterSkipText.text = "Day " + _preChangeDay + ", " + TimeSpan.FromHours(TimeManager.Instance.CurrentTimeInHours + timeSlider.value).ToString(@"hh\:mm");
 
         _maxHoursToChange = 0;
+    }
+
+    private void UpdatePenActive(JournalType type)
+    {
+        DeviceType deviceType = InputDeviceHelper.Instance.GetLastDeviceType() == DeviceType.Mouse ? DeviceType.Keyboard : InputDeviceHelper.Instance.GetLastDeviceType();
+
+        if (timeChangeButton.activeInHierarchy && deviceType != DeviceType.Keyboard 
+            && type == JournalType.Map
+            && !UITideUpBoxManager.Instance.IsOpen
+            && UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Closed)
+        {
+            UIEventSystemHelper.Instance.SetFirstSelectedItem(timeChangeButton);
+        }
     }
 
     private void UpdateTimeText(float newTime)
@@ -148,6 +163,14 @@ public class UITimeManager : MonoBehaviour
     public bool IsTimeChangeActive()
     {
         return timeChangeContainer.activeInHierarchy;
+    }
+
+    public void SetAsFirstSelectedItem()
+    {
+        if(InventoryManager.Instance.Items.Count <= 0)
+        {
+            UIEventSystemHelper.Instance.SetFirstSelectedItem(timeChangeButton);
+        }
     }
 
     public void SubmitTimeChange()

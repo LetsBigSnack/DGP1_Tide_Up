@@ -6,6 +6,7 @@ public class UIUpcyclerInputSlot : MonoBehaviour
 {
     [SerializeField] private TrashMaterialData currentMaterial;
     [SerializeField] private Image image;
+    private Button _button;
 
     public TrashMaterialData CurrentMaterial
     {

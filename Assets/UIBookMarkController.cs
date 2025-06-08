@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -34,6 +32,8 @@ public class UIBookMarkController : MonoBehaviour
     public static UIBookMarkController Instance;
 
     [SerializeField] private float spawnTime;
+
+    [SerializeField] private UIJournalBookMarkItem currentBookmark;
 
     [SerializeField] private GameObject btnPrefab;
     [SerializeField] private GameObject rightParent;
@@ -110,6 +110,52 @@ public class UIBookMarkController : MonoBehaviour
         }
         rightParent.SetActive(true);
         leftParent.SetActive(true);
+    }
+
+    public void SetCurrentBookMark(UIJournalBookMarkItem bm)
+    {
+        currentBookmark = bm;
+    }
+
+    public void PreviousBookmark()
+    {
+        if (currentBookmark.IsRight)
+        {
+            if (!currentBookmark.Next)
+            {
+                SoundManager.Instance.PlaySFX("Error");
+                return;
+            }
+            currentBookmark.Next.OnClick();
+            return;
+        }
+
+        if (!currentBookmark.Previous)
+        {
+            SoundManager.Instance.PlaySFX("Error");
+            return;
+        }
+        currentBookmark.Previous.OnClick();
+    }
+
+    public void NextBookmark()
+    {
+        if (currentBookmark.IsRight)
+        {
+            if (!currentBookmark.Previous)
+            {
+                SoundManager.Instance.PlaySFX("Error");
+                return;
+            }
+            currentBookmark.Previous.OnClick();
+            return;
+        }
+        if (!currentBookmark.Next)
+        {
+            SoundManager.Instance.PlaySFX("Error");
+            return;
+        }
+        currentBookmark.Next.OnClick();
     }
 
     public void CloseMenu()

@@ -158,6 +158,7 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
     {
         upcycleBtn.SetActive(false);
         collectBtn.SetActive(true);
+        UIEventSystemHelper.Instance.SetFirstSelectedItem(collectBtn);
     }
 
     private void EnableUpcycle()

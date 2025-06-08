@@ -23,58 +23,65 @@ public class UIInventoryHelper : MonoBehaviour
 
     [Header("ScrollViewContent")]
     [SerializeField] private Transform itemParent;
-
-    [Header("CurrentItemsInInventory")]
-    [SerializeField] private List<GameObject> itemObjects;
+    
 
     [Header("ItemPrefab")]
     [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private GameObject emptyItemPrefab;
 
-    private List<GameObject> _currentItems = new List<GameObject>();
+    private List<UIInventoryItem> _currentItems = new List<UIInventoryItem>();
     private List<GameObject> _emptyItems = new List<GameObject>();
 
-    private Dictionary<int, FilterType> _dropdownOptions = new Dictionary<int, FilterType>()
-    {
-        { 0,FilterType.All },
-        { 1,FilterType.Glass },
-        { 2,FilterType.Metal },
-        { 3,FilterType.Paper },
-        { 4,FilterType.Plastic },
-        { 5,FilterType.Wood }
-    };
-
-    private Dictionary<FilterType, TrashMaterialType> __materialTypes = new Dictionary<FilterType, TrashMaterialType>()
-    {
-        {FilterType.Glass, TrashMaterialType.Glass},
-        {FilterType.Metal, TrashMaterialType.Metal},
-        {FilterType.Paper, TrashMaterialType.Paper},
-        {FilterType.Plastic, TrashMaterialType.Plastic},
-        {FilterType.Wood, TrashMaterialType.Wood},
-
-    };
+    private UIInventoryItem _currentSelectedItem;
 
     private void Awake()
     {
-        FillFilterOptions();
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnEnable()
     {
+        CreateInventoryObjects();
+        _currentSelectedItem = null;
         UpdateInventory(InventoryManager.Instance.Items);
         InventoryManager.OnInventoryChanged += UpdateInventory;
     }
 
+    private void CreateInventoryObjects()
+    {
+        _currentItems = new List<UIInventoryItem>();
+        for (int i = 0; i < InventoryManager.Instance?.MaxItems; i++)
+        {
+            GameObject newItem = Instantiate(itemPrefab, itemParent);
+            newItem.name = $"Item {i}";
+            UIInventoryItem uiInventoryItem = newItem.GetComponent<UIInventoryItem>();
+            uiInventoryItem.Setup();
+            _currentItems.Add(uiInventoryItem);
+        }
+    }
+
     private void OnDisable()
     {
+        ClearInventoryObjects();
         InventoryManager.OnInventoryChanged -= UpdateInventory;
     }
 
-    public void SelectSortingType()
+    private void ClearInventoryObjects()
     {
-        currentSortingType = _dropdownOptions[dropdown.value];
-        UpdateInventory(InventoryManager.Instance.Items);
+        for (int i = 0; i < _currentItems.Count; i++)
+        {
+            Destroy(_currentItems[i].gameObject);
+            _currentItems[i] = null;
+        }
+        _currentItems.Clear();
     }
+    
 
     private void UpdateInventory(List<ItemInstance> items)
     {
@@ -83,73 +90,50 @@ public class UIInventoryHelper : MonoBehaviour
             return;
         }
 
-        int maxSpaces = InventoryManager.Instance.MaxItems;
-        
-        ClearInventory();
-        items = FilterInventoy(items);
-
         for (int i = 0; i < items.Count; i++)
         {
             if (!items[i].ItemData.title.Contains("Tutorial"))
             {
-                GameObject newItem = Instantiate(itemPrefab, itemParent);
-                newItem.GetComponent<UIInventoryItem>().Setup(items[i]);
-                _currentItems.Add(newItem);
+                _currentItems[i].Setup(items[i], false);
+
+                if(i == 0 && InputDeviceHelper.Instance.IsController() && !UITideUpBoxManager.Instance.IsOpen)
+                {
+                    UIEventSystemHelper.Instance.SetFirstSelectedItem(_currentItems[i].gameObject);
+                }
             }
-            else
+        }
+
+        for (int i = items.Count; i < _currentItems.Count; i++)
+        {
+            _currentItems[i].Setup();
+
+            if (i == 0 && InputDeviceHelper.Instance.IsController() && !UITideUpBoxManager.Instance.IsOpen)
             {
-                GameObject newItem = Instantiate(emptyItemPrefab, itemParent);
-                _emptyItems.Add(newItem);
+                UIEventSystemHelper.Instance.SetFirstSelectedItem(_currentItems[i].gameObject);
             }
         }
-
-        for (int i = items.Count; i < maxSpaces; i++)
-        {
-            GameObject newItem = Instantiate(emptyItemPrefab, itemParent);
-            _emptyItems.Add(newItem);
-        }
-        
-       
     }
-    private List<ItemInstance> FilterInventoy(List<ItemInstance> items)
+    public void SetGameObjectAsSelected(UIInventoryItem item)
     {
-        List<ItemInstance> sortedItems;
-
-        if (currentSortingType == FilterType.All)
+        if(item == null)
         {
-            return sortedItems = items.OrderBy(m => m.ItemQuality)
-            .ToList();
+            return;
         }
 
-        return sortedItems = items
-            .Where(item => item.GetMaterials()
-            .Any(m => m.type == __materialTypes[currentSortingType]))
-            .OrderBy(m => m.ItemQuality)
-            .ToList();
-    }
+        if (item.IsEmpty())
+        {
+            return;
+        }
 
-    private void ClearInventory()
-    {
-        foreach(GameObject item in _currentItems)
+        if (_currentSelectedItem == null)
         {
-            Destroy(item);
+            _currentSelectedItem = item;
+            item.ToggleIcon(true);
+            return;
         }
-        _currentItems.Clear();
-        
-        foreach(GameObject item in _emptyItems)
-        {
-            Destroy(item);
-        }
-        _emptyItems.Clear();
-    }
 
-    private void FillFilterOptions()
-    {
-        List<string> dropdownOptions = new List<string>();
-        foreach(int i in _dropdownOptions.Keys)
-        {
-            dropdownOptions.Add(_dropdownOptions[i].ToString());
-        }
-        dropdown.AddOptions(dropdownOptions);
+        _currentSelectedItem.ToggleIcon(false);
+        _currentSelectedItem = item;
+        _currentSelectedItem.ToggleIcon(true);
     }
 }

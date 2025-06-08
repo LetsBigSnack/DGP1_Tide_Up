@@ -14,7 +14,9 @@ public enum ButtonInputType
     Friendbook,
     Calender,
     Map,
-    Journal
+    Journal,
+    Prev,
+    Next
 }
 
 [Serializable]
@@ -29,6 +31,8 @@ public class ButtonEntry
     private string key;
     [SerializeField]
     private Sprite sprite;
+    [SerializeField]
+    private bool notNeeded;
 
     public ButtonInputType Type
     {
@@ -53,12 +57,18 @@ public class ButtonEntry
         get { return sprite; }
         set { sprite = value; }
     }
+
+    public bool NotNeeded
+    {
+        get { return notNeeded; }
+        set { notNeeded = value; }
+    }
 }
 
 [CreateAssetMenu(fileName = "ToolBarSetting", menuName = "Scriptable Objects/ToolBarSetting")]
 public class ToolBarSetting : ScriptableObject
 {
-    [SerializeField] private KeyType type;
+    [SerializeField] private DeviceType type;
 
     [Header("Player")]
     [SerializeField] private ButtonEntry journal;
@@ -73,6 +83,8 @@ public class ToolBarSetting : ScriptableObject
     [SerializeField] private ButtonEntry map;
 
     [Header("General")]
+    [SerializeField] private ButtonEntry nextTab;
+    [SerializeField] private ButtonEntry prevTab;
     [SerializeField] private ButtonEntry interact;
     [SerializeField] private ButtonEntry close;
 
@@ -91,11 +103,13 @@ public class ToolBarSetting : ScriptableObject
             calender,
             map,
             interact,
-            close
+            close,
+            nextTab,
+            prevTab
         };
         }
     }
-    public KeyType Type
+    public DeviceType Type
     {
         get { return type; }
         set { type = value; }
@@ -159,5 +173,17 @@ public class ToolBarSetting : ScriptableObject
     {
         get { return close; }
         set { close = value; }
+    }
+
+    public ButtonEntry NextTab
+    {
+        get { return nextTab; }
+        set { nextTab = value; }
+    }
+
+    public ButtonEntry PrevTab
+    {
+        get { return prevTab; }
+        set { prevTab = value; }
     }
 }

@@ -67,6 +67,17 @@
                 },
                 {
                     "name": "",
+                    "id": "e011fd9d-a82a-411e-b3a9-6eb44c9b43bf",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ab368620-6422-4f72-9fe8-3634dfcf214d",
                     "path": "<Keyboard>/a",
                     "interactions": "",
@@ -78,8 +89,30 @@
                 },
                 {
                     "name": "",
+                    "id": "7e51dd5a-f8dd-4b7b-b7a5-cf1bf0048259",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b15b1823-4b31-420f-8444-9e06261e7875",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53c968d8-7e30-4f88-b88f-1c44fe6a7236",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

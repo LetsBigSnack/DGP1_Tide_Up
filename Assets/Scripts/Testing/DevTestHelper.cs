@@ -1,19 +1,9 @@
 using Data;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public class DevTestHelper : MonoBehaviour
+public class DevTestHelper : Selectable
 {
-    
-    public static TrashItemInstance TestGetTrashFromBox(int itemIndex)
-    {
-        TideUpBox currBox = TideUpBoxManager.Instance.GetTideUpBox(0);
-
-        if (currBox.BoxInventory.Count == 0)
-        {
-            return null;
-        }
-
-        TrashItemInstance itemToCollect = currBox.BoxInventory[itemIndex];
-        return itemToCollect;
-    }
+    public Selectable testButton;
 }

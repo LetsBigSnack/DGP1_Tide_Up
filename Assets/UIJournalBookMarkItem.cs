@@ -20,6 +20,8 @@ public class UIJournalBookMarkItem : MonoBehaviour
     [SerializeField] private UIJournalBookMarkItem prev;
     [SerializeField] private UIJournalBookMarkItem next;
 
+    private Button _button;
+
     private Animator anim;
 
     public JournalType Type
@@ -40,15 +42,64 @@ public class UIJournalBookMarkItem : MonoBehaviour
         set => isRight = value;
     }
 
+    public UIJournalBookMarkItem Previous
+    {
+        get => prev;
+    }
+
+    public UIJournalBookMarkItem Next
+    {
+        get => next;
+    }
+
     private void Start()
     {
+        _button = GetComponentInChildren<Button>();
         anim = GetComponent<Animator>();
         Setup();
+    }
+
+    private void OnEnable()
+    {
+        _button = GetComponentInChildren<Button>();
+        SetButtonNavigation(InputDeviceHelper.Instance.GetLastDeviceType());
+        InputDeviceHelper.OnDeviceChange += SetButtonNavigation;
+    }
+
+    private void OnDisable()
+    {
+        InputDeviceHelper.OnDeviceChange -= SetButtonNavigation;
+    }
+
+    private void SetButtonNavigation(DeviceType type)
+    {
+        Navigation nav = _button.navigation;
+
+        if (type != DeviceType.Keyboard && type != DeviceType.Mouse)
+        {
+            _button.interactable = false;
+            nav.mode = Navigation.Mode.None;
+            _button.navigation = nav;
+            return;
+        }
+        _button.interactable = true;
+        nav.mode = Navigation.Mode.Automatic;
+        _button.navigation = nav;
     }
 
     public void OnClick()
     {
         UIJournalManager.Instance.SwitchState(type);
+    }
+
+    public void OnSelected()
+    {
+        anim.SetBool("Selected", true);
+    }
+
+    public void OnDeselect()
+    {
+        anim.SetBool("Selected", false);
     }
 
     private void Setup()
@@ -102,6 +153,8 @@ public class UIJournalBookMarkItem : MonoBehaviour
         if (ShouldBeRaised())
         {
             anim.SetBool("raised", true);
+            
+            UIBookMarkController.Instance.SetCurrentBookMark(this);
             return;
         }
         anim.SetBool("raised", false);

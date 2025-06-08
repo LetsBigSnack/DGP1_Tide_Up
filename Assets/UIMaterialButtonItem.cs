@@ -1,12 +1,29 @@
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class UIMaterialButtonItem : MonoBehaviour
 {
     [SerializeField] private TrashMaterialType type;
+    [SerializeField] private GameObject circle;
+    private Button _button;
+
+    private void OnEnable()
+    {
+        _button = gameObject.GetComponentInChildren<Button>();
+        circle.SetActive(false);
+    }
+
     public void OnClick()
     {
-        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Upcycler)
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Recycler)
+        {
+            UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Upcycler);
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Switched to upcycler!");
+            return;
+        }
+
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Upcycler)
         {
             TrashMaterialEntry currentData = InventoryManager.Instance.GetWallet().Where(t => t.TrashMaterialData.type == type).FirstOrDefault();
             if(currentData.Amount > 0)
@@ -14,13 +31,28 @@ public class UIMaterialButtonItem : MonoBehaviour
                 UIUpcyclerController.Instance.AddMaterial(currentData.TrashMaterialData);
             }
         }
-        else
+
+        SoundManager.Instance.PlaySFX("Click");
+    }
+
+    public void OnSubmit()
+    {
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Recycler)
         {
-            if(UIReUpcycleManager.Instance.GetCurrentState() != ReUpcyclerType.Recycler)
-            {
-                return;
-            }
-            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Try doing that in the Upcycler in the other tab");
+            UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Upcycler);
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Switched to upcycler!");
+            return;
         }
+
+        if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Upcycler)
+        {
+            TrashMaterialEntry currentData = InventoryManager.Instance.GetWallet().Where(t => t.TrashMaterialData.type == type).FirstOrDefault();
+            if (currentData.Amount > 0)
+            {
+                UIUpcyclerController.Instance.AddMaterial(currentData.TrashMaterialData);
+            }
+        }
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 }

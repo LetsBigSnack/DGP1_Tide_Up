@@ -138,6 +138,13 @@ public class UIUpcyclerSubRecipeEntryItem : MonoBehaviour
 
     public void PutMaterialsIntoUpcycler()
     {
+        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Recycler)
+        {
+            UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Upcycler);
+            UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Switched to upcycler!");
+            return;
+        }
+
         if (CanMaterialsBeAddedToUpcycler())
         {
             UIUpcyclerController.Instance.RemoveAllMaterials();

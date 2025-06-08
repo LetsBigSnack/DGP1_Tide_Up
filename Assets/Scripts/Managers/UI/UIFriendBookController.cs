@@ -56,6 +56,7 @@ public class UIFriendBookController : UIJournalSubMenu
                 UIFriendBookItem firstItem = newBookEntry.GetComponent<UIFriendBookItem>();
                 UIFriendBookDescriptionHelper.Instance.Setup(n);
                 UIFriendBookDescriptionHelper.Instance.SetGameObjectAsSelected(firstItem);
+                UIEventSystemHelper.Instance.SetFirstSelectedItem(firstItem.gameObject);
                 counter++;
             }
         }

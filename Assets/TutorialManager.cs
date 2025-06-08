@@ -2,6 +2,7 @@ using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
@@ -50,16 +51,20 @@ public class TutorialManager : MonoBehaviour
     private void OnEnable()
     {
         InventoryManager.OnInventoryChanged += CheckForTutorialItem;
+        PlayerController.OnActionPerformed += OnInteractPerformed;
+        PlayerController.OnMovePerformed += OnMovePerformed;
     }
 
     private void OnDisable()
     {
         InventoryManager.OnInventoryChanged -= CheckForTutorialItem;
+        PlayerController.OnActionPerformed -= OnInteractPerformed;
+        PlayerController.OnMovePerformed -= OnMovePerformed;
     }
 
     private void Awake()
     {
-       if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -80,29 +85,9 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if(state == TutorialState.ItemPickUp && engineer.CurrentQuest?.QuestState == QuestState.InProgress && !itemsAreEnabled)
+        if (state == TutorialState.ItemPickUp && engineer.CurrentQuest?.QuestState == QuestState.InProgress && !itemsAreEnabled)
         {
             ToggleItems(true);
-        }
-
-        if (!engineer.GetComponent<NpcInteractable>().isActiveAndEnabled && GameStateManager.Instance.GetGameState() != GameStates.Dialogue && !AllButtonsDone())
-        {
-            CheckForInput();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E) && !tutorialIntroEnded)
-        {
-            ProceedDialogue();
-            buttonE.SetActive(false);
-            if (engineer.NpcState != NpcStates.Intro)
-            {
-                Debug.Log("notpossiblenexttime");
-                tutorialIntroEnded = true;
-                buttonA.SetActive(true);
-                buttonD.SetActive(true);
-                buttonW.SetActive(true);
-                buttonS.SetActive(true);
-            }
         }
     }
 
@@ -114,6 +99,46 @@ public class TutorialManager : MonoBehaviour
         ProceedDialogue();
     }
 
+    private void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        if (!engineer.GetComponent<NpcInteractable>().isActiveAndEnabled && GameStateManager.Instance.GetGameState() != GameStates.Dialogue && !AllButtonsDone())
+        {
+
+            Vector2 input = context.ReadValue<Vector2>();
+
+            if (input.y > 0 && !W) { W = true; buttonW.SetActive(false); }
+            if (input.y < 0 && !S) { S = true; buttonS.SetActive(false); }
+            if (input.x < 0 && !A) { A = true; buttonA.SetActive(false); }
+            if (input.x > 0 && !D) { D = true; buttonD.SetActive(false); }
+
+            if (state == TutorialState.Intro && AllButtonsDone())
+            {
+                if (!InventoryManager.Instance.Items.Exists(t => t.ItemData.title == "Tutorial_Item"))
+                {
+                    state = TutorialState.ItemPickUp;
+                    engineer.GetComponent<NpcInteractable>().enabled = true;
+                }
+            }
+        }
+    }
+
+    private void OnInteractPerformed(InputAction.CallbackContext context)
+    {
+        if (!tutorialIntroEnded)
+        {
+            ProceedDialogue();
+            buttonE.SetActive(false);
+            if (engineer.NpcState != NpcStates.Intro)
+            {
+                tutorialIntroEnded = true;
+                buttonA.SetActive(true);
+                buttonD.SetActive(true);
+                buttonW.SetActive(true);
+                buttonS.SetActive(true);
+            }
+        }
+    }
+
     private bool AllButtonsDone()
     {
         return A && W && S && D;
@@ -121,7 +146,7 @@ public class TutorialManager : MonoBehaviour
 
     private void ProceedDialogue()
     {
-        if(engineer.NpcState == NpcStates.Quest)
+        if (engineer.NpcState == NpcStates.Quest)
         {
             NpcDialogueManager.Instance.EndDialogue();
         }
@@ -131,12 +156,12 @@ public class TutorialManager : MonoBehaviour
 
     private void ToggleItems(bool isEnabled)
     {
-        if(items == null)
+        if (items == null)
         {
             return;
         }
 
-        foreach(ItemInteractable i in items)
+        foreach (ItemInteractable i in items)
         {
             i.enabled = isEnabled;
         }
@@ -144,42 +169,9 @@ public class TutorialManager : MonoBehaviour
         itemsAreEnabled = isEnabled;
     }
 
-    private void CheckForInput()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            W = true;
-            buttonW.SetActive(false);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            A = true;
-            buttonA.SetActive(false);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            S = true;
-            buttonS.SetActive(false);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            D = true;
-            buttonD.SetActive(false);
-        }
-
-        if (state == TutorialState.Intro && AllButtonsDone())
-        {
-            if (!InventoryManager.Instance.Items.Exists(t => t.ItemData.title == "Tutorial_Item"))
-            {
-                state = TutorialState.ItemPickUp;
-                engineer.GetComponent<NpcInteractable>().enabled = true;
-            }
-        }
-    }
-
     private void CheckForTutorialItem(List<ItemInstance> items)
     {
-        if(items.Exists(t => t.ItemData.title == "DriftWood") && items.Exists(t => t.ItemData.title == "Can") && state == TutorialState.ItemPickUp)
+        if (items.Exists(t => t.ItemData.title == "DriftWood") && items.Exists(t => t.ItemData.title == "Can") && state == TutorialState.ItemPickUp)
         {
             if (!items.Exists(t => t.ItemData.title == "Tutorial_Item"))
             {
@@ -189,19 +181,19 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if(!items.Exists(t => t.ItemData.title == "Tutorial_Item") && state == TutorialState.Crafting && engineer.CurrentQuest.QuestState == QuestState.InProgress)
+        if (!items.Exists(t => t.ItemData.title == "Tutorial_Item") && state == TutorialState.Crafting && engineer.CurrentQuest.QuestState == QuestState.InProgress)
         {
             recycler.enabled = true;
             QuestItemInstance questItem = DataUtil.Instance.GetQuestItemByName("Shovel");
             engineer.NpcData.CurrentQuest.QuestItem = questItem;
         }
 
-        if(items.Exists(t => t.ItemData.title == "Shovel") && state == TutorialState.Crafting)
+        if (items.Exists(t => t.ItemData.title == "Shovel") && state == TutorialState.Crafting)
         {
             state = TutorialState.End;
         }
 
-        if(!items.Exists(t => t.ItemData.title == "Shovel") && state == TutorialState.End)
+        if (!items.Exists(t => t.ItemData.title == "Shovel") && state == TutorialState.End)
         {
             state = TutorialState.End;
             tutorialDoor.SetActive(true);

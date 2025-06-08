@@ -50,6 +50,23 @@ public class UIFriendBookItem : MonoBehaviour
             UIFriendBookDescriptionHelper.Instance.Setup(currentNpc);
             UIFriendBookDescriptionHelper.Instance.SetGameObjectAsSelected(this);
         }
+        else
+        {
+            UIFriendBookDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+        }
+    }
+
+    public void OnSelected()
+    {
+        if (currentNpc.NpcState != NpcStates.Intro && InputDeviceHelper.Instance.IsController())
+        {
+            UIFriendBookDescriptionHelper.Instance.Setup(currentNpc);
+            UIFriendBookDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+        }
+        else
+        {
+            UIFriendBookDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+        }
     }
 
     public void ToggleIcon()

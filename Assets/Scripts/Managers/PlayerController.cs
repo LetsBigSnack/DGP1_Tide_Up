@@ -62,10 +62,11 @@ public class PlayerController : MonoBehaviour
     private AnimationController _anim;
 
     public static event Action<string> OnToggleSprintChanged;
-    
-    
-    
-    
+
+    public static event Action<InputAction.CallbackContext> OnActionPerformed;
+    public static event Action<InputAction.CallbackContext> OnMovePerformed;
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -140,6 +141,7 @@ public class PlayerController : MonoBehaviour
         _playerInputs.Player.Interact.performed += Interact;
 
         //Click left button
+        //TODO: remove from here
         _playerInputs.Player.Click.Enable();
         _playerInputs.Player.Click.performed += SoundOnClick;
     }
@@ -174,6 +176,7 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleSprint(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         isSprinting = !isSprinting;
         SetSprintText();
     }
@@ -190,8 +193,15 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    public bool IsSprinting()
+    {
+        return isSprinting;
+    }
+
     private void Interact(InputAction.CallbackContext value)
     {
+        OnActionPerformed?.Invoke(value);
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         if (GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
         {
             return;
@@ -217,6 +227,7 @@ public class PlayerController : MonoBehaviour
 
     private void SoundOnClick(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         if(GameStateManager.Instance.GetGameState() != GameStates.InMenu)
         {
             return;
@@ -242,12 +253,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnMovePlayerPreformed(InputAction.CallbackContext value)
     {
+        OnMovePerformed?.Invoke(value);
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         Vector2 axis = value.ReadValue<Vector2>();
         _playerMoveVector = new Vector3(axis.x, 0, axis.y);
     }
 
     private void OnMovePlayerCancelled(InputAction.CallbackContext value)
     {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
         _playerMoveVector = Vector3.zero;
     }
     

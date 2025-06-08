@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Data;
 using System.Linq;
+using System;
 
+[Serializable]
 public enum ShopType
 {
     Closed,
@@ -20,6 +22,13 @@ public class UIShopManager : MonoBehaviour
     [Header("SubMenues")]
     [SerializeField] private List<UIShopSubMenu> shopSubMenues;
     [SerializeField] private GameObject tabs;
+
+    private Dictionary<int, ShopType> _tabJumps = new Dictionary<int, ShopType>()
+    {
+        {1, ShopType.PlayerUpgrades},
+        {2, ShopType.Exchange },
+        {3, ShopType.BoatUpgrades },
+    };
 
     private void Awake()
     {
@@ -50,13 +59,39 @@ public class UIShopManager : MonoBehaviour
         OpenMenuByType(state);
         GameStateManager.Instance.SetGameState(GameStates.InMenu);
         currentOpenType = state;
-        UIHUDManager.Instance.UpdateToolBar(GameStates.InMenu);
+        UIHUDManager.Instance.UpdateToolBar(GameStates.InMenu, InputDeviceHelper.Instance.GetLastDeviceType());
         tabs.SetActive(true);
     }
 
     public void SwitchStateByInt(int i)
     {
         SwitchState((ShopType)i);
+    }
+
+    public void PreviousTab()
+    {
+        int enumLength = System.Enum.GetValues(typeof(ShopType)).Length;
+
+        int next = (int)currentOpenType + 1;
+        if (next >= enumLength)
+            next = 1;
+
+        if ((ShopType)next == ShopType.Closed)
+            next++;
+
+        SwitchState((ShopType)next);
+    }
+
+    public void NextTab()
+    {
+        int prev = (int)currentOpenType - 1;
+        if (prev <= 0)
+            prev = System.Enum.GetValues(typeof(ShopType)).Length - 1;
+
+        if ((ShopType)prev == ShopType.Closed)
+            prev--;
+
+        SwitchState((ShopType)prev);
     }
 
     public void CloseAllMenues()
