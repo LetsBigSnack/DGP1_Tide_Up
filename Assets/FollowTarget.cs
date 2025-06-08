@@ -6,9 +6,13 @@ public class FollowTarget : MonoBehaviour
 
     void LateUpdate()
     {
-        if(target == null)
+        if(GameStateManager.Instance.GetGameState() != GameStates.PlayingBoat)
         {
             target = FindFirstObjectByType<Player>().gameObject.transform;
+        }
+        else
+        {
+            target = FindFirstObjectByType<Boat>().gameObject.transform;
         }
         this.gameObject.transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);    
     }
