@@ -9,6 +9,7 @@ public class UIInventoryItem : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private ItemInstance item;
     [SerializeField] private GameObject borderIcon;
+    [SerializeField] private GameObject star;
     
     public bool IsEmpty()
     {
@@ -32,6 +33,15 @@ public class UIInventoryItem : MonoBehaviour
         image.sprite = data.ItemData.sprite;
         item = data;
         image.color = new Color(1, 1, 1, 1);
+
+        if(data.ItemQuality == ItemQuality.High)
+        {
+            star.SetActive(true);
+        }
+        else
+        {
+            star.SetActive(false);
+        }
     }
 
     public void OnClick()
