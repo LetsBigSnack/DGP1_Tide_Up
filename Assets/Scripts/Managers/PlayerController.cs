@@ -232,7 +232,6 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        SoundManager.Instance.PlaySFX("Click");
     }
 
 
