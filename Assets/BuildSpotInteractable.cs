@@ -25,6 +25,13 @@ public class BuildSpotInteractable : Interactable
 
     public override void Interact()
     {
+        Debug.Log(GameStateManager.Instance.GetGameState());
+
+        if(GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter)
+        {
+            return;
+        }
+
         if (EnvironmentManager.Instance.GetCurrentIsland().State >= state)
         {
             UIBuildManager.Instance.Setup(sprite, description, subtext, trashNeeded, this);
