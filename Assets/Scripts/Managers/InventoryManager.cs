@@ -84,7 +84,7 @@ public class InventoryManager : MonoBehaviour
         OnInventoryChanged?.Invoke(_items);
 
         //TODO: Add sound
-        UI_ToastManager.Instance.SpawnToastMessage(ToastType.Item, item.ItemData.title, sprite: item.ItemData.sprite);
+        UI_ToastManager.Instance?.SpawnToastMessage(ToastType.Item, item.ItemData.title, sprite: item.ItemData.sprite);
         
         Debug.Log("Picked up: " + item.ItemData.name);
         return true;
