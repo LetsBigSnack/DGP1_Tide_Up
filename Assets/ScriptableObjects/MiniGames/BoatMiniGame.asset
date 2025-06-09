@@ -18,19 +18,19 @@ MonoBehaviour:
   - notes:
     - timeStamp: 0.38
       button: 0
-      isHit: 0
+      isHit: 1
     - timeStamp: 1.55
       button: 0
-      isHit: 0
+      isHit: 1
     - timeStamp: 2.46
       button: 0
-      isHit: 0
+      isHit: 1
     - timeStamp: 3.48
       button: 0
       isHit: 1
     - timeStamp: 0.97
       button: 1
-      isHit: 0
+      isHit: 1
     - timeStamp: 2.99
       button: 2
       isHit: 1
@@ -48,37 +48,37 @@ MonoBehaviour:
       isHit: 1
     - timeStamp: 1.32
       button: 1
-      isHit: 1
+      isHit: 0
     - timeStamp: 1.51
       button: 1
-      isHit: 1
+      isHit: 0
     - timeStamp: 1.66
       button: 1
       isHit: 0
     - timeStamp: 1.77
       button: 1
-      isHit: 1
+      isHit: 0
     - timeStamp: 2.03
       button: 1
-      isHit: 1
+      isHit: 0
     - timeStamp: 2.17
       button: 1
       isHit: 0
     - timeStamp: 2.26
       button: 1
-      isHit: 1
+      isHit: 0
     - timeStamp: 2.45
       button: 1
       isHit: 0
     - timeStamp: 2.6
       button: 1
-      isHit: 1
+      isHit: 0
     - timeStamp: 2.76
       button: 1
       isHit: 1
     - timeStamp: 2.93
       button: 1
-      isHit: 0
+      isHit: 1
     - timeStamp: 3.06
       button: 1
       isHit: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
     trackDuration: 4
   punishmentPercentage: 0.05
   progressPercentage: 0.03846154
-  currentProgress: 0.003846161
+  currentProgress: 0.1423077
   successThreshold: 0.8
   hitNotes: []
   _fullCombo: 0
