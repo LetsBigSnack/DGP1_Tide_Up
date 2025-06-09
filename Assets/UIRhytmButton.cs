@@ -1,7 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 
+
+[Serializable]
+public class DeviceButton
+{
+    public DeviceType type;
+    public Sprite sprite;
+}
+
+
+[Serializable]
+public class NoteRepresentation
+{
+    public MiniGameButton miniGameButton;
+    
+    public List<DeviceButton> deviceButtons;
+    
+}
 
 public class UIRhytmButton : MonoBehaviour
 {
@@ -9,29 +29,13 @@ public class UIRhytmButton : MonoBehaviour
 
     [Header("Image")]
     [SerializeField] private Image img;
-
-    [Header("Slider")]
-    [SerializeField] private Slider slider;
-    [SerializeField] private GameObject parent;
-
-    [Header("Xbox")]
-    [SerializeField] private Sprite btn_Y;
-    [SerializeField] private Sprite btn_X;
-    [SerializeField] private Sprite btn_A;
-    [SerializeField] private Sprite btn_B;
-
-    [Header("Playstation")]
-    [SerializeField] private Sprite btnTriangle;
-    [SerializeField] private Sprite btnSquare;
-    [SerializeField] private Sprite btnCircle;
-    [SerializeField] private Sprite btnCross;
-
-    [Header("Keyboard")]
-    [SerializeField] private Sprite btnW;
-    [SerializeField] private Sprite btnA;
-    [SerializeField] private Sprite btnS;
-    [SerializeField] private Sprite btnD;
-
+    [SerializeField] private Image hitImage;
+    [SerializeField] private bool hit;
+    [SerializeField] private List<NoteRepresentation> noteRepresentation;
+    
+    private MiniGameButton _miniGameButton;
+    
+    
     private void OnEnable()
     {
         UpdateRepresentation(InputDeviceHelper.Instance.GetLastDeviceType());
@@ -43,9 +47,11 @@ public class UIRhytmButton : MonoBehaviour
         InputDeviceHelper.OnDeviceChange -= UpdateRepresentation;
     }
 
-    public void Setup(ButtonInputType buttonInputType)
+    public void Setup(MiniGameNote miniGameNote)
     {
-
+        _miniGameButton = miniGameNote.button;
+        hitImage.gameObject.SetActive(miniGameNote.isHit);
+        UpdateRepresentation(InputDeviceHelper.Instance.GetLastDeviceType());
     }
     
     public void UpdateRepresentation(DeviceType type)
@@ -54,15 +60,12 @@ public class UIRhytmButton : MonoBehaviour
         {
             type = DeviceType.Keyboard;
         }
-
-        switch (type)
-        {
-            case DeviceType.Keyboard:
-                break;
-            case DeviceType.PlayStation:
-                break;
-            case DeviceType.Xbox:
-                break;
-        }
+        
+        img.sprite = noteRepresentation
+            .Where(c => c.miniGameButton == _miniGameButton)
+            .Select(s => s.deviceButtons).FirstOrDefault()
+            .Where(h => h.type == type)
+            .Select(s => s.sprite)
+            .FirstOrDefault();
     }
 }

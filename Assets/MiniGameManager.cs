@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using UnityEngine;
 
@@ -10,6 +11,13 @@ public enum MiniGameType
     Digging,
     Fishing,
     Boat
+}
+
+[Serializable]
+public class MiniGameCooldown
+{
+    public MiniGameType Type;
+    public float Cooldown;
 }
 
 
@@ -24,7 +32,11 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private float miniGameCooldown = 0.1f;
     [SerializeField] private bool canPlayMinigame = true;
     
-    private float elaspedTime;
+    [SerializeField] private List<MiniGameCooldown> minigameCooldowns = new List<MiniGameCooldown>();
+    
+    [SerializeField] private float elaspedTime;
+    
+    [SerializeField] private float _currentCooldown;
     
 
     private void Awake()
@@ -45,7 +57,7 @@ public class MiniGameManager : MonoBehaviour
         if (!canPlayMinigame)
         {
             elaspedTime += Time.deltaTime;
-            if (elaspedTime >= miniGameCooldown)
+            if (elaspedTime >= _currentCooldown)
             {
                 canPlayMinigame = true;
                 elaspedTime = 0;
@@ -66,7 +78,6 @@ public class MiniGameManager : MonoBehaviour
             return;
         }
         
-        canPlayMinigame = false;
         GameStateManager.Instance.SetGameState(GameStates.MiniGame);
         MiniGame miniGame = miniGames.Find(c => c.type == type);
         AnimationController _animation = PlayerController.Instance.GetAnimationController();
@@ -110,7 +121,11 @@ public class MiniGameManager : MonoBehaviour
                         BoatController.Instance.AnchorBoat(false);
                         break;
                 }
+                _currentCooldown = minigameCooldowns.Where(c => c.Type == type).Select(c => c.Cooldown).FirstOrDefault();
+                canPlayMinigame = false;
             }
+            
+            
         ));
     }
 }

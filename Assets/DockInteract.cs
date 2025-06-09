@@ -43,7 +43,7 @@ public class DockInteract : Interactable
                 mesh.enabled = true;
         }
         
-        InteractionManager.Instance.SetInteractionRadius(4f);
+        InteractionManager.Instance.SetInteractionRadius(1.5f);
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         CamerController.Instance.SwitchTarget(CameraTarget.Player);
         
@@ -99,7 +99,7 @@ public class DockInteract : Interactable
         foreach (SkinnedMeshRenderer mesh in player.GetComponentsInChildren<SkinnedMeshRenderer>())
             if (mesh != null) mesh.enabled = true;
 
-        InteractionManager.Instance.SetInteractionRadius(4f);
+        InteractionManager.Instance.SetInteractionRadius(1.5f);
         GameStateManager.Instance.SetGameState(GameStates.PlayingCharacter);
         CamerController.Instance.SwitchTarget(CameraTarget.Player);
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -27,6 +28,9 @@ public class UIMiniGameManager : MonoBehaviour
     [SerializeField] private GameObject fishingButtons;
     [SerializeField] private GameObject digPickButton;
 
+    [SerializeField] private UIBoatMiniGame uiBoatMiniGame;
+    
+    
     private bool _isRunning;
     private float _horLastGoalPct;
     private float _verLastGoalPct;
@@ -43,10 +47,20 @@ public class UIMiniGameManager : MonoBehaviour
         }
     }
     
-    public void Initialize(float totalTime, float initialGoalPct, Transform target, MiniGameType gameType = MiniGameType.PickUp, float verTime = 0, float vertGoalPct = 0)
+    public void Initialize(float totalTime, float initialGoalPct, Transform target, MiniGameType gameType = MiniGameType.PickUp, float verTime = 0, float vertGoalPct = 0, List<MiniGameNote> buttons = null)
     {
         Show(gameType);
         _isRunning = true;
+
+
+        if (gameType == MiniGameType.Boat)
+        {
+            uiBoatMiniGame.Initialize(buttons);
+            transform.position = FindAnyObjectByType<BoatController>().gameObject.transform.position + Vector3.up * indicatorHeight * 3;
+            return;
+        }
+        
+        
         horSlider.value = 0;
         horSlider.maxValue = 1.0f;
         transform.position = target.position + Vector3.up * indicatorHeight;
@@ -137,12 +151,22 @@ public class UIMiniGameManager : MonoBehaviour
     {
         uiMiniGameHolder.SetActive(true);
 
+        if (gameType == MiniGameType.Boat)
+        {
+            uiBoatMiniGame.gameObject.SetActive(true);
+            
+            return;
+        }
+        
+        
+        horSlider.gameObject.SetActive(true);
+        horSweetSpotMarker.gameObject.SetActive(true);
+        
         if (gameType == MiniGameType.Fishing)
         {
             vertSlider.gameObject.SetActive(true);
             vertSweetSpotMarker.gameObject.SetActive(true);
         }
-        
     }
     
     public void Hide()
@@ -151,7 +175,15 @@ public class UIMiniGameManager : MonoBehaviour
         uiMiniGameHolder.SetActive(false);
         vertSlider.gameObject.SetActive(false);
         vertSweetSpotMarker.gameObject.SetActive(false);
+        horSlider.gameObject.SetActive(false);
+        horSweetSpotMarker.gameObject.SetActive(false);
         fishingButtons.SetActive(false);
         digPickButton.SetActive(false);
+        uiBoatMiniGame.gameObject.SetActive(false);
+    }
+
+    public void OnBoatMiniGameProgress(float arg1, float arg2, float treshhold, List<MiniGameNote> arg3)
+    {
+        uiBoatMiniGame.UpdateSlider(arg1, arg2, treshhold, arg3);
     }
 }
