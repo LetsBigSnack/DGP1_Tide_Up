@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+#if UNITY_EDITOR
 public class CreateBounds : EditorWindow
 {
     private float expandAmount = 10f;
@@ -61,3 +62,4 @@ public class CreateBounds : EditorWindow
         }
     }
 }
+#endif
