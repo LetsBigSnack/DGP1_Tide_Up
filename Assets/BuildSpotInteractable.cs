@@ -14,15 +14,27 @@ public class BuildSpotInteractable : Interactable
 
     [SerializeField] private GameObject activeObj;
 
+    [TextArea(0,20)]
     [SerializeField] private string description;
+    [TextArea(0,20)]
+    [SerializeField] private string subtext;
+
+    [SerializeField] private Sprite sprite;
 
     public override InteractableType Type => InteractableType.Build;
 
     public override void Interact()
     {
+        Debug.Log(GameStateManager.Instance.GetGameState());
+
+        if(GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter)
+        {
+            return;
+        }
+
         if (EnvironmentManager.Instance.GetCurrentIsland().State >= state)
         {
-            UIBuildManager.Instance.Setup(null, description, trashNeeded, this);
+            UIBuildManager.Instance.Setup(sprite, description, subtext, trashNeeded, this);
         }
         else
         {

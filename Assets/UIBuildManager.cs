@@ -72,7 +72,7 @@ public class UIBuildManager : MonoBehaviour
         }
     }
 
-    public void Setup(Sprite image = null, string description = "", List<TrashMaterialEntry> requirements = null, BuildSpotInteractable spot = null)
+    public void Setup(Sprite image = null, string description = "", string subtext = "", List<TrashMaterialEntry> requirements = null, BuildSpotInteractable spot = null)
     {
         if (image)
         {
@@ -80,6 +80,7 @@ public class UIBuildManager : MonoBehaviour
         }
 
         this.buildDescription.text = description;
+        this.subText.text = subtext;
         this._currentMaterialsNeeded = requirements ?? new List<TrashMaterialEntry>();
         this._currentSpot = spot;
 
