@@ -28,7 +28,7 @@ public class OceanManager : MonoBehaviour
     
     [Header("Movement Barrier")]
     public bool useMovementBarrier = true;
-    public int barrierDistance = 5;
+    public float barrierDistance = 1.5f;
     public float barrierHeight = 50f;
     public float barrierThickness = 10f;
     public LayerMask barrierLayer;
