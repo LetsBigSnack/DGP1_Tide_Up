@@ -13,6 +13,7 @@ public enum MiniGameButton
     Button1,
     Button2,
     Button3,
+    Button4
 }
 
 [Serializable]
@@ -21,6 +22,7 @@ public class MiniGameNote
     public float timeStamp;
     public MiniGameButton button;
     public bool isHit;
+    public float percentage;
 }
 
 [Serializable]
@@ -35,8 +37,11 @@ public class MiniGameTrack
         foreach (MiniGameNote note in notes)
         {
             note.isHit = false;
+            note.percentage = note.timeStamp / trackDuration;
         }
     }
+    
+    
     
 }
 
@@ -53,7 +58,9 @@ namespace ScriptableObjects
         [SerializeField] private float progressPercentage = 0f;
         [SerializeField] private float currentProgress = 0f;
         [SerializeField] private float successThreshold = 0.8f;
-        
+
+
+        public Action<float, float, float, List<MiniGameNote>> OnBoatMiniGameProgress;
         
         public List<MiniGameTrack> GetTracks() => tracks;
 
@@ -85,10 +92,13 @@ namespace ScriptableObjects
 
             float endTime = _startTime + _currentTrack.trackDuration;
             
+            UIMiniGameManager.Instance.Initialize(_currentTrack.trackDuration,successThreshold, Player.Instance.gameObject.transform, type=MiniGameType.Boat, buttons:_currentTrack.notes);
+
+            
             while (Time.time < endTime)
             {
                 //UI updaten
-                
+                OnBoatMiniGameProgress?.Invoke((Time.time-_startTime)/_currentTrack.trackDuration, currentProgress, successThreshold, _currentTrack.notes);
                 yield return null;
             }
 
@@ -162,6 +172,16 @@ namespace ScriptableObjects
         public MiniGameTrack GetCurrentTrack()
         {
             return _currentTrack;
+        }
+        
+        protected override void UISubscribe()
+        {
+            OnBoatMiniGameProgress += UIMiniGameManager.Instance.OnBoatMiniGameProgress;
+        }
+        
+        protected override void UIUnsubscribe()
+        {
+            OnBoatMiniGameProgress -= UIMiniGameManager.Instance.OnBoatMiniGameProgress;
         }
     }
 }
