@@ -8,7 +8,8 @@ public enum MiniGameType
 {
     PickUp,
     Digging,
-    Fishing
+    Fishing,
+    Boat
 }
 
 
@@ -69,7 +70,7 @@ public class MiniGameManager : MonoBehaviour
         GameStateManager.Instance.SetGameState(GameStates.MiniGame);
         MiniGame miniGame = miniGames.Find(c => c.type == type);
         AnimationController _animation = PlayerController.Instance.GetAnimationController();
-        PlayerController.Instance?.SetPlayerCantMove();
+        
     
         switch (type)
         {
@@ -81,6 +82,9 @@ public class MiniGameManager : MonoBehaviour
                 break;
             case MiniGameType.Fishing:
                 _animation?.EnableAnimation(Animations.Fish);
+                break;
+            case MiniGameType.Boat:
+                BoatController.Instance.AnchorBoat(true);
                 break;
         }
         
@@ -101,7 +105,10 @@ public class MiniGameManager : MonoBehaviour
                     case MiniGameType.Digging:
                         _animation?.DisableAnimation(Animations.Dig);
                         break;
-
+                    case MiniGameType.Boat:
+                        PlayerController.Instance?.SetPlayerCanMove();
+                        BoatController.Instance.AnchorBoat(false);
+                        break;
                 }
             }
         ));

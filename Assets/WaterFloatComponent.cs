@@ -13,9 +13,11 @@ public class WaterFloatComponent : MonoBehaviour
     public bool AffectDirection = true;
     public bool AttachToSurface = false;
     public Transform[] FloatPoints;
+    public bool IsAnchored = false;
+
     [Header("Buoyancy")]
     public float BuoyancyStrength = 1f;
-
+    
     //used components
     protected Rigidbody Rigidbody;
 
@@ -88,8 +90,34 @@ public class WaterFloatComponent : MonoBehaviour
                 transform.Translate(Vector3.up * waterLineDelta * 0.9f);
             }
         }
-        Rigidbody.AddForce(gravity * Mathf.Clamp(Mathf.Abs(WaterLine - Center.y),0,1) * BuoyancyStrength);
+        
+        if (IsAnchored)
+        {
+            // Only allow vertical movement and rotation
+            var force = gravity * Mathf.Clamp(Mathf.Abs(WaterLine - Center.y), 0, 1) * BuoyancyStrength;
+            force.x = 0;
+            force.z = 0;
+            Rigidbody.AddForce(force);
 
+            // Freeze XZ velocity
+            Vector3 v = Rigidbody.linearVelocity;
+            v.x = 0;
+            v.z = 0;
+            Rigidbody.linearVelocity = v;
+
+            // Optional: Freeze angular XZ velocity too
+            Vector3 angular = Rigidbody.angularVelocity;
+            angular.x = 0;
+            angular.z = 0;
+            Rigidbody.angularVelocity = angular;
+        }
+        else
+        {
+            // Normal buoyant motion
+            Rigidbody.AddForce(gravity * Mathf.Clamp(Mathf.Abs(WaterLine - Center.y), 0, 1) * BuoyancyStrength);
+
+        }
+        
         //rotation
         if (pointUnderWater)
         {

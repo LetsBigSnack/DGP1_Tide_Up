@@ -22,8 +22,22 @@ public class BoatController : MonoBehaviour
     [SerializeField] private List<ParticleSystem> particles = new List<ParticleSystem>();
     [SerializeField] private ObjectRotator rotator;
 
+    
+    public static BoatController Instance;
+    
     private void Awake()
     {
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
+        
         _playerInputs = new PlayerInputs();
         _rb = GetComponent<Rigidbody>();
         _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -64,12 +78,38 @@ public class BoatController : MonoBehaviour
             _steerInput = 0f;
             _throttleInput = 0f;
         }
-
+        
+        WaterFloatComponent floatComponent = GetComponent<WaterFloatComponent>();
+        if (floatComponent != null && floatComponent.IsAnchored)
+        {
+            _steerInput = 0f;
+            _throttleInput = 0f;
+            return; // Skip MoveBoat
+        }
+        
         MoveBoat();
         BoatVfx();
         
     }
+    
+    public void AnchorBoat(bool anchor)
+    {
+        Debug.Log("AnchorBoat: " + anchor);
+        var floatComponent = GetComponent<WaterFloatComponent>();
+        floatComponent.IsAnchored = anchor;
 
+        if (anchor)
+        {
+            _currentVelocity = Vector3.zero;
+
+           
+            Vector3 v = _rb.linearVelocity;
+            v.x = 0;
+            v.z = 0;
+            _rb.linearVelocity = v;
+        }
+    }
+    
     private void MoveBoat()
     {
         // Update forward/backward velocity
