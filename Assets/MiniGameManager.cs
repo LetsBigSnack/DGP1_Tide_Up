@@ -70,7 +70,7 @@ public class MiniGameManager : MonoBehaviour
         GameStateManager.Instance.SetGameState(GameStates.MiniGame);
         MiniGame miniGame = miniGames.Find(c => c.type == type);
         AnimationController _animation = PlayerController.Instance.GetAnimationController();
-        
+        PlayerController.Instance?.SetPlayerCantMove();
     
         switch (type)
         {

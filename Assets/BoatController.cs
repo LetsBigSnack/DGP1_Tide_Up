@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,6 +24,23 @@ public class BoatController : MonoBehaviour
     [SerializeField] private ObjectRotator rotator;
 
     
+    
+    [Header("Cliff Detection")]
+    [SerializeField] private int numberOfCliffChecks = 8;
+    [SerializeField] private float cliffCheckDistance = 1.0f;
+    [SerializeField] private float cliffMaxHeight = 1.5f;
+    [SerializeField] private float cliffMaxCheckDistance = 2.0f;
+    [SerializeField] private LayerMask cliffLayer;
+    [SerializeField] private float cliffObstacleCheckDistance = 0.2f;
+    [SerializeField] private LayerMask obstaclesLayer;
+    [Range(0,1.0f)]
+    [SerializeField] private float cliffCheckDot = 0.7f;
+    [SerializeField] private float slopeCheckAngle = 45.0f;
+    private List<Transform> _cliffCheckers;
+    private int _lastCliffCheckCount;
+    private float _lastCliffCheckDistance;
+    
+    
     public static BoatController Instance;
     
     private void Awake()
@@ -37,7 +55,11 @@ public class BoatController : MonoBehaviour
             Destroy(gameObject);
         }
         
-        
+        ResetCliffCheckers();
+        SetupCliffCheckers();
+
+        _lastCliffCheckCount = numberOfCliffChecks;
+        _lastCliffCheckDistance = cliffCheckDistance;
         _playerInputs = new PlayerInputs();
         _rb = GetComponent<Rigidbody>();
         _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -72,6 +94,13 @@ public class BoatController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_lastCliffCheckCount != numberOfCliffChecks || !Mathf.Approximately(_lastCliffCheckDistance, cliffCheckDistance))
+        {
+            ResetCliffCheckers();
+            SetupCliffCheckers();
+            _lastCliffCheckCount = numberOfCliffChecks;
+            _lastCliffCheckDistance = cliffCheckDistance;
+        }
         
         if (GameStateManager.Instance.GetGameState() != GameStates.PlayingBoat)
         {
@@ -91,6 +120,71 @@ public class BoatController : MonoBehaviour
         BoatVfx();
         
     }
+    
+    private bool IsApproachingGround(Vector3 direction)
+    {
+        Vector3 moveDir = direction.normalized;
+
+        foreach (Transform checker in _cliffCheckers)
+        {
+            Vector3 dirToChecker = (checker.position - transform.position).normalized;
+
+            if (Vector3.Dot(moveDir, dirToChecker) > cliffCheckDot)
+            {
+                if (Physics.Raycast(checker.position, Vector3.down, out RaycastHit groundHit, cliffMaxCheckDistance, cliffLayer))
+                {
+                    float slopeAngle = Vector3.Angle(groundHit.normal, Vector3.up);
+
+                    if (Physics.Raycast(checker.position, Vector3.down, out RaycastHit obstacleHit, cliffMaxCheckDistance, obstaclesLayer))
+                    {
+                        float distance = groundHit.distance - obstacleHit.distance;
+
+                        if (distance > cliffObstacleCheckDistance)
+                        {
+                            return true; 
+                        }
+                    }
+
+                    if (slopeAngle > slopeCheckAngle || groundHit.distance > cliffMaxHeight)
+                    {
+                        return true; 
+                    }
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    
+    private void ResetCliffCheckers()
+    {
+        if (_cliffCheckers != null)
+        {
+            foreach (Transform checker in _cliffCheckers)
+            {
+                if (checker != null)
+                    Destroy(checker.gameObject);
+            }
+        }
+
+        _cliffCheckers = new List<Transform>();
+    }
+    
+    private void SetupCliffCheckers()
+    {
+        _cliffCheckers = new List<Transform>();
+        float degrees = 360.0f / numberOfCliffChecks;
+        for (int i = 0; i < numberOfCliffChecks; i++)
+        {
+            GameObject checker = new GameObject("BoatCliffChecker_" + i);
+            checker.transform.parent = transform;
+            checker.transform.localPosition = Quaternion.Euler(0, i * degrees, 0) * Vector3.forward * cliffCheckDistance;
+            checker.hideFlags = HideFlags.HideInHierarchy;
+            _cliffCheckers.Add(checker.transform);
+        }
+    }
+
     
     public void AnchorBoat(bool anchor)
     {
@@ -112,6 +206,16 @@ public class BoatController : MonoBehaviour
     
     private void MoveBoat()
     {
+        Vector3 moveDirection = transform.forward * _throttleInput;
+        
+        if (IsApproachingGround(moveDirection))
+        {
+            _currentVelocity = Vector3.zero;
+            _rb.linearVelocity = new Vector3(0, _rb.linearVelocity.y, 0);
+            Debug.Log("Boat cliff ahead — movement cancelled");
+            return;
+        }
+        
         // Update forward/backward velocity
         Vector3 targetVelocity = transform.forward * (_throttleInput * maxSpeed);
         _currentVelocity = Vector3.MoveTowards(_currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
@@ -169,4 +273,70 @@ public class BoatController : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        if (_cliffCheckers == null) return;
+
+        Vector3 moveDirection = transform.forward * _throttleInput;
+        Vector3 moveDir = moveDirection != Vector3.zero ? moveDirection.normalized : transform.forward;
+
+        foreach (Transform checker in _cliffCheckers)
+        {
+            Vector3 dirToChecker = (checker.position - transform.position).normalized;
+            bool withinThreshold = Vector3.Dot(moveDir, dirToChecker) > cliffCheckDot;
+
+            // Perform both raycasts
+            bool groundHit = Physics.Raycast(checker.position, Vector3.down, out RaycastHit hitGround, cliffMaxCheckDistance, cliffLayer);
+            bool obstacleHit = Physics.Raycast(checker.position, Vector3.down, out RaycastHit hitObstacle, cliffMaxCheckDistance, obstaclesLayer);
+
+            if (withinThreshold)
+            {
+                // Logic match: only block if both ground and obstacle are present, and obstacle is protruding
+                if (groundHit && obstacleHit)
+                {
+                    float distance = hitGround.distance - hitObstacle.distance;
+                    float slopeAngle = Vector3.Angle(hitGround.normal, Vector3.up);
+
+                    if (distance > cliffObstacleCheckDistance || slopeAngle > slopeCheckAngle || hitGround.distance > cliffMaxHeight)
+                    {
+                        Gizmos.color = Color.red; // Blocked
+                    }
+                    else
+                    {
+                        Gizmos.color = Color.green; // Safe ground
+                    }
+                }
+                else if (groundHit) // Only ground, still blocked
+                {
+                    Gizmos.color = new Color(1f, 0.5f, 0f); // Orange: warning
+                }
+                else
+                {
+                    Gizmos.color = Color.green; // Nothing below — open water
+                }
+            }
+            else
+            {
+                Gizmos.color = new Color(1f, 1f, 1f, 0.3f); // Dim for outside dot range
+            }
+
+            Gizmos.DrawWireSphere(checker.position, 0.1f);
+            Gizmos.DrawLine(checker.position, checker.position + Vector3.down * cliffMaxCheckDistance);
+
+            // Optional: draw separate lines for ground and obstacle hits
+            if (groundHit)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawLine(checker.position, hitGround.point);
+                Gizmos.DrawSphere(hitGround.point, 0.05f);
+            }
+
+            if (obstacleHit)
+            {
+                Gizmos.color = Color.magenta;
+                Gizmos.DrawLine(checker.position, hitObstacle.point);
+                Gizmos.DrawSphere(hitObstacle.point, 0.05f);
+            }
+        }
+    }
 }

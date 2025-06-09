@@ -25,6 +25,18 @@ public class OceanManager : MonoBehaviour
     private Dictionary<Vector2, GameObject> dynamicTiles = new Dictionary<Vector2, GameObject>();
     private Dictionary<Vector2, GameObject> staticTiles = new Dictionary<Vector2, GameObject>();
     private Vector2 previousCoord;
+    
+    [Header("Movement Barrier")]
+    public bool useMovementBarrier = true;
+    public int barrierDistance = 5;
+    public float barrierHeight = 50f;
+    public float barrierThickness = 10f;
+    public LayerMask barrierLayer;
+    
+    [Header("Barrier Decorations")]
+    public bool spawnEdgePrefabs = true;
+    public GameObject edgePrefab;
+    public int objectsPerEdge = 100;
 
     private void Awake()
     {
@@ -46,6 +58,66 @@ public class OceanManager : MonoBehaviour
 
         previousCoord = GetCoord();
         UpdateTiles();
+        
+        if (useMovementBarrier)
+        {
+            GenerateBarrierWalls();
+        }
+    }
+    
+    private void GenerateBarrierWalls()
+    {
+        float size = (barrierDistance + 0.5f) * tileSize;
+        
+        CreateBarrier(new Vector3(0, oceanHeight + barrierHeight / 2, size), new Vector3(size * 2, barrierHeight, barrierThickness)); // Front
+        CreateBarrier(new Vector3(0, oceanHeight + barrierHeight / 2, -size), new Vector3(size * 2, barrierHeight, barrierThickness)); // Back
+        CreateBarrier(new Vector3(size, oceanHeight + barrierHeight / 2, 0), new Vector3(barrierThickness, barrierHeight, size * 2)); // Right
+        CreateBarrier(new Vector3(-size, oceanHeight + barrierHeight / 2, 0), new Vector3(barrierThickness, barrierHeight, size * 2)); // Left
+        
+        if (spawnEdgePrefabs && edgePrefab != null)
+        {
+            SpawnEdgeObjects();
+        }
+        
+    }
+    
+    private void SpawnEdgeObjects()
+    {
+        float size = (barrierDistance + 0.5f) * tileSize;
+        float y = oceanHeight;
+        
+        Vector3 topLeft = new Vector3(-size, y, size);
+        Vector3 topRight = new Vector3(size, y, size);
+        Vector3 bottomRight = new Vector3(size, y, -size);
+        Vector3 bottomLeft = new Vector3(-size, y, -size);
+
+        SpawnLine(topLeft, topRight);     
+        SpawnLine(topRight, bottomRight);
+        SpawnLine(bottomRight, bottomLeft); 
+        SpawnLine(bottomLeft, topLeft); 
+    }
+    
+    void SpawnLine(Vector3 start, Vector3 end)
+    {
+        for (int i = 0; i <= objectsPerEdge; i++)
+        {
+            float t = i / (float)objectsPerEdge;
+            Vector3 pos = Vector3.Lerp(start, end, t);
+            Instantiate(edgePrefab, pos, Quaternion.identity, transform);
+        }
+    }
+
+    private void CreateBarrier(Vector3 position, Vector3 size)
+    {
+        GameObject barrier = new GameObject("OceanBarrier");
+        barrier.transform.parent = this.transform;
+        barrier.transform.position = position;
+
+        BoxCollider collider = barrier.AddComponent<BoxCollider>();
+        collider.size = size;
+        
+        if (barrierLayer != 0)
+            barrier.layer = Mathf.RoundToInt(Mathf.Log(barrierLayer.value, 2));
     }
 
     void Update()
@@ -220,7 +292,19 @@ public class OceanManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying || currentTile == null) return;
+        
+        
+        if (useMovementBarrier)
+        {
+            Gizmos.color = new Color(1f, 0f, 0f, 0.3f); // semi-transparent red
 
+            float sizes = (barrierDistance + 0.5f) * tileSize;
+            Vector3 centers = new Vector3(0, oceanHeight + barrierHeight / 2, 0);
+            Vector3 fullSize = new Vector3(sizes * 2, barrierHeight, sizes * 2);
+
+            Gizmos.DrawWireCube(centers, fullSize);
+        }
+        
         Gizmos.color = Color.cyan;
         Vector3 center = currentTile.transform.position;
         Vector3 size = new Vector3(tileSize, 1f, tileSize);

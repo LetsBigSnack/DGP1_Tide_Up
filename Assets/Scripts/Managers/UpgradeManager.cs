@@ -17,6 +17,7 @@ public class UpgradeManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            ResetUpgrades();
         }
         else
         {
@@ -24,7 +25,15 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    
+    private void ResetUpgrades()
+    {
+        foreach (Upgrade upgrade in upgrades)
+        {
+            upgrade.isUnlocked = false;
+        }
+    }
+
+
     //TODO: list all the upgrade in the UI Later
     public List<Upgrade> GetUpgrades()
     {
