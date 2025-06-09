@@ -232,7 +232,7 @@ public class MenuController : MonoBehaviour
         GameStateManager.Instance.SetGameState(GameStateManager.Instance.LastPlayingState);
         //TODO: Grenus Fix
         //UIHUDManager.Instance.ToggleDateMap();
-        //UIBuildManager.Instance.CloseMenu();
+        UIBuildManager.Instance.CloseMenu();
         UIJournalManager.Instance.SwitchState(JournalType.Closed);
         UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Closed);
         UIShopManager.Instance.SwitchState(ShopType.Closed);
@@ -280,8 +280,14 @@ public class MenuController : MonoBehaviour
         }
         else if (currentState == GameStates.Dialogue && TutorialManager.Instance == null)
         {
+            if (SystemInteractionManager.Instance.GetCurrentInteractable() && SystemInteractionManager.Instance.GetCurrentInteractable().IsOpen())
+            {
+                SystemInteractionManager.Instance.CloseSystemInformation();
+                return;
+            }
             NpcDialogueManager.Instance.ResetDialogue();
             UIDialogueManager.Instance.FinishSpeaking();
+           
         }
     }
 

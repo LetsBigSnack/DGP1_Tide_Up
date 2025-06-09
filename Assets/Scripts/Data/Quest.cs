@@ -182,7 +182,6 @@ public class Quest
         return true;
     }
 
-    
     public void ResetDialogue()
     {
         _dialogues[_questState]?.ResetDialogue();

@@ -15,7 +15,8 @@ namespace Data
         Dock,
         Digging,
         Fishing,
-        Build
+        Build,
+        System
     }
 
     public abstract class Interactable : MonoBehaviour

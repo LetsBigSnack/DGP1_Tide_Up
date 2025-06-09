@@ -195,7 +195,6 @@ public class TutorialManager : MonoBehaviour
 
         if (!items.Exists(t => t.ItemData.title == "Shovel") && state == TutorialState.End)
         {
-            state = TutorialState.End;
             tutorialDoor.SetActive(true);
         }
     }

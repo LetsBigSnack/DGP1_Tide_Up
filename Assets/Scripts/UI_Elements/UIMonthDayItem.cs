@@ -22,6 +22,8 @@ public class UIMonthDayItem : MonoBehaviour
     {
         UICalendarDescriptionHelper.Instance.Setup(weekDay, dayNumInSeason, _birthdaysOnThisDay);
         UICalendarDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void ToggleIcon()
@@ -37,6 +39,8 @@ public class UIMonthDayItem : MonoBehaviour
         }
         UICalendarDescriptionHelper.Instance.Setup(weekDay, dayNumInSeason, _birthdaysOnThisDay);
         UICalendarDescriptionHelper.Instance.SetGameObjectAsSelected(this);
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void Setup(int number)

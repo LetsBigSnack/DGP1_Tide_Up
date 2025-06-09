@@ -69,7 +69,7 @@ public class UI_ToastManager : MonoBehaviour
         _toastCapLists.Add(ToastType.Awareness, awarenessToastStackSize);
     }
 
-    public void SpawnToastMessage(ToastType type, string title = "", string description="", Sprite sprite = null)
+    public void SpawnToastMessage(ToastType type, string title = "", string description="", Sprite sprite = null, bool isHQ = false)
     {
         GameObject newToast = null;
 
@@ -81,7 +81,7 @@ public class UI_ToastManager : MonoBehaviour
                     break;
                 }
                 newToast = CreateToast(itemToastPrefab, itemToastParent);
-                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText:title, sprite:sprite);
+                newToast.GetComponent<ToastNotificationItem>().SetToast(titleText:title, sprite:sprite, isHQ:isHQ);
                 break;
             case ToastType.Environment:
                 newToast = CreateToast(environmentToastPrefab, environmentToastParent);

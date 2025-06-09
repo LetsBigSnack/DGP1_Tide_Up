@@ -54,6 +54,8 @@ public class UIFriendBookItem : MonoBehaviour
         {
             UIFriendBookDescriptionHelper.Instance.SetGameObjectAsSelected(this);
         }
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnSelected()
@@ -67,6 +69,8 @@ public class UIFriendBookItem : MonoBehaviour
         {
             UIFriendBookDescriptionHelper.Instance.SetGameObjectAsSelected(this);
         }
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void ToggleIcon()

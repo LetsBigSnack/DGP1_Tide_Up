@@ -9,6 +9,7 @@ public class UIInventoryItem : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private ItemInstance item;
     [SerializeField] private GameObject borderIcon;
+    [SerializeField] private GameObject star;
     
     public bool IsEmpty()
     {
@@ -20,6 +21,7 @@ public class UIInventoryItem : MonoBehaviour
         this.isEmpty = isEmpty;
         if (isEmpty)
         {
+            star.SetActive(false);
             item = null;
             image.color = new Color(1, 1, 1, 0);
 
@@ -32,6 +34,11 @@ public class UIInventoryItem : MonoBehaviour
         image.sprite = data.ItemData.sprite;
         item = data;
         image.color = new Color(1, 1, 1, 1);
+
+        if(data.ItemQuality == ItemQuality.High)
+        {
+            star.SetActive(true);
+        }
     }
 
     public void OnClick()
@@ -80,6 +87,8 @@ public class UIInventoryItem : MonoBehaviour
             UIItemDetailsHelper.Instance.SetupDescription(item.ItemData.title, item.ItemData.description, item.ItemData.sprite, item.GetMaterials());
             UIInventoryHelper.Instance.SetGameObjectAsSelected(this);
         }
+
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnSelect()
@@ -121,7 +130,7 @@ public class UIInventoryItem : MonoBehaviour
             UIInventoryHelper.Instance.SetGameObjectAsSelected(this);
         }
 
-
+        SoundManager.Instance.PlaySFX("Click");
     }
 
     public void OnHover()

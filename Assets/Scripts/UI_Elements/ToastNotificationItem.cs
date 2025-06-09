@@ -11,6 +11,7 @@ public class ToastNotificationItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private Image image;
     [SerializeField] private float timeUntilDestroy;
+    [SerializeField] private Image star;
 
     private Animator _toastAnim;
     private bool _animationIsPlaying = false;
@@ -21,7 +22,7 @@ public class ToastNotificationItem : MonoBehaviour
         StartCoroutine(EndToast());
     }
 
-    public void SetToast(string titleText ="", string descriptionText = "", Sprite sprite = null)
+    public void SetToast(string titleText ="", string descriptionText = "", Sprite sprite = null, bool isHQ = false)
     {
         if(image != null && type != ToastType.Awareness)
         {
@@ -36,6 +37,11 @@ public class ToastNotificationItem : MonoBehaviour
         if(description != null)
         {
             description.text = descriptionText;
+        }
+
+        if (isHQ)
+        {
+            star.gameObject.SetActive(true);
         }
     }
 

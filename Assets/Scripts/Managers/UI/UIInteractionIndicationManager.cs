@@ -64,7 +64,10 @@ public class UIInteractionIndicationManager : MonoBehaviour
             
             UIInteractionRepresentation representation = representations.Find(x => x.Type == type);
             
-            ShowIndicator(representation, target);
+            if(representation != null)
+            {
+                ShowIndicator(representation, target);
+            }
         }
         else
         {
