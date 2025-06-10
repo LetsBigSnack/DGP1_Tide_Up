@@ -34,7 +34,6 @@ public class UIBoatMiniGame : MonoBehaviour
         rhythms.Clear();
     }
     
-    
     private void ProgressPositionSweetSpot(float pct)
     {
         RectTransform sliderRect = progressSlider.GetComponent<RectTransform>();
@@ -59,6 +58,8 @@ public class UIBoatMiniGame : MonoBehaviour
         pos.x = width * pct - (markerWidth * rhytm.pivot.x);
         rhytm.anchoredPosition = pos;
     }
+    
+    
 
     public void UpdateSlider(float time, float percentage, float threshold, List<MiniGameNote> buttons)
     {
@@ -67,6 +68,8 @@ public class UIBoatMiniGame : MonoBehaviour
         progressSlider.value = percentage;
         ProgressPositionSweetSpot(threshold);
         PlaceIndicators(buttons);
+        
+        Debug.Log("Threshold" + threshold);
     }
 
     

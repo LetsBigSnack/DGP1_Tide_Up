@@ -20,6 +20,10 @@ public class MiniGameController : MonoBehaviour
     private Action<bool> _onMoveLeft;
     private Action<bool> _onMoveRight;
     
+    private Action<bool> _onButton1;
+    private Action<bool> _onButton2;
+    private Action<bool> _onButton3;
+    private Action<bool> _onButton4;
     
     public static event Action<float> OnMoveBar;
 
@@ -56,7 +60,17 @@ public class MiniGameController : MonoBehaviour
         _miniGameInput.MiniGame.MoveRight.Enable();
         _miniGameInput.MiniGame.MoveRight.performed += PerformMoveRight;
         _miniGameInput.MiniGame.MoveRight.canceled += CancelMoveRight;
+        
+        
+        _miniGameInput.MiniGame.Button1.Enable();
+        _miniGameInput.MiniGame.Button2.Enable();
+        _miniGameInput.MiniGame.Button3.Enable();
+        _miniGameInput.MiniGame.Button4.Enable();
 
+        _miniGameInput.MiniGame.Button1.performed += OnButton1Performe;
+        _miniGameInput.MiniGame.Button2.performed += OnButton2Performe;
+        _miniGameInput.MiniGame.Button3.performed += OnButton3Performe;
+        _miniGameInput.MiniGame.Button4.performed += OnButton4Performe;
     }
 
     private void MouseMoveBar(InputAction.CallbackContext value)
@@ -136,6 +150,43 @@ public class MiniGameController : MonoBehaviour
     }
     
     
+    private void OnButton1Performe(InputAction.CallbackContext value)
+    {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
+        if (_onButton1 != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
+        {
+            _onButton1.Invoke(true);
+        }
+    }
+    
+    private void OnButton2Performe(InputAction.CallbackContext value)
+    {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
+        if (_onButton2 != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
+        {
+            _onButton2.Invoke(true);
+        }
+    }
+    
+    private void OnButton3Performe(InputAction.CallbackContext value)
+    {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
+        if (_onButton3 != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
+        {
+            _onButton3.Invoke(true);
+        }
+    }
+    
+    private void OnButton4Performe(InputAction.CallbackContext value)
+    {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
+        if (_onButton4 != null && GameStateManager.Instance.GetGameState() == GameStates.MiniGame)
+        {
+            _onButton4.Invoke(true);
+        }
+    }
+    
+    
     
     
     public void RegisterMiniGameInteract(Action callback, Action<bool> onMoveLeft = null, Action<bool> onMoveRight = null)
@@ -149,6 +200,22 @@ public class MiniGameController : MonoBehaviour
         {
             _onMoveRight += onMoveRight;
         }
+    }
+    
+    public void RegisterMiniGameBoat(Action<bool> button1, Action<bool> button2, Action<bool> button3, Action<bool> button4)
+    {
+        _onButton1 += button1;
+        _onButton2 += button2;
+        _onButton3 += button3;
+        _onButton4 += button4;
+    }
+    
+    public void UnregisterMiniGameBoat(Action<bool> button1, Action<bool> button2, Action<bool> button3, Action<bool> button4)
+    {
+        _onButton1 -= button1;
+        _onButton2 -= button2;
+        _onButton3 -= button3;
+        _onButton4 -= button4;
     }
 
     public void UnregisterMiniGameInteract(Action callback,  Action<bool> onMoveLeft = null, Action<bool> onMoveRight = null)

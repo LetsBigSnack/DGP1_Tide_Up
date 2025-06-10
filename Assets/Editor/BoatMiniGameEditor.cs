@@ -38,8 +38,9 @@ public class BoatMiniGameEditorWindow : EditorWindow
             }
             return;
         }
-        
-        
+
+        int lineCount = System.Enum.GetValues(typeof(MiniGameButton)).Length;
+
         if (Application.isPlaying && miniGame.GetCurrentTrack() != null)
         {
             selectedTrack = miniGame.GetCurrentTrack();
@@ -59,10 +60,10 @@ public class BoatMiniGameEditorWindow : EditorWindow
         EditorGUILayout.Space();
         scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
-        Rect trackRect = GUILayoutUtility.GetRect(selectedTrack.trackDuration * pixelsPerSecond, TrackHeight * 3);
+        Rect trackRect = GUILayoutUtility.GetRect(selectedTrack.trackDuration * pixelsPerSecond, TrackHeight * lineCount);
         GUI.Box(trackRect, GUIContent.none);
-        
-        for (int line = 0; line < 3; line++)
+
+        for (int line = 0; line < lineCount; line++)
         {
             float y = trackRect.y + line * TrackHeight + TrackHeight / 2f;
             Handles.color = new Color(0.5f, 0.5f, 0.5f, 0.4f);
@@ -74,21 +75,21 @@ public class BoatMiniGameEditorWindow : EditorWindow
         {
             float x = trackRect.x + i * pixelsPerSecond;
             Handles.color = Color.gray;
-            Handles.DrawLine(new Vector2(x, trackRect.y), new Vector2(x, trackRect.y + TrackHeight * 3));
+            Handles.DrawLine(new Vector2(x, trackRect.y), new Vector2(x, trackRect.y + TrackHeight * lineCount));
             GUI.Label(new Rect(x + 2, trackRect.y, 30, 20), $"{i}s", EditorStyles.miniLabel);
         }
-        
-        if (Application.isPlaying && miniGame.GetStartTime() != 0 &&  Time.time - miniGame.GetStartTime() <= selectedTrack.trackDuration )
+
+        if (Application.isPlaying && miniGame.GetStartTime() != 0 && Time.time - miniGame.GetStartTime() <= selectedTrack.trackDuration)
         {
             float playTime = Time.time - miniGame.GetStartTime();
             float playHeadX = playTime * pixelsPerSecond;
             Handles.color = Color.red;
             Handles.DrawLine(
                 new Vector2(trackRect.x + playHeadX, trackRect.y),
-                new Vector2(trackRect.x + playHeadX, trackRect.y + TrackHeight * 3)
+                new Vector2(trackRect.x + playHeadX, trackRect.y + TrackHeight * lineCount)
             );
         }
-        
+
         Event e = Event.current;
         foreach (MiniGameNote note in selectedTrack.notes)
         {
@@ -98,7 +99,7 @@ public class BoatMiniGameEditorWindow : EditorWindow
 
             Rect noteRect = new Rect(x - NoteSize / 2f, y - NoteSize / 2f, NoteSize, NoteSize);
             EditorGUI.DrawRect(noteRect, note.isHit ? Color.green : Color.yellow);
-            
+
             if (e.type == EventType.MouseDown && e.button == 1 && noteRect.Contains(e.mousePosition))
             {
                 selectedTrack.notes.Remove(note);
@@ -106,16 +107,14 @@ public class BoatMiniGameEditorWindow : EditorWindow
                 e.Use();
                 break;
             }
-            
-            
-            if (e.type == EventType.MouseDown   && e.button == 0 && noteRect.Contains(e.mousePosition))
+
+            if (e.type == EventType.MouseDown && e.button == 0 && noteRect.Contains(e.mousePosition))
             {
                 _draggedNote = note;
                 _dragOffset = e.mousePosition - new Vector2(x, y);
                 e.Use();
             }
 
-          
             if (_draggedNote == note && e.type == EventType.MouseDrag)
             {
                 float newTime = (e.mousePosition.x - trackRect.x - _dragOffset.x) / pixelsPerSecond;
@@ -132,27 +131,29 @@ public class BoatMiniGameEditorWindow : EditorWindow
             float y = trackRect.y + line * TrackHeight + TrackHeight / 2f;
 
             Rect noteRect = new Rect(x - NoteSize / 2f, y - NoteSize / 2f, NoteSize, NoteSize);
-            EditorGUI.DrawRect(noteRect, new Color(255/255f, 0/255f,255/255f,0.5f));
+            EditorGUI.DrawRect(noteRect, new Color(1f, 0f, 1f, 0.5f));
         }
-        
+
         if (e.type == EventType.MouseDown && e.button == 0 && trackRect.Contains(e.mousePosition) && _draggedNote == null)
         {
             Vector2 clickPos = e.mousePosition;
             int lineClicked = Mathf.FloorToInt((clickPos.y - trackRect.y) / TrackHeight);
             float timeClicked = (clickPos.x - trackRect.x) / pixelsPerSecond;
 
-            selectedTrack.notes.Add(new MiniGameNote
+            if (lineClicked >= 0 && lineClicked < lineCount)
             {
-                button = (MiniGameButton)lineClicked,
-                timeStamp = Mathf.Clamp(timeClicked, 0, selectedTrack.trackDuration),
-                isHit = false
-            });
+                selectedTrack.notes.Add(new MiniGameNote
+                {
+                    button = (MiniGameButton)lineClicked,
+                    timeStamp = Mathf.Clamp(timeClicked, 0, selectedTrack.trackDuration),
+                    isHit = false
+                });
 
-            e.Use();
-            Repaint();
+                e.Use();
+                Repaint();
+            }
         }
 
-        // Release dragging
         if (e.type == EventType.MouseUp)
         {
             _draggedNote = null;

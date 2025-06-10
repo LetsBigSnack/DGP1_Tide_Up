@@ -13,59 +13,55 @@ MonoBehaviour:
   m_Name: BoatMiniGame
   m_EditorClassIdentifier: 
   type: 3
-  wiggleRoom: 0.2
+  wiggleRoom: 0.15
   tracks:
   - notes:
-    - timeStamp: 2.46
+    - timeStamp: 2.47
       button: 0
       isHit: 0
-      percentage: 0.615
-    - timeStamp: 3.48
-      button: 0
-      isHit: 0
-      percentage: 0.87
+      percentage: 0.6175
     - timeStamp: 2.99
       button: 2
       isHit: 0
       percentage: 0.7475
-    - timeStamp: 0.41
+    - timeStamp: 1.44
       button: 1
-      isHit: 0
-      percentage: 0.1025
-    - timeStamp: 1.51
+      isHit: 1
+      percentage: 0.36
+    - timeStamp: 1.95
+      button: 3
+      isHit: 1
+      percentage: 0.4875
+    - timeStamp: 0.58
       button: 1
-      isHit: 0
-      percentage: 0.3775
+      isHit: 1
+      percentage: 0.145
     trackDuration: 4
   - notes:
     - timeStamp: 0.6
       button: 0
-      isHit: 0
+      isHit: 1
       percentage: 0.15
-    - timeStamp: 2.08
-      button: 2
-      isHit: 0
-      percentage: 0.52
-    - timeStamp: 3.88
-      button: 0
-      isHit: 0
-      percentage: 0.97
     - timeStamp: 1.07
       button: 2
-      isHit: 0
+      isHit: 1
       percentage: 0.2675
     - timeStamp: 2.79
       button: 0
       isHit: 0
       percentage: 0.6975
-    - timeStamp: 1.61
+    - timeStamp: 1.77
       button: 1
-      isHit: 0
-      percentage: 0.4025
+      isHit: 1
+      percentage: 0.4425
+    - timeStamp: 3.38
+      button: 3
+      isHit: 1
+      percentage: 0.845
     trackDuration: 4
   punishmentPercentage: 0.05
-  progressPercentage: 0.16666667
-  currentProgress: 0
-  successThreshold: 0.8
+  progressPercentage: 0.2
+  currentProgress: 0.5
+  successThreshold: 0.6
   hitNotes: []
-  _fullCombo: 1
+  _fullCombo: 0

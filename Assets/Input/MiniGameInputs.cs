@@ -62,6 +62,42 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button1"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3c7e6e4-ddea-4569-88e3-681153ef9072"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button2"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc3ef134-1143-45ae-b27b-02547d016ec1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button3"",
+                    ""type"": ""Button"",
+                    ""id"": ""e641a2b6-71e9-400a-8d77-0a0f9eb5a5fe"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button4"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba714182-764d-4b60-a0ec-cf0e0f71a27c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -141,6 +177,138 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
                     ""action"": ""MoveRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92a79258-12cc-4e6c-a1cb-18037c7b2256"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""950920e3-08a4-48eb-b086-335078bbc678"",
+                    ""path"": ""<XInputController>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0fee738d-7d27-446e-b3b9-8c3b8291e866"",
+                    ""path"": ""<DualShockGamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44041c17-dad5-47e8-a518-fe20ddf098a6"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12c4db0b-7f74-4b52-972e-72493c85b054"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bdd6b4f7-ce75-4783-a63f-1fa2b8e4a94b"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f76940a-50fa-4319-842d-77627801b62e"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""136c8003-e7aa-4d16-b178-1a6ece8a2906"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""853c3ee2-e9b1-4633-b430-4d7e78c9a718"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46542cc8-a4a4-41ec-8e0a-7f9c3e3095df"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ecc39f66-2701-4591-bd70-209c43a0cd43"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b889c2ed-f86f-4072-9b73-4963325cbb87"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -153,6 +321,10 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
         m_MiniGame_Interact = m_MiniGame.FindAction("Interact", throwIfNotFound: true);
         m_MiniGame_MoveLeft = m_MiniGame.FindAction("MoveLeft", throwIfNotFound: true);
         m_MiniGame_MoveRight = m_MiniGame.FindAction("MoveRight", throwIfNotFound: true);
+        m_MiniGame_Button1 = m_MiniGame.FindAction("Button1", throwIfNotFound: true);
+        m_MiniGame_Button2 = m_MiniGame.FindAction("Button2", throwIfNotFound: true);
+        m_MiniGame_Button3 = m_MiniGame.FindAction("Button3", throwIfNotFound: true);
+        m_MiniGame_Button4 = m_MiniGame.FindAction("Button4", throwIfNotFound: true);
     }
 
     ~@MiniGameInputs()
@@ -223,6 +395,10 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_MiniGame_Interact;
     private readonly InputAction m_MiniGame_MoveLeft;
     private readonly InputAction m_MiniGame_MoveRight;
+    private readonly InputAction m_MiniGame_Button1;
+    private readonly InputAction m_MiniGame_Button2;
+    private readonly InputAction m_MiniGame_Button3;
+    private readonly InputAction m_MiniGame_Button4;
     public struct MiniGameActions
     {
         private @MiniGameInputs m_Wrapper;
@@ -231,6 +407,10 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_MiniGame_Interact;
         public InputAction @MoveLeft => m_Wrapper.m_MiniGame_MoveLeft;
         public InputAction @MoveRight => m_Wrapper.m_MiniGame_MoveRight;
+        public InputAction @Button1 => m_Wrapper.m_MiniGame_Button1;
+        public InputAction @Button2 => m_Wrapper.m_MiniGame_Button2;
+        public InputAction @Button3 => m_Wrapper.m_MiniGame_Button3;
+        public InputAction @Button4 => m_Wrapper.m_MiniGame_Button4;
         public InputActionMap Get() { return m_Wrapper.m_MiniGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -252,6 +432,18 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
             @MoveRight.started += instance.OnMoveRight;
             @MoveRight.performed += instance.OnMoveRight;
             @MoveRight.canceled += instance.OnMoveRight;
+            @Button1.started += instance.OnButton1;
+            @Button1.performed += instance.OnButton1;
+            @Button1.canceled += instance.OnButton1;
+            @Button2.started += instance.OnButton2;
+            @Button2.performed += instance.OnButton2;
+            @Button2.canceled += instance.OnButton2;
+            @Button3.started += instance.OnButton3;
+            @Button3.performed += instance.OnButton3;
+            @Button3.canceled += instance.OnButton3;
+            @Button4.started += instance.OnButton4;
+            @Button4.performed += instance.OnButton4;
+            @Button4.canceled += instance.OnButton4;
         }
 
         private void UnregisterCallbacks(IMiniGameActions instance)
@@ -268,6 +460,18 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
             @MoveRight.started -= instance.OnMoveRight;
             @MoveRight.performed -= instance.OnMoveRight;
             @MoveRight.canceled -= instance.OnMoveRight;
+            @Button1.started -= instance.OnButton1;
+            @Button1.performed -= instance.OnButton1;
+            @Button1.canceled -= instance.OnButton1;
+            @Button2.started -= instance.OnButton2;
+            @Button2.performed -= instance.OnButton2;
+            @Button2.canceled -= instance.OnButton2;
+            @Button3.started -= instance.OnButton3;
+            @Button3.performed -= instance.OnButton3;
+            @Button3.canceled -= instance.OnButton3;
+            @Button4.started -= instance.OnButton4;
+            @Button4.performed -= instance.OnButton4;
+            @Button4.canceled -= instance.OnButton4;
         }
 
         public void RemoveCallbacks(IMiniGameActions instance)
@@ -291,5 +495,9 @@ public partial class @MiniGameInputs: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnMoveLeft(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
+        void OnButton1(InputAction.CallbackContext context);
+        void OnButton2(InputAction.CallbackContext context);
+        void OnButton3(InputAction.CallbackContext context);
+        void OnButton4(InputAction.CallbackContext context);
     }
 }

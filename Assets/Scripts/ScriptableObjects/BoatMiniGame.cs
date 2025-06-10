@@ -87,7 +87,7 @@ namespace ScriptableObjects
             progressPercentage = 1.0f/_currentTrack.notes.Count;
             
             
-            MiniGameController.Instance.RegisterMiniGameInteract(OnInteract, OnButton2, OnButton3);
+            MiniGameController.Instance.RegisterMiniGameBoat(OnButton1, OnButton2, OnButton3, OnButton4);
             UISubscribe();
 
             float endTime = _startTime + _currentTrack.trackDuration;
@@ -102,7 +102,7 @@ namespace ScriptableObjects
                 yield return null;
             }
 
-            MiniGameController.Instance.UnregisterMiniGameInteract(OnInteract, OnButton2, OnButton3);
+            MiniGameController.Instance.UnregisterMiniGameBoat(OnButton1, OnButton2, OnButton3, OnButton4);
             UIMiniGameManager.Instance.Hide();
             UIUnsubscribe();
 
@@ -120,6 +120,11 @@ namespace ScriptableObjects
             Debug.Log($"[Boat MiniGame] Result: {(success ? "Success" : "Fail")}");
             hitNotes = new List<MiniGameNote>();
             callback(success);
+        }
+
+        protected override void OnInteract()
+        {
+            return;
         }
 
 
@@ -144,10 +149,15 @@ namespace ScriptableObjects
             hitNotes.Add(new MiniGameNote { timeStamp = currentHitTime-_startTime, button = button });
         }
         
-        protected override void OnInteract()
+    
+        protected void OnButton1(bool isPressed)
         {
-            CheckButtonPressed(MiniGameButton.Button1);
-            Debug.Log($"[Boat MiniGame] Button 1 Pressed!");
+            if (isPressed)
+            {
+                CheckButtonPressed(MiniGameButton.Button1);
+                Debug.Log($"[Boat MiniGame] Button 2 Pressed!");
+            }
+            
         }
         
         protected void OnButton2(bool isPressed)
@@ -165,6 +175,15 @@ namespace ScriptableObjects
             if (isPressed)
             {
                 CheckButtonPressed(MiniGameButton.Button3);
+                Debug.Log($"[Boat MiniGame] Button 3 Pressed!");
+            }
+        }
+        
+        protected void OnButton4(bool isPressed)
+        {
+            if (isPressed)
+            {
+                CheckButtonPressed(MiniGameButton.Button4);
                 Debug.Log($"[Boat MiniGame] Button 3 Pressed!");
             }
         }

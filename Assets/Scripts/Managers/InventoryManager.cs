@@ -230,9 +230,9 @@ public class InventoryManager : MonoBehaviour
         return _items.Any(item => item.ItemData == questItem.ItemData);
     }
 
-    public bool HasSpaceForItem()
+    public bool HasSpaceForItem(int amount = 1)
     {
-        return _items.Count+1 <= maxItems;
+        return _items.Count+amount <= maxItems;
     }
     
 }
