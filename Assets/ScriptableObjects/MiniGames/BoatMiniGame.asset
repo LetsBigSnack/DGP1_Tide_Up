@@ -13,55 +13,79 @@ MonoBehaviour:
   m_Name: BoatMiniGame
   m_EditorClassIdentifier: 
   type: 3
-  wiggleRoom: 0.15
+  wiggleRoom: 0.25
   tracks:
   - notes:
     - timeStamp: 3
       button: 2
-      isHit: 0
-      percentage: 0.7475
+      isHit: 1
+      percentage: 0.75
     - timeStamp: 1
       button: 1
       isHit: 1
-      percentage: 0.36
+      percentage: 0.25
     - timeStamp: 1.52
       button: 1
-      isHit: 0
-      percentage: 0
+      isHit: 1
+      percentage: 0.38
     - timeStamp: 2.49
       button: 0
-      isHit: 0
-      percentage: 0
+      isHit: 1
+      percentage: 0.6225
     - timeStamp: 3.53
       button: 2
-      isHit: 0
-      percentage: 0
+      isHit: 1
+      percentage: 0.8825
     trackDuration: 4
   - notes:
     - timeStamp: 2.52
       button: 0
-      isHit: 0
-      percentage: 0.6975
+      isHit: 1
+      percentage: 0.63
     - timeStamp: 2.01
       button: 1
       isHit: 1
-      percentage: 0.4425
+      percentage: 0.5025
     - timeStamp: 3
       button: 3
       isHit: 1
-      percentage: 0.845
+      percentage: 0.75
     - timeStamp: 1
       button: 0
-      isHit: 0
-      percentage: 0
+      isHit: 1
+      percentage: 0.25
     - timeStamp: 3.52
       button: 2
       isHit: 0
-      percentage: 0
+      percentage: 0.88
     trackDuration: 4
   punishmentPercentage: 0.05
   progressPercentage: 0.2
-  currentProgress: 0.5
+  currentProgress: 0.75
   successThreshold: 0.6
-  hitNotes: []
+  hitNotes:
+  - timeStamp: 0.66412354
+    button: 0
+    isHit: 0
+    percentage: 0
+  - timeStamp: 1.0396652
+    button: 0
+    isHit: 0
+    percentage: 0
+  - timeStamp: 1.9730453
+    button: 1
+    isHit: 0
+    percentage: 0
+  - timeStamp: 2.63488
+    button: 0
+    isHit: 0
+    percentage: 0
+  - timeStamp: 3.1948166
+    button: 3
+    isHit: 0
+    percentage: 0
+  - timeStamp: 3.7601242
+    button: 2
+    isHit: 0
+    percentage: 0
   _fullCombo: 0

@@ -118,7 +118,6 @@ namespace ScriptableObjects
             }
 
             Debug.Log($"[Boat MiniGame] Result: {(success ? "Success" : "Fail")}");
-            hitNotes = new List<MiniGameNote>();
             callback(success);
         }
 

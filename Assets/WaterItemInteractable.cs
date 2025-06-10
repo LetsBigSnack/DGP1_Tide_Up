@@ -9,7 +9,7 @@ public class WaterItemInteractable : Interactable
 
     public override void Interact()
     {
-        if (!InventoryManager.Instance.HasSpaceForItem(4))
+        if (!InventoryManager.Instance.HasSpaceForItem(1))
         {
             UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Not enough space free in your inventory to collect all items");
             return;
@@ -22,10 +22,12 @@ public class WaterItemInteractable : Interactable
 
                 for (int i = 0; i < itemAmount; i++)
                 {
-                    TrashData trashData = DataUtil.Instance.GetRandomTrashData();
-                    TrashItemInstance trash = new TrashItemInstance(trashData, success);
-                    InventoryManager.Instance.AddItem(trash);
-
+                    if (InventoryManager.Instance.HasSpaceForItem(1))
+                    {
+                        TrashData trashData = DataUtil.Instance.GetRandomTrashData();
+                        TrashItemInstance trash = new TrashItemInstance(trashData, success);
+                        InventoryManager.Instance.AddItem(trash);
+                    }
                 }
                 
                 if (EnvironmentManager.Instance != null)
