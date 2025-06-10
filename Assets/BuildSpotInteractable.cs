@@ -28,8 +28,6 @@ public class BuildSpotInteractable : Interactable
         if (GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter || GameStateManager.Instance.GetGameState() != GameStates.Building)
         {
 
-
-
             if (EnvironmentManager.Instance.GetCurrentIsland().State >= state)
             {
                 UIBuildManager.Instance.Setup(sprite, description, subtext, trashNeeded, this);

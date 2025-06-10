@@ -11,6 +11,7 @@ public class UIRecycleAllButton : MonoBehaviour
 
     private void OnEnable()
     {
+        UpdateRepresentation(InputDeviceHelper.Instance.GetLastDeviceType());
         InputDeviceHelper.OnDeviceChange += UpdateRepresentation;
     }
 
