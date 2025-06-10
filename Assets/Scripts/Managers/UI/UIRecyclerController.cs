@@ -82,6 +82,14 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
     }
 
 
+    public void RecycleAllItems()
+    {
+        RecyclerManager.Instance.RemoveAllItems();
+        ClearAllItemSlots();
+        ClearMaterialPreview();
+        RecyclerManager.Instance.RecycleAllItems();
+    }
+
     private void UpdateMaterialsToPreview(ItemInstance item, bool isRemoved)
     {
         List<TrashMaterialData> materials = new List<TrashMaterialData>();

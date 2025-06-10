@@ -129,6 +129,81 @@ public class RecyclerManager : MonoBehaviour
         SoundManager.Instance.PlaySFX("Recycle");
     }
 
+    public void RecycleAllItems()
+    {
+        int count = InventoryManager.Instance.Items.Where(i => i.ItemQuality != ItemQuality.Quest).ToList().Count;
+
+        if (count <= 0)
+        {
+            SoundManager.Instance.PlaySFX("Error");
+            return;
+        }
+
+        List<TrashMaterialData> paper = new();
+        List<TrashMaterialData> wood = new();
+        List<TrashMaterialData> metal = new();
+        List<TrashMaterialData> glass = new();
+        List<TrashMaterialData> plastic = new();
+
+        List<ItemInstance> trashItems = InventoryManager.Instance.Items.Where(i => i.ItemQuality != ItemQuality.Quest).ToList();
+
+        foreach (ItemInstance item in trashItems)
+        {
+            foreach (TrashMaterialData mat in item.GetMaterials())
+            {
+                switch (mat.type)
+                {
+                    case TrashMaterialType.Glass:
+                        glass.Add(mat);
+                        break;
+                    case TrashMaterialType.Metal:
+                        metal.Add(mat);
+                        break;
+                    case TrashMaterialType.Paper:
+                        paper.Add(mat);
+                        break;
+                    case TrashMaterialType.Plastic:
+                        plastic.Add(mat);
+                        break;
+                    case TrashMaterialType.Wood:
+                        wood.Add(mat);
+                        break;
+                }
+
+                InventoryManager.Instance.RemoveItem(item);
+            }
+        }
+
+        if (glass.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Glass, glass.Count);
+        }
+
+        if (metal.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Metal, metal.Count);
+        }
+
+        if (paper.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Paper, paper.Count);
+        }
+
+        if (plastic.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Plastic, plastic.Count);
+        }
+
+        if (wood.Count > 0)
+        {
+            InventoryManager.Instance.AddMaterial(TrashMaterialType.Wood, wood.Count);
+        }
+
+        storedItems = null;
+        OnStoredItemCleared?.Invoke(true);
+        SoundManager.Instance.PlaySFX("Recycle");
+    }
+
     public void RemoveAllItems()
     {
         if (storedItems == null || storedItems.Count <= 0)

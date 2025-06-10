@@ -5,7 +5,7 @@ public class WaterItemInteractable : Interactable
 {
     [SerializeField] private TrashData trashData;
     [SerializeField] private bool highlight;
-    public override InteractableType Type => InteractableType.Boat;
+    public override InteractableType Type => InteractableType.WaterPickup;
 
     public override void Interact()
     {

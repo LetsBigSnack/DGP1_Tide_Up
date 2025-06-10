@@ -25,23 +25,22 @@ public class BuildSpotInteractable : Interactable
 
     public override void Interact()
     {
-        Debug.Log(GameStateManager.Instance.GetGameState());
+        if (GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter || GameStateManager.Instance.GetGameState() != GameStates.Building)
+        {
 
-        if(GameStateManager.Instance.GetGameState() != GameStates.PlayingCharacter)
-        {
-            return;
-        }
 
-        if (EnvironmentManager.Instance.GetCurrentIsland().State >= state)
-        {
-            UIBuildManager.Instance.Setup(sprite, description, subtext, trashNeeded, this);
-        }
-        else
-        {
-            UI_ToastManager.Instance.SpawnToastMessage(
-                ToastType.Important,
-                "To rebuild this spot you need to raise your awareness level first! Keep cleaning!"
-            );
+
+            if (EnvironmentManager.Instance.GetCurrentIsland().State >= state)
+            {
+                UIBuildManager.Instance.Setup(sprite, description, subtext, trashNeeded, this);
+            }
+            else
+            {
+                UI_ToastManager.Instance.SpawnToastMessage(
+                    ToastType.Important,
+                    "To rebuild this spot you need to raise your awareness level first! Keep cleaning!"
+                );
+            }
         }
     }
 

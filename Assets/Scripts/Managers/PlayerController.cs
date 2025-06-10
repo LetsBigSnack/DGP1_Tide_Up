@@ -177,8 +177,11 @@ public class PlayerController : MonoBehaviour
     private void ToggleSprint(InputAction.CallbackContext value)
     {
         InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
-        isSprinting = !isSprinting;
-        SetSprintText();
+        if (GameStateManager.Instance.GetGameState() == GameStates.PlayingCharacter)
+        {
+            isSprinting = !isSprinting;
+            SetSprintText();
+        }
     }
 
     private void SetSprintText()

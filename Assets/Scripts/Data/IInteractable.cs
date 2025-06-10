@@ -16,7 +16,8 @@ namespace Data
         Digging,
         Fishing,
         Build,
-        System
+        System,
+        WaterPickup
     }
 
     public abstract class Interactable : MonoBehaviour

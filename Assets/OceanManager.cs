@@ -284,7 +284,7 @@ public class OceanManager : MonoBehaviour
         if (currentTile != null)
             return currentTile.GetWorldHeight(worldPos);
 
-        Debug.LogWarning("Current tile is not set. Returning default height 0.");
+        //Debug.LogWarning("Current tile is not set. Returning default height 0.");
         return 0f;
     }
     

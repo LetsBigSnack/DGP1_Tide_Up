@@ -44,7 +44,8 @@ public class UIInteractionIndicationManager : MonoBehaviour
     [SerializeField] private Canvas worldspaceCanvas;
     [SerializeField] private GameObject indicatorPrefab;
     [SerializeField] private List<UIInteractionRepresentation> representations;
-    
+    [SerializeField] private float boatUpScale = 1;
+
     private UIInteractIndicator _activeIndicator;
     
     private void OnEnable()
@@ -81,7 +82,10 @@ public class UIInteractionIndicationManager : MonoBehaviour
         {
             GameObject indicator = Instantiate(indicatorPrefab, worldspaceCanvas.transform);
             _activeIndicator = indicator.GetComponent<UIInteractIndicator>();
-
+        }
+        else
+        {
+            _activeIndicator.transform.localScale = Vector3.one;
         }
 
         if (interactRepresentation == null)
@@ -90,6 +94,11 @@ public class UIInteractionIndicationManager : MonoBehaviour
         }
             
         _activeIndicator.SetUpIndicator(interactRepresentation, target);
+        if (GameStateManager.Instance.GetGameState() == GameStates.PlayingBoat)
+        {
+            float scale = Mathf.Clamp(boatUpScale, 0.1f, 10f);
+            _activeIndicator.transform.localScale *= scale;
+        }
     }
 
     private void HideIndicator()

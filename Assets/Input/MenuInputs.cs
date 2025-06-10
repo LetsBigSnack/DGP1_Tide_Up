@@ -116,6 +116,15 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RecycleAll"",
+                    ""type"": ""Button"",
+                    ""id"": ""03ffe44c-6aea-44d6-9c50-1cc694ab0d70"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -250,6 +259,28 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Previous"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b445e4a3-1c39-46dd-9865-93a5cab9bdd6"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RecycleAll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a069be2b-c3a6-4500-b94d-a6f749e65967"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RecycleAll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -268,6 +299,7 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         m_UI_CloseMenu = m_UI.FindAction("CloseMenu", throwIfNotFound: true);
         m_UI_Next = m_UI.FindAction("Next", throwIfNotFound: true);
         m_UI_Previous = m_UI.FindAction("Previous", throwIfNotFound: true);
+        m_UI_RecycleAll = m_UI.FindAction("RecycleAll", throwIfNotFound: true);
     }
 
     ~@MenuInputs()
@@ -344,6 +376,7 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_CloseMenu;
     private readonly InputAction m_UI_Next;
     private readonly InputAction m_UI_Previous;
+    private readonly InputAction m_UI_RecycleAll;
     public struct UIActions
     {
         private @MenuInputs m_Wrapper;
@@ -358,6 +391,7 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         public InputAction @CloseMenu => m_Wrapper.m_UI_CloseMenu;
         public InputAction @Next => m_Wrapper.m_UI_Next;
         public InputAction @Previous => m_Wrapper.m_UI_Previous;
+        public InputAction @RecycleAll => m_Wrapper.m_UI_RecycleAll;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -397,6 +431,9 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @Previous.started += instance.OnPrevious;
             @Previous.performed += instance.OnPrevious;
             @Previous.canceled += instance.OnPrevious;
+            @RecycleAll.started += instance.OnRecycleAll;
+            @RecycleAll.performed += instance.OnRecycleAll;
+            @RecycleAll.canceled += instance.OnRecycleAll;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -431,6 +468,9 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
             @Previous.started -= instance.OnPrevious;
             @Previous.performed -= instance.OnPrevious;
             @Previous.canceled -= instance.OnPrevious;
+            @RecycleAll.started -= instance.OnRecycleAll;
+            @RecycleAll.performed -= instance.OnRecycleAll;
+            @RecycleAll.canceled -= instance.OnRecycleAll;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -460,5 +500,6 @@ public partial class @MenuInputs: IInputActionCollection2, IDisposable
         void OnCloseMenu(InputAction.CallbackContext context);
         void OnNext(InputAction.CallbackContext context);
         void OnPrevious(InputAction.CallbackContext context);
+        void OnRecycleAll(InputAction.CallbackContext context);
     }
 }

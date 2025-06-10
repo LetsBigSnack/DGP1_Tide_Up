@@ -7,6 +7,7 @@ public class SystemInteractable : Interactable
     [SerializeField] private string text;
     [SerializeField] private Color labelColor;
     [SerializeField] private bool isOpen = false;
+    [SerializeField] private Sprite img;
 
     public override InteractableType Type => InteractableType.System;
 
@@ -17,7 +18,7 @@ public class SystemInteractable : Interactable
             isOpen = true;
             SystemInteractionManager.Instance.SetCurrentInteractable(this);
             GameStateManager.Instance.SetGameState(GameStates.Dialogue);
-            UIDialogueManager.Instance.SetSystemDialogueBox("System", text, labelColor);
+            UIDialogueManager.Instance.SetSystemDialogueBox(img, "System", text, labelColor);
             return;
         }
         EndInteraction();

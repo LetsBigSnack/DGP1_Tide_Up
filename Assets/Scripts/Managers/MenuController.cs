@@ -49,6 +49,9 @@ public class MenuController : MonoBehaviour
         _menuInputs.UI.Previous.Enable();
         _menuInputs.UI.Previous.performed += PreviousBookMark;
 
+        _menuInputs.UI.RecycleAll.Enable();
+        _menuInputs.UI.RecycleAll.performed += RecycleAll;
+
     }
     
     private void OnDisable()
@@ -85,6 +88,9 @@ public class MenuController : MonoBehaviour
 
         _menuInputs.UI.Previous.Disable();
         _menuInputs.UI.Previous.performed -= PreviousBookMark;
+
+        _menuInputs.UI.RecycleAll.Enable();
+        _menuInputs.UI.RecycleAll.performed -= RecycleAll;
 
     }
 
@@ -316,6 +322,15 @@ public class MenuController : MonoBehaviour
         if(UIShopManager.Instance.GetCurrentState() != ShopType.Closed)
         {
             UIShopManager.Instance.PreviousTab();
+        }
+    }
+
+    private void RecycleAll(InputAction.CallbackContext value)
+    {
+        InputDeviceHelper.Instance?.NotifyDevice(value.control.device, value.control);
+        if(UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Recycler)
+        {
+            UIRecyclerController.Instance.RecycleAllItems();
         }
     }
 }

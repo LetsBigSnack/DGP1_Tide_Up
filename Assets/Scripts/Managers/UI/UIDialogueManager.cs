@@ -16,6 +16,8 @@ public class UIDialogueManager : MonoBehaviour
     [FormerlySerializedAs("dialoguwText")] [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private Image nameBG;
 
+    [SerializeField] GameObject imgObj;
+
     private string _currDialogueText;
     private int _currCharCount = 0;
 
@@ -52,6 +54,8 @@ public class UIDialogueManager : MonoBehaviour
         {
             return;
         }
+
+        imgObj.SetActive(false);
         ShowDialogueBox(true);
         nameText.text = name;
         nameBG.color = favColor;
@@ -59,12 +63,14 @@ public class UIDialogueManager : MonoBehaviour
         _currDialogueText = text;
     }
 
-    public void SetSystemDialogueBox(string name, string text, Color favColor)
+    public void SetSystemDialogueBox(Sprite sprite, string name, string text, Color favColor)
     {
         if (text == "")
         {
             return;
         }
+        imgObj.SetActive(true);
+        imgObj.GetComponent<Image>().sprite = sprite;
         ShowDialogueBox(true);
         nameText.text = name;
         nameBG.color = favColor;
