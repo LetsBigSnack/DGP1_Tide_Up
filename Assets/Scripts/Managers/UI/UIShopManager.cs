@@ -57,9 +57,9 @@ public class UIShopManager : MonoBehaviour
 
         CloseAllMenues();
         OpenMenuByType(state);
-        GameStateManager.Instance.SetGameState(GameStates.InMenu);
         currentOpenType = state;
-        UIHUDManager.Instance.UpdateToolBar(GameStates.InMenu, InputDeviceHelper.Instance.GetLastDeviceType());
+        GameStateManager.Instance.SetGameState(GameStates.InMenu);
+        UIHUDManager.Instance.UpdateToolBar(GameStates.Paused, InputDeviceHelper.Instance.GetLastDeviceType());
         tabs.SetActive(true);
     }
 

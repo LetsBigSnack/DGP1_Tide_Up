@@ -9,6 +9,8 @@ public class UIInventoryController : UIJournalSubMenu
     [SerializeField] private GameObject descriptionPage;
     [SerializeField] private GameObject wallet;
 
+    [SerializeField] private GameObject controllerFallbackItem;
+
     private void Awake()
     {
 
@@ -72,6 +74,10 @@ public class UIInventoryController : UIJournalSubMenu
         }
     }
 
+    public GameObject GetFallBackButton()
+    {
+        return controllerFallbackItem;
+    }
     public void CloseInventory()
     {
         if (inventoryPage.activeInHierarchy)

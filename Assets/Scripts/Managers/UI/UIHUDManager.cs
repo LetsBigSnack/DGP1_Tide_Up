@@ -68,6 +68,8 @@ public class UIHUDManager : MonoBehaviour
     [SerializeField] private ToolBarStateEntry reUpCyclerBoxEntry;
     [Header("Journal_Toolbar")]
     [SerializeField] private ToolBarStateEntry journalEntry;
+    [Header("Shop_Toolbar")]
+    [SerializeField] private ToolBarStateEntry shopEntry;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject toolBarItemPrefab;
@@ -172,6 +174,12 @@ public class UIHUDManager : MonoBehaviour
             return;
         }
 
+        if (UIShopManager.Instance.GetCurrentState() != ShopType.Closed && state != GameStates.PlayingCharacter)
+        {
+            CreateToolBarButtonsFromEntry(keyType, shopEntry);
+            return;
+        }
+        Debug.Log(UIShopManager.Instance.GetCurrentState() != ShopType.Closed);
         CreateToolBarButtonsFromList(state, keyType, entries);
     }
 

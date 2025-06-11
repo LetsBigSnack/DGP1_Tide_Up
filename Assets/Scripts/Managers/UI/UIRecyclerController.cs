@@ -3,6 +3,7 @@ using Assets.Scripts.Data;
 using System.Collections.Generic;
 using Data;
 using System.Linq;
+using System.Collections;
 
 public class UIRecyclerController : UIReUpCyclerSubMenu
 {
@@ -54,6 +55,17 @@ public class UIRecyclerController : UIReUpCyclerSubMenu
         {
             UIJournalManager.Instance.SwitchState(JournalType.Inventory);
         }
+
+        if(UIJournalManager.Instance.GetCurrentState() != JournalType.Recipies)
+        {
+            StartCoroutine(SetDelayedSelection());
+        }
+    }
+
+    private IEnumerator SetDelayedSelection()
+    {
+        yield return null;
+        UIEventSystemHelper.Instance.SetFirstSelectedItem(UIInventoryHelper.Instance.Items[0].gameObject);
     }
 
     public void AddItem(ItemInstance item)

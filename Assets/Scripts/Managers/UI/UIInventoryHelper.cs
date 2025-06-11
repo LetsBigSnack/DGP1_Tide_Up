@@ -45,6 +45,11 @@ public class UIInventoryHelper : MonoBehaviour
         }
     }
 
+    public List<UIInventoryItem> Items
+    {
+        get { return _currentItems; }
+    }
+
     private void OnEnable()
     {
         CreateInventoryObjects();
@@ -135,5 +140,13 @@ public class UIInventoryHelper : MonoBehaviour
         _currentSelectedItem.ToggleIcon(false);
         _currentSelectedItem = item;
         _currentSelectedItem.ToggleIcon(true);
+    }
+
+    public void DeselectAll()
+    {
+        foreach(UIInventoryItem i in _currentItems)
+        {
+            i.ToggleIcon(false);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using System.Collections;
 
 public class UIMaterialButtonItem : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class UIMaterialButtonItem : MonoBehaviour
         {
             UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Upcycler);
             UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Switched to upcycler!");
+            StartCoroutine(AddDelayedSelection());
             return;
         }
 
@@ -35,12 +37,23 @@ public class UIMaterialButtonItem : MonoBehaviour
         SoundManager.Instance.PlaySFX("Click");
     }
 
+    private IEnumerator AddDelayedSelection()
+    {
+        yield return null;
+        TrashMaterialEntry currentData = InventoryManager.Instance.GetWallet().Where(t => t.TrashMaterialData.type == type).FirstOrDefault();
+        if (currentData.Amount > 0)
+        {
+            UIUpcyclerController.Instance.AddMaterial(currentData.TrashMaterialData);
+        }
+    }
+
     public void OnSubmit()
     {
         if (UIReUpcycleManager.Instance.GetCurrentState() == ReUpcyclerType.Recycler)
         {
             UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Upcycler);
             UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Switched to upcycler!");
+            StartCoroutine(AddDelayedSelection());
             return;
         }
 

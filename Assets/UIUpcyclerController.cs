@@ -3,6 +3,7 @@ using Assets.Scripts.Data;
 using System.Collections.Generic;
 using Data;
 using System.Linq;
+using System.Collections;
 
 public class UIUpcyclerController : UIReUpCyclerSubMenu
 {
@@ -24,6 +25,9 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
     [Header("Buttons")]
     [SerializeField] private GameObject upcycleBtn;
     [SerializeField] private GameObject collectBtn;
+
+    [Header("ControllerFallBack")]
+    [SerializeField] private GameObject walletButton; 
 
     private void Awake()
     {
@@ -63,6 +67,7 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
         }
         CheckIfInputMissing();
         EnableUpcycle();
+        StartCoroutine(DelayedSetButton());
     }
 
     private void CheckIfInputMissing()
@@ -202,5 +207,12 @@ public class UIUpcyclerController : UIReUpCyclerSubMenu
     {
         Destroy(curQuestItemPreview);
         curQuestItemPreview = null;
+    }
+
+    private IEnumerator DelayedSetButton()
+    {
+        yield return null;
+        UIEventSystemHelper.Instance.SetFirstSelectedItem(UIInventoryController.Instance.GetFallBackButton());
+        UIInventoryHelper.Instance.DeselectAll();
     }
 }

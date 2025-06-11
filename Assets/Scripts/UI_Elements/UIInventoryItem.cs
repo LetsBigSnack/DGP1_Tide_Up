@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Data;
 using System;
+using System.Collections;
 
 public class UIInventoryItem : MonoBehaviour
 {
@@ -61,6 +62,7 @@ public class UIInventoryItem : MonoBehaviour
         {
             UIReUpcycleManager.Instance.SwitchState(ReUpcyclerType.Recycler);
             UI_ToastManager.Instance.SpawnToastMessage(ToastType.Important, "Switched to recycler!");
+            StartCoroutine(AddDelayedSelection());
             return;
         }
 
@@ -89,6 +91,13 @@ public class UIInventoryItem : MonoBehaviour
         }
 
         SoundManager.Instance.PlaySFX("Click");
+    }
+
+    private IEnumerator AddDelayedSelection()
+    {
+        yield return null;
+        UIRecyclerController.Instance.AddItem(item);
+        ToggleIcon(false);
     }
 
     public void OnSelect()

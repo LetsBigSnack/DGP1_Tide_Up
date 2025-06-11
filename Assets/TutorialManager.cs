@@ -48,6 +48,8 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField] private Scenes scene;
 
+    [SerializeField] private GameObject tutorialSysTrigger;
+
     private void OnEnable()
     {
         InventoryManager.OnInventoryChanged += CheckForTutorialItem;
@@ -184,12 +186,23 @@ public class TutorialManager : MonoBehaviour
         if (!items.Exists(t => t.ItemData.title == "Tutorial_Item") && state == TutorialState.Crafting && engineer.CurrentQuest.QuestState == QuestState.InProgress)
         {
             recycler.enabled = true;
+            if(tutorialSysTrigger != null)
+            {
+                tutorialSysTrigger.SetActive(true);
+                tutorialSysTrigger = null;
+            }
             QuestItemInstance questItem = DataUtil.Instance.GetQuestItemByName("Shovel");
             engineer.NpcData.CurrentQuest.QuestItem = questItem;
         }
 
-        if (items.Exists(t => t.ItemData.title == "Shovel") && state == TutorialState.Crafting)
+        if (items.Exists(t => t.ItemData.title == "Shovel"))
         {
+            if(engineer.NpcData.CurrentQuest.QuestState == QuestState.Offer && state == TutorialState.Crafting)
+            { 
+                engineer.NpcData.CurrentQuest.AcceptQuest();
+                QuestItemInstance questItem = DataUtil.Instance.GetQuestItemByName("Shovel");
+                engineer.NpcData.CurrentQuest.QuestItem = questItem;
+            }
             state = TutorialState.End;
         }
 

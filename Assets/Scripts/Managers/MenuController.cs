@@ -89,7 +89,7 @@ public class MenuController : MonoBehaviour
         _menuInputs.UI.Previous.Disable();
         _menuInputs.UI.Previous.performed -= PreviousBookMark;
 
-        _menuInputs.UI.RecycleAll.Enable();
+        _menuInputs.UI.RecycleAll.Disable();
         _menuInputs.UI.RecycleAll.performed -= RecycleAll;
 
     }

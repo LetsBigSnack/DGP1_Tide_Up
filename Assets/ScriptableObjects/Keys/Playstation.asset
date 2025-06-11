@@ -65,13 +65,13 @@ MonoBehaviour:
     type: 11
     label: Next
     key: 
-    sprite: {fileID: 21300000, guid: f6fefbfa9b4483444950fdb1e847c4f8, type: 3}
+    sprite: {fileID: 21300000, guid: fd9aa0d1ec730e94e8381f8dd50d845f, type: 3}
     notNeeded: 0
   prevTab:
     type: 10
     label: Previous
     key: 
-    sprite: {fileID: 21300000, guid: dfa950495b1b6fd42b2ec2eac6e7de37, type: 3}
+    sprite: {fileID: 21300000, guid: 9b75a5538f703ca47adc01c6a54bf098, type: 3}
     notNeeded: 0
   interact:
     type: 0
